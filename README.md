@@ -67,6 +67,8 @@ Initiated and delivered end-to-end deployment of a PCR-free nanopore surveillanc
 - Adopted as institutional surveillance strategy at University of Zurich
 - Detected Avian Influenza (H4 subtype) and critical AMR reservoirs in field deployments
 
+→ **[View pipeline code](pipelines/aerobiome/)** — Snakemake workflow with ULB contamination control
+
 ---
 
 ### One Health Multinational Biosurveillance Campaign
@@ -78,6 +80,8 @@ Directed a multinational biosurveillance campaign across **12 wetland ecosystems
 - Identified **13-fold higher pathogenic loads** at anthropogenic vs. natural sites
 - Findings integrated into University of Zurich's institutional surveillance strategy
 - Published in peer-reviewed journal (Perlas, Reska, Sánchez-Cano, et al. 2025)
+
+→ **[View pipeline code](pipelines/wetland-surveillance/)** — Multi-omics Snakemake workflow (4 analysis tracks)
 
 ---
 
