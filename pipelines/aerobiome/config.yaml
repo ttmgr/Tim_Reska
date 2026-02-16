@@ -1,0 +1,110 @@
+# =============================================================================
+# Aerobiome Pipeline Configuration
+# =============================================================================
+# Adjust paths and parameters for your environment.
+# =============================================================================
+
+# -- Samples ------------------------------------------------------------------
+# Each sample needs a FASTQ path and a type (sample / negative_control).
+# Negative controls are critical for ULB contamination filtering.
+samples:
+  # Munich greenhouse (controlled environment)
+  GH_01:
+    fastq: "data/raw/GH_01.fastq.gz"
+    type: "sample"
+    site: "munich_greenhouse"
+  GH_02:
+    fastq: "data/raw/GH_02.fastq.gz"
+    type: "sample"
+    site: "munich_greenhouse"
+  GH_03:
+    fastq: "data/raw/GH_03.fastq.gz"
+    type: "sample"
+    site: "munich_greenhouse"
+
+  # Munich natural environment (outdoor, uncontrolled)
+  NAT_01:
+    fastq: "data/raw/NAT_01.fastq.gz"
+    type: "sample"
+    site: "munich_natural"
+  NAT_02:
+    fastq: "data/raw/NAT_02.fastq.gz"
+    type: "sample"
+    site: "munich_natural"
+
+  # Barcelona urban campaign
+  BCN_01:
+    fastq: "data/raw/BCN_01.fastq.gz"
+    type: "sample"
+    site: "barcelona_urban"
+  BCN_02:
+    fastq: "data/raw/BCN_02.fastq.gz"
+    type: "sample"
+    site: "barcelona_urban"
+
+  # Negative controls (extraction blanks, sampling blanks)
+  NEG_extraction_01:
+    fastq: "data/raw/NEG_extraction_01.fastq.gz"
+    type: "negative_control"
+    site: "control"
+  NEG_sampling_01:
+    fastq: "data/raw/NEG_sampling_01.fastq.gz"
+    type: "negative_control"
+    site: "control"
+
+
+# -- Study sites (for report grouping) ---------------------------------------
+study_sites:
+  munich_greenhouse:
+    label: "Greenhouse (Munich)"
+    environment: "controlled"
+  munich_natural:
+    label: "Natural Environment (Munich)"
+    environment: "outdoor"
+  barcelona_urban:
+    label: "Urban Campaign (Barcelona)"
+    environment: "urban"
+
+
+# -- Reference databases ------------------------------------------------------
+references:
+  human_genome: "/databases/GRCh38/GRCh38.fa"
+  kraken2_db: "/databases/kraken2/k2_standard"
+
+
+# -- Quality control ----------------------------------------------------------
+qc:
+  min_quality: 8          # Phred score threshold
+  min_length: 200         # Minimum read length (bp) — permissive for ULB
+  max_length: 100000      # Maximum read length (bp)
+
+
+# -- Contamination control ----------------------------------------------------
+# Taxa in a sample must exceed their mean abundance in negative controls
+# by at least `fold_threshold`-fold to be retained.
+contamination:
+  fold_threshold: 5.0     # Stringent: taxon must be 5x more abundant in
+                          # sample than in negative controls
+  min_reads_in_control: 2 # Minimum reads in control to flag a taxon
+
+
+# -- Taxonomy -----------------------------------------------------------------
+taxonomy:
+  kraken2_confidence: 0.1    # Kraken2 confidence threshold
+  bracken_read_length: 1000  # Approximate read length for Bracken
+  bracken_threshold: 10      # Minimum reads for species-level estimate
+
+
+# -- Assembly -----------------------------------------------------------------
+assembly:
+  expected_metagenome_size: "50m"  # Expected total metagenome size
+
+
+# -- AMR detection ------------------------------------------------------------
+amr:
+  min_identity: 80       # Minimum % identity for AMR gene hit
+  min_coverage: 60       # Minimum % coverage for AMR gene hit
+  databases:             # ABRicate databases to search
+    - "ncbi"
+    - "card"
+    - "resfinder"

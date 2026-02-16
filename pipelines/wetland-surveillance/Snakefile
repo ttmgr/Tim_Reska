@@ -1,0 +1,594 @@
+# =============================================================================
+# Wetland Surveillance Multi-Omics Pipeline
+# =============================================================================
+# Holistic pathogen, AMR, and host range characterization from passive
+# water sampling of wetland ecosystems using nanopore sequencing.
+#
+# From: Perlas A*, Reska T*, Sánchez-Cano A, et al.
+#       "Real-time genomic pathogen, resistance, and host range
+#        characterization from passive water sampling of wetland ecosystems"
+#       Preprint (2025)
+#
+# This pipeline processes dual-extracted DNA and RNA from water samples
+# through four parallel analysis tracks:
+#   Track 1: Shotgun metagenomics   → Microbial community + pathogens
+#   Track 2: RNA virome             → Viral community profiling
+#   Track 3: eDNA metabarcoding     → Vertebrate host identification
+#   Track 4: AIV WGS               → Avian influenza characterization
+#
+# Key challenges:
+#   - Inhibitor removal from water matrix
+#   - Dual nucleic acid isolation (DNA + RNA)
+#   - Integration of 4 distinct analysis modalities
+#   - Cross-referencing pathogens with potential hosts
+# =============================================================================
+
+import os
+
+configfile: "config.yaml"
+
+
+# ---------------------------------------------------------------------------
+# Helper functions
+# ---------------------------------------------------------------------------
+
+def get_samples():
+    """Return all sample IDs."""
+    return list(config["samples"].keys())
+
+
+def get_sample_fastq(wildcards, nucleic_acid, read_type="raw"):
+    """Get FASTQ path for a sample and nucleic acid type."""
+    return config["samples"][wildcards.sample][nucleic_acid]
+
+
+def get_sites():
+    """Return distinct sampling sites."""
+    return list(set(config["samples"][s]["site"] for s in config["samples"]))
+
+
+# ---------------------------------------------------------------------------
+# Target rule
+# ---------------------------------------------------------------------------
+
+rule all:
+    input:
+        # Track 1: Shotgun metagenomics
+        expand("results/metagenomics/taxonomy/{sample}_bracken_species.tsv",
+               sample=get_samples()),
+        expand("results/metagenomics/amr/{sample}_amr_hits.tsv",
+               sample=get_samples()),
+        expand("results/metagenomics/pathogen/{sample}_pathogen_screen.tsv",
+               sample=get_samples()),
+
+        # Track 2: RNA virome
+        expand("results/virome/{sample}_viral_contigs.fasta",
+               sample=get_samples()),
+        expand("results/virome/{sample}_virome_taxonomy.tsv",
+               sample=get_samples()),
+
+        # Track 3: eDNA metabarcoding
+        expand("results/edna/{sample}_vertebrate_species.tsv",
+               sample=get_samples()),
+
+        # Track 4: AIV whole-genome sequencing
+        expand("results/aiv/{sample}_aiv_consensus.fasta",
+               sample=get_samples()),
+
+        # Integrated report
+        "results/report/wetland_surveillance_report.html"
+
+
+# ==========================================================================
+# TRACK 1: SHOTGUN METAGENOMICS (DNA)
+# ==========================================================================
+
+rule metagenomics_qc:
+    """Quality-filter DNA reads from water samples.
+
+    Water samples require aggressive quality filtering due to
+    environmental inhibitors that reduce sequencing quality.
+    """
+    input:
+        fastq=lambda wc: config["samples"][wc.sample]["dna"]
+    output:
+        fastq="results/metagenomics/qc/{sample}_qc.fastq.gz",
+        stats="results/metagenomics/qc/{sample}_nanoplot/NanoStats.txt"
+    params:
+        min_quality=config["qc"]["min_quality"],
+        min_length=config["qc"]["min_length"],
+        nanoplot_dir="results/metagenomics/qc/{sample}_nanoplot"
+    threads: 4
+    log:
+        "logs/metagenomics_qc/{sample}.log"
+    shell:
+        """
+        NanoPlot --fastq {input.fastq} --outdir {params.nanoplot_dir} \
+            --threads {threads} 2> {log}
+
+        gunzip -c {input.fastq} | \
+        chopper -q {params.min_quality} --minlength {params.min_length} \
+            --threads {threads} 2>> {log} | \
+        gzip > {output.fastq}
+        """
+
+
+rule metagenomics_host_removal:
+    """Remove host contamination from DNA reads.
+
+    For water samples, host contamination includes waterfowl, fish,
+    and other vertebrate DNA. We map against a composite reference
+    of common wetland vertebrates.
+    """
+    input:
+        fastq="results/metagenomics/qc/{sample}_qc.fastq.gz",
+        ref=config["references"]["host_genomes"]
+    output:
+        fastq="results/metagenomics/filtered/{sample}_filtered.fastq.gz"
+    threads: 8
+    log:
+        "logs/host_removal/{sample}.log"
+    shell:
+        """
+        minimap2 -a -x map-ont -t {threads} {input.ref} {input.fastq} 2> {log} | \
+        samtools view -b -f 4 - | \
+        samtools fastq - | \
+        gzip > {output.fastq}
+        """
+
+
+rule metagenomics_classify:
+    """Taxonomic classification of metagenomic DNA reads."""
+    input:
+        fastq="results/metagenomics/filtered/{sample}_filtered.fastq.gz",
+        db=config["references"]["kraken2_db"]
+    output:
+        report="results/metagenomics/taxonomy/{sample}_kraken2.report",
+        output="results/metagenomics/taxonomy/{sample}_kraken2.output"
+    threads: 8
+    log:
+        "logs/metagenomics_kraken/{sample}.log"
+    shell:
+        """
+        kraken2 --db {input.db} --threads {threads} \
+            --report {output.report} --output {output.output} \
+            --gzip-compressed \
+            --confidence {config[taxonomy][kraken2_confidence]} \
+            {input.fastq} 2> {log}
+        """
+
+
+rule metagenomics_bracken:
+    """Species-level abundance estimation."""
+    input:
+        report="results/metagenomics/taxonomy/{sample}_kraken2.report",
+        db=config["references"]["kraken2_db"]
+    output:
+        report="results/metagenomics/taxonomy/{sample}_bracken_species.tsv"
+    params:
+        read_length=config["taxonomy"]["bracken_read_length"],
+        threshold=config["taxonomy"]["bracken_threshold"]
+    log:
+        "logs/bracken/{sample}.log"
+    shell:
+        """
+        bracken -d {input.db} -i {input.report} -o {output.report} \
+            -r {params.read_length} -l S -t {params.threshold} 2> {log}
+        """
+
+
+rule metagenomics_assembly:
+    """Metagenomic assembly using metaFlye."""
+    input:
+        fastq="results/metagenomics/filtered/{sample}_filtered.fastq.gz"
+    output:
+        assembly="results/metagenomics/assembly/{sample}/assembly.fasta"
+    params:
+        outdir="results/metagenomics/assembly/{sample}"
+    threads: 16
+    log:
+        "logs/metagenomics_assembly/{sample}.log"
+    shell:
+        """
+        flye --nano-raw {input.fastq} --out-dir {params.outdir} \
+            --meta --threads {threads} 2> {log}
+        """
+
+
+rule metagenomics_amr:
+    """Screen assembled contigs for antimicrobial resistance genes."""
+    input:
+        assembly="results/metagenomics/assembly/{sample}/assembly.fasta"
+    output:
+        hits="results/metagenomics/amr/{sample}_amr_hits.tsv"
+    params:
+        min_identity=config["amr"]["min_identity"],
+        min_coverage=config["amr"]["min_coverage"]
+    log:
+        "logs/amr/{sample}.log"
+    shell:
+        """
+        abricate --db card --minid {params.min_identity} \
+            --mincov {params.min_coverage} \
+            {input.assembly} > {output.hits} 2> {log}
+
+        abricate --db resfinder --minid {params.min_identity} \
+            --mincov {params.min_coverage} \
+            {input.assembly} >> {output.hits} 2>> {log}
+
+        abricate --db ncbi --minid {params.min_identity} \
+            --mincov {params.min_coverage} \
+            {input.assembly} >> {output.hits} 2>> {log}
+        """
+
+
+rule metagenomics_pathogen_screen:
+    """Screen taxonomic results against a curated pathogen database.
+
+    Cross-references Kraken2/Bracken results with a list of known
+    pathogens relevant to One Health surveillance.
+    """
+    input:
+        taxonomy="results/metagenomics/taxonomy/{sample}_bracken_species.tsv",
+        pathogen_db=config["references"]["pathogen_list"]
+    output:
+        screen="results/metagenomics/pathogen/{sample}_pathogen_screen.tsv"
+    log:
+        "logs/pathogen_screen/{sample}.log"
+    script:
+        "scripts/pathogen_screen.py"
+
+
+# ==========================================================================
+# TRACK 2: RNA VIROME
+# ==========================================================================
+
+rule virome_qc:
+    """Quality-filter RNA reads for virome analysis.
+
+    RNA libraries from environmental samples are noisier than DNA,
+    requiring more aggressive filtering.
+    """
+    input:
+        fastq=lambda wc: config["samples"][wc.sample]["rna"]
+    output:
+        fastq="results/virome/qc/{sample}_rna_qc.fastq.gz"
+    params:
+        min_quality=config["qc"]["rna_min_quality"],
+        min_length=config["qc"]["rna_min_length"]
+    threads: 4
+    log:
+        "logs/virome_qc/{sample}.log"
+    shell:
+        """
+        gunzip -c {input.fastq} | \
+        chopper -q {params.min_quality} --minlength {params.min_length} \
+            --threads {threads} 2> {log} | \
+        gzip > {output.fastq}
+        """
+
+
+rule virome_host_depletion:
+    """Remove ribosomal and host RNA reads.
+
+    Environmental RNA is dominated by rRNA. We deplete these to
+    enrich for viral sequences.
+    """
+    input:
+        fastq="results/virome/qc/{sample}_rna_qc.fastq.gz",
+        rrna_db=config["references"]["rrna_db"],
+        host_ref=config["references"]["host_genomes"]
+    output:
+        fastq="results/virome/filtered/{sample}_rna_filtered.fastq.gz"
+    threads: 8
+    log:
+        "logs/virome_host_depletion/{sample}.log"
+    shell:
+        """
+        # Step 1: Remove rRNA
+        minimap2 -a -x map-ont -t {threads} {input.rrna_db} {input.fastq} 2> {log} | \
+        samtools view -b -f 4 - | \
+        samtools fastq - > /tmp/{wildcards.sample}_no_rrna.fastq
+
+        # Step 2: Remove host transcripts
+        minimap2 -a -x map-ont -t {threads} {input.host_ref} \
+            /tmp/{wildcards.sample}_no_rrna.fastq 2>> {log} | \
+        samtools view -b -f 4 - | \
+        samtools fastq - | \
+        gzip > {output.fastq}
+
+        rm -f /tmp/{wildcards.sample}_no_rrna.fastq
+        """
+
+
+rule virome_assembly:
+    """Assemble viral contigs from RNA reads using metaFlye.
+
+    We use a low minimum overlap to capture divergent and
+    low-abundance viral genomes.
+    """
+    input:
+        fastq="results/virome/filtered/{sample}_rna_filtered.fastq.gz"
+    output:
+        contigs="results/virome/{sample}_viral_contigs.fasta"
+    params:
+        outdir="results/virome/assembly/{sample}"
+    threads: 8
+    log:
+        "logs/virome_assembly/{sample}.log"
+    shell:
+        """
+        flye --nano-raw {input.fastq} --out-dir {params.outdir} \
+            --meta --threads {threads} \
+            --min-overlap 1000 \
+            2> {log}
+
+        # Copy final assembly (may be empty if no contigs assembled)
+        if [ -f {params.outdir}/assembly.fasta ]; then
+            cp {params.outdir}/assembly.fasta {output.contigs}
+        else
+            touch {output.contigs}
+        fi
+        """
+
+
+rule virome_classify:
+    """Classify viral contigs against NCBI viral RefSeq.
+
+    Uses BLASTn against the NCBI viral database for taxonomic
+    assignment of assembled viral contigs.
+    """
+    input:
+        contigs="results/virome/{sample}_viral_contigs.fasta",
+        db=config["references"]["viral_db"]
+    output:
+        taxonomy="results/virome/{sample}_virome_taxonomy.tsv"
+    params:
+        evalue=config["virome"]["blast_evalue"],
+        max_targets=config["virome"]["max_target_seqs"]
+    threads: 8
+    log:
+        "logs/virome_classify/{sample}.log"
+    shell:
+        """
+        if [ -s {input.contigs} ]; then
+            blastn -query {input.contigs} -db {input.db} \
+                -out {output.taxonomy} \
+                -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore stitle" \
+                -evalue {params.evalue} \
+                -max_target_seqs {params.max_targets} \
+                -num_threads {threads} \
+                2> {log}
+        else
+            echo "# No viral contigs assembled" > {output.taxonomy}
+        fi
+        """
+
+
+# ==========================================================================
+# TRACK 3: eDNA METABARCODING (Vertebrate Host Identification)
+# ==========================================================================
+
+rule edna_extract_barcodes:
+    """Extract vertebrate barcode regions from metagenomic reads.
+
+    Targets cytochrome b (cytb) and 12S rRNA mitochondrial markers
+    commonly used for vertebrate eDNA metabarcoding. We use minimap2
+    to extract reads mapping to a curated reference panel of vertebrate
+    barcode sequences.
+    """
+    input:
+        fastq="results/metagenomics/filtered/{sample}_filtered.fastq.gz",
+        barcode_ref=config["references"]["vertebrate_barcodes"]
+    output:
+        barcodes="results/edna/{sample}_barcode_reads.fastq.gz"
+    threads: 4
+    log:
+        "logs/edna_extract/{sample}.log"
+    shell:
+        """
+        minimap2 -a -x map-ont -t {threads} \
+            {input.barcode_ref} {input.fastq} 2> {log} | \
+        samtools view -b -F 4 - | \
+        samtools fastq - | \
+        gzip > {output.barcodes}
+        """
+
+
+rule edna_classify:
+    """Classify vertebrate barcode reads to identify host species.
+
+    Uses BLASTn against a curated vertebrate reference database
+    (NCBI nt subset) for species-level identification of wildlife
+    present at each sampling site.
+    """
+    input:
+        barcodes="results/edna/{sample}_barcode_reads.fastq.gz",
+        db=config["references"]["vertebrate_blast_db"]
+    output:
+        species="results/edna/{sample}_vertebrate_species.tsv"
+    params:
+        min_identity=config["edna"]["min_identity"],
+        min_alignment=config["edna"]["min_alignment_length"]
+    threads: 4
+    log:
+        "logs/edna_classify/{sample}.log"
+    shell:
+        """
+        # Convert FASTQ to FASTA for BLAST
+        gunzip -c {input.barcodes} | \
+        awk 'NR%4==1{{print ">"substr($0,2)}} NR%4==2{{print}}' \
+            > /tmp/{wildcards.sample}_barcodes.fasta
+
+        if [ -s /tmp/{wildcards.sample}_barcodes.fasta ]; then
+            blastn -query /tmp/{wildcards.sample}_barcodes.fasta \
+                -db {input.db} \
+                -out {output.species} \
+                -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore stitle" \
+                -perc_identity {params.min_identity} \
+                -num_threads {threads} \
+                2> {log}
+        else
+            echo "# No barcode reads found" > {output.species}
+        fi
+
+        rm -f /tmp/{wildcards.sample}_barcodes.fasta
+        """
+
+
+# ==========================================================================
+# TRACK 4: AVIAN INFLUENZA VIRUS (AIV) — TARGETED WGS
+# ==========================================================================
+
+rule aiv_screen:
+    """Screen RNA reads for avian influenza virus sequences.
+
+    Maps RNA reads against AIV reference segments to identify
+    positive samples. This targeted approach complements the
+    untargeted virome analysis.
+    """
+    input:
+        fastq=lambda wc: config["samples"][wc.sample]["rna"],
+        ref=config["references"]["aiv_reference"]
+    output:
+        bam="results/aiv/mapping/{sample}_aiv.bam",
+        stats="results/aiv/mapping/{sample}_aiv_stats.txt"
+    threads: 4
+    log:
+        "logs/aiv_screen/{sample}.log"
+    shell:
+        """
+        minimap2 -a -x map-ont -t {threads} \
+            {input.ref} {input.fastq} 2> {log} | \
+        samtools sort -@ {threads} -o {output.bam} -
+
+        samtools index {output.bam}
+        samtools flagstat {output.bam} > {output.stats}
+        """
+
+
+rule aiv_consensus:
+    """Generate AIV consensus genome using IRMA.
+
+    IRMA (Iterative Refinement Meta-Assembler) is specifically designed
+    for influenza genome assembly. It handles mixed subtypes and
+    segment reassortment, which are common in environmental samples.
+
+    If no AIV reads are found, an empty FASTA is produced.
+    """
+    input:
+        fastq=lambda wc: config["samples"][wc.sample]["rna"],
+        stats="results/aiv/mapping/{sample}_aiv_stats.txt"
+    output:
+        consensus="results/aiv/{sample}_aiv_consensus.fasta",
+        subtype="results/aiv/{sample}_aiv_subtype.txt"
+    params:
+        irma_module=config["aiv"]["irma_module"],
+        min_reads=config["aiv"]["min_reads_for_assembly"],
+        outdir="results/aiv/irma/{sample}"
+    threads: 4
+    log:
+        "logs/aiv_consensus/{sample}.log"
+    run:
+        import subprocess
+
+        # Check if enough AIV reads were found
+        mapped_reads = 0
+        with open(input.stats) as fh:
+            for line in fh:
+                if "mapped" in line and "%" in line:
+                    mapped_reads = int(line.split()[0])
+                    break
+
+        if mapped_reads >= params.min_reads:
+            # Run IRMA for influenza genome assembly
+            cmd = (
+                f"IRMA {params.irma_module} {input.fastq} "
+                f"{params.outdir} 2> {log}"
+            )
+            subprocess.run(cmd, shell=True, check=True)
+
+            # Collect consensus segments
+            import glob
+            segments = sorted(glob.glob(f"{params.outdir}/*.fasta"))
+            with open(output.consensus, "w") as out:
+                for seg in segments:
+                    with open(seg) as fh:
+                        out.write(fh.read())
+
+            # Extract subtype from IRMA output
+            subtype = "undetermined"
+            ha_files = glob.glob(f"{params.outdir}/*HA*.fasta")
+            na_files = glob.glob(f"{params.outdir}/*NA*.fasta")
+            if ha_files or na_files:
+                ha = ha_files[0].split("/")[-1] if ha_files else "?"
+                na = na_files[0].split("/")[-1] if na_files else "?"
+                subtype = f"{ha}/{na}"
+            with open(output.subtype, "w") as fh:
+                fh.write(f"{wildcards.sample}\t{subtype}\t{mapped_reads}\n")
+        else:
+            # No significant AIV signal
+            with open(output.consensus, "w") as fh:
+                fh.write(f"# No AIV detected in {wildcards.sample} "
+                         f"({mapped_reads} reads mapped)\n")
+            with open(output.subtype, "w") as fh:
+                fh.write(f"{wildcards.sample}\tnot_detected\t{mapped_reads}\n")
+
+
+# ==========================================================================
+# INTEGRATED REPORT
+# ==========================================================================
+
+rule host_pathogen_association:
+    """Cross-reference detected pathogens with vertebrate hosts.
+
+    Links pathogen detections (Track 1 + Track 2) with host species
+    identified through eDNA (Track 3) at each sampling site to
+    understand potential transmission pathways.
+    """
+    input:
+        pathogens=expand("results/metagenomics/pathogen/{sample}_pathogen_screen.tsv",
+                         sample=get_samples()),
+        virome=expand("results/virome/{sample}_virome_taxonomy.tsv",
+                      sample=get_samples()),
+        hosts=expand("results/edna/{sample}_vertebrate_species.tsv",
+                     sample=get_samples()),
+        aiv=expand("results/aiv/{sample}_aiv_subtype.txt",
+                   sample=get_samples())
+    output:
+        associations="results/report/host_pathogen_associations.tsv"
+    params:
+        samples=config["samples"]
+    log:
+        "logs/host_pathogen.log"
+    script:
+        "scripts/host_pathogen_association.py"
+
+
+rule integrated_report:
+    """Generate integrated multi-omics surveillance report.
+
+    Combines results from all four analysis tracks into a single
+    HTML report for rapid interpretation and decision-making.
+    """
+    input:
+        taxonomy=expand("results/metagenomics/taxonomy/{sample}_bracken_species.tsv",
+                        sample=get_samples()),
+        amr=expand("results/metagenomics/amr/{sample}_amr_hits.tsv",
+                   sample=get_samples()),
+        virome=expand("results/virome/{sample}_virome_taxonomy.tsv",
+                      sample=get_samples()),
+        hosts=expand("results/edna/{sample}_vertebrate_species.tsv",
+                     sample=get_samples()),
+        aiv=expand("results/aiv/{sample}_aiv_subtype.txt",
+                   sample=get_samples()),
+        associations="results/report/host_pathogen_associations.tsv"
+    output:
+        html="results/report/wetland_surveillance_report.html"
+    params:
+        samples=config["samples"],
+        sites=config["study_sites"]
+    log:
+        "logs/report.log"
+    script:
+        "scripts/integrated_report.py"

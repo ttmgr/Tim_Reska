@@ -1,0 +1,392 @@
+# =============================================================================
+# Aerobiome Metagenomics Pipeline
+# =============================================================================
+# Shotgun metagenomic analysis of ultra-low biomass (ULB) air samples
+# using nanopore long-read sequencing.
+#
+# From: Reska T, Pozdniakova S, Urban L.
+#       "Air monitoring by nanopore sequencing"
+#       ISME Communications (2024)
+#
+# Key design decisions:
+#   - Aggressive contamination filtering against negative controls (critical
+#     for ULB samples where contaminants dominate)
+#   - Species-level resolution via Kraken2 + Bracken
+#   - Assembly with metaFlye for MAG recovery from long reads
+#   - AMR screening as standard output for One Health context
+# =============================================================================
+
+import os
+
+configfile: "config.yaml"
+
+
+# ---------------------------------------------------------------------------
+# Helper functions
+# ---------------------------------------------------------------------------
+
+def get_samples(sample_type=None):
+    """Return sample IDs, optionally filtered by type."""
+    samples = config["samples"]
+    if sample_type:
+        return [s for s in samples if samples[s]["type"] == sample_type]
+    return list(samples.keys())
+
+
+def get_negative_controls():
+    """Return IDs of negative control samples for contamination filtering."""
+    return [s for s in config["samples"]
+            if config["samples"][s]["type"] == "negative_control"]
+
+
+def get_real_samples():
+    """Return IDs of actual (non-control) samples."""
+    return [s for s in config["samples"]
+            if config["samples"][s]["type"] != "negative_control"]
+
+
+# ---------------------------------------------------------------------------
+# Target rule
+# ---------------------------------------------------------------------------
+
+rule all:
+    input:
+        # QC reports for all samples
+        expand("results/qc/{sample}_nanoplot/NanoStats.txt",
+               sample=get_samples()),
+        # Contamination-filtered reads
+        expand("results/filtered/{sample}_decontaminated.fastq.gz",
+               sample=get_real_samples()),
+        # Taxonomic profiles
+        expand("results/taxonomy/{sample}_bracken_species.tsv",
+               sample=get_real_samples()),
+        # Assemblies
+        expand("results/assembly/{sample}/assembly.fasta",
+               sample=get_real_samples()),
+        # AMR results
+        expand("results/amr/{sample}_amr_hits.tsv",
+               sample=get_real_samples()),
+        # Final report
+        "results/report/aerobiome_report.html"
+
+
+# ---------------------------------------------------------------------------
+# Step 1: Read quality control
+# ---------------------------------------------------------------------------
+
+rule nanoplot_raw:
+    """Generate quality metrics for raw nanopore reads."""
+    input:
+        fastq=lambda wc: config["samples"][wc.sample]["fastq"]
+    output:
+        stats="results/qc/{sample}_nanoplot/NanoStats.txt",
+        html="results/qc/{sample}_nanoplot/NanoPlot-report.html"
+    params:
+        outdir="results/qc/{sample}_nanoplot"
+    threads: 4
+    log:
+        "logs/nanoplot/{sample}.log"
+    shell:
+        """
+        NanoPlot \
+            --fastq {input.fastq} \
+            --outdir {params.outdir} \
+            --threads {threads} \
+            --plots dot \
+            --N50 \
+            2> {log}
+        """
+
+
+rule quality_filter:
+    """Filter reads by quality and length using Chopper.
+
+    ULB air samples typically yield short fragments, so we use a
+    relatively permissive minimum length but strict quality threshold
+    to retain as much usable data as possible.
+    """
+    input:
+        fastq=lambda wc: config["samples"][wc.sample]["fastq"]
+    output:
+        fastq="results/filtered/{sample}_qc.fastq.gz"
+    params:
+        min_quality=config["qc"]["min_quality"],
+        min_length=config["qc"]["min_length"],
+        max_length=config["qc"]["max_length"]
+    threads: 4
+    log:
+        "logs/chopper/{sample}.log"
+    shell:
+        """
+        gunzip -c {input.fastq} | \
+        chopper \
+            --quality {params.min_quality} \
+            --minlength {params.min_length} \
+            --maxlength {params.max_length} \
+            --threads {threads} \
+            2> {log} | \
+        gzip > {output.fastq}
+        """
+
+
+# ---------------------------------------------------------------------------
+# Step 2: Host (human) read removal
+# ---------------------------------------------------------------------------
+
+rule remove_host_reads:
+    """Remove human reads by mapping against the human reference genome.
+
+    Critical for samples collected in occupied environments (greenhouses,
+    urban settings). Uses minimap2 for fast long-read alignment.
+    """
+    input:
+        fastq="results/filtered/{sample}_qc.fastq.gz",
+        ref=config["references"]["human_genome"]
+    output:
+        fastq="results/filtered/{sample}_no_host.fastq.gz"
+    threads: 8
+    log:
+        "logs/host_removal/{sample}.log"
+    shell:
+        """
+        minimap2 -a -x map-ont -t {threads} {input.ref} {input.fastq} 2> {log} | \
+        samtools view -b -f 4 - | \
+        samtools fastq - | \
+        gzip > {output.fastq}
+        """
+
+
+# ---------------------------------------------------------------------------
+# Step 3: Contamination control (critical for ULB)
+# ---------------------------------------------------------------------------
+
+rule classify_for_contamination:
+    """Run Kraken2 on both real samples and negative controls.
+
+    The contamination filter compares taxa found in real samples against
+    those detected in negative controls. Taxa present in controls above
+    a threshold are flagged as likely contaminants.
+    """
+    input:
+        fastq="results/filtered/{sample}_no_host.fastq.gz",
+        db=config["references"]["kraken2_db"]
+    output:
+        report="results/contamination/{sample}_kraken2.report",
+        output="results/contamination/{sample}_kraken2.output"
+    threads: 8
+    log:
+        "logs/contamination_kraken/{sample}.log"
+    shell:
+        """
+        kraken2 \
+            --db {input.db} \
+            --threads {threads} \
+            --report {output.report} \
+            --output {output.output} \
+            --gzip-compressed \
+            {input.fastq} \
+            2> {log}
+        """
+
+
+rule contamination_filter:
+    """Remove likely contaminant reads based on negative control profiles.
+
+    This is the most critical step for ULB metagenomics. Taxa that appear
+    in negative controls at comparable or higher abundance than in real
+    samples are considered contaminants and their reads are removed.
+
+    The filtering uses a fold-change threshold: a taxon is retained only
+    if its abundance in the sample exceeds its mean abundance across
+    negative controls by at least `contamination_fold_threshold`-fold.
+    """
+    input:
+        sample_report="results/contamination/{sample}_kraken2.report",
+        sample_output="results/contamination/{sample}_kraken2.output",
+        sample_fastq="results/filtered/{sample}_no_host.fastq.gz",
+        neg_reports=expand("results/contamination/{neg}_kraken2.report",
+                           neg=get_negative_controls())
+    output:
+        fastq="results/filtered/{sample}_decontaminated.fastq.gz",
+        contaminant_list="results/contamination/{sample}_contaminants.txt",
+        stats="results/contamination/{sample}_decontam_stats.json"
+    params:
+        fold_threshold=config["contamination"]["fold_threshold"],
+        min_reads_in_control=config["contamination"]["min_reads_in_control"]
+    log:
+        "logs/contamination_filter/{sample}.log"
+    script:
+        "scripts/contamination_filter.py"
+
+
+# ---------------------------------------------------------------------------
+# Step 4: Taxonomic classification and species-level profiling
+# ---------------------------------------------------------------------------
+
+rule kraken2_classify:
+    """Classify decontaminated reads with Kraken2."""
+    input:
+        fastq="results/filtered/{sample}_decontaminated.fastq.gz",
+        db=config["references"]["kraken2_db"]
+    output:
+        report="results/taxonomy/{sample}_kraken2.report",
+        output="results/taxonomy/{sample}_kraken2.output"
+    threads: 8
+    log:
+        "logs/kraken2/{sample}.log"
+    shell:
+        """
+        kraken2 \
+            --db {input.db} \
+            --threads {threads} \
+            --report {output.report} \
+            --output {output.output} \
+            --gzip-compressed \
+            --confidence {config[taxonomy][kraken2_confidence]} \
+            {input.fastq} \
+            2> {log}
+        """
+
+
+rule bracken_species:
+    """Re-estimate species-level abundances using Bracken.
+
+    Bracken redistributes reads classified at higher taxonomic levels
+    to achieve more accurate species-level abundance estimates.
+    """
+    input:
+        report="results/taxonomy/{sample}_kraken2.report",
+        db=config["references"]["kraken2_db"]
+    output:
+        report="results/taxonomy/{sample}_bracken_species.tsv"
+    params:
+        read_length=config["taxonomy"]["bracken_read_length"],
+        threshold=config["taxonomy"]["bracken_threshold"]
+    log:
+        "logs/bracken/{sample}.log"
+    shell:
+        """
+        bracken \
+            -d {input.db} \
+            -i {input.report} \
+            -o {output.report} \
+            -r {params.read_length} \
+            -l S \
+            -t {params.threshold} \
+            2> {log}
+        """
+
+
+# ---------------------------------------------------------------------------
+# Step 5: Metagenomic assembly
+# ---------------------------------------------------------------------------
+
+rule metaflye_assembly:
+    """Assemble decontaminated reads using metaFlye.
+
+    metaFlye is optimized for metagenomic long-read assembly and handles
+    the uneven coverage typical of environmental samples. For ULB
+    samples, we use --meta and --min-overlap to improve assembly of
+    low-abundance organisms.
+    """
+    input:
+        fastq="results/filtered/{sample}_decontaminated.fastq.gz"
+    output:
+        assembly="results/assembly/{sample}/assembly.fasta",
+        info="results/assembly/{sample}/assembly_info.txt"
+    params:
+        outdir="results/assembly/{sample}",
+        genome_size=config["assembly"]["expected_metagenome_size"]
+    threads: 16
+    log:
+        "logs/flye/{sample}.log"
+    shell:
+        """
+        flye \
+            --nano-raw {input.fastq} \
+            --out-dir {params.outdir} \
+            --meta \
+            --genome-size {params.genome_size} \
+            --threads {threads} \
+            2> {log}
+        """
+
+
+# ---------------------------------------------------------------------------
+# Step 6: AMR gene detection
+# ---------------------------------------------------------------------------
+
+rule amr_screening:
+    """Screen assembled contigs for antimicrobial resistance genes.
+
+    Uses ABRicate with multiple databases (NCBI, CARD, ResFinder) for
+    comprehensive AMR detection. Results are aggregated across databases.
+    """
+    input:
+        assembly="results/assembly/{sample}/assembly.fasta"
+    output:
+        hits="results/amr/{sample}_amr_hits.tsv",
+        summary="results/amr/{sample}_amr_summary.tsv"
+    params:
+        min_identity=config["amr"]["min_identity"],
+        min_coverage=config["amr"]["min_coverage"],
+        databases=config["amr"]["databases"]
+    log:
+        "logs/amr/{sample}.log"
+    run:
+        import subprocess
+        all_hits = []
+        for db in params.databases:
+            out = f"results/amr/{wildcards.sample}_{db}_hits.tsv"
+            cmd = (
+                f"abricate --db {db} "
+                f"--minid {params.min_identity} "
+                f"--mincov {params.min_coverage} "
+                f"{input.assembly} > {out} 2>> {log}"
+            )
+            subprocess.run(cmd, shell=True, check=True)
+            all_hits.append(out)
+
+        # Merge results from all databases
+        subprocess.run(
+            f"cat {' '.join(all_hits)} | head -1 > {output.hits}",
+            shell=True, check=True
+        )
+        subprocess.run(
+            f"cat {' '.join(all_hits)} | grep -v '^#FILE' >> {output.hits}",
+            shell=True, check=False  # may be empty
+        )
+        subprocess.run(
+            f"abricate --summary {' '.join(all_hits)} > {output.summary}",
+            shell=True, check=True
+        )
+
+
+# ---------------------------------------------------------------------------
+# Step 7: Report generation
+# ---------------------------------------------------------------------------
+
+rule generate_report:
+    """Generate an HTML summary report across all samples.
+
+    Aggregates QC metrics, contamination statistics, taxonomic profiles,
+    and AMR findings into a single report for rapid interpretation.
+    """
+    input:
+        qc_stats=expand("results/qc/{sample}_nanoplot/NanoStats.txt",
+                        sample=get_real_samples()),
+        decontam_stats=expand("results/contamination/{sample}_decontam_stats.json",
+                              sample=get_real_samples()),
+        taxonomy=expand("results/taxonomy/{sample}_bracken_species.tsv",
+                        sample=get_real_samples()),
+        amr=expand("results/amr/{sample}_amr_summary.tsv",
+                   sample=get_real_samples())
+    output:
+        html="results/report/aerobiome_report.html"
+    params:
+        samples=get_real_samples(),
+        study_sites=config.get("study_sites", {})
+    log:
+        "logs/report.log"
+    script:
+        "scripts/report.py"
