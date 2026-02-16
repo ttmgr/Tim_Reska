@@ -138,16 +138,13 @@ Scientific       Experimental Design · Statistical Analysis · Peer Review · G
 
 ---
 
-## Why This Profile?
+## What Ties It Together
 
-**If you're OpenAI or a Tech Company:**
-I don't just use LLMs — I integrate them into production scientific infrastructure. I've evaluated 5+ models systematically, built MCP integrations for real-time sequencing, and deployed AI-augmented pipelines that reduced development cycles by 40%. I understand both the capabilities and limitations of frontier models from hands-on deployment in high-stakes scientific contexts.
+I work across technical depth and operational breadth — building production AI pipelines one day, coordinating a multinational field campaign the next. What stays constant is a preference for structured problem-solving, measurable outcomes, and clear communication across audiences.
 
-**If you're McKinsey, BCG, or Bain:**
-I've led international research campaigns across 3 countries, managed cross-functional teams under uncertainty, and delivered peer-reviewed results on aggressive timelines. I decompose complex problems, communicate to diverse stakeholders, and quantify impact rigorously. My scientific training is structured problem-solving at its core.
-
-**If you're Alvarez & Marsal:**
-I've optimized diagnostic turnaround by 87.5% (48h → 6h), reduced development cycles by 40% through AI integration, and managed multinational operations with real-time pivots. I make data-driven decisions under pressure and deliver operational improvements that can be measured.
+- **Technical:** 5+ LLMs evaluated and deployed in production, MCP integrations for real-time sequencing, full-stack pipeline architecture across three sequencing platforms
+- **Operational:** Diagnostic turnaround reduced by 87.5% (48h → 6h), development cycles accelerated by 40%, multinational campaigns managed across 3 countries with real-time pivots
+- **Scientific:** 5 peer-reviewed publications, invited talks at TUM, ETH Zurich, and Cambridge, methodology adopted into institutional surveillance strategies
 
 ---
 
