@@ -16,7 +16,7 @@ I build and deploy AI-augmented scientific infrastructure — from scoping throu
 
 As the **founding member** of the Helmholtz AI research group, I built the team's operations from scratch: set up the entire laboratory, established SOPs and experimental workflows, and took on full operational leadership — while simultaneously driving my own PhD research. I've since contributed to **7 research projects** (independently initiating and leading 2), trained **6 researchers** in laboratory and computational methods, and created comprehensive troubleshooting guides and documentation adopted group-wide.
 
-On the technical side, I've integrated OpenAI Codex and Model Context Protocol (MCP) into real-time nanopore sequencing pipelines, accelerating development cycles by **40%**, and systematically evaluated **5+ LLMs** (GPT-4, Claude, Gemini, Perplexity, Grok) for code generation, data interpretation, and analysis tasks.
+On the technical side, I've integrated OpenAI Codex and Model Context Protocol (MCP) into real-time nanopore sequencing pipelines, accelerating development cycles by **40%**, and systematically evaluated **5+ LLMs** (GPT3/4/5, Claude2/3/4, Gemini2/3, Perplexity, Grok) for code generation, data interpretation, and analysis tasks.
 
 I care about three things: **shipping production systems**, **validating them scientifically**, and **communicating their impact** to diverse stakeholders — from lab technicians to institutional decision-makers.
 
