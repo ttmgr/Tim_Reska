@@ -130,7 +130,28 @@ Active research collaborations across **5+ institutions** in 4 countries:
 
 ## Publications
 
-**6 peer-reviewed publications** · Invited speaker at **TUM** (70 attendees), **ETH Zurich** (40), **University of Cambridge** (12)
+**7 peer-reviewed publications** · Invited speaker at **TUM** (70 attendees), **ETH Zurich** (40), **University of Cambridge** (12)
+
+---
+
+#### Air Monitoring by Nanopore Sequencing
+Pozdniakova S, **Reska T**, Urban L · *ISME Communications* (2024)
+
+Developed nanopore-based metagenomics for air microbiome profiling. Achieved species-level taxonomic resolution across controlled greenhouse environments, natural outdoor settings, and urban locations in Barcelona.
+
+---
+
+#### Improvements in RNA and DNA Nanopore Sequencing for Rapid Genetic Characterization of Avian Influenza
+Perlas A, **Reska T**, Croville G, Tarrés-Freixas F, Guérin J-L, Majó N, Urban L
+
+Systematically compared latest DNA and RNA nanopore sequencing approaches for characterizing avian influenza virus strains. Demonstrated that R10 DNA nanopore chemistry after reverse transcription outperformed direct RNA sequencing for accuracy and throughput.
+
+---
+
+#### Environmental Screening through Nanopore Native Sequencing Leads to the Detection of *Batrachochytrium dendrobatidis* in La Mandria Regional Park, Italy
+Varzandi AR, **Reska T**, Urban L, Zanet S, Ferroglio E · *Global Ecology and Conservation* (2025) · [DOI](https://doi.org/10.1016/j.gecco.2025.e03517)
+
+Used PCR-free nanopore native sequencing on water samples from 8 irrigation channels to detect wildlife pathogens. First detection of the fungal pathogen *B. dendrobatidis* in this area — confirmed by ddPCR, and identified months before the first case was reported in wild animals of the park.
 
 ---
 
@@ -143,31 +164,10 @@ Demonstrated how nanopore sequencing detects low-abundance plasmid-mediated resi
 
 ---
 
-#### Air Monitoring by Nanopore Sequencing
-Pozdniakova S, **Reska T**, Urban L · *ISME Communications* (2024)
-
-Developed nanopore-based metagenomics for air microbiome profiling. Achieved species-level taxonomic resolution across controlled greenhouse environments, natural outdoor settings, and urban locations in Barcelona.
-
----
-
 #### Nanopore- and AI-Empowered Microbial Viability Inference
 Multiple authors incl. **Reska T**
 
 Created a computational framework using nanopore sequencing and deep neural networks to distinguish DNA from viable vs. dead microorganisms directly from raw signal data. Applied to estimate viability of obligate intracellular *Chlamydia* where traditional culture methods fail.
-
----
-
-#### Improvements in RNA and DNA Nanopore Sequencing for Rapid Genetic Characterization of Avian Influenza
-Perlas A, **Reska T**, Croville G, Tarrés-Freixas F, Guérin J-L, Majó N, Urban L
-
-Systematically compared latest DNA and RNA nanopore sequencing approaches for characterizing avian influenza virus strains. Demonstrated that R10 DNA nanopore chemistry after reverse transcription outperformed direct RNA sequencing for accuracy and throughput.
-
----
-
-#### Real-Time Genomics for One Health
-Urban L, Perlas A, [...] **Reska T** [...] et al. · *Review*
-
-Review describing how real-time nanopore genomic analyses benefit One Health — covering zoonotic disease surveillance, food security, environmental microbiome monitoring, antimicrobial resistance tracking, wildlife conservation, biodiversity monitoring, and invasive species detection.
 
 ---
 
@@ -177,6 +177,11 @@ Chakraborty S, [...] **Reska T** [...] Canzar S
 Introduced Ladder-seq, which separates transcripts by length using denaturing gel electrophoresis before sequencing. Extended kallisto and StringTie algorithms to use length information — revealing 40% more genes harboring isoform switches compared to conventional RNA-seq.
 
 ---
+
+#### Real-Time Genomics for One Health
+Urban L, Perlas A, [...] **Reska T** [...] et al. · *Review*
+
+Review describing how real-time nanopore genomic analyses benefit One Health — covering zoonotic disease surveillance, food security, environmental microbiome monitoring, antimicrobial resistance tracking, wildlife conservation, biodiversity monitoring, and invasive species detection.
 
 ## Technical Skills
 
