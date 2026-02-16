@@ -14,7 +14,9 @@ Helmholtz Munich & Technical University of Munich · Munich, Germany
 
 I build and deploy AI-augmented scientific infrastructure — from scoping through production — across genomics, biosurveillance, and clinical collaboration contexts.
 
-Currently finishing my PhD at Helmholtz Munich, where I lead a research group as **Research Project Lead & Laboratory Manager**. I've integrated OpenAI Codex and Model Context Protocol (MCP) into real-time nanopore sequencing pipelines, accelerating development cycles by **40%**. Systematically evaluated **5+ LLMs** (GPT-4, Claude, Gemini, Perplexity, Grok) for code generation, data interpretation, and analysis tasks.
+As the **founding member** of the Helmholtz AI research group, I built the team's operations from scratch: set up the entire laboratory, established SOPs and experimental workflows, and took on full operational leadership — while simultaneously driving my own PhD research. I've since contributed to **7 research projects** (independently initiating and leading 2), trained **6 researchers** in laboratory and computational methods, and created comprehensive troubleshooting guides and documentation adopted group-wide.
+
+On the technical side, I've integrated OpenAI Codex and Model Context Protocol (MCP) into real-time nanopore sequencing pipelines, accelerating development cycles by **40%**, and systematically evaluated **5+ LLMs** (GPT-4, Claude, Gemini, Perplexity, Grok) for code generation, data interpretation, and analysis tasks.
 
 I care about three things: **shipping production systems**, **validating them scientifically**, and **communicating their impact** to diverse stakeholders — from lab technicians to institutional decision-makers.
 
@@ -93,12 +95,36 @@ Systematic evaluation and integration of AI tools into research workflows:
 ### Bioinformatics Pipeline Infrastructure
 **Python · Snakemake · Nextflow · Illumina · Nanopore · PacBio**
 
-Built end-to-end bioinformatics pipelines for three major sequencing platforms. Managed full lifecycle from architecture design through production deployment on HPC infrastructure.
+Built end-to-end bioinformatics pipelines for three major sequencing platforms, including beta-testing novel technology in collaboration with industry partners. Managed full lifecycle from architecture design through production deployment on HPC infrastructure. Established computational frameworks adopted by the entire research group.
 
 **Scope:**
 - Automated quality control, assembly, taxonomic classification, and variant calling
 - Designed for reproducibility with containerized environments and version-controlled workflows
 - Production deployment serving multiple research groups
+
+---
+
+## Leadership & Operations
+
+**Founding member** of the Helmholtz AI research group (est. 2022). Volunteered to take on full laboratory management and operational leadership alongside doctoral research — an unusual scope for a PhD candidate.
+
+| Area | Scope |
+|:---|:---|
+| **Laboratory setup** | Built the lab from zero — equipment, workflows, inventory, purchasing |
+| **SOPs & documentation** | Created all Standard Operating Procedures and troubleshooting guides |
+| **Team development** | Trained 6 researchers in wet-lab and computational methods |
+| **Safety & compliance** | Occupational Safety Officer — workshops, regulatory compliance, operational safety |
+| **Project portfolio** | Contributed to 7 research projects, independently led 2 |
+
+### International Collaboration Network
+
+Active research collaborations across **5+ institutions** in 4 countries:
+
+- Klinikum rechts der Isar (TU Munich Hospital)
+- Barcelona Institute for Global Health (ISGlobal)
+- University of Zurich & agricultural industry partners
+- School of Agriculture, University of Turin
+- Spanish Institute for Game and Wildlife Research (IREC)
 
 ---
 
