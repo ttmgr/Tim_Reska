@@ -130,14 +130,23 @@ Active research collaborations across **5+ institutions** in 4 countries:
 
 ## Publications
 
-**7 peer-reviewed publications** · Invited speaker at **TUM** (70 attendees), **ETH Zurich** (40), **University of Cambridge** (12)
+**8 publications** · Invited speaker at **TUM** (70 attendees), **ETH Zurich** (40), **University of Cambridge** (12)
 
 ---
 
 #### Air Monitoring by Nanopore Sequencing
-Pozdniakova S, **Reska T**, Urban L · *ISME Communications* (2024)
+**Reska T**, Pozdniakova S, Urban L · *ISME Communications* (2024)
 
 Developed nanopore-based metagenomics for air microbiome profiling. Achieved species-level taxonomic resolution across controlled greenhouse environments, natural outdoor settings, and urban locations in Barcelona.
+
+---
+
+#### Real-Time Genomic Pathogen, Resistance, and Host Range Characterization from Passive Water Sampling of Wetland Ecosystems
+Perlas A\*, **Reska T**\*, Sánchez-Cano A, Mejías-Molina C, Gygax D, Martínez-Puchol S, Rusiñol M, Eger E, Schaufler K, Höfle U, Croville G, Le Loc'h G, Guérin J-L, Urban L · *Preprint* (2025) · [DOI](https://doi.org/10.1101/2025.09.05.674394)
+
+Holistic framework combining passive water sampling with nanopore sequencing to characterize pathogen load, AMR, and host range across wetland ecosystems along the East Atlantic Flyway. Showed anthropogenically impacted ecosystems consistently exhibit higher pathogen and AMR gene abundances. Detected and characterized avian influenza at a third of monitored sites, using eDNA to explore potential animal hosts.
+
+*\*Shared first authorship*
 
 ---
 
