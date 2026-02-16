@@ -130,14 +130,51 @@ Active research collaborations across **5+ institutions** in 4 countries:
 
 ## Publications
 
-| Year | Title | Journal | Role |
-|------|-------|---------|------|
-| 2024 | PCR-free nanopore surveillance methodology | *ISME Communications* | Co-first Author |
-| 2025 | Aquatic One Health biosurveillance (Perlas, Reska, Sánchez-Cano et al.) | *In review* | Co-first Author |
-| — | Contributing author on Nature Communications paper | *Nature Communications* | Contributing Author |
-| — | 3 additional peer-reviewed publications | *biorxiv / in review* | Co-Author |
+**6 peer-reviewed publications** · Invited speaker at **TUM** (70 attendees), **ETH Zurich** (40), **University of Cambridge** (12)
 
-**5 peer-reviewed publications** (2 as co-first author) · Invited speaker at **TUM** (70 attendees), **ETH Zurich** (40), **University of Cambridge** (12)
+---
+
+#### Detection of Hidden Antibiotic Resistance through Real-Time Genomics
+Sauerborn E, Corredor NC, **Reska T**, Perlas A, Vargas da Fonseca Atum S, Goldman N, Wantia N, Prazeres da Costa C, Foster-Nyarko E & Urban L · ***Nature Communications*** 15, 5494 (2024)
+
+Demonstrated how nanopore sequencing detects low-abundance plasmid-mediated resistance missed by conventional diagnostics — with direct implications for clinical treatment decisions in multi-drug resistant infections.
+
+`22,000+ Accesses` · `43 Citations` · `74 Altmetric`
+
+---
+
+#### Air Monitoring by Nanopore Sequencing
+Pozdniakova S, **Reska T**, Urban L · *ISME Communications* (2024)
+
+Developed nanopore-based metagenomics for air microbiome profiling. Achieved species-level taxonomic resolution across controlled greenhouse environments, natural outdoor settings, and urban locations in Barcelona.
+
+---
+
+#### Nanopore- and AI-Empowered Microbial Viability Inference
+Multiple authors incl. **Reska T**
+
+Created a computational framework using nanopore sequencing and deep neural networks to distinguish DNA from viable vs. dead microorganisms directly from raw signal data. Applied to estimate viability of obligate intracellular *Chlamydia* where traditional culture methods fail.
+
+---
+
+#### Improvements in RNA and DNA Nanopore Sequencing for Rapid Genetic Characterization of Avian Influenza
+Perlas A, **Reska T**, Croville G, Tarrés-Freixas F, Guérin J-L, Majó N, Urban L
+
+Systematically compared latest DNA and RNA nanopore sequencing approaches for characterizing avian influenza virus strains. Demonstrated that R10 DNA nanopore chemistry after reverse transcription outperformed direct RNA sequencing for accuracy and throughput.
+
+---
+
+#### Real-Time Genomics for One Health
+Urban L, Perlas A, [...] **Reska T** [...] et al. · *Review*
+
+Review describing how real-time nanopore genomic analyses benefit One Health — covering zoonotic disease surveillance, food security, environmental microbiome monitoring, antimicrobial resistance tracking, wildlife conservation, biodiversity monitoring, and invasive species detection.
+
+---
+
+#### Partitioning RNAs by Length Improves Transcriptome Reconstruction (Ladder-seq)
+Chakraborty S, [...] **Reska T** [...] Canzar S
+
+Introduced Ladder-seq, which separates transcripts by length using denaturing gel electrophoresis before sequencing. Extended kallisto and StringTie algorithms to use length information — revealing 40% more genes harboring isoform switches compared to conventional RNA-seq.
 
 ---
 
