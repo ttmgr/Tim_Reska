@@ -174,17 +174,19 @@ The radar charts reveal how each model family improves across the five evaluatio
 
 ### Key observations
 
-1. **Compounding failures:** Errors at early steps (especially step 1: basecalling) cascade through the entire pipeline. A model recommending Albacore (discontinued) produces unusable output that invalidates all downstream steps.
+1. **Compounding failures:** Errors at early steps (especially step 1: basecalling) cascade through the entire pipeline. A model recommending Albacore (discontinued) or SPAdes (short-read assembler) produces unusable output that invalidates all downstream steps.
 
-2. **Hardest steps:**
-   - **Functional annotation** (avg 0.79) — most models apply AMR screening at only one level (contigs), missing the paper's three-level approach (reads, contigs, bins)
-   - **Assembly** (avg 0.80) — the required polishing step (3× Racon) is frequently omitted or reduced
-   - **Binning** (avg 0.81) — models default to high completeness thresholds (≥50–90%) inappropriate for low-biomass air samples
+2. **Hardest steps** (average composite score across all models):
+   - **Binning** (0.54) — models default to single binning tools instead of ensemble approaches, use inappropriate completeness thresholds (≥50–90% instead of ≥30%), and often produce wrong pipeline order for mapping/binning
+   - **Assembly** (0.61) — the required 3× Racon polishing step is frequently omitted or reduced; multiple models recommend short-read assemblers (SPAdes, MEGAHIT) instead of MetaFlye
+   - **Functional annotation** (0.61) — most models apply AMR screening at only one level (contigs), missing the three-level approach (reads, contigs, bins); seqkit conversion step routinely omitted
+   - **Basecalling** (0.66) — wrong tool selection (Albacore, wrong Guppy config) or incorrect quality thresholds (Q20–Q30 instead of Q8); many models ignore the R10.4.1 chemistry specification
 
-3. **Common failure modes:**
-   - Step 1: Recommending short-read tools (Albacore, wrong Guppy config) or incorrect quality thresholds (Q20–Q30 instead of Q8)
-   - Step 5: Using short-read assemblers (SPAdes, MEGAHIT) instead of MetaFlye; omitting polishing
-   - Step 7: Applying annotation at a single level instead of three; missing seqkit format conversion
+3. **Most common failure modes:**
+   - **Wrong tools** — recommending short-read tools (SPAdes, BWA, Bowtie2, FastQC) for nanopore long-read data
+   - **Wrong flags** — incorrect parameters, quality thresholds, database specifications, and preset selections
+   - **Wrong pipeline order** — placing steps in illogical sequences (e.g., annotation before assembly) or inverting sub-steps within a stage
+   - **Ignoring input details** — failing to account for low-biomass sample type, R10.4.1 chemistry, air sample context, or previously provided pipeline outputs
 
 ## Repository Structure
 
