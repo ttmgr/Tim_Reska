@@ -26,9 +26,9 @@ graph TD
     P["📋 Standardized Prompt\nStep objective · previous context · constraints"]
     
     GT --> P
-    P --> C1["ChatGPT\nGPT-4o · o3-mini · o3"]
-    P --> C2["Claude\nSonnet 3.5 · Sonnet 4"]
-    P --> C3["Gemini\n2.0 Flash · 2.5 Pro"]
+    P --> C1["OpenAI\nGPT-4o · o1 · o3 · o4-mini · GPT-5"]
+    P --> C2["Claude\nSonnet 3.5 · Sonnet 4 · Opus 4.5 · Opus 4.6"]
+    P --> C3["Gemini\n2.0 Flash · 2.5 Pro · 3 Pro · 3 Flash"]
     
     C1 --> E["⚖️ Evaluate Against Ground Truth"]
     C2 --> E
@@ -46,7 +46,7 @@ graph TD
     D4 --> AGG
     D5 --> AGG
     
-    AGG --> R["🎯 First Fully Correct Pipeline\nChatGPT: o3 · Claude: Sonnet 4 · Gemini: 2.5 Pro"]
+    AGG --> R["🎯 First Fully Correct Pipeline\nOpenAI: GPT-5 · Claude: Opus 4.5 · Gemini: 3 Pro"]
 
     style GT fill:#f8fafc,stroke:#e2e8f0,color:#334155
     style P fill:#eef2ff,stroke:#c7d2fe,color:#4338ca
@@ -146,9 +146,9 @@ Detailed rubrics with concrete examples are in [`methodology/scoring_criteria.md
 
 **Headline result:** No LLM produced a fully correct end-to-end pipeline until the latest model generation:
 
-- **ChatGPT:** first fully correct at o3 (high reasoning)
-- **Claude:** first fully correct at Sonnet 4
-- **Gemini:** first fully correct at 2.5 Pro Preview
+- **OpenAI:** first fully correct at GPT-5 (high)
+- **Claude:** first fully correct at Opus 4.5
+- **Gemini:** first fully correct at 3 Pro
 
 [PLACEHOLDER: insert heatmap figure]
 
