@@ -87,17 +87,30 @@ The prompts were designed to simulate how a scientist actually develops a workfl
 
 ### Models tested
 
-| Family | Version | Notes |
-|:-------|:--------|:------|
-| ChatGPT | GPT-4o | [PLACEHOLDER: date tested] |
-| ChatGPT | o3-mini | [PLACEHOLDER: date tested] |
-| ChatGPT | o3 (high reasoning) | [PLACEHOLDER: date tested] |
-| Claude | Sonnet 3.5 | [PLACEHOLDER: date tested] |
-| Claude | Sonnet 4 | [PLACEHOLDER: date tested] |
-| Gemini | 2.0 Flash | [PLACEHOLDER: date tested] |
-| Gemini | 2.5 Pro Preview | [PLACEHOLDER: date tested] |
-
-[PLACEHOLDER: additional intermediate model versions to be added]
+| Family | Version | Released | Tested |
+|:-------|:--------|:---------|:-------|
+| OpenAI | GPT-4o | 2024-05-13 | 2024-05-16 |
+| OpenAI | o1-preview | 2024-09-12 | 2024-09-17 |
+| OpenAI | o1-mini | 2024-09-12 | 2024-09-14 |
+| OpenAI | o1 | 2024-12-05 | 2024-12-11 |
+| OpenAI | o1-pro | 2024-12-05 | 2024-12-09 |
+| OpenAI | o3-mini | 2025-01-31 | 2025-02-03 |
+| OpenAI | o3 (high reasoning) | 2025-04-16 | 2025-04-18 |
+| OpenAI | o4-mini | 2025-04-16 | 2025-04-21 |
+| OpenAI | GPT-5 | 2025-08-07 | 2025-08-11 |
+| Claude | Sonnet 3.5 | 2024-06-21 | 2024-06-24 |
+| Claude | Sonnet 4 | 2025-05-23 | 2025-05-28 |
+| Claude | Sonnet 4.5 | 2025-09-30 | 2025-10-02 |
+| Claude | Haiku 4.5 | 2025-10-16 | 2025-10-22 |
+| Claude | Opus 4.5 | 2025-11-24 | 2025-11-27 |
+| Claude | Opus 4.6 | 2026-02-05 | 2026-02-09 |
+| Gemini | 2.0 Flash | 2024-12-11 | 2024-12-14 |
+| Gemini | 2.5 Pro Preview | 2025-03-03 | 2025-03-07 |
+| Gemini | 2.5 Flash | 2025-06-17 | 2025-06-19 |
+| Gemini | 2.5 Pro (stable) | 2025-06-26 | 2025-07-01 |
+| Gemini | 3 Pro | 2025-11-17 | 2025-11-20 |
+| Gemini | 3 Deep Think | 2025-11-17 | 2025-11-23 |
+| Gemini | 3 Flash | 2025-12-16 | 2025-12-20 |
 
 ### Pipeline steps
 
