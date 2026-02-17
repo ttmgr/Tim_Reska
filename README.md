@@ -94,6 +94,8 @@ Systematic evaluation and integration of AI tools into research workflows:
 - Evaluated **5+ LLMs** across code generation, scientific literature interpretation, and data analysis — developed internal model selection and routing guidelines adopted by collaborators across institutions
 - Applied **RNN models (PyTorch)** for sequence classification in genomic analysis workflows with published evaluation metrics (AUROC, precision, sensitivity, specificity)
 
+→ **[View LLM evaluation study](llm-eval/)** — Structured benchmarking of ChatGPT, Claude, and Gemini for pipeline generation
+
 ---
 
 ### Bioinformatics Pipeline Infrastructure
