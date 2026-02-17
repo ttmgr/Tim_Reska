@@ -1,110 +1,108 @@
 # =============================================================================
 # Aerobiome Pipeline Configuration
 # =============================================================================
-# Adjust paths and parameters for your environment.
-# =============================================================================
+# Publication I: Air monitoring by nanopore sequencing
+# Reska T, Pozdniakova S, Urban L (ISME Communications, 2024)
+
+# -- Basecalling --------------------------------------------------------------
+basecalling:
+  model: "dna_r10.4.1_e8.2_400bps_hac@v4.3.0"   # Dorado HAC model
+
 
 # -- Samples ------------------------------------------------------------------
-# Each sample needs a FASTQ path and a type (sample / negative_control).
-# Negative controls are critical for ULB contamination filtering.
+# ULB air samples from active liquid impingement sampling.
+# Sample types: greenhouse (1h, 3h), natural, urban, negative_control
 samples:
-  # Munich greenhouse (controlled environment)
-  GH_01:
-    fastq: "data/raw/GH_01.fastq.gz"
-    type: "sample"
+  # Greenhouse 1-hour sampling (Munich)
+  GH_1h_01:
+    fastq: "data/raw/GH_1h_01.fastq.gz"
+    type: "greenhouse_1h"
     site: "munich_greenhouse"
-  GH_02:
-    fastq: "data/raw/GH_02.fastq.gz"
-    type: "sample"
+    subsample_reads: 5000
+  GH_1h_02:
+    fastq: "data/raw/GH_1h_02.fastq.gz"
+    type: "greenhouse_1h"
     site: "munich_greenhouse"
-  GH_03:
-    fastq: "data/raw/GH_03.fastq.gz"
-    type: "sample"
+    subsample_reads: 5000
+  GH_1h_03:
+    fastq: "data/raw/GH_1h_03.fastq.gz"
+    type: "greenhouse_1h"
     site: "munich_greenhouse"
+    subsample_reads: 5000
 
-  # Munich natural environment (outdoor, uncontrolled)
+  # Greenhouse 3-hour sampling (Munich)
+  GH_3h_01:
+    fastq: "data/raw/GH_3h_01.fastq.gz"
+    type: "greenhouse_3h"
+    site: "munich_greenhouse"
+    subsample_reads: 15000
+  GH_3h_02:
+    fastq: "data/raw/GH_3h_02.fastq.gz"
+    type: "greenhouse_3h"
+    site: "munich_greenhouse"
+    subsample_reads: 15000
+  GH_3h_03:
+    fastq: "data/raw/GH_3h_03.fastq.gz"
+    type: "greenhouse_3h"
+    site: "munich_greenhouse"
+    subsample_reads: 15000
+
+  # Natural environment (Munich)
   NAT_01:
     fastq: "data/raw/NAT_01.fastq.gz"
-    type: "sample"
+    type: "natural"
     site: "munich_natural"
+    subsample_reads: 70000
   NAT_02:
     fastq: "data/raw/NAT_02.fastq.gz"
-    type: "sample"
+    type: "natural"
     site: "munich_natural"
+    subsample_reads: 70000
+  NAT_03:
+    fastq: "data/raw/NAT_03.fastq.gz"
+    type: "natural"
+    site: "munich_natural"
+    subsample_reads: 70000
 
-  # Barcelona urban campaign
-  BCN_01:
-    fastq: "data/raw/BCN_01.fastq.gz"
-    type: "sample"
+  # Urban campaign (Barcelona)
+  URB_01:
+    fastq: "data/raw/URB_01.fastq.gz"
+    type: "urban"
     site: "barcelona_urban"
-  BCN_02:
-    fastq: "data/raw/BCN_02.fastq.gz"
-    type: "sample"
+    subsample_reads: 30000
+  URB_02:
+    fastq: "data/raw/URB_02.fastq.gz"
+    type: "urban"
     site: "barcelona_urban"
+    subsample_reads: 30000
 
-  # Negative controls (extraction blanks, sampling blanks)
-  NEG_extraction_01:
-    fastq: "data/raw/NEG_extraction_01.fastq.gz"
+  # Negative controls
+  NTC_01:
+    fastq: "data/raw/NTC_01.fastq.gz"
     type: "negative_control"
     site: "control"
-  NEG_sampling_01:
-    fastq: "data/raw/NEG_sampling_01.fastq.gz"
+    subsample_reads: 0
+  EXT_BLANK_01:
+    fastq: "data/raw/EXT_BLANK_01.fastq.gz"
     type: "negative_control"
     site: "control"
-
-
-# -- Study sites (for report grouping) ---------------------------------------
-study_sites:
-  munich_greenhouse:
-    label: "Greenhouse (Munich)"
-    environment: "controlled"
-  munich_natural:
-    label: "Natural Environment (Munich)"
-    environment: "outdoor"
-  barcelona_urban:
-    label: "Urban Campaign (Barcelona)"
-    environment: "urban"
-
-
-# -- Reference databases ------------------------------------------------------
-references:
-  human_genome: "/databases/GRCh38/GRCh38.fa"
-  kraken2_db: "/databases/kraken2/k2_standard"
+    subsample_reads: 0
 
 
 # -- Quality control ----------------------------------------------------------
 qc:
-  min_quality: 8          # Phred score threshold
-  min_length: 200         # Minimum read length (bp) — permissive for ULB
-  max_length: 100000      # Maximum read length (bp)
+  min_quality: 8           # NanoFilt Q threshold
+  min_length: 100          # Minimum read length (bp)
 
 
-# -- Contamination control ----------------------------------------------------
-# Taxa in a sample must exceed their mean abundance in negative controls
-# by at least `fold_threshold`-fold to be retained.
-contamination:
-  fold_threshold: 5.0     # Stringent: taxon must be 5x more abundant in
-                          # sample than in negative controls
-  min_reads_in_control: 2 # Minimum reads in control to flag a taxon
+# -- Reference databases ------------------------------------------------------
+references:
+  kraken2_db: "/databases/kraken2/ncbi_nt"           # Full NCBI nt
+  diamond_nr_db: "/databases/diamond/nr.dmnd"        # NCBI nr protein
 
 
-# -- Taxonomy -----------------------------------------------------------------
-taxonomy:
-  kraken2_confidence: 0.1    # Kraken2 confidence threshold
-  bracken_read_length: 1000  # Approximate read length for Bracken
-  bracken_threshold: 10      # Minimum reads for species-level estimate
-
-
-# -- Assembly -----------------------------------------------------------------
-assembly:
-  expected_metagenome_size: "50m"  # Expected total metagenome size
-
-
-# -- AMR detection ------------------------------------------------------------
-amr:
-  min_identity: 80       # Minimum % identity for AMR gene hit
-  min_coverage: 60       # Minimum % coverage for AMR gene hit
-  databases:             # ABRicate databases to search
-    - "ncbi"
-    - "card"
-    - "resfinder"
+# -- Community analysis -------------------------------------------------------
+community:
+  rarefaction_range: [5000, 10000, 15000, 30000, 50000, 70000]
+  distance_metric: "braycurtis"       # Bray-Curtis dissimilarity
+  ordination: "pcoa"                  # Principal Coordinate Analysis

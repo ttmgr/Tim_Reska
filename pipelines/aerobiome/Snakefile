@@ -8,12 +8,17 @@
 #       "Air monitoring by nanopore sequencing"
 #       ISME Communications (2024)
 #
-# Key design decisions:
-#   - Aggressive contamination filtering against negative controls (critical
-#     for ULB samples where contaminants dominate)
-#   - Species-level resolution via Kraken2 + Bracken
-#   - Assembly with metaFlye for MAG recovery from long reads
-#   - AMR screening as standard output for One Health context
+# Basecalling           Guppy v6.3.2 / Dorado v4.3.0 (HAC model)
+# Adapter trimming      Porechop v0.2.3 / v0.2.4
+# Quality filtering     NanoFilt v2.8.0
+# Taxonomy              Kraken2 v2.0.7 (NCBI nt), DIAMOND BLASTx v2.1.11,
+#                       Chan Zuckerberg ID (CZID)
+# Read normalization    SeqKit v2.1.2
+# Assembly              metaFlye v2.9.1
+# Polishing             3× minimap2 v2.17 + Racon v1.5
+# Binning               metaWRAP v1.3
+# Bin QC                CheckM v1.2.2
+# AMR / virulence       AMRFinderPlus v3.12.8, ABRicate v1.0.1 (VFDB)
 # =============================================================================
 
 import os
@@ -51,182 +56,152 @@ def get_real_samples():
 
 rule all:
     input:
-        # QC reports for all samples
-        expand("results/qc/{sample}_nanoplot/NanoStats.txt",
+        # QC-filtered reads
+        expand("results/qc/{sample}_filtered.fastq.gz",
                sample=get_samples()),
-        # Contamination-filtered reads
-        expand("results/filtered/{sample}_decontaminated.fastq.gz",
+        # Subsampled (normalized) reads
+        expand("results/normalized/{sample}_subsampled.fastq.gz",
                sample=get_real_samples()),
-        # Taxonomic profiles
-        expand("results/taxonomy/{sample}_bracken_species.tsv",
+        # Kraken2 taxonomy
+        expand("results/taxonomy/{sample}_kraken2.report",
                sample=get_real_samples()),
-        # Assemblies
-        expand("results/assembly/{sample}/assembly.fasta",
+        # DIAMOND BLASTx validation
+        expand("results/taxonomy/{sample}_diamond.tsv",
                sample=get_real_samples()),
-        # AMR results
-        expand("results/amr/{sample}_amr_hits.tsv",
+        # Polished assemblies
+        expand("results/assembly/{sample}/assembly_polished.fasta",
                sample=get_real_samples()),
-        # Final report
-        "results/report/aerobiome_report.html"
+        # metaWRAP bins
+        expand("results/binning/{sample}/metawrap_bins/",
+               sample=get_real_samples()),
+        # CheckM bin quality
+        expand("results/binning/{sample}/checkm/",
+               sample=get_real_samples()),
+        # AMR results (reads + contigs + bins)
+        expand("results/amr/{sample}_amrfinderplus.tsv",
+               sample=get_real_samples()),
+        expand("results/amr/{sample}_abricate.tsv",
+               sample=get_real_samples()),
+        # Virulence results
+        expand("results/virulence/{sample}_vfdb.tsv",
+               sample=get_real_samples()),
 
 
-# ---------------------------------------------------------------------------
-# Step 1: Read quality control
-# ---------------------------------------------------------------------------
+# ===========================================================================
+# STEP 1: BASECALLING & READ PROCESSING
+# ===========================================================================
 
-rule nanoplot_raw:
-    """Generate quality metrics for raw nanopore reads."""
+rule basecall_dorado:
+    """Basecall raw FAST5/POD5 signals with Dorado v4.3.0 (HAC model).
+
+    Guppy v6.3.2 was used for the greenhouse and natural environment
+    datasets; Dorado v4.3.0 (HAC) for the urban campaign in Barcelona.
+    """
+    input:
+        pod5=lambda wc: config["samples"][wc.sample]["raw_data"]
+    output:
+        bam="results/basecalling/{sample}_calls.bam"
+    params:
+        model=config["basecalling"]["model"]
+    threads: 8
+    log:
+        "logs/basecalling/{sample}.log"
+    shell:
+        """
+        dorado basecaller \
+            {params.model} \
+            {input.pod5} \
+            > {output.bam} \
+            2> {log}
+        """
+
+
+rule demux_and_trim:
+    """Demultiplex and trim adapters with Porechop v0.2.4."""
     input:
         fastq=lambda wc: config["samples"][wc.sample]["fastq"]
     output:
-        stats="results/qc/{sample}_nanoplot/NanoStats.txt",
-        html="results/qc/{sample}_nanoplot/NanoPlot-report.html"
-    params:
-        outdir="results/qc/{sample}_nanoplot"
+        fastq="results/trimmed/{sample}_trimmed.fastq.gz"
     threads: 4
     log:
-        "logs/nanoplot/{sample}.log"
+        "logs/porechop/{sample}.log"
     shell:
         """
-        NanoPlot \
-            --fastq {input.fastq} \
-            --outdir {params.outdir} \
+        porechop \
+            -i {input.fastq} \
+            -o {output.fastq} \
             --threads {threads} \
-            --plots dot \
-            --N50 \
             2> {log}
         """
 
 
 rule quality_filter:
-    """Filter reads by quality and length using Chopper.
+    """Quality-filter reads with NanoFilt v2.8.0.
 
-    ULB air samples typically yield short fragments, so we use a
-    relatively permissive minimum length but strict quality threshold
-    to retain as much usable data as possible.
+    Parameters: Q ≥ 8, read length ≥ 100 bp.
+    ULB air samples yield short fragments, so we use a permissive
+    minimum length to retain as much usable data as possible.
     """
     input:
-        fastq=lambda wc: config["samples"][wc.sample]["fastq"]
+        fastq="results/trimmed/{sample}_trimmed.fastq.gz"
     output:
-        fastq="results/filtered/{sample}_qc.fastq.gz"
+        fastq="results/qc/{sample}_filtered.fastq.gz"
     params:
-        min_quality=config["qc"]["min_quality"],
-        min_length=config["qc"]["min_length"],
-        max_length=config["qc"]["max_length"]
-    threads: 4
+        min_quality=config["qc"]["min_quality"],      # 8
+        min_length=config["qc"]["min_length"]          # 100
     log:
-        "logs/chopper/{sample}.log"
+        "logs/nanofilt/{sample}.log"
     shell:
         """
         gunzip -c {input.fastq} | \
-        chopper \
-            --quality {params.min_quality} \
-            --minlength {params.min_length} \
-            --maxlength {params.max_length} \
-            --threads {threads} \
+        NanoFilt \
+            -q {params.min_quality} \
+            -l {params.min_length} \
             2> {log} | \
         gzip > {output.fastq}
         """
 
 
-# ---------------------------------------------------------------------------
-# Step 2: Host (human) read removal
-# ---------------------------------------------------------------------------
+# ===========================================================================
+# STEP 2: READ NORMALIZATION
+# ===========================================================================
 
-rule remove_host_reads:
-    """Remove human reads by mapping against the human reference genome.
+rule subsample_reads:
+    """Normalize read depth with SeqKit v2.1.2.
 
-    Critical for samples collected in occupied environments (greenhouses,
-    urban settings). Uses minimap2 for fast long-read alignment.
+    Subsampling thresholds are phase-specific:
+      - 1h greenhouse:       5,000 reads
+      - 3h greenhouse:      15,000 reads
+      - Natural environment: 70,000 reads
+      - Urban environment:   30,000 reads
     """
     input:
-        fastq="results/filtered/{sample}_qc.fastq.gz",
-        ref=config["references"]["human_genome"]
+        fastq="results/qc/{sample}_filtered.fastq.gz"
     output:
-        fastq="results/filtered/{sample}_no_host.fastq.gz"
-    threads: 8
+        fastq="results/normalized/{sample}_subsampled.fastq.gz"
+    params:
+        n_reads=lambda wc: config["samples"][wc.sample]["subsample_reads"]
     log:
-        "logs/host_removal/{sample}.log"
+        "logs/seqkit/{sample}.log"
     shell:
         """
-        minimap2 -a -x map-ont -t {threads} {input.ref} {input.fastq} 2> {log} | \
-        samtools view -b -f 4 - | \
-        samtools fastq - | \
-        gzip > {output.fastq}
-        """
-
-
-# ---------------------------------------------------------------------------
-# Step 3: Contamination control (critical for ULB)
-# ---------------------------------------------------------------------------
-
-rule classify_for_contamination:
-    """Run Kraken2 on both real samples and negative controls.
-
-    The contamination filter compares taxa found in real samples against
-    those detected in negative controls. Taxa present in controls above
-    a threshold are flagged as likely contaminants.
-    """
-    input:
-        fastq="results/filtered/{sample}_no_host.fastq.gz",
-        db=config["references"]["kraken2_db"]
-    output:
-        report="results/contamination/{sample}_kraken2.report",
-        output="results/contamination/{sample}_kraken2.output"
-    threads: 8
-    log:
-        "logs/contamination_kraken/{sample}.log"
-    shell:
-        """
-        kraken2 \
-            --db {input.db} \
-            --threads {threads} \
-            --report {output.report} \
-            --output {output.output} \
-            --gzip-compressed \
+        seqkit sample \
+            -n {params.n_reads} \
+            -s 42 \
             {input.fastq} \
+            -o {output.fastq} \
             2> {log}
         """
 
 
-rule contamination_filter:
-    """Remove likely contaminant reads based on negative control profiles.
-
-    This is the most critical step for ULB metagenomics. Taxa that appear
-    in negative controls at comparable or higher abundance than in real
-    samples are considered contaminants and their reads are removed.
-
-    The filtering uses a fold-change threshold: a taxon is retained only
-    if its abundance in the sample exceeds its mean abundance across
-    negative controls by at least `contamination_fold_threshold`-fold.
-    """
-    input:
-        sample_report="results/contamination/{sample}_kraken2.report",
-        sample_output="results/contamination/{sample}_kraken2.output",
-        sample_fastq="results/filtered/{sample}_no_host.fastq.gz",
-        neg_reports=expand("results/contamination/{neg}_kraken2.report",
-                           neg=get_negative_controls())
-    output:
-        fastq="results/filtered/{sample}_decontaminated.fastq.gz",
-        contaminant_list="results/contamination/{sample}_contaminants.txt",
-        stats="results/contamination/{sample}_decontam_stats.json"
-    params:
-        fold_threshold=config["contamination"]["fold_threshold"],
-        min_reads_in_control=config["contamination"]["min_reads_in_control"]
-    log:
-        "logs/contamination_filter/{sample}.log"
-    script:
-        "scripts/contamination_filter.py"
-
-
-# ---------------------------------------------------------------------------
-# Step 4: Taxonomic classification and species-level profiling
-# ---------------------------------------------------------------------------
+# ===========================================================================
+# STEP 3: TAXONOMIC CLASSIFICATION
+# ===========================================================================
 
 rule kraken2_classify:
-    """Classify decontaminated reads with Kraken2."""
+    """Classify reads with Kraken2 v2.0.7 against NCBI nt database."""
     input:
-        fastq="results/filtered/{sample}_decontaminated.fastq.gz",
+        fastq="results/normalized/{sample}_subsampled.fastq.gz",
         db=config["references"]["kraken2_db"]
     output:
         report="results/taxonomy/{sample}_kraken2.report",
@@ -242,151 +217,259 @@ rule kraken2_classify:
             --report {output.report} \
             --output {output.output} \
             --gzip-compressed \
-            --confidence {config[taxonomy][kraken2_confidence]} \
             {input.fastq} \
             2> {log}
         """
 
 
-rule bracken_species:
-    """Re-estimate species-level abundances using Bracken.
+rule diamond_blastx:
+    """Validate taxonomy with DIAMOND BLASTx v2.1.11 against NCBI nr.
 
-    Bracken redistributes reads classified at higher taxonomic levels
-    to achieve more accurate species-level abundance estimates.
+    Protein-level validation complements nucleotide-based Kraken2
+    classification, providing an independent confirmation of species
+    assignments — especially important for ULB samples.
     """
     input:
-        report="results/taxonomy/{sample}_kraken2.report",
-        db=config["references"]["kraken2_db"]
+        fastq="results/normalized/{sample}_subsampled.fastq.gz",
+        db=config["references"]["diamond_nr_db"]
     output:
-        report="results/taxonomy/{sample}_bracken_species.tsv"
-    params:
-        read_length=config["taxonomy"]["bracken_read_length"],
-        threshold=config["taxonomy"]["bracken_threshold"]
+        tsv="results/taxonomy/{sample}_diamond.tsv"
+    threads: 8
     log:
-        "logs/bracken/{sample}.log"
+        "logs/diamond/{sample}.log"
     shell:
         """
-        bracken \
-            -d {input.db} \
-            -i {input.report} \
-            -o {output.report} \
-            -r {params.read_length} \
-            -l S \
-            -t {params.threshold} \
+        seqkit fq2fa {input.fastq} | \
+        diamond blastx \
+            --db {input.db} \
+            --out {output.tsv} \
+            --outfmt 6 qseqid sseqid pident length evalue bitscore stitle staxids \
+            --threads {threads} \
+            --sensitive \
             2> {log}
         """
 
 
-# ---------------------------------------------------------------------------
-# Step 5: Metagenomic assembly
-# ---------------------------------------------------------------------------
+# ===========================================================================
+# STEP 4: DE NOVO ASSEMBLY, POLISHING & BINNING
+# ===========================================================================
 
 rule metaflye_assembly:
-    """Assemble decontaminated reads using metaFlye.
+    """Assemble reads with metaFlye v2.9.1.
 
-    metaFlye is optimized for metagenomic long-read assembly and handles
-    the uneven coverage typical of environmental samples. For ULB
-    samples, we use --meta and --min-overlap to improve assembly of
-    low-abundance organisms.
+    For the urban dataset, reads from all samples within a location
+    were pooled prior to assembly.
     """
     input:
-        fastq="results/filtered/{sample}_decontaminated.fastq.gz"
+        fastq="results/qc/{sample}_filtered.fastq.gz"
     output:
         assembly="results/assembly/{sample}/assembly.fasta",
         info="results/assembly/{sample}/assembly_info.txt"
     params:
-        outdir="results/assembly/{sample}",
-        genome_size=config["assembly"]["expected_metagenome_size"]
+        outdir="results/assembly/{sample}"
     threads: 16
     log:
-        "logs/flye/{sample}.log"
+        "logs/metaflye/{sample}.log"
     shell:
         """
         flye \
-            --nano-raw {input.fastq} \
+            --nano-hq {input.fastq} \
             --out-dir {params.outdir} \
             --meta \
-            --genome-size {params.genome_size} \
             --threads {threads} \
             2> {log}
         """
 
 
-# ---------------------------------------------------------------------------
-# Step 6: AMR gene detection
-# ---------------------------------------------------------------------------
+rule polish_racon:
+    """Polish assembly with 3 iterative rounds of minimap2 v2.17 + Racon v1.5.
 
-rule amr_screening:
-    """Screen assembled contigs for antimicrobial resistance genes.
-
-    Uses ABRicate with multiple databases (NCBI, CARD, ResFinder) for
-    comprehensive AMR detection. Results are aggregated across databases.
+    At each round, reads are re-mapped to the current consensus
+    before correction.
     """
     input:
+        reads="results/qc/{sample}_filtered.fastq.gz",
         assembly="results/assembly/{sample}/assembly.fasta"
     output:
-        hits="results/amr/{sample}_amr_hits.tsv",
-        summary="results/amr/{sample}_amr_summary.tsv"
-    params:
-        min_identity=config["amr"]["min_identity"],
-        min_coverage=config["amr"]["min_coverage"],
-        databases=config["amr"]["databases"]
+        polished="results/assembly/{sample}/assembly_polished.fasta"
+    threads: 8
     log:
-        "logs/amr/{sample}.log"
-    run:
-        import subprocess
-        all_hits = []
-        for db in params.databases:
-            out = f"results/amr/{wildcards.sample}_{db}_hits.tsv"
-            cmd = (
-                f"abricate --db {db} "
-                f"--minid {params.min_identity} "
-                f"--mincov {params.min_coverage} "
-                f"{input.assembly} > {out} 2>> {log}"
-            )
-            subprocess.run(cmd, shell=True, check=True)
-            all_hits.append(out)
+        "logs/racon/{sample}.log"
+    shell:
+        """
+        cp {input.assembly} {output.polished}.round0.fasta
 
-        # Merge results from all databases
-        subprocess.run(
-            f"cat {' '.join(all_hits)} | head -1 > {output.hits}",
-            shell=True, check=True
-        )
-        subprocess.run(
-            f"cat {' '.join(all_hits)} | grep -v '^#FILE' >> {output.hits}",
-            shell=True, check=False  # may be empty
-        )
-        subprocess.run(
-            f"abricate --summary {' '.join(all_hits)} > {output.summary}",
-            shell=True, check=True
-        )
+        for round in 1 2 3; do
+            prev=$((round - 1))
+
+            minimap2 -t {threads} -x map-ont \
+                {output.polished}.round${{prev}}.fasta \
+                {input.reads} \
+                > results/assembly/{wildcards.sample}/overlap_r${{round}}.paf \
+                2>> {log}
+
+            racon -t {threads} \
+                {input.reads} \
+                results/assembly/{wildcards.sample}/overlap_r${{round}}.paf \
+                {output.polished}.round${{prev}}.fasta \
+                > {output.polished}.round${{round}}.fasta \
+                2>> {log}
+        done
+
+        mv {output.polished}.round3.fasta {output.polished}
+        rm -f {output.polished}.round*.fasta \
+              results/assembly/{wildcards.sample}/overlap_r*.paf
+        """
 
 
-# ---------------------------------------------------------------------------
-# Step 7: Report generation
-# ---------------------------------------------------------------------------
+rule metawrap_binning:
+    """Bin contigs with metaWRAP v1.3."""
+    input:
+        assembly="results/assembly/{sample}/assembly_polished.fasta",
+        reads="results/qc/{sample}_filtered.fastq.gz"
+    output:
+        bindir=directory("results/binning/{sample}/metawrap_bins/")
+    params:
+        outdir="results/binning/{sample}"
+    threads: 8
+    log:
+        "logs/metawrap/{sample}.log"
+    shell:
+        """
+        metawrap binning \
+            -o {params.outdir} \
+            -t {threads} \
+            -a {input.assembly} \
+            --metabat2 --maxbin2 --concoct \
+            {input.reads} \
+            2> {log}
+        """
 
-rule generate_report:
-    """Generate an HTML summary report across all samples.
 
-    Aggregates QC metrics, contamination statistics, taxonomic profiles,
-    and AMR findings into a single report for rapid interpretation.
+rule checkm_quality:
+    """Assess bin quality with CheckM v1.2.2.
+
+    Relaxed thresholds for ULB samples:
+      - Completeness ≥ 30%
+      - Contamination ≤ 10%
     """
     input:
-        qc_stats=expand("results/qc/{sample}_nanoplot/NanoStats.txt",
-                        sample=get_real_samples()),
-        decontam_stats=expand("results/contamination/{sample}_decontam_stats.json",
-                              sample=get_real_samples()),
-        taxonomy=expand("results/taxonomy/{sample}_bracken_species.tsv",
-                        sample=get_real_samples()),
-        amr=expand("results/amr/{sample}_amr_summary.tsv",
-                   sample=get_real_samples())
+        bins="results/binning/{sample}/metawrap_bins/"
     output:
-        html="results/report/aerobiome_report.html"
-    params:
-        samples=get_real_samples(),
-        study_sites=config.get("study_sites", {})
+        outdir=directory("results/binning/{sample}/checkm/")
+    threads: 8
     log:
-        "logs/report.log"
+        "logs/checkm/{sample}.log"
+    shell:
+        """
+        checkm lineage_wf \
+            {input.bins} \
+            {output.outdir} \
+            -t {threads} \
+            -x fa \
+            2> {log}
+        """
+
+
+# ===========================================================================
+# STEP 5: FUNCTIONAL ANNOTATION (AMR, VIRULENCE)
+# ===========================================================================
+
+rule convert_reads_to_fasta:
+    """Convert FASTQ to FASTA with SeqKit v2.8.2 for read-level annotation."""
+    input:
+        fastq="results/qc/{sample}_filtered.fastq.gz"
+    output:
+        fasta="results/qc/{sample}_filtered.fasta"
+    shell:
+        "seqkit fq2fa {input.fastq} > {output.fasta}"
+
+
+rule amrfinderplus:
+    """Detect AMR and virulence genes with AMRFinderPlus v3.12.8.
+
+    Applied to both reads and contigs.
+    """
+    input:
+        reads_fasta="results/qc/{sample}_filtered.fasta",
+        contigs="results/assembly/{sample}/assembly_polished.fasta"
+    output:
+        reads_amr="results/amr/{sample}_amrfinderplus_reads.tsv",
+        contigs_amr="results/amr/{sample}_amrfinderplus.tsv"
+    threads: 4
+    log:
+        "logs/amrfinderplus/{sample}.log"
+    shell:
+        """
+        amrfinder \
+            --nucleotide {input.reads_fasta} \
+            --output {output.reads_amr} \
+            --threads {threads} \
+            2> {log}
+
+        amrfinder \
+            --nucleotide {input.contigs} \
+            --output {output.contigs_amr} \
+            --threads {threads} \
+            2>> {log}
+        """
+
+
+rule abricate_amr:
+    """Screen for AMR genes with ABRicate v1.0.1."""
+    input:
+        contigs="results/assembly/{sample}/assembly_polished.fasta"
+    output:
+        hits="results/amr/{sample}_abricate.tsv"
+    log:
+        "logs/abricate/{sample}.log"
+    shell:
+        """
+        abricate \
+            --db ncbi \
+            {input.contigs} \
+            > {output.hits} \
+            2> {log}
+        """
+
+
+rule abricate_virulence:
+    """Screen for virulence factors with ABRicate v1.0.1 against VFDB."""
+    input:
+        contigs="results/assembly/{sample}/assembly_polished.fasta"
+    output:
+        hits="results/virulence/{sample}_vfdb.tsv"
+    log:
+        "logs/abricate_vfdb/{sample}.log"
+    shell:
+        """
+        abricate \
+            --db vfdb \
+            {input.contigs} \
+            > {output.hits} \
+            2> {log}
+        """
+
+
+# ===========================================================================
+# STEP 6: COMMUNITY ANALYSIS
+# ===========================================================================
+
+rule beta_diversity:
+    """Compute Bray-Curtis dissimilarity and PCoA at genus level.
+
+    Rarefaction curves generated from 5k–70k reads.
+    """
+    input:
+        reports=expand("results/taxonomy/{sample}_kraken2.report",
+                       sample=get_real_samples())
+    output:
+        pcoa="results/community/pcoa_coordinates.tsv",
+        bray_curtis="results/community/bray_curtis_matrix.tsv",
+        rarefaction="results/community/rarefaction_curves.png"
+    params:
+        samples=get_real_samples()
+    log:
+        "logs/community_analysis.log"
     script:
-        "scripts/report.py"
+        "scripts/community_analysis.py"
