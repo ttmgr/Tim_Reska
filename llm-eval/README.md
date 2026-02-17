@@ -142,21 +142,49 @@ Detailed rubrics with concrete examples are in [`methodology/scoring_criteria.md
 
 ## Key Findings
 
-[PLACEHOLDER: summary of key findings — insert after completing all evaluations]
-
 **Headline result:** No LLM produced a fully correct end-to-end pipeline until the latest model generation:
 
 - **OpenAI:** first fully correct at GPT-5 (high)
 - **Claude:** first fully correct at Opus 4.5
 - **Gemini:** first fully correct at 3 Pro
 
-[PLACEHOLDER: insert heatmap figure]
+### Performance trajectory
 
-```
-![Scoring heatmap](results/figures/scoring_heatmap.png)
-```
+All three families show clear upward trajectories, but convergence to full correctness required multiple model generations:
 
-[PLACEHOLDER: discussion of error patterns, compounding failures, and most common failure modes per step]
+![LLM performance over model versions](results/figures/version_timeline.png)
+
+### Scoring heatmap
+
+Composite scores (0–1) per model × pipeline step. Green = fully correct, red = major errors:
+
+![Scoring heatmap for all 22 models × 7 pipeline steps](results/figures/scoring_heatmap.png)
+
+### Step difficulty ranking
+
+Functional annotation, assembly, and binning consistently cause the most errors across all models:
+
+![Pipeline step difficulty ranking](results/figures/step_difficulty.png)
+
+### Error patterns by scoring dimension
+
+The radar charts reveal how each model family improves across the five evaluation dimensions over successive versions:
+
+![Radar charts per model family](results/figures/family_radar.png)
+
+### Key observations
+
+1. **Compounding failures:** Errors at early steps (especially step 1: basecalling) cascade through the entire pipeline. A model recommending Albacore (discontinued) produces unusable output that invalidates all downstream steps.
+
+2. **Hardest steps:**
+   - **Functional annotation** (avg 0.79) — most models apply AMR screening at only one level (contigs), missing the paper's three-level approach (reads, contigs, bins)
+   - **Assembly** (avg 0.80) — the required polishing step (3× Racon) is frequently omitted or reduced
+   - **Binning** (avg 0.81) — models default to high completeness thresholds (≥50–90%) inappropriate for low-biomass air samples
+
+3. **Common failure modes:**
+   - Step 1: Recommending short-read tools (Albacore, wrong Guppy config) or incorrect quality thresholds (Q20–Q30 instead of Q8)
+   - Step 5: Using short-read assemblers (SPAdes, MEGAHIT) instead of MetaFlye; omitting polishing
+   - Step 7: Applying annotation at a single level instead of three; missing seqkit format conversion
 
 ## Repository Structure
 

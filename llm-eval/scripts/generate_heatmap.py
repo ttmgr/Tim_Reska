@@ -104,7 +104,7 @@ def load_scores(csv_path: str) -> pd.DataFrame:
     return df
 
 
-def compute_composite(row: pd.Series) -> float | None:
+def compute_composite(row: pd.Series):
     """Compute mean numeric score across all dimensions. Returns None if any dimension is missing."""
     values = []
     for dim in DIMENSIONS:
@@ -118,7 +118,7 @@ def compute_composite(row: pd.Series) -> float | None:
     return np.mean(values) if values else None
 
 
-def build_matrix(df: pd.DataFrame) -> tuple[np.ndarray, list[str], list[str]]:
+def build_matrix(df: pd.DataFrame):
     """Build 2D score matrix (models × steps)."""
     steps = sorted(df["step_number"].unique())
     n_models = len(MODEL_ORDER)
@@ -140,8 +140,7 @@ def build_matrix(df: pd.DataFrame) -> tuple[np.ndarray, list[str], list[str]]:
     return matrix, y_labels, x_labels
 
 
-def plot_heatmap(matrix: np.ndarray, y_labels: list[str], x_labels: list[str],
-                 output_path: str) -> None:
+def plot_heatmap(matrix, y_labels, x_labels, output_path):
     """Generate and save the heatmap."""
     fig, ax = plt.subplots(figsize=(10, 14))
 
