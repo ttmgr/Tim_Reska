@@ -16,7 +16,7 @@ I build and deploy AI-augmented scientific infrastructure — from scoping throu
 
 As the **founding member** of the Helmholtz AI research group, I built the team's operations from scratch: established the entire laboratory infrastructure, developed SOPs and experimental workflows, and assumed full operational leadership — while simultaneously driving my own PhD research. I've since contributed to **7 research projects** (independently initiating and leading 2), trained **6 researchers** in laboratory and computational methods, and created comprehensive troubleshooting guides and documentation adopted group-wide.
 
-On the technical side, I've integrated OpenAI Codex and Model Context Protocol (MCP) into real-time nanopore sequencing pipelines, accelerating development cycles by **40%**, and systematically evaluated **22 LLM versions** (GPT-4o through GPT-5, Claude Sonnet 3.5 through Opus 4.6, Gemini 2.0 through 3 Pro) for scientific code generation — developing a structured evaluation framework with **publication-grade methodology** that quantifies where AI can reliably augment expert work and where it introduces hidden risk.
+On the technical side, I've integrated OpenAI Codex and Model Context Protocol (MCP) into real-time nanopore sequencing pipelines, accelerating development cycles by **~40%**, and systematically evaluated **22 LLM versions** (GPT-4o through GPT-5, Claude Sonnet 3.5 through Opus 4.6, Gemini 2.0 through 3 Pro) for scientific code generation — developing a structured evaluation framework with **publication-grade methodology** that quantifies where AI can reliably augment expert work and where it introduces hidden risk.
 
 I care about three things: **shipping production systems**, **validating them scientifically**, and **communicating their impact** to diverse stakeholders — from lab technicians to institutional decision-makers and industry partners.
 
@@ -27,7 +27,7 @@ I care about three things: **shipping production systems**, **validating them sc
 | For Tech / AI Companies | For Strategy & Advisory | For Life Sciences & Pharma |
 |:---|:---|:---|
 | Production AI/ML pipelines with domain validation | Structured problem decomposition under ambiguity | Regulatory-aware scientific infrastructure |
-| LLM evaluation frameworks (22 models, 5 dimensions, 7 tasks) | Cross-functional stakeholder alignment (lab ↔ clinic ↔ compute) | GxP-compatible workflow design & validation |
+| LLM evaluation frameworks (22 models, 5 dimensions, 7 tasks) | Cross-functional stakeholder alignment (lab ↔ clinic ↔ compute) | GxP-aware workflow design & documentation |
 | End-to-end system architecture across 3 sequencing platforms | International project coordination across 5 institutions in 4 countries | Translational genomics from research to surveillance deployment |
 | AI safety & reliability assessment in high-stakes domains | Publication-grade deliverables & evidence-based recommendations | One Health framework: air, water, wildlife, clinical |
 
@@ -37,7 +37,7 @@ I care about three things: **shipping production systems**, **validating them sc
 
 **"Genome-Resolved Surveillance of Air and Water Microbiomes using Nanopore Sequencing"**
 
-My dissertation implements an integrated One Health surveillance strategy by developing a common approach to two environmentally and methodologically distinct matrices — **air** and **water** — using a shared, culture-independent workflow built around field-deployable nanopore sequencing. The immediate translational relevance is a portable, culture-independent surveillance system for public health, environmental monitoring, and pharmaceutical manufacturing quality control.
+My dissertation implements an integrated One Health surveillance strategy by developing a common approach to two environmentally and methodologically distinct matrices — **air** and **water** — using a shared, culture-independent workflow built around field-deployable nanopore sequencing. The immediate translational relevance is a portable, culture-independent surveillance system applicable to public health, environmental monitoring, and potentially pharmaceutical quality control settings.
 
 ### Comparative Study Design
 
@@ -50,7 +50,7 @@ My dissertation implements an integrated One Health surveillance strategy by dev
 | **Study sites** | Greenhouse & natural environment (Munich), urban campaign (Barcelona) | 12 lentic wetlands across Germany, France, and Spain |
 | **Sample size** | n = 48 (12 + 6 + 30) | n = 24 (2 replicates × 12 sites) |
 | **Key challenge** | Maximizing DNA recovery from sparse biomass | Inhibitor removal; dual nucleic acid isolation |
-| **Regulatory relevance** | Environmental air monitoring, pharma cleanroom compliance | Waterborne pathogen surveillance, EU Water Framework Directive |
+| **Potential applications** | Environmental air monitoring, cleanroom bioburden assessment | Waterborne pathogen surveillance, environmental compliance monitoring |
 
 The primary challenge was adapting a central analytical pipeline to two distinct sample types: the **aerobiome**, characterized by ultra-low biomass demanding high-volume concentration and stringent contamination control (Reska et al. 2024), and **aquatic ecosystems**, characterized by logistical complexity and multiomics targets requiring integrative sampling and parallel isolation of both DNA and RNA (Perlas, Reska, Sánchez-Cano, et al. 2025).
 
@@ -232,7 +232,7 @@ Regulatory       GxP Awareness · SOP Development · Occupational Safety · Data
 I work across technical depth and operational breadth — building production AI pipelines one day, coordinating a multinational field campaign the next. What stays constant is a preference for structured problem-solving, measurable outcomes, and clear communication across audiences.
 
 - **Technical:** 22 LLM versions evaluated with publication-grade methodology, MCP integrations for real-time sequencing, full-stack pipeline architecture across three sequencing platforms
-- **Operational:** Diagnostic turnaround reduced by 87.5% (48h → 6h), development cycles accelerated by 40%, multinational campaigns managed across 4 countries with real-time pivots
+- **Operational:** Diagnostic turnaround reduced by 87.5% (48h → 6h), development cycles accelerated by ~40%, multinational campaigns managed across 4 countries with real-time pivots
 - **Scientific:** 8 peer-reviewed publications (Nature Communications, ISME Communications), invited talks at TUM, ETH Zurich, and Cambridge, methodology adopted into institutional surveillance strategies
 
 ---
