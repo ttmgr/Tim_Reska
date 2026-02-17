@@ -14,22 +14,22 @@ Helmholtz Munich & Technical University of Munich · Munich, Germany
 
 I build and deploy AI-augmented scientific infrastructure — from scoping through production — across genomics, biosurveillance, and clinical collaboration contexts.
 
-As the **founding member** of the Helmholtz AI research group, I built the team's operations from scratch: set up the entire laboratory, established SOPs and experimental workflows, and took on full operational leadership — while simultaneously driving my own PhD research. I've since contributed to **7 research projects** (independently initiating and leading 2), trained **6 researchers** in laboratory and computational methods, and created comprehensive troubleshooting guides and documentation adopted group-wide.
+As the **founding member** of the Helmholtz AI research group, I built the team's operations from scratch: established the entire laboratory infrastructure, developed SOPs and experimental workflows, and assumed full operational leadership — while simultaneously driving my own PhD research. I've since contributed to **7 research projects** (independently initiating and leading 2), trained **6 researchers** in laboratory and computational methods, and created comprehensive troubleshooting guides and documentation adopted group-wide.
 
-On the technical side, I've integrated OpenAI Codex and Model Context Protocol (MCP) into real-time nanopore sequencing pipelines, accelerating development cycles by **40%**, and systematically evaluated **5+ LLMs** (GPT3/4/5, Claude2/3/4, Gemini2/3, Perplexity, Grok) for code generation, data interpretation, and analysis tasks.
+On the technical side, I've integrated OpenAI Codex and Model Context Protocol (MCP) into real-time nanopore sequencing pipelines, accelerating development cycles by **40%**, and systematically evaluated **22 LLM versions** (GPT-4o through GPT-5, Claude Sonnet 3.5 through Opus 4.6, Gemini 2.0 through 3 Pro) for scientific code generation — developing a structured evaluation framework with **publication-grade methodology** that quantifies where AI can reliably augment expert work and where it introduces hidden risk.
 
-I care about three things: **shipping production systems**, **validating them scientifically**, and **communicating their impact** to diverse stakeholders — from lab technicians to institutional decision-makers.
+I care about three things: **shipping production systems**, **validating them scientifically**, and **communicating their impact** to diverse stakeholders — from lab technicians to institutional decision-makers and industry partners.
 
 ---
 
 ## What I Bring
 
-| For Tech Companies | For Strategy Consulting | For Advisory & Restructuring |
+| For Tech / AI Companies | For Strategy & Advisory | For Life Sciences & Pharma |
 |:---|:---|:---|
-| Production ML/AI pipelines | Structured problem decomposition | Data-driven turnaround analysis |
-| LLM evaluation & integration | Cross-functional stakeholder alignment | Operational process optimization |
-| End-to-end system architecture | International project coordination (DE/FR/ES) | Cost-efficiency through automation |
-| Open source & developer tooling | Publication-grade deliverables | Risk assessment under uncertainty |
+| Production AI/ML pipelines with domain validation | Structured problem decomposition under ambiguity | Regulatory-aware scientific infrastructure |
+| LLM evaluation frameworks (22 models, 5 dimensions, 7 tasks) | Cross-functional stakeholder alignment (lab ↔ clinic ↔ compute) | GxP-compatible workflow design & validation |
+| End-to-end system architecture across 3 sequencing platforms | International project coordination across 5 institutions in 4 countries | Translational genomics from research to surveillance deployment |
+| AI safety & reliability assessment in high-stakes domains | Publication-grade deliverables & evidence-based recommendations | One Health framework: air, water, wildlife, clinical |
 
 ---
 
@@ -37,7 +37,7 @@ I care about three things: **shipping production systems**, **validating them sc
 
 **"Genome-Resolved Surveillance of Air and Water Microbiomes using Nanopore Sequencing"**
 
-My dissertation implements an integrated One Health surveillance strategy by developing a common approach to two environmentally and methodologically distinct matrices — **air** and **water** — using a shared, culture-independent workflow built around field-deployable nanopore sequencing.
+My dissertation implements an integrated One Health surveillance strategy by developing a common approach to two environmentally and methodologically distinct matrices — **air** and **water** — using a shared, culture-independent workflow built around field-deployable nanopore sequencing. The immediate translational relevance is a portable, culture-independent surveillance system for public health, environmental monitoring, and pharmaceutical manufacturing quality control.
 
 ### Comparative Study Design
 
@@ -50,6 +50,7 @@ My dissertation implements an integrated One Health surveillance strategy by dev
 | **Study sites** | Greenhouse & natural environment (Munich), urban campaign (Barcelona) | 12 lentic wetlands across Germany, France, and Spain |
 | **Sample size** | n = 48 (12 + 6 + 30) | n = 24 (2 replicates × 12 sites) |
 | **Key challenge** | Maximizing DNA recovery from sparse biomass | Inhibitor removal; dual nucleic acid isolation |
+| **Regulatory relevance** | Environmental air monitoring, pharma cleanroom compliance | Waterborne pathogen surveillance, EU Water Framework Directive |
 
 The primary challenge was adapting a central analytical pipeline to two distinct sample types: the **aerobiome**, characterized by ultra-low biomass demanding high-volume concentration and stringent contamination control (Reska et al. 2024), and **aquatic ecosystems**, characterized by logistical complexity and multiomics targets requiring integrative sampling and parallel isolation of both DNA and RNA (Perlas, Reska, Sánchez-Cano, et al. 2025).
 
@@ -60,12 +61,13 @@ The primary challenge was adapting a central analytical pipeline to two distinct
 ### PCR-Free Nanopore Biosurveillance System
 **Python · Snakemake · HPC · Illumina · Nanopore · PacBio**
 
-Initiated and delivered end-to-end deployment of a PCR-free nanopore surveillance system for low-biomass air samples across **7 international sites** (Munich, Barcelona, and more). Reduced diagnostic turnaround from **48h to 6h**.
+Initiated and delivered end-to-end deployment of a PCR-free nanopore surveillance system for low-biomass air samples across **7 international sites** (Munich, Barcelona, and more). Reduced diagnostic turnaround from **48h to 6h** — an **87.5% reduction** in time-to-actionable-insight.
 
 **Impact:**
 - Methodology validated through peer review — published in *ISME Communications* (2024)
 - Adopted as institutional surveillance strategy at University of Zurich
 - Detected Avian Influenza (H4 subtype) and critical AMR reservoirs in field deployments
+- Pipeline serves as ground truth for the [LLM evaluation study](llm-eval/), demonstrating practical application of validated workflows as AI benchmarks
 
 → **[View pipeline code](pipelines/aerobiome/)** — Snakemake workflow with ULB contamination control
 
@@ -77,7 +79,7 @@ Initiated and delivered end-to-end deployment of a PCR-free nanopore surveillanc
 Directed a multinational biosurveillance campaign across **12 wetland ecosystems** in Germany, France, and Spain. Managed multi-omics workflows (DNA/RNA/eDNA) including shotgun metagenomics, RNA virome analysis, vertebrate eDNA metabarcoding, and Avian Influenza whole-genome sequencing across distributed teams despite logistical disruptions, equipment failures, and real-time protocol pivots.
 
 **Impact:**
-- Identified **13-fold higher pathogenic loads** at anthropogenic vs. natural sites
+- Identified **13-fold higher pathogenic loads** at anthropogenic vs. natural sites — direct evidence for environmental drivers of antimicrobial resistance proliferation
 - Findings integrated into University of Zurich's institutional surveillance strategy
 - Published in peer-reviewed journal (Perlas, Reska, Sánchez-Cano, et al. 2025)
 
@@ -85,16 +87,17 @@ Directed a multinational biosurveillance campaign across **12 wetland ecosystems
 
 ---
 
-### LLM Integration for Scientific Workflows
-**OpenAI Codex · Claude · Gemini · MCP · PyTorch**
+### Systematic LLM Evaluation for Scientific Pipeline Generation
+**22 Models · 5 Scoring Dimensions · 7 Pipeline Steps · 154 Evaluations**
 
-Systematic evaluation and integration of AI tools into research workflows:
+Designed and executed a structured evaluation framework testing whether large language models can generate scientifically valid bioinformatics pipelines. The key finding: **"plausible but wrong"** — LLMs produce code that runs, looks reasonable, and would pass surface-level review, but makes domain-specific choices that experts would immediately reject. No model produced a fully correct end-to-end pipeline until the latest generation (GPT-5, Opus 4.5, Gemini 3 Pro).
 
-- Integrated **OpenAI Codex and MCP** into bioinformatics pipelines for automated output parsing, sorting, and real-time summarization during active nanopore sequencing runs
-- Evaluated **5+ LLMs** across code generation, scientific literature interpretation, and data analysis — developed internal model selection and routing guidelines adopted by collaborators across institutions
-- Applied **RNN models (PyTorch)** for sequence classification in genomic analysis workflows with published evaluation metrics (AUROC, precision, sensitivity, specificity)
+**Relevance across sectors:**
+- **AI industry:** Demonstrates the gap between code-correctness benchmarks and domain-validity benchmarks — critical for responsible AI deployment in regulated domains
+- **Consulting / advisory:** Provides a structured framework for evaluating AI readiness in any domain where "runs correctly" ≠ "produces valid results"
+- **Pharma / life sciences:** Quantifies the reliability gap that must be closed before AI-generated analysis pipelines can be used in GxP-regulated or clinical settings
 
-→ **[View LLM evaluation study](llm-eval/)** — Structured benchmarking of ChatGPT, Claude, and Gemini for pipeline generation
+→ **[View full study](llm-eval/)** — Evaluation framework, scoring matrices, and analysis scripts
 
 ---
 
@@ -112,7 +115,7 @@ Built end-to-end bioinformatics pipelines for three major sequencing platforms, 
 
 ## Leadership & Operations
 
-**Founding member** of the Helmholtz AI research group (est. 2022). Volunteered to take on full laboratory management and operational leadership alongside doctoral research — an unusual scope for a PhD candidate.
+**Founding member** of the Helmholtz AI research group (est. 2022). Volunteered to take on full laboratory management and operational leadership alongside doctoral research — an unusual scope for a PhD candidate that demonstrates comfort with ambiguity and end-to-end ownership.
 
 | Area | Scope |
 |:---|:---|
@@ -121,29 +124,31 @@ Built end-to-end bioinformatics pipelines for three major sequencing platforms, 
 | **Team development** | Trained 6 researchers in wet-lab and computational methods |
 | **Safety & compliance** | Occupational Safety Officer — workshops, regulatory compliance, operational safety |
 | **Project portfolio** | Contributed to 7 research projects, independently led 2 |
+| **Budget & procurement** | Managed equipment specifications and purchasing decisions across laboratory buildout |
 
 ### International Collaboration Network
 
 Active research collaborations across **5+ institutions** in 4 countries:
 
-- Klinikum rechts der Isar (TU Munich Hospital)
-- Barcelona Institute for Global Health (ISGlobal)
-- University of Zurich & agricultural industry partners
-- School of Agriculture, University of Turin
-- Spanish Institute for Game and Wildlife Research (IREC)
+- Klinikum rechts der Isar (TU Munich Hospital) — clinical AMR surveillance
+- Barcelona Institute for Global Health (ISGlobal) — urban metagenomics
+- University of Zurich & agricultural industry partners — institutional surveillance adoption
+- School of Agriculture, University of Turin — environmental pathogen detection
+- Spanish Institute for Game and Wildlife Research (IREC) — wildlife disease ecology
 
 ---
 
 ## Publications
 
-**8 publications** · Invited speaker at **TUM** (70 attendees), **ETH Zurich** (40), **University of Cambridge** (12)
+**8 publications** · **22,000+ accesses** · **43+ citations** · **74 Altmetric** on lead publication
+Invited speaker at **TUM** (70 attendees), **ETH Zurich** (40), **University of Cambridge** (12)
 
 ---
 
 #### Air Monitoring by Nanopore Sequencing
-**Reska T**, Pozdniakova S, Urban L · *ISME Communications* (2024)
+**Reska T**, Pozdniakova S, Urban L · *ISME Communications* (2024) · [DOI](https://doi.org/10.1093/ismeco/ycae058)
 
-Developed nanopore-based metagenomics for air microbiome profiling. Achieved species-level taxonomic resolution across controlled greenhouse environments, natural outdoor settings, and urban locations in Barcelona.
+Developed nanopore-based metagenomics for air microbiome profiling. Achieved species-level taxonomic resolution across controlled greenhouse environments, natural outdoor settings, and urban locations in Barcelona. This pipeline serves as the validated ground truth for the [LLM evaluation study](llm-eval/).
 
 ---
 
@@ -202,12 +207,13 @@ Review describing how real-time nanopore genomic analyses benefit One Health —
 
 ```
 Languages        Python · TypeScript · R · SQL · Bash
-AI/ML            LLM Integration (GPT-4, Claude, Gemini) · MCP · PyTorch · RNNs · Prompt Engineering
+AI/ML            LLM Evaluation & Integration (22 models) · MCP · PyTorch · RNNs · Prompt Engineering
 Cloud & Infra    AWS (Lambda, DynamoDB, Bedrock, Step Functions, S3) · Terraform · Docker
 Data & Pipelines Snakemake · Nextflow · Pandas · NumPy · Bioinformatics (Illumina, Nanopore, PacBio)
 Sequencing       Shotgun Metagenomics · RNA Virome · eDNA Metabarcoding · Whole-Genome Sequencing
 DevOps           GitHub Actions · CI/CD · HPC Deployment · Infrastructure as Code
 Scientific       Experimental Design · Statistical Analysis · Peer Review · Grant Writing
+Regulatory       GxP Awareness · SOP Development · Occupational Safety · Data Integrity
 ```
 
 ---
@@ -225,16 +231,16 @@ Scientific       Experimental Design · Statistical Analysis · Peer Review · G
 
 I work across technical depth and operational breadth — building production AI pipelines one day, coordinating a multinational field campaign the next. What stays constant is a preference for structured problem-solving, measurable outcomes, and clear communication across audiences.
 
-- **Technical:** 5+ LLMs evaluated and deployed in production, MCP integrations for real-time sequencing, full-stack pipeline architecture across three sequencing platforms
-- **Operational:** Diagnostic turnaround reduced by 87.5% (48h → 6h), development cycles accelerated by 40%, multinational campaigns managed across 3 countries with real-time pivots
-- **Scientific:** 5 peer-reviewed publications, invited talks at TUM, ETH Zurich, and Cambridge, methodology adopted into institutional surveillance strategies
+- **Technical:** 22 LLM versions evaluated with publication-grade methodology, MCP integrations for real-time sequencing, full-stack pipeline architecture across three sequencing platforms
+- **Operational:** Diagnostic turnaround reduced by 87.5% (48h → 6h), development cycles accelerated by 40%, multinational campaigns managed across 4 countries with real-time pivots
+- **Scientific:** 8 peer-reviewed publications (Nature Communications, ISME Communications), invited talks at TUM, ETH Zurich, and Cambridge, methodology adopted into institutional surveillance strategies
 
 ---
 
 ## Currently
 
 - Finishing PhD thesis (expected mid-2026)
-- Exploring opportunities at the intersection of technology, strategy, and impact
+- Exploring opportunities at the intersection of technology, strategy, and impact — particularly in AI safety/evaluation, life sciences consulting, or translational genomics
 
 ---
 

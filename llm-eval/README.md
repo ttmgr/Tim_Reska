@@ -12,9 +12,11 @@ This evaluation tests whether LLMs can maintain scientific and technical correct
 
 ### Why this matters
 
-The dominant failure mode observed is **"plausible but wrong"**: generated code that runs, looks reasonable, and would pass a surface-level review — but makes choices that a domain expert would immediately reject. Examples include recommending short-read tools for long-read data, using deprecated software, or setting parameters that are syntactically valid but scientifically inappropriate.
+The dominant failure mode observed is **"plausible but wrong"**: generated code that runs, looks reasonable, and would pass a surface-level review — but makes domain-specific choices that an expert would immediately reject. Examples include recommending short-read tools for long-read data, using deprecated software, or setting parameters that are syntactically valid but scientifically inappropriate.
 
-These failures are invisible to automated code-correctness benchmarks and dangerous precisely because they are plausible.
+These failures are invisible to automated code-correctness benchmarks and dangerous precisely because they are plausible. In regulated environments (pharma, clinical diagnostics, environmental monitoring), a plausible-but-wrong pipeline can compromise data integrity, produce misleading results, or violate analytical validation requirements — without triggering any automated error.
+
+**This evaluation framework provides a reusable methodology for testing AI reliability in any domain where correctness has consequences beyond code execution.**
 
 ## Evaluation Framework Overview
 
@@ -114,17 +116,15 @@ The prompts were designed to simulate how a scientist actually develops a workfl
 
 ### Pipeline steps
 
-| Step | Objective |
-|:-----|:----------|
-| 1 | Basecalling, adapter trimming, and length filtering |
-| 2 | Quality control and read statistics |
-| 3 | Host/human DNA depletion |
-| 4 | Taxonomic classification of reads |
-| 5 | Metagenomic assembly |
-| 6 | Binning and MAG quality assessment |
-| 7 | Functional annotation |
-
-[PLACEHOLDER: confirm and expand step list]
+| Step | Objective | Ground Truth Tools |
+|:-----|:----------|:---|
+| 1 | Basecalling, adapter trimming, and length filtering | Guppy v6.3.2 / Dorado v4.3.0 → Porechop v0.2.3 → NanoFilt v2.8.0 |
+| 2 | Quality control and read statistics | NanoPlot / NanoStat |
+| 3 | Host/human DNA depletion | Not performed (low host contamination in air samples) |
+| 4 | Taxonomic classification of reads | Kraken2 v2.0.7 + NCBI nt database |
+| 5 | Metagenomic assembly | MetaFlye v2.9.1 → minimap2 v2.17 + Racon v1.5 (3×) |
+| 6 | Binning and MAG quality assessment | metaWRAP v1.3 + CheckM v1.2.2 |
+| 7 | Functional annotation | AMRFinderPlus v3.12.8 + ABRicate v1.0.1 |
 
 ## Scoring Framework
 
@@ -162,7 +162,7 @@ Composite scores (0–1) per model × pipeline step. Green = fully correct, red 
 
 ### Step difficulty ranking
 
-Functional annotation, assembly, and binning consistently cause the most errors across all models:
+Binning, assembly, and functional annotation consistently cause the most errors across all models:
 
 ![Pipeline step difficulty ranking](results/figures/step_difficulty.png)
 
@@ -222,20 +222,32 @@ llm-eval/
 ### Reproducing figures
 
 ```bash
-pip install pandas matplotlib seaborn
-python scripts/generate_heatmap.py
-python scripts/aggregate_scores.py
+pip install -r requirements.txt
+python scripts/generate_heatmap.py   # Scoring heatmap
+python scripts/generate_radar.py     # Radar charts, step difficulty, timeline
+python scripts/aggregate_scores.py   # Aggregate statistics
 ```
 
-## Limitations
+### Adapting this framework to other domains
 
-- Models were tested via web interfaces, not APIs. Behavior may differ between access methods.
-- Knowledge cutoff dates affect which tools models recommend; newer models may benefit from training on more recent bioinformatics literature.
-- Sequential prompting means earlier errors can influence later responses. This is by design (it reflects real usage) but complicates isolation of per-step capability.
-- The ground truth is one validated pipeline for one specific data type. Alternative valid approaches exist, and the scoring framework accounts for this via the "Acceptable" category.
-- Sample size is small (one evaluation per model version per step). Stochastic variation in LLM outputs means individual runs may not be representative.
+The evaluation methodology is designed to be **domain-agnostic**. To adapt it to a different field:
 
-[PLACEHOLDER: additional limitations identified during evaluation]
+1. Replace `methodology/pipeline_reference.md` with your validated ground truth workflow
+2. Update the scoring rubrics in `methodology/scoring_criteria.md` for your domain's correctness criteria
+3. Modify the prompt templates in `prompts/` to match your task decomposition
+4. Re-use the scoring dimensions (tool selection, parameter accuracy, output compatibility, scientific validity, executability) — they generalize across any multi-step technical workflow
+
+## Limitations & Threats to Validity
+
+- **Interface dependence:** Models were tested via web interfaces, not APIs. Temperature, system prompt, and other parameters may differ between access methods and affect reproducibility.
+- **Knowledge cutoff bias:** Newer models may benefit from training on more recent bioinformatics literature, including potentially the ground truth publication itself. This is noted but not controlled for.
+- **Sequential dependency by design:** Earlier errors influence later responses. This reflects real-world usage patterns but complicates per-step capability isolation.
+- **Single ground truth:** The reference pipeline represents one validated approach for one data type. Alternative valid approaches exist, and the scoring framework accounts for this via the "Acceptable" category. Extending to additional ground truths would strengthen generalizability.
+- **Sample size:** One evaluation per model version per step. LLM outputs are stochastic; repeated runs may yield different results. A production evaluation would require multiple independent runs per configuration.
+- **Rater subjectivity:** Scoring was performed by a single domain expert. Inter-rater reliability studies would strengthen the framework for high-stakes applications.
+- **Evolving model landscape:** Models are continually updated. Results represent a snapshot at the tested date and may not reflect current model capabilities.
+
+> **Note for regulated environments:** This evaluation framework demonstrates the *type* of validation required before deploying AI-generated analytical workflows in GxP, CLIA, or ISO 17025-regulated settings. It is not itself a qualified validation protocol.
 
 ## Citation
 

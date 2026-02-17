@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+title: "Systematic Evaluation of Large Language Models for Nanopore Metagenomics Pipeline Development"
+message: "If you use this evaluation framework or reference these results, please cite as below."
+type: software
+authors:
+  - family-names: "Reska"
+    given-names: "Tim"
+    affiliation: "Helmholtz Munich & Technical University of Munich"
+    orcid: ""
+date-released: "2025-01-01"
+url: "https://github.com/ttmgr/TR"
+repository-code: "https://github.com/ttmgr/TR"
+license: MIT
+keywords:
+  - large language models
+  - bioinformatics
+  - nanopore sequencing
+  - metagenomics
+  - LLM evaluation
+  - AI safety
+  - scientific code generation
+  - pipeline development
+
+references:
+  - type: article
+    title: "Air monitoring by nanopore sequencing"
+    authors:
+      - family-names: "Reska"
+        given-names: "Tim"
+      - family-names: "Pozdniakova"
+        given-names: "Svitlana"
+      - family-names: "Urban"
+        given-names: "Lara"
+    journal: "ISME Communications"
+    year: 2024
+    doi: "10.1093/ismeco/ycae058"
