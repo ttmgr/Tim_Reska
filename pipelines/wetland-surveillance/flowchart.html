@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wetland Surveillance Pipeline</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #ffffff;
+            color: #334155;
+            min-height: 100vh;
+            padding: 3rem 2rem;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .title-block {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .title-block h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            letter-spacing: -0.02em;
+        }
+
+        .title-block p {
+            color: #64748b;
+            font-size: 0.82rem;
+            margin-top: 0.3rem;
+        }
+
+        .title-block .pub {
+            color: #94a3b8;
+            font-size: 0.72rem;
+            margin-top: 0.15rem;
+            font-style: italic;
+        }
+
+        .flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+
+        .arrow {
+            width: 2px;
+            height: 22px;
+            background: #cbd5e1;
+            position: relative;
+        }
+
+        .arrow::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid #cbd5e1;
+        }
+
+        .node {
+            border-radius: 10px;
+            padding: 0.75rem 1.1rem;
+            text-align: center;
+            border: 1.5px solid;
+        }
+
+        .node .label {
+            font-weight: 600;
+            font-size: 0.78rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .node .tools {
+            font-size: 0.68rem;
+            color: #64748b;
+            line-height: 1.45;
+        }
+
+        .node .tools span {
+            padding: 1px 5px;
+            border-radius: 3px;
+            display: inline-block;
+            margin: 1px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.63rem;
+        }
+
+        /* Shared steps */
+        .n-shared {
+            background: #f8fafc;
+            border-color: #e2e8f0;
+        }
+
+        .n-shared .label {
+            color: #334155;
+        }
+
+        .n-shared .tools span {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        /* Track 1 — Blue */
+        .t1 {
+            background: #eff6ff;
+            border-color: #bfdbfe;
+        }
+
+        .t1 .label {
+            color: #1d4ed8;
+        }
+
+        .t1 .tools span {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        /* Track 2 — Purple */
+        .t2 {
+            background: #f5f3ff;
+            border-color: #c4b5fd;
+        }
+
+        .t2 .label {
+            color: #7c3aed;
+        }
+
+        .t2 .tools span {
+            background: #ede9fe;
+            color: #7c3aed;
+        }
+
+        /* Track 3 — Amber */
+        .t3 {
+            background: #fffbeb;
+            border-color: #fde68a;
+        }
+
+        .t3 .label {
+            color: #b45309;
+        }
+
+        .t3 .tools span {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        /* Track 4 — Rose */
+        .t4 {
+            background: #fff1f2;
+            border-color: #fecdd3;
+        }
+
+        .t4 .label {
+            color: #be123c;
+        }
+
+        .t4 .tools span {
+            background: #ffe4e6;
+            color: #be123c;
+        }
+
+        .track-tag {
+            display: inline-block;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+
+        .tag-t1 {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .tag-t2 {
+            background: #ede9fe;
+            color: #7c3aed;
+        }
+
+        .tag-t3 {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .tag-t4 {
+            background: #ffe4e6;
+            color: #be123c;
+        }
+
+        .tracks-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.8rem;
+            width: 100%;
+        }
+
+        .sub-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+
+        .mini-arrow {
+            width: 2px;
+            height: 14px;
+            background: #d1d5db;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .mini-arrow::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 5px solid #d1d5db;
+        }
+
+        /* Community node — green */
+        .n-comm {
+            background: #ecfdf5;
+            border-color: #a7f3d0;
+        }
+
+        .n-comm .label {
+            color: #059669;
+        }
+
+        .n-comm .tools span {
+            background: #d1fae5;
+            color: #059669;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="title-block">
+            <h1>Wetland Surveillance Pipeline</h1>
+            <p>Multi-omics pathogen, AMR & host characterization · passive water sampling</p>
+            <p class="pub">Perlas A*, Reska T* et al. · Preprint (2025)</p>
+        </div>
+
+        <div class="flow">
+
+            <div class="node n-shared" style="min-width:280px;">
+                <div class="label">Passive Water Sampling</div>
+                <div class="tools">Torpedo membrane adsorption · 12 sites · DE, FR, ES</div>
+            </div>
+            <div class="arrow"></div>
+
+            <div class="node n-shared" style="min-width:300px;">
+                <div class="label">Dual Nucleic Acid Extraction</div>
+                <div class="tools">Parallel DNA + RNA isolation · inhibitor removal</div>
+            </div>
+            <div class="arrow"></div>
+
+            <div class="node n-shared" style="min-width:320px;">
+                <div class="label">Basecalling & QC</div>
+                <div class="tools"><span>Dorado v5.0.0</span> SUP · <span>Porechop</span> · <span>NanoFilt</span></div>
+            </div>
+
+            <!-- Split into 4 tracks -->
+            <div style="width:100%; position:relative; height:36px;">
+                <div
+                    style="position:absolute; left:50%; top:0; transform:translateX(-50%); width:2px; height:12px; background:#cbd5e1;">
+                </div>
+                <div style="position:absolute; top:12px; left:8%; right:8%; height:2px; background:#cbd5e1;"></div>
+                <div style="position:absolute; top:12px; left:12.5%; width:2px; height:24px; background:#bfdbfe;"></div>
+                <div
+                    style="position:absolute; top:32px; left:calc(12.5% - 4px); border-left:5px solid transparent; border-right:5px solid transparent; border-top:6px solid #bfdbfe;">
+                </div>
+                <div style="position:absolute; top:12px; left:37.5%; width:2px; height:24px; background:#c4b5fd;"></div>
+                <div
+                    style="position:absolute; top:32px; left:calc(37.5% - 4px); border-left:5px solid transparent; border-right:5px solid transparent; border-top:6px solid #c4b5fd;">
+                </div>
+                <div style="position:absolute; top:12px; left:62.5%; width:2px; height:24px; background:#fde68a;"></div>
+                <div
+                    style="position:absolute; top:32px; left:calc(62.5% - 4px); border-left:5px solid transparent; border-right:5px solid transparent; border-top:6px solid #fde68a;">
+                </div>
+                <div style="position:absolute; top:12px; left:87.5%; width:2px; height:24px; background:#fecdd3;"></div>
+                <div
+                    style="position:absolute; top:32px; left:calc(87.5% - 4px); border-left:5px solid transparent; border-right:5px solid transparent; border-top:6px solid #fecdd3;">
+                </div>
+            </div>
+
+            <!-- 4 tracks -->
+            <div class="tracks-grid">
+
+                <!-- Track 1: Metagenomics -->
+                <div class="sub-flow">
+                    <div class="node t1" style="width:100%;">
+                        <div class="track-tag tag-t1">Track 1 · DNA</div>
+                        <div class="label">Metagenomics</div>
+                    </div>
+                    <div class="mini-arrow"></div>
+                    <div class="node t1" style="width:100%;">
+                        <div class="label">Taxonomy</div>
+                        <div class="tools"><span>Kraken2</span> nt_core<br><span>SeqKit</span> 87k</div>
+                    </div>
+                    <div class="mini-arrow"></div>
+                    <div class="node t1" style="width:100%;">
+                        <div class="label">Dual Assembly</div>
+                        <div class="tools"><span>metaFlye</span> 3×Racon+Medaka<br><span>nanoMDBG</span> Medaka</div>
+                    </div>
+                    <div class="mini-arrow"></div>
+                    <div class="node t1" style="width:100%;">
+                        <div class="label">Pathogen ID</div>
+                        <div class="tools"><span>minimap2</span> → <span>MEGAN</span> LCA</div>
+                    </div>
+                    <div class="mini-arrow"></div>
+                    <div class="node t1" style="width:100%;">
+                        <div class="label">AMR · VF · Plasmids</div>
+                        <div class="tools"><span>AMRFinderPlus</span><br><span>DIAMOND</span>
+                            VFDB<br><span>PlasmidFinder</span></div>
+                    </div>
+                </div>
+
+                <!-- Track 2: Virome -->
+                <div class="sub-flow">
+                    <div class="node t2" style="width:100%;">
+                        <div class="track-tag tag-t2">Track 2 · RNA</div>
+                        <div class="label">RNA Virome</div>
+                    </div>
+                    <div class="mini-arrow"></div>
+                    <div class="node t2" style="width:100%;">
+                        <div class="label">Assembly</div>
+                        <div class="tools"><span>nanoMDBG</span></div>
+                    </div>
+                    <div class="mini-arrow"></div>
+                    <div class="node t2" style="width:100%;">
+                        <div class="label">Polishing</div>
+                        <div class="tools"><span>Medaka</span></div>
+                    </div>
+                    <div class="mini-arrow"></div>
+                    <div class="node t2" style="width:100%;">
+                        <div class="label">Viral Classification</div>
+                        <div class="tools"><span>DIAMOND BLASTx</span><br>NCBI nr · ≥ 80% id</div>
+                    </div>
+                </div>
+
+                <!-- Track 3: eDNA -->
+                <div class="sub-flow">
+                    <div class="node t3" style="width:100%;">
+                        <div class="track-tag tag-t3">Track 3 · eDNA</div>
+                        <div class="label">Metabarcoding</div>
+                    </div>
+                    <div class="mini-arrow"></div>
+                    <div class="node t3" style="width:100%;">
+                        <div class="label">Demux & Trim</div>
+                        <div class="tools"><span>OBITools4</span><br><span>Cutadapt</span></div>
+                    </div>
+                    <div class="mini-arrow"></div>
+                    <div class="node t3" style="width:100%;">
+                        <div class="label">OTU Clustering</div>
+                        <div class="tools"><span>VSEARCH</span> 97%</div>
+                    </div>
+                    <div class="mini-arrow"></div>
+                    <div class="node t3" style="width:100%;">
+                        <div class="label">Vertebrate ID</div>
+                        <div class="tools"><span>MIDORI2</span> 12S rRNA<br>≥ 98% id · eBird check</div>
+                    </div>
+                </div>
+
+                <!-- Track 4: AIV -->
+                <div class="sub-flow">
+                    <div class="node t4" style="width:100%;">
+                        <div class="track-tag tag-t4">Track 4 · RNA</div>
+                        <div class="label">AIV WGS</div>
+                    </div>
+                    <div class="mini-arrow"></div>
+                    <div class="node t4" style="width:100%;">
+                        <div class="label">Segment Mapping</div>
+                        <div class="tools"><span>minimap2</span><br><span>SAMtools</span></div>
+                    </div>
+                    <div class="mini-arrow"></div>
+                    <div class="node t4" style="width:100%;">
+                        <div class="label">Consensus</div>
+                        <div class="tools"><span>BCFtools</span></div>
+                    </div>
+                    <div class="mini-arrow"></div>
+                    <div class="node t4" style="width:100%;">
+                        <div class="label">Phylogenetics</div>
+                        <div class="tools"><span>MAFFT</span> → <span>IQ-TREE2</span><br>1000 UFboot · GISAID</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Merge -->
+            <div style="width:100%; position:relative; height:36px; margin-top:4px;">
+                <div style="position:absolute; top:0; left:12.5%; right:12.5%; height:2px; background:#cbd5e1;"></div>
+                <div style="position:absolute; top:0; left:12.5%; width:2px; height:10px; background:#cbd5e1;"></div>
+                <div style="position:absolute; top:0; right:12.5%; width:2px; height:10px; background:#cbd5e1;"></div>
+                <div
+                    style="position:absolute; top:0; left:50%; transform:translateX(-50%); width:2px; height:36px; background:#cbd5e1;">
+                </div>
+                <div
+                    style="position:absolute; top:32px; left:50%; transform:translateX(-50%) translateX(-4px); border-left:5px solid transparent; border-right:5px solid transparent; border-top:6px solid #cbd5e1;">
+                </div>
+            </div>
+
+            <div class="node n-comm" style="min-width:320px;">
+                <div class="label">Community Analysis</div>
+                <div class="tools">
+                    Bray-Curtis · PCoA · Rarefaction at 87k<br>
+                    <span>scikit-bio</span> <span>SciPy</span> <span>Matplotlib</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
