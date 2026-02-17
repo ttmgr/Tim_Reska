@@ -1,50 +1,76 @@
 # Bioinformatics Pipelines
 
-Representative Snakemake workflows from my first-author publications, demonstrating end-to-end nanopore metagenomic analysis for environmental health surveillance.
-
-## Pipelines
-
-### [`aerobiome/`](aerobiome/) — Airborne Metagenomics (ISME Communications, 2024)
-
-Shotgun metagenomic analysis of ultra-low biomass (ULB) air samples using nanopore sequencing. Handles the unique challenges of aerobiome profiling: sparse DNA recovery, stringent contamination control against negative controls, and species-level taxonomic resolution.
-
-**Workflow:** Raw reads → QC & filtering → Contamination control → Taxonomic classification → Species profiling → AMR screening → Report
+Reproducible Snakemake workflows from my first-author publications. Each pipeline documents the exact tools, versions, and parameters used in the corresponding study.
 
 ---
 
-### [`wetland-surveillance/`](wetland-surveillance/) — Multi-Omics Wetland Surveillance (Preprint, 2025)
+## Pipelines
 
-Holistic pathogen, AMR, and host range characterization from passive water sampling. Integrates four sequencing approaches in a single workflow: shotgun metagenomics, RNA virome analysis, vertebrate eDNA metabarcoding, and targeted avian influenza whole-genome sequencing.
+### [`aerobiome/`](aerobiome/) — Air Monitoring by Nanopore Sequencing
 
-**Workflow:** Dual-extracted DNA/RNA → Parallel analysis tracks → Integrated pathogen-host-AMR report
+**Publication:** Reska T, Pozdniakova S, Urban L — *ISME Communications* (2024)
+
+Shotgun metagenomic analysis of ultra-low biomass air samples. Key steps:
+
+| Step | Tools |
+|:-----|:------|
+| Basecalling | Guppy v6.3.2 / Dorado v4.3.0 (HAC) |
+| QC | Porechop → NanoFilt (Q ≥ 8, ≥ 100 bp) |
+| Normalization | SeqKit (5k–70k reads, phase-specific) |
+| Taxonomy | Kraken2 (NCBI nt) + DIAMOND BLASTx (NCBI nr) |
+| Assembly | metaFlye → 3× Racon polishing |
+| Binning | metaWRAP + CheckM (relaxed ULB thresholds) |
+| AMR / Virulence | AMRFinderPlus + ABRicate (VFDB) |
+
+---
+
+### [`wetland-surveillance/`](wetland-surveillance/) — Multi-Omics Wetland Surveillance
+
+**Publication:** Perlas A\*, Reska T\*, et al. — *Preprint* (2025)
+
+Four parallel analysis tracks from dual DNA/RNA extraction:
+
+| Track | Approach | Key Tools |
+|:------|:---------|:----------|
+| 1. Metagenomics | Shotgun DNA | Kraken2, metaFlye + nanoMDBG, Racon + Medaka, AMRFinderPlus, PlasmidFinder |
+| 2. RNA Virome | Viral community | nanoMDBG + Medaka, DIAMOND BLASTx (NCBI nr) |
+| 3. eDNA Metabarcoding | Vertebrate host ID | OBITools4, Cutadapt, VSEARCH, MIDORI2 12S rRNA |
+| 4. AIV WGS | Influenza genomes | minimap2, SAMtools, BCFtools, MAFFT, IQ-TREE2 |
 
 ---
 
 ## Technology Stack
 
-| Tool | Purpose |
-|:---|:---|
-| [Snakemake](https://snakemake.github.io/) | Workflow management |
-| [Chopper](https://github.com/wdecoster/chopper) / [NanoPlot](https://github.com/wdecoster/NanoPlot) | Nanopore read QC |
-| [minimap2](https://github.com/lh3/minimap2) | Read alignment |
-| [Kraken2](https://github.com/DerrickWood/kraken2) / [Bracken](https://github.com/jenniferlu717/Bracken) | Taxonomic classification |
-| [Flye](https://github.com/fenderglass/Flye) | Metagenomic assembly |
-| [ABRicate](https://github.com/tseemann/abricate) / [AMRFinderPlus](https://github.com/ncbi/amr) | AMR detection |
-| [BLAST](https://blast.ncbi.nlm.nih.gov/) | Sequence similarity |
-| [IRMA](https://wonder.cdc.gov/amd/flu/irma/) | Influenza genome assembly |
+- **Workflow manager:** Snakemake
+- **Basecalling:** Guppy, Dorado (HAC / SUP models)
+- **Sequencing platforms:** Oxford Nanopore Technologies (MinION, PromethION)
+- **Languages:** Python 3, Bash
+- **Analysis libraries:** Pandas, NumPy, scikit-bio, SciPy, Matplotlib
 
-## Requirements
+## Setup
 
 ```bash
-conda create -n surveillance-pipelines -c bioconda -c conda-forge \
-    snakemake chopper nanoplot minimap2 samtools \
-    kraken2 bracken flye abricate ncbi-amrfinderplus \
-    blast irma python=3.11
+# Install Snakemake
+conda install -c bioconda snakemake
+
+# Navigate to a pipeline
+cd pipelines/aerobiome/
+# or
+cd pipelines/wetland-surveillance/
+
+# Edit configuration
+vi config.yaml
+
+# Dry run
+snakemake -n --cores 1
+
+# Run
+snakemake --cores 16
 ```
 
 ## Citation
 
-If you use or adapt these workflows, please cite:
+If you use or adapt these pipelines, please cite the corresponding publications:
 
-- **Reska T**, Pozdniakova S, Urban L. Air monitoring by nanopore sequencing. *ISME Communications* (2024)
-- Perlas A\*, **Reska T**\*, et al. Real-time genomic pathogen, resistance, and host range characterization from passive water sampling. *Preprint* (2025)
+- **Air study:** Reska T, Pozdniakova S, Urban L. "Air monitoring by nanopore sequencing." *ISME Communications* (2024). DOI: 10.1093/ismeco/ycae058
+- **Aquatic study:** Perlas A\*, Reska T\*, Sánchez-Cano A, et al. "Real-time genomic pathogen, resistance, and host range characterization from passive water sampling of wetland ecosystems." *Preprint* (2025).

@@ -1,164 +1,135 @@
 # =============================================================================
 # Wetland Surveillance Pipeline Configuration
 # =============================================================================
+# Publication II: Multi-omics water surveillance
+# Perlas A*, Reska T*, Sánchez-Cano A, et al. (2025)
+
+# -- Basecalling --------------------------------------------------------------
+basecalling:
+  model: "dna_r10.4.1_e8.2_400bps_sup@v5.0.0"   # Dorado SUP model
+
 
 # -- Samples ------------------------------------------------------------------
-# Each sample has both DNA and RNA FASTQ paths (dual extraction).
-# Passive membrane adsorption sampling from wetland ecosystems.
+# Passive membrane adsorption sampling from lentic wetland ecosystems.
+# Each sample has DNA (shotgun metagenomics) and RNA (virome + AIV WGS),
+# plus eDNA amplicon data.
+# 12 sites × 2 replicates = 24 samples across DE, FR, ES.
 samples:
-  # Germany — anthropogenic sites
   DE_anthro_01:
     dna: "data/raw/DE_anthro_01_dna.fastq.gz"
     rna: "data/raw/DE_anthro_01_rna.fastq.gz"
+    edna: "data/raw/DE_anthro_01_edna.fastq.gz"
     site: "de_anthropogenic"
     replicate: 1
-  DE_anthro_01_rep:
-    dna: "data/raw/DE_anthro_01_rep_dna.fastq.gz"
-    rna: "data/raw/DE_anthro_01_rep_rna.fastq.gz"
+  DE_anthro_02:
+    dna: "data/raw/DE_anthro_02_dna.fastq.gz"
+    rna: "data/raw/DE_anthro_02_rna.fastq.gz"
+    edna: "data/raw/DE_anthro_02_edna.fastq.gz"
     site: "de_anthropogenic"
     replicate: 2
 
-  # Germany — natural sites
   DE_nat_01:
     dna: "data/raw/DE_nat_01_dna.fastq.gz"
     rna: "data/raw/DE_nat_01_rna.fastq.gz"
+    edna: "data/raw/DE_nat_01_edna.fastq.gz"
     site: "de_natural"
     replicate: 1
-  DE_nat_01_rep:
-    dna: "data/raw/DE_nat_01_rep_dna.fastq.gz"
-    rna: "data/raw/DE_nat_01_rep_rna.fastq.gz"
+  DE_nat_02:
+    dna: "data/raw/DE_nat_02_dna.fastq.gz"
+    rna: "data/raw/DE_nat_02_rna.fastq.gz"
+    edna: "data/raw/DE_nat_02_edna.fastq.gz"
     site: "de_natural"
     replicate: 2
 
-  # France — anthropogenic
   FR_anthro_01:
     dna: "data/raw/FR_anthro_01_dna.fastq.gz"
     rna: "data/raw/FR_anthro_01_rna.fastq.gz"
+    edna: "data/raw/FR_anthro_01_edna.fastq.gz"
     site: "fr_anthropogenic"
     replicate: 1
-  FR_anthro_01_rep:
-    dna: "data/raw/FR_anthro_01_rep_dna.fastq.gz"
-    rna: "data/raw/FR_anthro_01_rep_rna.fastq.gz"
+  FR_anthro_02:
+    dna: "data/raw/FR_anthro_02_dna.fastq.gz"
+    rna: "data/raw/FR_anthro_02_rna.fastq.gz"
+    edna: "data/raw/FR_anthro_02_edna.fastq.gz"
     site: "fr_anthropogenic"
     replicate: 2
 
-  # France — natural
   FR_nat_01:
     dna: "data/raw/FR_nat_01_dna.fastq.gz"
     rna: "data/raw/FR_nat_01_rna.fastq.gz"
+    edna: "data/raw/FR_nat_01_edna.fastq.gz"
     site: "fr_natural"
     replicate: 1
-  FR_nat_01_rep:
-    dna: "data/raw/FR_nat_01_rep_dna.fastq.gz"
-    rna: "data/raw/FR_nat_01_rep_rna.fastq.gz"
+  FR_nat_02:
+    dna: "data/raw/FR_nat_02_dna.fastq.gz"
+    rna: "data/raw/FR_nat_02_rna.fastq.gz"
+    edna: "data/raw/FR_nat_02_edna.fastq.gz"
     site: "fr_natural"
     replicate: 2
 
-  # Spain — anthropogenic
   ES_anthro_01:
     dna: "data/raw/ES_anthro_01_dna.fastq.gz"
     rna: "data/raw/ES_anthro_01_rna.fastq.gz"
+    edna: "data/raw/ES_anthro_01_edna.fastq.gz"
     site: "es_anthropogenic"
     replicate: 1
-  ES_anthro_01_rep:
-    dna: "data/raw/ES_anthro_01_rep_dna.fastq.gz"
-    rna: "data/raw/ES_anthro_01_rep_rna.fastq.gz"
+  ES_anthro_02:
+    dna: "data/raw/ES_anthro_02_dna.fastq.gz"
+    rna: "data/raw/ES_anthro_02_rna.fastq.gz"
+    edna: "data/raw/ES_anthro_02_edna.fastq.gz"
     site: "es_anthropogenic"
     replicate: 2
 
-  # Spain — natural
   ES_nat_01:
     dna: "data/raw/ES_nat_01_dna.fastq.gz"
     rna: "data/raw/ES_nat_01_rna.fastq.gz"
+    edna: "data/raw/ES_nat_01_edna.fastq.gz"
     site: "es_natural"
     replicate: 1
-  ES_nat_01_rep:
-    dna: "data/raw/ES_nat_01_rep_dna.fastq.gz"
-    rna: "data/raw/ES_nat_01_rep_rna.fastq.gz"
+  ES_nat_02:
+    dna: "data/raw/ES_nat_02_dna.fastq.gz"
+    rna: "data/raw/ES_nat_02_rna.fastq.gz"
+    edna: "data/raw/ES_nat_02_edna.fastq.gz"
     site: "es_natural"
     replicate: 2
-
-
-# -- Study sites --------------------------------------------------------------
-study_sites:
-  de_anthropogenic:
-    label: "Germany — Anthropogenic"
-    country: "DE"
-    type: "anthropogenic"
-    coordinates: [48.15, 11.58]
-  de_natural:
-    label: "Germany — Natural"
-    country: "DE"
-    type: "natural"
-    coordinates: [47.95, 11.45]
-  fr_anthropogenic:
-    label: "France — Anthropogenic"
-    country: "FR"
-    type: "anthropogenic"
-    coordinates: [43.63, 1.44]
-  fr_natural:
-    label: "France — Natural"
-    country: "FR"
-    type: "natural"
-    coordinates: [43.55, 1.38]
-  es_anthropogenic:
-    label: "Spain — Anthropogenic"
-    country: "ES"
-    type: "anthropogenic"
-    coordinates: [41.39, 2.17]
-  es_natural:
-    label: "Spain — Natural"
-    country: "ES"
-    type: "natural"
-    coordinates: [41.32, 2.05]
-
-
-# -- Reference databases ------------------------------------------------------
-references:
-  host_genomes: "/databases/vertebrate_composite/vertebrate_ref.fa"
-  kraken2_db: "/databases/kraken2/k2_standard"
-  rrna_db: "/databases/silva/SILVA_138.1_SSURef.fasta"
-  viral_db: "/databases/ncbi_viral/viral_refseq"
-  vertebrate_barcodes: "/databases/edna/vertebrate_12S_cytb.fasta"
-  vertebrate_blast_db: "/databases/edna/vertebrate_blast"
-  aiv_reference: "/databases/aiv/influenza_A_segments.fasta"
-  pathogen_list: "resources/pathogen_database.tsv"
 
 
 # -- Quality control ----------------------------------------------------------
 qc:
-  min_quality: 8
-  min_length: 200
-  rna_min_quality: 7       # RNA is noisier, slightly lower threshold
-  rna_min_length: 150
+  metagenomics_min_quality: 9       # Shotgun metagenomics Q threshold
+  metagenomics_min_length: 100      # Shotgun minimum read length (bp)
+  aiv_min_quality: 8                # AIV WGS Q threshold
+  aiv_min_length: 150               # AIV WGS minimum read length (bp)
 
 
-# -- Taxonomy -----------------------------------------------------------------
-taxonomy:
-  kraken2_confidence: 0.1
-  bracken_read_length: 1000
-  bracken_threshold: 10
+# -- Read normalization -------------------------------------------------------
+normalization:
+  target_reads: 87000               # Subsampling depth for metagenomics
 
 
-# -- AMR detection ------------------------------------------------------------
-amr:
-  min_identity: 80
-  min_coverage: 60
+# -- Reference databases ------------------------------------------------------
+references:
+  kraken2_db: "/databases/kraken2/ncbi_nt_core"
+  ncbi_nt_core: "/databases/ncbi/nt_core.fasta"
+  diamond_nr_db: "/databases/diamond/nr.dmnd"
+  vfdb: "/databases/vfdb/VFDB_setB_pro.dmnd"
+  midori2_db: "/databases/midori2/MIDORI2_UNIQ_NUC_SP_GB266_srRNA_BLAST"
+  aiv_segment_refs: "/databases/aiv/european_aiv_segments.fasta"
+  gisaid_refs: "/databases/gisaid/aiv_ha_references.fasta"
 
 
-# -- Virome -------------------------------------------------------------------
-virome:
-  blast_evalue: 1e-10
-  max_target_seqs: 5
+# -- Pathogen identification --------------------------------------------------
+pathogen:
+  min_reads: 5                      # Minimum reads per species (CZID threshold)
+  min_contigs: 1                    # Minimum contigs per species
 
 
 # -- eDNA metabarcoding -------------------------------------------------------
 edna:
-  min_identity: 97        # High threshold for species-level assignment
-  min_alignment_length: 200
-
-
-# -- Avian influenza ----------------------------------------------------------
-aiv:
-  irma_module: "FLU-ONT"  # IRMA module for nanopore influenza data
-  min_reads_for_assembly: 50
+  ngsfilter: "resources/ngsfilter.tsv"
+  forward_primer: "ACTGGGATTAGATACCCCACTATG"     # MiFish-U forward
+  reverse_primer: "TAGAACAGGCTCCTCTAG"            # MiFish-U reverse
+  min_identity: 98                  # Minimum % identity for species assignment
+  min_query_coverage: 80            # Minimum % query coverage
+  min_reads: 5                      # Minimum reads per species
+  otu_identity: 97                  # OTU clustering threshold
