@@ -249,6 +249,8 @@ The evaluation methodology is designed to be **domain-agnostic**. To adapt it to
 
 > **Note for regulated environments:** This evaluation framework demonstrates the *type* of validation required before deploying AI-generated analytical workflows in GxP, CLIA, or ISO 17025-regulated settings. It is not itself a qualified validation protocol.
 
+> **Data Availability:** The raw prompt text and full model response logs referenced in this repository are available in the full evaluation dataset. This repository contains the methodology, scoring framework, aggregate results, and analysis scripts.
+
 ## Citation
 
 If you use this evaluation framework or reference these results, please cite:
