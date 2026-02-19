@@ -10,7 +10,7 @@
 
 ## Prompt Text
 
-> [PLACEHOLDER: insert exact prompt text]
+> *(Prompt text available in full evaluation dataset)*
 
 ## Expected Ground Truth Response
 
@@ -21,8 +21,8 @@
 
 ## Known Failure Modes Observed
 
-[PLACEHOLDER: document specific errors]
+*(Detailed failure analysis available in full evaluation dataset)*
 
 ## Notes
 
-[PLACEHOLDER]
+*(Additional notes available in full evaluation dataset)*

@@ -10,7 +10,7 @@
 
 ## Prompt Text
 
-> [PLACEHOLDER: insert exact prompt text as delivered to each model]
+> *(Prompt text available in full evaluation dataset)*
 
 ## Expected Ground Truth Response
 
@@ -29,7 +29,7 @@
 
 ## Known Failure Modes Observed
 
-[PLACEHOLDER: document specific errors each model made at this step]
+*(Detailed failure analysis available in full evaluation dataset)*
 
 ### Examples of expected failures:
 - Recommending Guppy (deprecated) or Albacore (discontinued)
