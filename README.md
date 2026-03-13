@@ -10,21 +10,35 @@ Links: [Email](mailto:timreska@gmail.com) | [LinkedIn](https://linkedin.com/in/t
 
 My work combines sampling strategy, nanopore sequencing, and reproducible bioinformatics for pathogen surveillance across air, water, food, and clinical settings. A second line of work examines whether large language models can produce bioinformatics workflows that remain scientifically valid beyond superficial code correctness.
 
+## Featured benchmark
+
+[`Against Plausibility: LLM Evaluation`](./llm-eval/) is a side project, but it is also the clearest benchmark in this repository for testing whether modern LLMs can build a real scientific workflow rather than just produce locally plausible code. It evaluates 28 entries across 196 scored step-results using a validated nanopore metagenomics pipeline as ground truth.
+
+The benchmark is designed around sequential failure: wrong tools, wrong parameters, broken output chaining, and analytically indefensible choices that look competent at first glance. That makes it relevant not only to bioinformatics, but also to AI labs, agent teams, and technical consultancies interested in workflow reliability rather than demo-level code generation.
+
 ## Repository context
 
 This repository is the polished personal counterpart to the broader [GenomicsForOneHealth](https://github.com/ttmgr/GenomicsForOneHealth) collection. The material here emphasizes project overviews, study-linked pipeline documentation, and benchmark interpretation, while the group repository retains collaborative project metadata, accession context, helper scripts, and wider One Health coverage.
 
 | Section | Scope | Connection |
 |:---|:---|:---|
+| [`llm-eval/`](./llm-eval/) | `Against Plausibility: LLM Evaluation` | Structured LLM benchmark for sequential scientific workflow construction |
 | [`pipelines/aerobiome/`](./pipelines/aerobiome/) | Air metagenomics pipeline overview | First-author workflow paired with the group repository's [Air Metagenomics](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics) study materials |
 | [`pipelines/wetland-surveillance/`](./pipelines/wetland-surveillance/) | Wetland multi-omics surveillance workflow | Shared first-author workflow paired with the group repository's [Wetland Health](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health) study materials |
 | [`pipelines/listeria-adaptive-sampling/`](./pipelines/listeria-adaptive-sampling/) | Food-safety adaptive sampling workflow overview | First-author project overview paired with the group repository's [Listeria Adaptive Sampling](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Food_Safety/Listeria-Adaptive-Sampling) pipeline scaffold |
-| [`llm-eval/`](./llm-eval/) | `Against Plausibility: LLM Evaluation` | Structured LLM evaluation benchmark using the validated air metagenomics workflow as ground truth |
 | [GenomicsForOneHealth](https://github.com/ttmgr/GenomicsForOneHealth) | Group-wide One Health pipeline collection | Environmental metagenomics, food safety, clinical, veterinary, eDNA, viability, and collaborative project infrastructure |
 
 Within the group collection, my main contributions are in environmental metagenomics and food safety: [Air Metagenomics](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics), [Wetland Health](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health), and [Listeria Adaptive Sampling](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Food_Safety/Listeria-Adaptive-Sampling).
 
 ## Selected projects
+
+### Against Plausibility: LLM Evaluation
+
+A structured LLM evaluation benchmark of 28 evaluated entries and 196 scored step-results across seven nanopore metagenomics workflow stages. The study uses the validated air metagenomics pipeline as ground truth and scores tool choice, parameter accuracy, output compatibility, scientific validity, and executability under sequential workflow construction.
+
+This benchmark is designed to expose a failure mode that matters in real technical deployments: outputs that are plausible at the single-step level but unstable, incompatible, or analytically wrong once chained into a full workflow.
+
+Links: [Pipeline overview](./llm-eval/) | [Evaluation framework](./llm-eval/methodology/evaluation_framework.md) | [Curated findings](./llm-eval/evaluations/summary.md) | [Reference pipeline](./pipelines/aerobiome/)
 
 ### Air monitoring by nanopore sequencing
 
@@ -46,12 +60,6 @@ Status: manuscript in preparation.
 
 Links: [Pipeline overview](./pipelines/listeria-adaptive-sampling/) | [Study repository and metadata](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Food_Safety/Listeria-Adaptive-Sampling)
 
-### Against Plausibility: LLM Evaluation
-
-A structured LLM evaluation benchmark of 28 evaluated entries and 196 scored step-results across seven nanopore metagenomics workflow stages. The study uses the validated air metagenomics pipeline as ground truth and evaluates tool choice, parameter accuracy, output compatibility, scientific validity, and executability under sequential workflow construction.
-
-Links: [Pipeline overview](./llm-eval/) | [Evaluation framework](./llm-eval/methodology/evaluation_framework.md) | [Reference pipeline](./pipelines/aerobiome/)
-
 ## Selected publications
 
 - Reska T, Pozdniakova S, Urban L. [Air monitoring by nanopore sequencing](https://doi.org/10.1093/ismeco/ycae058). *ISME Communications* (2024).
@@ -66,7 +74,7 @@ A fuller publication record is available on [Google Scholar](https://scholar.goo
 - Long-read sequencing workflows for environmental, food-safety, and clinical surveillance
 - Bioinformatics pipeline development in Snakemake, Python, and Bash
 - Taxonomic classification, de novo assembly, adaptive sampling, AMR detection, virome analysis, and eDNA metabarcoding
-- Benchmark design and failure analysis for LLM-generated scientific workflows
+- Benchmark design and failure analysis for LLM-generated scientific workflows and agentic pipeline construction
 
 ## Contact
 

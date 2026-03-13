@@ -2,6 +2,8 @@
 
 Project-linked nanopore and metagenomics workflows spanning environmental surveillance and food safety. This directory provides polished overview documentation for the main study pipelines in the personal repository; detailed accession context, helper scripts, and project-specific execution scaffolding remain linked from [GenomicsForOneHealth](https://github.com/ttmgr/GenomicsForOneHealth).
 
+The validated air pipeline in this directory is also the ground truth used in [`Against Plausibility: LLM Evaluation`](../llm-eval/), a scored benchmark for sequential scientific workflow generation by large language models.
+
 ---
 
 ## Pipelines

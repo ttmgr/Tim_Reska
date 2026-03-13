@@ -39,6 +39,24 @@ The dominant failure mode in this dataset is **plausible but wrong**: code that 
 - breaking output chaining between pipeline stages
 - omitting polishing, coverage mapping, or multi-level annotation steps that are required by the validated workflow
 
+## Practical Relevance
+
+This benchmark is useful beyond nanopore metagenomics because it measures a broader applied-LLM failure class: multi-step technical work that degrades under composition even when each individual answer looks reasonable.
+
+### Where it is useful
+
+- AI labs evaluating agent reliability on non-toy technical tasks
+- Scientific software teams testing whether model outputs remain valid across chained workflow steps
+- Technical consultancies assessing whether an LLM-generated workflow can survive expert review before client delivery
+- Benchmark designers who want a scored example of domain-grounded, state-carrying evaluation rather than isolated code snippets
+
+### What it tests that many coding benchmarks miss
+
+- whether the model respects domain-specific tool choices rather than generic popularity
+- whether outputs from one step are actually consumable by the next
+- whether local correctness survives across a seven-step workflow
+- whether apparent competence masks analytical failure
+
 ## Evaluation Framework Overview
 
 > **[Interactive flowchart →](flowchart.html)**
@@ -198,6 +216,13 @@ llm-eval/
 2. Use the prompt reconstructions in [`prompts/`](prompts/) to understand the public prompt shape.
 3. Use the scoring rubric in [`methodology/scoring_criteria.md`](methodology/scoring_criteria.md) to adapt the benchmark to another domain.
 4. Treat this repository as a scored benchmark artifact set, not as a raw transcript archive.
+
+### For applied AI teams and consultancies
+
+1. Use [`evaluations/summary.md`](evaluations/summary.md) to see where plausible outputs fail under domain review.
+2. Use [`results/tables/scoring_matrix.csv`](results/tables/scoring_matrix.csv) to inspect step-specific weaknesses by model family.
+3. Use [`methodology/evaluation_framework.md`](methodology/evaluation_framework.md) as a template for evaluating your own multi-step technical workflows.
+4. Use the aerobiome reference pipeline to compare benchmark behavior against a fully specified real workflow rather than a toy task.
 
 ### Reproducing derived outputs
 
