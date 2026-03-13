@@ -2,98 +2,84 @@
 
 ## Objective
 
-Assess whether current large language models can produce a correct, end-to-end nanopore metagenomics pipeline through conversational prompting — the way a scientist actually uses these tools.
+Assess whether current large language models can produce a correct, end-to-end nanopore metagenomics pipeline through sequential prompting in a way that preserves scientific validity across chained workflow stages.
 
-## Rationale: Sequential Evaluation
+## Why sequential evaluation is necessary
 
-### Why not isolated benchmarks?
+Standard code benchmarks evaluate isolated units. That misses the main failure surface of bioinformatics pipelines: **compositional correctness**. In a real workflow, each step constrains the next through file formats, assumptions, tool compatibility, and biological context.
 
-Standard code generation benchmarks test individual functions or scripts in isolation. This misses the core challenge of bioinformatics pipeline development: **compositional correctness**. A pipeline is not a collection of independent scripts — it is a directed acyclic graph of data transformations where each node's output format, content, and assumptions must match the next node's expectations.
+A model can therefore fail even when an individual command looks plausible:
 
-An LLM can produce a syntactically correct Kraken2 command yet fail because:
+- the basecalling output is not compatible with the downstream trimming step
+- the wrong Kraken2 database makes later taxonomic summaries misleading
+- the assembly choice invalidates binning assumptions
+- the annotation stage loses the read-level branch required by the validated pipeline
 
-- The input FASTQ was not quality-filtered, inflating false-positive classifications
-- The output format flag was omitted, breaking the downstream parsing step
-- The database path syntax was correct for an older Kraken2 version but not the current one
+These are chaining failures, not syntax failures.
 
-These are **chaining errors** — they are invisible when evaluating steps in isolation and only become apparent when the full pipeline is tested.
+## Protocol
 
-### The sequential prompting protocol
+### Ground truth
 
-Each model receives the same ordered sequence of prompts:
+The benchmark is anchored to the validated aerobiome workflow described in:
 
-1. **Step 1 prompt** — specifies the first pipeline step (basecalling), including the sequencing platform, kit, and data characteristics
-2. **Step 2 prompt** — specifies the next step, references the expected output from step 1, and asks the model to build on its previous response
-3. **Steps 3–7** — each subsequent prompt continues the chain
+> Reska T, Pozdniakova S, Urban L. *Air monitoring by nanopore sequencing*. ISME Communications (2024). DOI: [10.1093/ismeco/ycae058](https://doi.org/10.1093/ismeco/ycae058)
 
-This protocol tests:
+The public reference implementation is summarized in [`pipeline_reference.md`](pipeline_reference.md) and cross-linked to the local [`../pipelines/aerobiome/`](../pipelines/aerobiome/) workflow.
 
-- Whether the model maintains consistency across a multi-turn conversation
-- Whether tool selections at step N are compatible with outputs from step N-1
-- Whether the model catches and corrects its own errors when later context reveals them
-- Whether the model's knowledge of tool ecosystems is current and accurate
+### Stateless cumulative prompting
+
+This benchmark does **not** use one continuous conversation thread per model. Instead, it uses a stateless fresh-chat protocol:
+
+1. Individual steps are first evaluated in isolated fresh sessions.
+2. Integration prompts are then reconstructed cumulatively from the expected prior output state.
+3. The evaluator manually passes forward the output type and biological context required for the next step.
+4. Errors are not corrected before the next prompt, allowing upstream mistakes to propagate.
+
+This design isolates a specific scientific question: can a model preserve correctness when prior state must be carried forward explicitly rather than being rediscovered or silently repaired?
 
 ### Controls
 
-- **Same prompts across all models.** The exact prompt text for each step is recorded in `prompts/step_XX_*.md` and was identical across all models tested.
-- **No error correction.** If a model made an error at step N, the evaluator did not correct it before proceeding to step N+1. This tests error compounding.
-- **Single conversation thread.** Each model was tested in a single continuous conversation, not separate sessions per step.
+- **Prompt structure matched across evaluated entries.** Public prompt files document the reconstructed prompt shape for each step.
+- **No mid-benchmark correction.** Once an upstream error appears, it is preserved in the carried state.
+- **Five-dimensional scoring.** Each step is evaluated for tool selection, parameter accuracy, output compatibility, scientific validity, and executability.
 
 ## Scoring Dimensions
 
-### Why five dimensions?
-
-A bioinformatics pipeline can fail in qualitatively different ways. A single pass/fail score would conflate:
-
-- Choosing the wrong tool entirely (conceptual failure)
-- Choosing the right tool with wrong parameters (implementation failure)
-- Producing output that doesn't chain (integration failure)
-- Producing results that are scientifically misleading (validity failure)
-- Producing code that doesn't execute (practical failure)
-
-These failure modes have different causes, different consequences, and require different remediation. The five-dimension framework captures this.
-
 | Dimension | What it measures | Why it matters |
 |:----------|:-----------------|:---------------|
-| Tool Selection | Conceptual knowledge | Wrong tool = wrong analysis, regardless of parameters |
-| Parameter Accuracy | Implementation detail | Right tool, wrong parameters = subtly wrong results |
-| Output Compatibility | Integration awareness | Breaks the pipeline chain |
-| Scientific Validity | Domain expertise | Technically correct but scientifically wrong |
-| Executability | Practical utility | Code that doesn't run has zero value |
+| Tool Selection | Conceptual workflow choice | Wrong tool selection invalidates the analysis even if the code runs |
+| Parameter Accuracy | Domain-specific implementation detail | Correct tool with wrong flags can still produce misleading outputs |
+| Output Compatibility | File and pipeline chaining | A pipeline can fail even when every individual command is plausible |
+| Scientific Validity | Analytical defensibility | Fluency is not a substitute for domain judgment |
+| Executability | Practical utility | Non-running code is unusable regardless of analytical intent |
 
-See [`scoring_criteria.md`](scoring_criteria.md) for the full rubric with examples.
+The detailed rubric is in [`scoring_criteria.md`](scoring_criteria.md).
 
-## Ground Truth
+## Public Artifact Boundaries
 
-The reference pipeline is the published workflow from Reska et al. (2024), validated on Oxford Nanopore sequencing data from low-biomass environmental (air) samples. It was developed without LLM assistance and peer-reviewed.
+This repository contains:
 
-Key characteristics of the ground truth:
+- the validated reference workflow
+- reconstructed public prompt documents
+- the scored matrix in `results/tables/scoring_matrix.csv`
+- generated summaries and figures derived from that matrix
 
-- **Sequencing platform:** Oxford Nanopore Technologies (MinION / PromethION)
-- **Library prep:** Rapid Barcoding Kit (RBK114.24)
-- **Sample type:** Ultra-low biomass environmental air samples
-- **Data type:** Long-read (N50 typically > 1 kb)
+This repository does **not** contain:
 
-The complete reference pipeline with tool versions and parameters is documented in [`pipeline_reference.md`](pipeline_reference.md).
+- verbatim raw web-interface chat transcripts
+- a complete archive of raw model response logs
 
-## Limitations and Caveats
+The `responses/` directory is retained as a scaffold, but it is not a public transcript archive in the current checked-in tree.
 
-### Access method
+## Access Method
 
-All models were tested via their respective web interfaces (ChatGPT, Claude, Gemini). API-accessed models may behave differently due to:
+The evaluated outputs were collected through public interfaces rather than API-only execution environments. Results should therefore be interpreted as interface-level benchmark behavior rather than as a claim about any one provider's raw model endpoint under fixed API parameters.
 
-- Different system prompts
-- Different default temperature/sampling settings
-- Different context window handling
+## Limitations
 
-### Knowledge cutoff
-
-LLMs have training data cutoff dates. A model trained before a tool's release cannot be expected to recommend it. However, recommending a deprecated tool when current alternatives exist within the training window is a fair evaluation target.
-
-### Stochastic variation
-
-LLM outputs are non-deterministic. A single evaluation per model-step combination provides a point estimate, not a distribution. Results should be interpreted as "this model *can* produce this output" rather than "this model *will always* produce this output."
-
-### Scope
-
-This evaluation covers one specific pipeline type (nanopore shotgun metagenomics) for one specific sample type (low-biomass environmental). Generalization to other sequencing platforms, library types, or analytical goals requires additional evaluation.
+- **Single reference pipeline:** the benchmark covers one validated nanopore metagenomics workflow.
+- **Single-domain scope:** the results should not be generalized automatically to other sequencing modalities or analytical domains.
+- **Dated snapshot:** the scoring matrix reflects tested behavior at specific dates.
+- **Human scoring:** the rubric was applied by a single domain expert.
+- **Protocol dependence:** the benchmark measures performance under stateless state-carrying prompts; other prompting regimes may differ.

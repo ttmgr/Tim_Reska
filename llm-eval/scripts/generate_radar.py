@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-Generate radar charts comparing scoring dimensions across model families.
+Generate radar charts comparing scoring dimensions across longitudinal model families.
 
 Produces:
 1. Per-family radar chart showing average dimension scores across versions
-2. "First fully correct" comparison radar chart
-3. Step difficulty radar chart
+2. Step difficulty bar chart
+3. Version timeline for longitudinal core versions
 
 Usage:
     python scripts/generate_radar.py
@@ -34,6 +34,11 @@ FAMILY_STYLES = {
     "openai": {"color": "#10b981", "label": "OpenAI"},
     "claude": {"color": "#8b5cf6", "label": "Claude"},
     "gemini": {"color": "#f43f5e", "label": "Gemini"},
+}
+LONGITUDINAL_VERSION_ORDER = {
+    "openai": ["gpt4o", "o1_preview", "o1_mini", "o1", "o1_pro", "o3_mini", "o3_high", "o4_mini", "gpt5"],
+    "claude": ["sonnet_3.5", "sonnet_4", "sonnet_4.5", "haiku_4.5", "opus_4.5", "opus_4.6", "sonnet_4.6"],
+    "gemini": ["2.0_flash", "2.5_pro_preview", "2.5_flash", "2.5_pro_stable", "3_pro", "3_flash", "3.1_pro"],
 }
 
 
@@ -70,17 +75,17 @@ def radar_chart(ax, values_list, labels, colors, title):
 
 
 def plot_family_radars(df: pd.DataFrame, output_path: str):
-    """Radar chart: average score per dimension per model family."""
+    """Radar chart: average score per dimension for longitudinal family versions only."""
     fig, axes = plt.subplots(1, 3, figsize=(14, 5), subplot_kw={"projection": "polar"})
 
     for idx, (family, style) in enumerate(FAMILY_STYLES.items()):
         fam_df = df[df["model_family"] == family]
-        versions = fam_df["model_version"].unique()
+        versions = [ver for ver in LONGITUDINAL_VERSION_ORDER[family] if ver in set(fam_df["model_version"])]
 
         values_list = []
         labels = []
         n = len(versions)
-        cmap = plt.cm.get_cmap("viridis", max(n, 2))
+        cmap = plt.get_cmap("viridis", max(n, 2))
 
         for i, ver in enumerate(versions):
             ver_df = fam_df[fam_df["model_version"] == ver]
@@ -91,6 +96,8 @@ def plot_family_radars(df: pd.DataFrame, output_path: str):
         colors = [cmap(i / max(n - 1, 1)) for i in range(n)]
         radar_chart(axes[idx], values_list, labels, colors, style["label"])
 
+    fig.suptitle("Longitudinal Family Comparison (OpenAI, Claude, Gemini only)",
+                 fontsize=12, fontweight="bold", color="#1e293b", y=1.04)
     plt.tight_layout()
     fig.savefig(output_path, dpi=200, bbox_inches="tight", facecolor="white")
     print(f"Family radars saved to {output_path}")
@@ -133,7 +140,8 @@ def plot_step_difficulty(df: pd.DataFrame, output_path: str):
     ax.set_yticklabels([f"{s}. {step_names.get(s, '')}" for s in steps], fontsize=9)
     ax.set_xlim(0, 1.05)
     ax.set_xlabel("Average Composite Score (all models)", fontsize=9)
-    ax.set_title("Step Difficulty Ranking", fontsize=12, fontweight="bold", color="#1e293b", pad=12)
+    ax.set_title("Step Difficulty Ranking (all 28 evaluated entries)",
+                 fontsize=12, fontweight="bold", color="#1e293b", pad=12)
     ax.invert_yaxis()
 
     for bar, score in zip(bars, scores):
@@ -155,23 +163,17 @@ def plot_version_timeline(df: pd.DataFrame, output_path: str):
     """Line chart: composite score over model versions (chronological) per family."""
     fig, ax = plt.subplots(figsize=(12, 5))
 
-    version_order = {
-        "openai": ["gpt4o", "o1_preview", "o1_mini", "o1", "o1_pro", "o3_mini", "o3_high", "o4_mini", "gpt5"],
-        "claude": ["sonnet_3.5", "sonnet_4", "sonnet_4.5", "haiku_4.5", "opus_4.5", "opus_4.6"],
-        "gemini": ["2.0_flash", "2.5_pro_preview", "2.5_flash", "2.5_pro_stable", "3_pro", "3_flash"],
-    }
-
     version_labels = {
         "gpt4o": "GPT-4o", "o1_preview": "o1-prev", "o1_mini": "o1-mini", "o1": "o1",
         "o1_pro": "o1-pro", "o3_mini": "o3-mini", "o3_high": "o3", "o4_mini": "o4-mini", "gpt5": "GPT-5",
         "sonnet_3.5": "S3.5", "sonnet_4": "S4", "sonnet_4.5": "S4.5",
-        "haiku_4.5": "H4.5", "opus_4.5": "Op4.5", "opus_4.6": "Op4.6",
+        "haiku_4.5": "H4.5", "opus_4.5": "Op4.5", "opus_4.6": "Op4.6", "sonnet_4.6": "S4.6",
         "2.0_flash": "2.0F", "2.5_pro_preview": "2.5PP", "2.5_flash": "2.5F",
-        "2.5_pro_stable": "2.5P", "3_pro": "3P", "3_flash": "3F",
+        "2.5_pro_stable": "2.5P", "3_pro": "3P", "3_flash": "3F", "3.1_pro": "3.1P",
     }
 
     for family, style in FAMILY_STYLES.items():
-        versions = version_order.get(family, [])
+        versions = LONGITUDINAL_VERSION_ORDER.get(family, [])
         x_vals = []
         y_vals = []
         for i, ver in enumerate(versions):
@@ -203,7 +205,7 @@ def plot_version_timeline(df: pd.DataFrame, output_path: str):
     ax.set_ylim(0.3, 1.08)
     ax.set_ylabel("Average Composite Score", fontsize=9)
     ax.set_xlabel("Model Version (chronological within family)", fontsize=9)
-    ax.set_title("LLM Performance Trajectory: Nanopore Metagenomics Pipeline Generation",
+    ax.set_title("Longitudinal Performance Trajectory (OpenAI, Claude, Gemini core versions)",
                  fontsize=11, fontweight="bold", color="#1e293b", pad=12)
     ax.legend(fontsize=8, frameon=False, loc="lower right")
 

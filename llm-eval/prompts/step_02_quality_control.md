@@ -4,24 +4,36 @@
 
 - **Step Number:** 2
 - **Step Name:** Quality control and read statistics
-- **Objective:** Generate quality metrics and read length distributions to verify successful basecalling and filtering
-- **Context Provided:** Output from step 1 (basecalled, filtered FASTQ files)
-- **Constraints:** Must accept FASTQ input; should produce visual/summary reports
+- **Objective:** Generate read-level quality summaries and length distributions without modifying the filtered FASTQ
+- **Context Provided:** Output from step 1 is already basecalled, trimmed, and filtered FASTQ
+- **Constraints:** Must accept nanopore FASTQ input and produce reports rather than a transformed dataset
+
+## Provenance Note
+
+The prompt text below is a reconstruction derived from the preserved metadata, the aerobiome reference pipeline, and the scored notes in `results/tables/scoring_matrix.csv`. It is not a verbatim export of the original chat prompt.
 
 ## Prompt Text
 
-> *(Prompt text available in full evaluation dataset)*
+> The reads have already been basecalled, adapter-trimmed, and filtered. Write the QC step for this nanopore metagenomics workflow. Use nanopore-appropriate tools to summarize read quality, read length distribution, and N50, and keep the data unchanged so the same FASTQ can proceed to the next analytical stage.
 
 ## Expected Ground Truth Response
 
-**Tool:** NanoPlot or NanoStat (not explicitly specified in publication; this is an implicit QC step)
-**Key parameters:** Standard nanopore QC metrics — read length distribution, quality scores, N50
-**Output format:** QC reports (HTML/PNG/TSV); no data transformation — FASTQ passes through unchanged
+**Tool:** NanoPlot or NanoStat
+
+**Critical outputs:**
+- read length distribution
+- quality score summary
+- N50 and related nanopore-specific run metrics
+
+**Output format:** HTML, image, or tabular QC reports; the FASTQ remains unchanged
 
 ## Known Failure Modes Observed
 
-*(Detailed failure analysis available in full evaluation dataset)*
+- Recommending FastQC as the primary QC tool
+- Ignoring nanopore-specific metrics and reporting only generic read counts
+- Treating QC as an additional filtering step rather than an assessment step
+- Returning a command that changes the data instead of generating reports
 
 ## Notes
 
-*(Additional notes available in full evaluation dataset)*
+This step is comparatively easy for modern systems. In the current matrix, 21 of 28 evaluated entries are fully correct here.

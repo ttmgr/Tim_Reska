@@ -4,26 +4,39 @@
 
 - **Step Number:** 7
 - **Step Name:** Functional annotation
-- **Objective:** Annotate assembled contigs or MAGs with gene predictions, functional categories, and resistance/virulence genes
-- **Context Provided:** Output from steps 5–6 (assembly FASTA and/or binned FASTA)
-- **Constraints:** Must handle metagenomic (multi-organism) input; should include specialized screening (AMR, virulence)
+- **Objective:** Annotate reads, contigs, and bins for AMR and virulence features in a way that preserves the multi-level design of the validated workflow
+- **Context Provided:** Assembly and binning outputs from prior stages, plus the existence of the original read branch
+- **Constraints:** Must support metagenomic input and include specialized AMR / virulence logic rather than only general-purpose annotation
+
+## Provenance Note
+
+The prompt text below is a reconstruction derived from the preserved metadata, the aerobiome reference pipeline, and the scored notes in `results/tables/scoring_matrix.csv`. It is not a verbatim export of the original chat prompt.
 
 ## Prompt Text
 
-> *(Prompt text available in full evaluation dataset)*
+> Write the functional annotation stage for this nanopore metagenomics workflow. The answer should cover antimicrobial resistance and virulence screening, preserve the validated multi-level design of the pipeline, and note any required file-format conversion steps needed to apply the tools at the read level as well as to contigs and bins.
 
 ## Expected Ground Truth Response
 
 **AMR detection:** AMRFinderPlus v3.12.8
-**Resistance/virulence screening:** ABRicate v1.0.1
-**Format conversion:** seqkit v2.8.2 (FASTQ → FASTA for read-level application)
-**Key parameters:** Applied at three levels — reads, contigs, and bins
-**Output format:** AMR gene tables + virulence factor reports per level
+
+**Virulence / resistance screening:** ABRicate v1.0.1
+
+**Critical design details:**
+- annotation is applied to reads, contigs, and bins
+- read-level screening requires FASTQ → FASTA conversion with `seqkit`
+- the answer should preserve the fact that AMR and virulence screening are not confined to contigs alone
+
+**Output format:** AMR and virulence result tables for the relevant levels
 
 ## Known Failure Modes Observed
 
-*(Detailed failure analysis available in full evaluation dataset)*
+- Restricting annotation to contigs only
+- Omitting read-level screening entirely
+- Missing the `seqkit` conversion step for read-level AMRFinderPlus use
+- Recommending only Prokka or Bakta without AMR-focused screening
+- Returning AMR logic without the virulence-screening branch
 
 ## Notes
 
-*(Additional notes available in full evaluation dataset)*
+Functional annotation ties together whether the model has preserved the full pipeline state. In the current matrix, only 9 of 28 evaluated entries are fully correct at this stage.

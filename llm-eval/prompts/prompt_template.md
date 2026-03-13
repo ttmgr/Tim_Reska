@@ -1,29 +1,54 @@
-# Prompt Template
+# Prompt Documentation Template
 
-Use this format for documenting each standardized prompt used in the evaluation.
+Use this file as the structure for public prompt documentation in this repository.
 
----
+## Required sections
 
-## Metadata
+### Metadata
 
-- **Step Number:** [e.g., 1]
-- **Step Name:** [e.g., Basecalling, adapter trimming, and length filtering]
-- **Objective:** [What this step should accomplish]
-- **Context Provided:** [What information about previous steps was included in the prompt]
-- **Constraints:** [Any specific requirements or limitations stated in the prompt]
+Document the following fields explicitly:
 
-## Prompt Text
+- Step number
+- Step name
+- Objective
+- Context provided to the model
+- Constraints imposed on the response
 
-> [Exact prompt text as delivered to the model, verbatim]
+### Provenance note
 
-## Expected Ground Truth Response
+State whether the prompt text is:
 
-**Tool:** [Expected tool]
-**Key parameters:** [Critical parameters the model should include]
-**Output format:** [Expected output that chains to the next step]
+- a verbatim preserved prompt, or
+- a reconstruction derived from metadata, the reference pipeline, and scored notes
 
-See [`methodology/pipeline_reference.md`](../methodology/pipeline_reference.md) for the full reference.
+For the current public `llm-eval` repository, reconstructed prompts should be labeled clearly as reconstructions.
 
-## Notes
+### Prompt text
 
-[Any observations about prompt design, ambiguity, or edge cases]
+Write the exact public prompt block shown to readers. If the original verbatim chat prompt is unavailable, provide a concise reconstruction that preserves:
+
+- the biological context
+- the expected input object
+- the output required for the next pipeline stage
+- any critical constraints such as ONT chemistry, database choice, or file-format expectations
+
+### Expected ground truth response
+
+Summarize:
+
+- expected tools
+- critical parameters
+- expected output format
+- any acceptable alternatives that still preserve scientific validity
+
+### Known failure modes observed
+
+List the dominant failure patterns actually observed in the matrix notes. Focus on recurring analytical mistakes rather than one-off phrasing issues.
+
+### Notes
+
+Capture any prompt-specific caveats, such as:
+
+- whether the step was explicit or implicit in the published workflow
+- whether scientifically acceptable alternatives exist
+- whether this stage is unusually sensitive to upstream state poisoning
