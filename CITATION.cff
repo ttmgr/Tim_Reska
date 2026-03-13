@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-title: "Systematic Evaluation of Large Language Models for Nanopore Metagenomics Pipeline Development"
+title: "Against Plausibility: LLM Evaluation"
 message: "If you use this evaluation framework or reference these results, please cite as below."
 type: software
 authors:
@@ -8,8 +8,8 @@ authors:
     affiliation: "Helmholtz Munich & Technical University of Munich"
     orcid: ""
 date-released: "2025-01-01"
-url: "https://github.com/ttmgr/TR"
-repository-code: "https://github.com/ttmgr/TR"
+url: "https://github.com/ttmgr/Tim_Reska"
+repository-code: "https://github.com/ttmgr/Tim_Reska"
 license: MIT
 keywords:
   - large language models
@@ -20,6 +20,9 @@ keywords:
   - AI safety
   - scientific code generation
   - pipeline development
+  - workflow reliability
+  - stateful evaluation
+  - AI agents
 
 references:
   - type: article

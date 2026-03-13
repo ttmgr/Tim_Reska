@@ -10,6 +10,19 @@ From: Perlas A\*, Reska T\*, et al. — *Preprint* (2025)
 
 This pipeline implements an integrated One Health surveillance framework for wetland ecosystems. It processes **dual-extracted DNA and RNA** from passive water samplers through **four parallel analysis tracks**, combining untargeted community characterization with targeted pathogen and viral detection.
 
+## Study Access and Field Context
+
+- Public sequencing project for metagenomic, virome, and 12S data: [ENA PRJEB96272](https://www.ebi.ac.uk/ena/browser/view/PRJEB96272)
+- Avian influenza assemblies are linked to GISAID record `EPI4628641` and require an authorized account for retrieval.
+- Sampling covered 12 wetlands across Germany, France, and Spain using torpedo passive samplers, with two replicate samples per site and site labels encoded as `[Country][Environment][Number]`.
+- The paired group repository retains the full sample-to-barcode mapping, site descriptions, and workflow-specific navigation for shotgun metagenomics, RNA viromics, 12S vertebrate metabarcoding, and AIV whole-genome sequencing.
+
+## Related Project Materials
+
+- [Study repository and metadata](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health)
+- [Sample information and barcoding scheme](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health#sample-information-and-barcoding-scheme)
+- [Usage workflow by analysis track](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health#usage-workflow)
+
 ## Tool Stack
 
 All tools and versions match those used in the publication:
@@ -155,6 +168,8 @@ snakemake --cores 16
 # 4. Outputs in results/
 ls results/metagenomics/ results/virome/ results/edna/ results/aiv/
 ```
+
+For the full sample sheet, barcoding scheme, site descriptions, and original workflow navigation across all four tracks, consult the paired [GenomicsForOneHealth Wetland Health repository](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health).
 
 ## Study Design
 

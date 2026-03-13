@@ -10,6 +10,20 @@ From: Reska T, Pozdniakova S, Urban L — *ISME Communications* (2024)
 
 This pipeline performs shotgun metagenomic analysis of air samples collected via active liquid impingement. It is specifically designed for **ultra-low biomass (ULB)** environments where maximizing DNA recovery from sparse material is the primary methodological challenge.
 
+## Study Access and Execution Context
+
+- Public sequencing project: [ENA PRJNA1063692](https://www.ebi.ac.uk/ena/browser/view/PRJNA1063692)
+- Dataset-specific preprocessing differs across sub-studies. The greenhouse pilot started from FAST5 data processed with Guppy, whereas the urban campaign used POD5 inputs processed with Dorado.
+- The paired group repository documents the study-specific data access, preprocessing requirements, installation notes, and execution workflow that sit around this validated pipeline overview.
+
+## Related Project Materials
+
+- [Study repository and metadata](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics)
+- [Dataset-specific basecalling notes](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics/duplex_basecalling)
+- [Taxonomic and functional annotation notes](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics/Taxonomic_and_functional_annotation)
+- [Auxiliary Bash scripts](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics/bash_scripts)
+- [Auxiliary Python scripts](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics/Python_Scripts)
+
 ## Tool Stack
 
 All tools and versions match those used in the publication:
@@ -100,6 +114,8 @@ snakemake --cores 16
 # 4. Outputs in results/
 ls results/taxonomy/ results/assembly/ results/amr/ results/community/
 ```
+
+For study-specific raw-data access, preprocessing, and the original helper-script layout, consult the paired [GenomicsForOneHealth Air Metagenomics repository](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics).
 
 ## Key Design Decisions
 
