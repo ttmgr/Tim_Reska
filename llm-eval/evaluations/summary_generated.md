@@ -1,74 +1,97 @@
 # Aggregated Scoring Results
 
-*Auto-generated from `scoring_matrix.csv`*
+*Auto-generated from `results/tables/scoring_matrix.csv`.*
 
+## Dataset Scope
 
-## First Fully Correct Pipeline per Model Family
+- Evaluated entries: 28
+- Scored step-results: 196
+- Pipeline steps: 7
 
-- **Openai:** gpt5
-- **Claude:** opus_4.5
-- **Gemini:** 3_pro
+## First Fully Correct Pipeline per Family
 
-## Steps Ranked by Difficulty (lowest average score first)
+- **OpenAI:** GPT-5
+- **Claude:** Opus 4.5
+- **Gemini:** Gemini 3 Pro
+- **Google:** Gemini Deep Research
+- **DeepSeek:** None
+- **Zhipu:** None
 
-| Rank | Step | Avg Score |
-|:-----|:-----|:----------|
-| 1 | 6. binning | 0.54 |
-| 2 | 7. functional_annotation | 0.61 |
-| 3 | 5. assembly | 0.61 |
-| 4 | 1. basecalling | 0.66 |
-| 5 | 3. host_depletion | 0.74 |
-| 6 | 4. taxonomic_classification | 0.84 |
-| 7 | 2. quality_control | 0.91 |
+## Steps Ranked by Difficulty
 
-## Most Common Failure Mode per Step
+| Rank | Step | Average Composite Score |
+|:-----|:-----|------------------------:|
+| 1 | 6. binning | 0.59 |
+| 2 | 7. functional annotation | 0.62 |
+| 3 | 5. assembly | 0.62 |
+| 4 | 1. basecalling | 0.69 |
+| 5 | 3. host depletion | 0.75 |
+| 6 | 4. taxonomic classification | 0.84 |
+| 7 | 2. quality control | 0.89 |
 
+## Dominant Non-Correct Labels by Step
 
-**Step 1:**
-  - tool_selection: A (8×)
-  - parameter_accuracy: P (11×)
-  - output_compatibility: F (4×)
-  - scientific_validity: Q (8×)
-  - executability: M (8×)
+### Step 1: Basecalling
 
-**Step 2:**
-  - tool_selection: A (3×)
-  - parameter_accuracy: P (5×)
-  - output_compatibility: F (1×)
-  - scientific_validity: Q (4×)
-  - executability: N (1×)
+- `tool_selection`: A (8x)
+- `parameter_accuracy`: P (12x)
+- `output_compatibility`: F (5x)
+- `scientific_validity`: Q (9x)
+- `executability`: M (9x)
 
-**Step 3:**
-  - tool_selection: I (3×)
-  - parameter_accuracy: P (8×)
-  - output_compatibility: F (4×)
-  - scientific_validity: Q (9×)
-  - executability: N (4×)
+### Step 2: Quality Control
 
-**Step 4:**
-  - tool_selection: A (3×)
-  - parameter_accuracy: P (8×)
-  - output_compatibility: F (3×)
-  - scientific_validity: Q (7×)
-  - executability: N (2×)
+- `tool_selection`: A (3x)
+- `parameter_accuracy`: P (5x)
+- `output_compatibility`: F (2x)
+- `scientific_validity`: Q (4x)
+- `executability`: N (2x)
 
-**Step 5:**
-  - tool_selection: A (6×)
-  - parameter_accuracy: P (10×)
-  - output_compatibility: F (9×)
-  - scientific_validity: Q (9×)
-  - executability: M (10×)
+### Step 3: Host Depletion
 
-**Step 6:**
-  - tool_selection: A (10×)
-  - parameter_accuracy: P (12×)
-  - output_compatibility: F (12×)
-  - scientific_validity: Q (11×)
-  - executability: N (6×)
+- `tool_selection`: I (4x)
+- `parameter_accuracy`: P (9x)
+- `output_compatibility`: F (5x)
+- `scientific_validity`: Q (10x)
+- `executability`: N (5x)
 
-**Step 7:**
-  - tool_selection: A (10×)
-  - parameter_accuracy: P (11×)
-  - output_compatibility: F (5×)
-  - scientific_validity: Q (16×)
-  - executability: M (7×)
+### Step 4: Taxonomic Classification
+
+- `tool_selection`: A (3x)
+- `parameter_accuracy`: P (9x)
+- `output_compatibility`: F (4x)
+- `scientific_validity`: Q (7x)
+- `executability`: N (3x)
+
+### Step 5: Assembly
+
+- `tool_selection`: A (6x)
+- `parameter_accuracy`: P (10x)
+- `output_compatibility`: F (11x)
+- `scientific_validity`: Q (9x)
+- `executability`: M (10x)
+
+### Step 6: Binning
+
+- `tool_selection`: A (10x)
+- `parameter_accuracy`: P (13x)
+- `output_compatibility`: F (13x)
+- `scientific_validity`: Q (12x)
+- `executability`: N (7x)
+
+### Step 7: Functional Annotation
+
+- `tool_selection`: A (10x)
+- `parameter_accuracy`: P (11x)
+- `output_compatibility`: F (7x)
+- `scientific_validity`: Q (16x)
+- `executability`: N (7x)
+
+## Family Coverage
+
+- **OpenAI (10):** GPT-4o | o1-preview | o1-mini | o1 | o1-pro | o3-mini | o3 (high reasoning) | o4-mini | GPT-5 | ChatGPT Deep Research
+- **Claude (8):** Sonnet 3.5 | Sonnet 4 | Sonnet 4.5 | Haiku 4.5 | Opus 4.5 | Opus 4.6 | Sonnet 4.6 | Claude Deep Research
+- **Gemini (7):** Gemini 2.0 Flash | Gemini 2.5 Pro Preview | Gemini 2.5 Flash | Gemini 2.5 Pro | Gemini 3 Pro | Gemini 3 Flash | Gemini 3.1 Pro
+- **Google (1):** Gemini Deep Research
+- **DeepSeek (1):** DeepSeek V3
+- **Zhipu (1):** GLM-5

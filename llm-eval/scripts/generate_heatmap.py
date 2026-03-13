@@ -4,22 +4,20 @@ Generate a scoring heatmap from the evaluation matrix.
 
 Reads results/tables/scoring_matrix.csv and produces a heatmap with:
 - X-axis: pipeline steps
-- Y-axis: model versions (grouped by family)
+- Y-axis: evaluated entries
 - Color: composite score (green = correct, yellow = partial, red = incorrect)
-
-Usage:
-    python scripts/generate_heatmap.py
 """
+
+from __future__ import annotations
 
 import sys
 from pathlib import Path
 
-import pandas as pd
-import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+import matplotlib.pyplot as plt
 import numpy as np
-
-# --- Configuration ---
+import pandas as pd
+from matplotlib.colors import LinearSegmentedColormap
 
 SCORE_MAP = {
     "tool_selection": {"C": 1.0, "A": 0.5, "I": 0.0},
@@ -30,7 +28,6 @@ SCORE_MAP = {
 }
 
 DIMENSIONS = list(SCORE_MAP.keys())
-
 STEP_LABELS = {
     1: "Basecalling",
     2: "QC",
@@ -40,31 +37,43 @@ STEP_LABELS = {
     6: "Binning",
     7: "Annotation",
 }
-
-MODEL_ORDER = [
-    ("openai", "gpt4o"),
-    ("openai", "o1_preview"),
-    ("openai", "o1_mini"),
-    ("openai", "o1"),
-    ("openai", "o1_pro"),
-    ("openai", "o3_mini"),
-    ("openai", "o3_high"),
-    ("openai", "o4_mini"),
-    ("openai", "gpt5"),
-    ("claude", "sonnet_3.5"),
-    ("claude", "sonnet_4"),
-    ("claude", "sonnet_4.5"),
-    ("claude", "haiku_4.5"),
-    ("claude", "opus_4.5"),
-    ("claude", "opus_4.6"),
-    ("gemini", "2.0_flash"),
-    ("gemini", "2.5_pro_preview"),
-    ("gemini", "2.5_flash"),
-    ("gemini", "2.5_pro_stable"),
-    ("gemini", "3_pro"),
-    ("gemini", "3_flash"),
-]
-
+FAMILY_ORDER = ["openai", "claude", "gemini", "google", "deepseek", "zhipu"]
+VERSION_ORDER = {
+    "openai": [
+        "gpt4o",
+        "o1_preview",
+        "o1_mini",
+        "o1",
+        "o1_pro",
+        "o3_mini",
+        "o3_high",
+        "o4_mini",
+        "gpt5",
+        "chatgpt_deep_research",
+    ],
+    "claude": [
+        "sonnet_3.5",
+        "sonnet_4",
+        "sonnet_4.5",
+        "haiku_4.5",
+        "opus_4.5",
+        "opus_4.6",
+        "sonnet_4.6",
+        "deep_research",
+    ],
+    "gemini": [
+        "2.0_flash",
+        "2.5_pro_preview",
+        "2.5_flash",
+        "2.5_pro_stable",
+        "3_pro",
+        "3_flash",
+        "3.1_pro",
+    ],
+    "google": ["gemini_deep_research"],
+    "deepseek": ["v3"],
+    "zhipu": ["glm_5"],
+}
 MODEL_LABELS = {
     ("openai", "gpt4o"): "GPT-4o",
     ("openai", "o1_preview"): "o1-preview",
@@ -75,164 +84,180 @@ MODEL_LABELS = {
     ("openai", "o3_high"): "o3 (high)",
     ("openai", "o4_mini"): "o4-mini",
     ("openai", "gpt5"): "GPT-5",
+    ("openai", "chatgpt_deep_research"): "Deep Research",
     ("claude", "sonnet_3.5"): "Sonnet 3.5",
     ("claude", "sonnet_4"): "Sonnet 4",
     ("claude", "sonnet_4.5"): "Sonnet 4.5",
     ("claude", "haiku_4.5"): "Haiku 4.5",
     ("claude", "opus_4.5"): "Opus 4.5",
     ("claude", "opus_4.6"): "Opus 4.6",
+    ("claude", "sonnet_4.6"): "Sonnet 4.6",
+    ("claude", "deep_research"): "Deep Research",
     ("gemini", "2.0_flash"): "2.0 Flash",
     ("gemini", "2.5_pro_preview"): "2.5 Pro Prev",
     ("gemini", "2.5_flash"): "2.5 Flash",
     ("gemini", "2.5_pro_stable"): "2.5 Pro",
     ("gemini", "3_pro"): "3 Pro",
     ("gemini", "3_flash"): "3 Flash",
+    ("gemini", "3.1_pro"): "3.1 Pro",
+    ("google", "gemini_deep_research"): "Gemini Deep Research",
+    ("deepseek", "v3"): "DeepSeek V3",
+    ("zhipu", "glm_5"): "GLM-5",
+}
+FAMILY_LABELS = {
+    "openai": "OpenAI",
+    "claude": "Claude",
+    "gemini": "Gemini",
+    "google": "Google",
+    "deepseek": "DeepSeek",
+    "zhipu": "Zhipu",
 }
 
-FAMILY_COLORS = {
-    "openai": "#e8e8e8",
-    "claude": "#f0f0f0",
-    "gemini": "#e8e8e8",
-}
 
-
-def load_scores(csv_path: str) -> pd.DataFrame:
-    """Load scoring matrix, skipping rows with no scores."""
+def load_scores(csv_path: Path) -> pd.DataFrame:
     df = pd.read_csv(csv_path)
+    for dim in DIMENSIONS:
+        df[dim] = df[dim].astype(str).str.strip()
+    df["step_number"] = df["step_number"].astype(int)
     return df
 
 
-def compute_composite(row: pd.Series):
-    """Compute mean numeric score across all dimensions. Returns None if any dimension is missing."""
+def composite_score(row: pd.Series) -> float | None:
     values = []
     for dim in DIMENSIONS:
-        raw = row.get(dim)
-        if pd.isna(raw) or str(raw).strip() == "":
-            return None
-        score = SCORE_MAP[dim].get(str(raw).strip().upper())
+        raw = str(row.get(dim, "")).strip().upper()
+        score = SCORE_MAP[dim].get(raw)
         if score is None:
             return None
         values.append(score)
-    return np.mean(values) if values else None
+    return float(np.mean(values))
 
 
-def build_matrix(df: pd.DataFrame):
-    """Build 2D score matrix (models × steps)."""
+def ordered_models(df: pd.DataFrame) -> list[tuple[str, str]]:
+    present = set(zip(df["model_family"], df["model_version"]))
+    ordered = []
+    for family in FAMILY_ORDER:
+        for version in VERSION_ORDER.get(family, []):
+            key = (family, version)
+            if key in present:
+                ordered.append(key)
+    ordered.extend(sorted(present - set(ordered)))
+    return ordered
+
+
+def build_matrix(df: pd.DataFrame) -> tuple[np.ndarray, list[str], list[str], list[tuple[str, int, int]]]:
+    models = ordered_models(df)
     steps = sorted(df["step_number"].unique())
-    n_models = len(MODEL_ORDER)
-    n_steps = len(steps)
+    matrix = np.full((len(models), len(steps)), np.nan)
 
-    matrix = np.full((n_models, n_steps), np.nan)
-
-    for i, (family, version) in enumerate(MODEL_ORDER):
+    for row_idx, key in enumerate(models):
+        family, version = key
         subset = df[(df["model_family"] == family) & (df["model_version"] == version)]
         for _, row in subset.iterrows():
-            step_idx = steps.index(row["step_number"])
-            score = compute_composite(row)
+            step_idx = steps.index(int(row["step_number"]))
+            score = composite_score(row)
             if score is not None:
-                matrix[i, step_idx] = score
+                matrix[row_idx, step_idx] = score
 
-    y_labels = [MODEL_LABELS.get(m, f"{m[0]}/{m[1]}") for m in MODEL_ORDER]
-    x_labels = [STEP_LABELS.get(s, f"Step {s}") for s in steps]
+    family_spans = []
+    start = 0
+    while start < len(models):
+        family = models[start][0]
+        end = start
+        while end + 1 < len(models) and models[end + 1][0] == family:
+            end += 1
+        family_spans.append((family, start, end))
+        start = end + 1
 
-    return matrix, y_labels, x_labels
+    y_labels = [MODEL_LABELS.get(model, f"{model[0]}/{model[1]}") for model in models]
+    x_labels = [STEP_LABELS.get(step, f"Step {step}") for step in steps]
+    return matrix, y_labels, x_labels, family_spans
 
 
-def plot_heatmap(matrix, y_labels, x_labels, output_path):
-    """Generate and save the heatmap."""
-    fig, ax = plt.subplots(figsize=(10, 14))
+def plot_heatmap(matrix: np.ndarray, y_labels: list[str], x_labels: list[str],
+                 family_spans: list[tuple[str, int, int]], output_path: Path) -> None:
+    fig_height = max(14, len(y_labels) * 0.45)
+    fig, ax = plt.subplots(figsize=(10, fig_height))
 
-    # Custom colormap: red → yellow → green
-    from matplotlib.colors import LinearSegmentedColormap
-    colors_list = ["#e74c3c", "#f39c12", "#2ecc71"]
-    cmap = LinearSegmentedColormap.from_list("score", colors_list, N=256)
-    cmap.set_bad(color="#f5f5f5")  # light gray for missing data
-
-    # Mask NaN values
+    cmap = LinearSegmentedColormap.from_list(
+        "score",
+        ["#e74c3c", "#f39c12", "#2ecc71"],
+        N=256,
+    )
+    cmap.set_bad(color="#f5f5f5")
     masked = np.ma.masked_invalid(matrix)
+    ax.imshow(masked, cmap=cmap, aspect="auto", vmin=0, vmax=1)
 
-    im = ax.imshow(masked, cmap=cmap, aspect="auto", vmin=0, vmax=1)
-
-    # Axes
     ax.set_xticks(range(len(x_labels)))
-    ax.set_xticklabels(x_labels, fontsize=9, ha="center")
+    ax.set_xticklabels(x_labels, fontsize=9)
     ax.set_yticks(range(len(y_labels)))
     ax.set_yticklabels(y_labels, fontsize=9)
 
-    # Family group labels on the right
-    families = [m[0] for m in MODEL_ORDER]
-    prev_family = None
-    family_spans = []
-    start = 0
-    for i, f in enumerate(families):
-        if f != prev_family:
-            if prev_family is not None:
-                family_spans.append((prev_family, start, i - 1))
-            start = i
-            prev_family = f
-    family_spans.append((prev_family, start, len(families) - 1))
-
     ax2 = ax.twinx()
     ax2.set_ylim(ax.get_ylim())
-    ax2.set_yticks([(s + e) / 2 for _, s, e in family_spans])
-    ax2.set_yticklabels([f.capitalize() for f, _, _ in family_spans], fontsize=10,
-                        fontweight="bold")
+    ax2.set_yticks([(start + end) / 2 for _, start, end in family_spans])
+    ax2.set_yticklabels(
+        [FAMILY_LABELS.get(family, family.title()) for family, _, _ in family_spans],
+        fontsize=10,
+        fontweight="bold",
+    )
 
-    # Grid
     for i in range(len(y_labels) + 1):
-        ax.axhline(i - 0.5, color="white", linewidth=1.5)
+        ax.axhline(i - 0.5, color="white", linewidth=1.2)
     for j in range(len(x_labels) + 1):
-        ax.axvline(j - 0.5, color="white", linewidth=1.5)
+        ax.axvline(j - 0.5, color="white", linewidth=1.2)
 
-    # Score text in cells
+    for _, start, end in family_spans:
+        ax.axhline(start - 0.5, color="#cbd5e1", linewidth=2)
+        ax.axhline(end + 0.5, color="#cbd5e1", linewidth=2)
+
     for i in range(matrix.shape[0]):
         for j in range(matrix.shape[1]):
-            val = matrix[i, j]
-            if np.isnan(val):
-                ax.text(j, i, "—", ha="center", va="center", fontsize=9, color="#999")
+            value = matrix[i, j]
+            if np.isnan(value):
+                ax.text(j, i, "—", ha="center", va="center", fontsize=8, color="#94a3b8")
             else:
-                text_color = "white" if val < 0.4 else ("black" if val > 0.7 else "black")
-                ax.text(j, i, f"{val:.1f}", ha="center", va="center", fontsize=9,
-                        fontweight="bold", color=text_color)
+                color = "white" if value < 0.35 else "black"
+                ax.text(j, i, f"{value:.1f}", ha="center", va="center", fontsize=8,
+                        fontweight="bold", color=color)
 
-    # Legend
-    legend_patches = [
+    legend = [
         mpatches.Patch(color="#2ecc71", label="Correct (1.0)"),
         mpatches.Patch(color="#f39c12", label="Partial (0.5)"),
         mpatches.Patch(color="#e74c3c", label="Incorrect (0.0)"),
         mpatches.Patch(color="#f5f5f5", label="Not evaluated"),
     ]
-    ax.legend(handles=legend_patches, loc="upper left", bbox_to_anchor=(0, -0.08),
+    ax.legend(handles=legend, loc="upper left", bbox_to_anchor=(0, -0.07),
               ncol=4, fontsize=8, frameon=False)
 
-    ax.set_title("LLM Nanopore Metagenomics Pipeline Evaluation", fontsize=13,
-                 fontweight="bold", pad=15)
-    ax.set_xlabel("Pipeline Step", fontsize=10, labelpad=10)
+    ax.set_title(
+        f"LLM Nanopore Metagenomics Pipeline Evaluation ({len(y_labels)} evaluated entries)",
+        fontsize=13,
+        fontweight="bold",
+        pad=16,
+    )
+    ax.set_xlabel("Pipeline Step", fontsize=10, labelpad=8)
 
     plt.tight_layout()
     fig.savefig(output_path, dpi=200, bbox_inches="tight", facecolor="white")
-    print(f"Heatmap saved to {output_path}")
-    plt.close()
+    plt.close(fig)
 
 
-def main():
+def main() -> int:
     repo_root = Path(__file__).resolve().parent.parent
     csv_path = repo_root / "results" / "tables" / "scoring_matrix.csv"
     output_path = repo_root / "results" / "figures" / "scoring_heatmap.png"
 
     if not csv_path.exists():
-        print(f"Error: {csv_path} not found.")
-        sys.exit(1)
+        print(f"Error: {csv_path} not found.", file=sys.stderr)
+        return 1
 
-    df = load_scores(str(csv_path))
-    matrix, y_labels, x_labels = build_matrix(df)
-
-    # Check if there is any data to plot
-    if np.all(np.isnan(matrix)):
-        print("No scores found in the matrix. Generating empty heatmap template.")
-
-    plot_heatmap(matrix, y_labels, x_labels, str(output_path))
+    df = load_scores(csv_path)
+    matrix, y_labels, x_labels, family_spans = build_matrix(df)
+    plot_heatmap(matrix, y_labels, x_labels, family_spans, output_path)
+    print(f"Heatmap saved to {output_path}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

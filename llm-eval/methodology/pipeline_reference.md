@@ -2,6 +2,8 @@
 
 Ground truth pipeline for nanopore shotgun metagenomics of low-biomass environmental samples. All tools, versions, and parameters are from the validated workflow published in Reska et al. (2024), *ISME Communications*. DOI: [10.1093/ismeco/ycae058](https://doi.org/10.1093/ismeco/ycae058)
 
+The command blocks below use schematic filenames such as `filtered.fastq` and `assembly/assembly.fasta`, but database paths are grounded to the concrete defaults used in the local aerobiome workflow (`../pipelines/aerobiome/config.yaml` and `../pipelines/aerobiome/Snakefile`).
+
 **Sequencing context:**
 - Platform: Oxford Nanopore Technologies (MinION)
 - Kit: Rapid Barcoding Kit (RBK114.24)
@@ -144,7 +146,7 @@ This step was implicit in the published pipeline — QC was performed as part of
 - Not differentiating between report format and per-read output format
 
 ```bash
-kraken2 --db /path/to/ncbi_nt \
+kraken2 --db /databases/kraken2/ncbi_nt \
   --threads 16 \
   --report sample_report.txt \
   --output sample_output.txt \
