@@ -1,10 +1,10 @@
-# Systematic Evaluation of Large Language Models for Nanopore Metagenomics Pipeline Development
+# Against Plausibility: LLM Evaluation
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ## Purpose
 
-This repository documents a structured evaluation of large language models for their ability to generate a scientifically valid nanopore metagenomics pipeline through sequential prompting.
+Against Plausibility: LLM Evaluation documents a structured study of whether large language models can generate a scientifically valid nanopore metagenomics pipeline through sequential workflow construction.
 
 The benchmark is anchored to a published ground-truth workflow for low-biomass air metagenomics and scores each response across five dimensions: tool selection, parameter accuracy, output compatibility, scientific validity, and executability.
 

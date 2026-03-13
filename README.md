@@ -1,6 +1,6 @@
 # Tim Reska
 
-PhD researcher in genomics and bioinformatics working on One Health genomic surveillance, long-read metagenomics, and evaluation of large language models for scientific pipeline development.
+PhD researcher in genomics and bioinformatics working on One Health genomic surveillance, long-read metagenomics, food-safety sequencing, and large language model evaluation for scientific workflow construction.
 
 Affiliation: Helmholtz Munich and the Technical University of Munich, Munich, Germany. I also contribute to the broader [GenomicsForOneHealth](https://github.com/ttmgr/GenomicsForOneHealth) collection developed by the One Health group under the supervision of [Lara Urban](https://sites.google.com/view/urban-lab/home). As described in that repository, the group is based at the University of Zurich and its Food Safety and One Health Institutes, with affiliations to Helmholtz AI.
 
@@ -12,14 +12,15 @@ My work combines sampling strategy, nanopore sequencing, and reproducible bioinf
 
 ## Repository context
 
-This repository contains project-focused material from the same research program represented more broadly in [GenomicsForOneHealth](https://github.com/ttmgr/GenomicsForOneHealth).
+This repository is the polished personal counterpart to the broader [GenomicsForOneHealth](https://github.com/ttmgr/GenomicsForOneHealth) collection. The material here emphasizes project overviews, study-linked pipeline documentation, and benchmark interpretation, while the group repository retains collaborative project metadata, accession context, helper scripts, and wider One Health coverage.
 
 | Section | Scope | Connection |
 |:---|:---|:---|
-| [`pipelines/aerobiome/`](./pipelines/aerobiome/) | Air metagenomics workflow | First-author pipeline corresponding to the group repository's [Air Metagenomics](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics) workflow |
-| [`pipelines/wetland-surveillance/`](./pipelines/wetland-surveillance/) | Wetland multi-omics surveillance workflow | Shared first-author pipeline corresponding to the group repository's [Wetland Health](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health) workflow |
-| [`llm-eval/`](./llm-eval/) | Evaluation framework for large language model-generated nanopore metagenomics pipelines | Uses the validated air metagenomics workflow as the reference pipeline |
-| [GenomicsForOneHealth](https://github.com/ttmgr/GenomicsForOneHealth) | Group-wide One Health pipeline collection | Includes the broader environmental metagenomics, food safety, clinical, veterinary, eDNA, and viability workflows |
+| [`pipelines/aerobiome/`](./pipelines/aerobiome/) | Air metagenomics pipeline overview | First-author workflow paired with the group repository's [Air Metagenomics](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics) study materials |
+| [`pipelines/wetland-surveillance/`](./pipelines/wetland-surveillance/) | Wetland multi-omics surveillance workflow | Shared first-author workflow paired with the group repository's [Wetland Health](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health) study materials |
+| [`pipelines/listeria-adaptive-sampling/`](./pipelines/listeria-adaptive-sampling/) | Food-safety adaptive sampling workflow overview | First-author project overview paired with the group repository's [Listeria Adaptive Sampling](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Food_Safety/Listeria-Adaptive-Sampling) pipeline scaffold |
+| [`llm-eval/`](./llm-eval/) | `Against Plausibility: LLM Evaluation` | Structured LLM evaluation benchmark using the validated air metagenomics workflow as ground truth |
+| [GenomicsForOneHealth](https://github.com/ttmgr/GenomicsForOneHealth) | Group-wide One Health pipeline collection | Environmental metagenomics, food safety, clinical, veterinary, eDNA, viability, and collaborative project infrastructure |
 
 Within the group collection, my main contributions are in environmental metagenomics and food safety: [Air Metagenomics](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics), [Wetland Health](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health), and [Listeria Adaptive Sampling](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Food_Safety/Listeria-Adaptive-Sampling).
 
@@ -27,27 +28,29 @@ Within the group collection, my main contributions are in environmental metageno
 
 ### Air monitoring by nanopore sequencing
 
-First-author workflow for long-read metagenomic characterization of bioaerosol communities collected by liquid impingement. The pipeline covers basecalling, quality control, taxonomic classification, de novo assembly, metagenomic binning, and functional annotation.
+First-author workflow for long-read metagenomic characterization of bioaerosol communities collected by liquid impingement. The personal repository documents the validated pipeline structure, while the paired group repository retains accession context, preprocessing notes, helper scripts, and execution details tied to the published study.
 
-Links: [Local workflow](./pipelines/aerobiome/) | [Group workflow](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics) | [Publication](https://doi.org/10.1093/ismeco/ycae058)
+Links: [Pipeline overview](./pipelines/aerobiome/) | [Study repository and metadata](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics) | [Publication](https://doi.org/10.1093/ismeco/ycae058)
 
 ### Real-time genomic pathogen, resistance, and host range characterization from passive water sampling of wetland ecosystems
 
-Shared first-author workflow integrating DNA shotgun metagenomics, RNA viromics, avian influenza whole-genome sequencing, and vertebrate eDNA metabarcoding across 12 wetlands in Germany, France, and Spain along the East Atlantic Flyway.
+Shared first-author workflow integrating DNA shotgun metagenomics, RNA viromics, avian influenza whole-genome sequencing, and vertebrate eDNA metabarcoding across 12 wetlands in Germany, France, and Spain along the East Atlantic Flyway. The local overview emphasizes analytical design; the group repository retains sample mapping, accession references, and workflow-specific operational context.
 
-Links: [Local workflow](./pipelines/wetland-surveillance/) | [Group workflow](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health) | [Preprint](https://doi.org/10.1101/2025.09.05.674394)
+Links: [Pipeline overview](./pipelines/wetland-surveillance/) | [Study repository and metadata](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health) | [Preprint](https://doi.org/10.1101/2025.09.05.674394)
 
 ### Listeria adaptive sampling
 
-First-author food-safety workflow for nanopore adaptive sampling of *Listeria monocytogenes* from complex samples. In the group repository, this project is listed under the [Food Safety](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Food_Safety) section and described as a publication in preparation.
+First-author food-safety workflow for Oxford Nanopore adaptive sampling of *Listeria monocytogenes* from complex microbiome samples. The personal repository provides a project-level analytical overview, while the group repository retains the full script scaffold, installation notes, execution guide, and adaptation details for matched adaptive-sampling versus native-run comparisons.
 
-Links: [Group workflow](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Food_Safety/Listeria-Adaptive-Sampling) | [Food Safety overview](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Food_Safety)
+Status: manuscript in preparation.
 
-### Systematic evaluation of large language models for nanopore metagenomics pipeline development
+Links: [Pipeline overview](./pipelines/listeria-adaptive-sampling/) | [Study repository and metadata](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Food_Safety/Listeria-Adaptive-Sampling)
 
-A structured benchmark of 22 model versions across 7 pipeline stages, using the published air metagenomics workflow as ground truth. The emphasis is on scientific validity, parameter choice, and compatibility between sequential workflow steps rather than isolated code snippets.
+### Against Plausibility: LLM Evaluation
 
-Links: [Study](./llm-eval/) | [Evaluation framework](./llm-eval/methodology/evaluation_framework.md) | [Reference pipeline](./pipelines/aerobiome/)
+A structured LLM evaluation benchmark of 28 evaluated entries and 196 scored step-results across seven nanopore metagenomics workflow stages. The study uses the validated air metagenomics pipeline as ground truth and evaluates tool choice, parameter accuracy, output compatibility, scientific validity, and executability under sequential workflow construction.
+
+Links: [Pipeline overview](./llm-eval/) | [Evaluation framework](./llm-eval/methodology/evaluation_framework.md) | [Reference pipeline](./pipelines/aerobiome/)
 
 ## Selected publications
 
@@ -62,8 +65,8 @@ A fuller publication record is available on [Google Scholar](https://scholar.goo
 
 - Long-read sequencing workflows for environmental, food-safety, and clinical surveillance
 - Bioinformatics pipeline development in Snakemake, Python, and Bash
-- Taxonomic classification, de novo assembly, AMR detection, virome analysis, and eDNA metabarcoding
-- Benchmark design and failure analysis for large language model-generated scientific code
+- Taxonomic classification, de novo assembly, adaptive sampling, AMR detection, virome analysis, and eDNA metabarcoding
+- Benchmark design and failure analysis for LLM-generated scientific workflows
 
 ## Contact
 
