@@ -20,6 +20,8 @@ The benchmark is designed around sequential failure: wrong tools, wrong paramete
 
 This repository is the polished personal counterpart to the broader [GenomicsForOneHealth](https://github.com/ttmgr/GenomicsForOneHealth) collection. The material here emphasizes project overviews, study-linked pipeline documentation, and benchmark interpretation, while the group repository retains collaborative project metadata, accession context, helper scripts, and wider One Health coverage.
 
+If you need to decide across the wider group collection rather than the curated subset here, use the canonical [GenomicsForOneHealth Pipeline Selector](https://ttmgr.github.io/GenomicsForOneHealth/).
+
 | Section | Scope | Connection |
 |:---|:---|:---|
 | [`llm-eval/`](./llm-eval/) | `Against Plausibility: LLM Evaluation` | Structured LLM benchmark for sequential scientific workflow construction |
