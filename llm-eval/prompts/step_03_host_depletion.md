@@ -6,7 +6,7 @@
 - **Step Name:** Host/human DNA depletion
 - **Objective:** Remove host-associated reads if present, while preserving compatibility with the downstream metagenomics workflow
 - **Context Provided:** Filtered FASTQ input from steps 1 and 2; environmental air sample context is preserved
-- **Constraints:** Must use long-read-aware alignment logic and return a FASTQ suitable for downstream classification and assembly
+- **Constraints:** Must account for the low-host environmental air context, use long-read-aware alignment logic if depletion is shown, and return a FASTQ suitable for downstream classification and assembly
 
 ## Provenance Note
 
@@ -15,6 +15,13 @@ The prompt text below is a reconstruction derived from the preserved metadata, t
 ## Prompt Text
 
 > The current input is nanopore FASTQ from low-biomass environmental air samples. Write the host-depletion step that would be appropriate before downstream taxonomic classification and assembly. If this step may not be necessary for this sample type, say so explicitly, but still show what a defensible long-read host-depletion command would look like.
+
+## Benchmark-Critical Constraints
+
+- Host depletion was not required in the validated environmental air workflow.
+- If host depletion is shown, it must use long-read-aware mapping logic rather than short-read aligners.
+- The output must remain a downstream-compatible FASTQ, or the answer must justify passing the original FASTQ through unchanged.
+- The host-depletion decision needs to preserve sample-context reasoning for the later taxonomy and assembly steps.
 
 ## Expected Ground Truth Response
 

@@ -6,7 +6,7 @@
 - **Step Name:** Binning and MAG quality assessment
 - **Objective:** Group contigs into MAGs and assess completeness and contamination using thresholds appropriate to low-biomass environmental data
 - **Context Provided:** Polished assembly plus the need to preserve compatibility with the prior assembly output
-- **Constraints:** Must include binning and quality-assessment logic, and must reflect the low-biomass thresholding used in the validated workflow
+- **Constraints:** Must include ensemble binning plus quality-assessment logic, and must reflect the low-biomass thresholding used in the validated workflow
 
 ## Provenance Note
 
@@ -15,6 +15,13 @@ The prompt text below is a reconstruction derived from the preserved metadata, t
 ## Prompt Text
 
 > Write the binning stage for the assembled nanopore metagenomics contigs. Use an approach appropriate for environmental mixed-community data, include MAG quality assessment, and choose completeness and contamination thresholds that are defensible for low-biomass air samples rather than high-coverage isolate genomes.
+
+## Benchmark-Critical Constraints
+
+- The validated workflow uses metaWRAP ensemble binning rather than a single standalone binning tool.
+- Quality assessment is required and is performed with CheckM.
+- Low-biomass air samples use permissive MAG thresholds: at least 30% completeness and at most 10% contamination.
+- The answer should preserve the expected order of coverage estimation, binning/refinement, and quality assessment so later annotation remains compatible.
 
 ## Expected Ground Truth Response
 
@@ -39,4 +46,4 @@ The prompt text below is a reconstruction derived from the preserved metadata, t
 
 ## Notes
 
-Binning has the lowest average composite score in the current matrix (`0.59`). It remains the clearest separator between code fluency and workflow-level scientific reasoning.
+Binning has the lowest average composite score in the current matrix (`0.59`). Coverage estimation, binning order, and threshold choice remain common failure points.

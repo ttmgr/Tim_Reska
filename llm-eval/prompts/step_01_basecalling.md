@@ -6,7 +6,7 @@
 - **Step Name:** Basecalling, adapter trimming, and length filtering
 - **Objective:** Convert raw nanopore signals into basecalled, adapter-trimmed, quality-filtered FASTQ reads that can be used for downstream QC, taxonomy, assembly, and annotation
 - **Context Provided:** First step in the workflow; the model is told the sequencing platform, ONT chemistry, kit, and that the samples are low-biomass environmental air samples
-- **Constraints:** Must produce runnable commands, preserve long-read context, and return filtered FASTQ output for the next stage
+- **Constraints:** Must preserve the RBK114.24 long-read context, use HAC-mode basecalling logic, and return filtered FASTQ output for the next stage
 
 ## Provenance Note
 
@@ -14,7 +14,14 @@ The prompt text below is a reconstruction derived from the preserved metadata, t
 
 ## Prompt Text
 
-> I am building a nanopore metagenomics workflow for ultra-low biomass environmental air samples generated with Oxford Nanopore chemistry R10.4.1 and the Rapid Barcoding Kit RBK114.24. Write the command sequence for the first processing stage: basecalling, adapter trimming, and quality/length filtering. Use tools appropriate for nanopore long reads, specify the critical model or preset, and make sure the output is a filtered FASTQ that can be passed into downstream QC and taxonomic classification.
+> I am building a nanopore metagenomics workflow for ultra-low biomass environmental air samples generated with the Rapid Barcoding Kit RBK114.24. Write the command sequence for the first processing stage: basecalling, adapter trimming, and quality/length filtering. Use tools appropriate for nanopore long reads, specify the required HAC model or preset, and make sure the output is a filtered FASTQ that can be passed into downstream QC and taxonomic classification.
+
+## Benchmark-Critical Constraints
+
+- Preserve the RBK114.24 kit context.
+- Use HAC-mode basecalling with the kit-appropriate model rather than a generic or chemistry-agnostic preset.
+- Preserve the three-stage handoff of basecalling, adapter trimming, and quality/length filtering.
+- End with filtered FASTQ output that can pass directly into the QC and taxonomic-classification steps.
 
 ## Expected Ground Truth Response
 
@@ -41,4 +48,4 @@ The prompt text below is a reconstruction derived from the preserved metadata, t
 
 ## Notes
 
-This is one of the most important steps in the benchmark because later stages inherit every assumption made here. In the current matrix, 17 of 28 evaluated entries are not fully correct at this stage.
+Later stages inherit the output and parameter choices made here. In the current matrix, 17 of 28 evaluated entries are not fully correct at this stage.

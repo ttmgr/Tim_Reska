@@ -8,6 +8,8 @@ Against Plausibility: LLM Evaluation documents a structured study of whether lar
 
 The benchmark is anchored to a published ground-truth workflow for low-biomass air metagenomics and scores each response across five dimensions: tool selection, parameter accuracy, output compatibility, scientific validity, and executability.
 
+The public prompt files in this repository are reconstructed documentation artifacts rather than raw chat exports. Score-relevant constraints from the benchmark setup are documented in those files. This clarification does not change the scoring matrix, rubric outcomes, or rankings.
+
 ## Dataset Scope
 
 - Evaluated entries: 28
@@ -106,6 +108,8 @@ This design tests compositional correctness rather than isolated command recall.
 ### Public prompt documentation
 
 The prompt files in [`prompts/`](prompts/) are **reconstructions** derived from the preserved metadata, the validated ground truth, and the scored notes in the matrix. They are not verbatim exports of the original web-interface chats.
+
+Where the evaluation setup made a score-relevant constraint explicit, the reconstructed prompt documentation records it directly. This includes details such as database choice, output-chaining requirements, and low-biomass thresholding.
 
 ## Models Evaluated
 

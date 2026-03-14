@@ -6,7 +6,7 @@
 - **Step Name:** Taxonomic classification of reads
 - **Objective:** Assign taxonomic labels to nanopore reads and produce outputs that support downstream community analysis
 - **Context Provided:** Filtered FASTQ from the earlier stages, with host-depletion status made explicit
-- **Constraints:** Must produce both report-level and read-level outputs and must use a database choice appropriate to the validated workflow
+- **Constraints:** Must use Kraken2 against the full NCBI nt database, produce both report-level and read-level outputs, and preserve the cross-sample comparison context
 
 ## Provenance Note
 
@@ -14,7 +14,14 @@ The prompt text below is a reconstruction derived from the preserved metadata, t
 
 ## Prompt Text
 
-> Write the taxonomic classification step for nanopore metagenomic reads from low-biomass air samples. The command should produce a per-read classification output and a summary report. Use a database choice that is appropriate to the validated workflow and note any additional handling needed for cross-sample comparison.
+> Write the taxonomic classification step for nanopore metagenomic reads from low-biomass air samples. Use Kraken2 with the full NCBI nt database, produce both a per-read classification output and a summary report, and note any additional handling needed for cross-sample comparison.
+
+## Benchmark-Critical Constraints
+
+- The classification database is the full NCBI nt database, not Kraken2 Standard or PlusPF.
+- The answer must preserve both output branches: a summary report and a per-read classification file.
+- Note the phase-specific downsampling used for downstream cross-sample community comparison.
+- Keep the answer within a practical long-read metagenomics classification workflow rather than a generic BLAST-style suggestion.
 
 ## Expected Ground Truth Response
 
@@ -36,4 +43,4 @@ The prompt text below is a reconstruction derived from the preserved metadata, t
 
 ## Notes
 
-Taxonomic classification is no longer the primary bottleneck for stronger entries in the matrix, but database choice and output chaining still separate merely plausible answers from correct ones.
+Database choice and output chaining remain common sources of non-correct answers at this step.
