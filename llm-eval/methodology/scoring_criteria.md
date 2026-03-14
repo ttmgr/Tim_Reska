@@ -2,6 +2,8 @@
 
 Rubric for evaluating LLM-generated nanopore metagenomics pipeline steps. Each dimension uses a three-level scale with concrete examples specific to nanopore long-read metagenomics.
 
+The rubric is applied against the benchmark setup as documented in the reconstructed prompt files and the validated reference pipeline. Score-relevant constraints that were explicit in the evaluated setup are treated as carried benchmark constraints. Clarifying those prompt documents does not change the scoring matrix, rankings, or rubric outcomes.
+
 ---
 
 ## 1. Tool Selection
@@ -18,7 +20,7 @@ Does the model recommend the appropriate tool for Oxford Nanopore long-read data
 
 - Recommending **short-read tools** (FastQC, Trimmomatic, MEGAHIT, SPAdes) for long-read data
 - Recommending **deprecated ONT tools** (Albacore, older Guppy versions with incorrect syntax)
-- Recommending tools that exist but are **inappropriate for metagenomics** (e.g., Canu for metagenomic assembly — designed for isolate genomes)
+- Recommending tools that exist but are **inappropriate for metagenomics** (e.g., Canu for metagenomic assembly, which is designed for isolate genomes)
 - **Hallucinating tools** that do not exist
 
 ---
@@ -74,7 +76,7 @@ Are the analytical choices defensible for this data type and experimental contex
 
 ### What this dimension captures
 
-This dimension tests **domain expertise**, not just tool knowledge. A model might select the right tool with correct parameters, producing code that runs — but the analytical approach is wrong for the biological question or data type.
+This dimension tests **domain expertise**, not just tool knowledge. A model might select the right tool with correct parameters and produce code that runs, but the analytical approach can still be wrong for the biological question or data type.
 
 ---
 

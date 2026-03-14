@@ -6,7 +6,7 @@
 - **Step Name:** Metagenomic assembly
 - **Objective:** Assemble nanopore metagenomic reads into polished contigs suitable for binning and annotation
 - **Context Provided:** Long-read FASTQ input from the earlier steps, plus the fact that the data are mixed-community and ultra-low biomass
-- **Constraints:** Must use a long-read metagenome-aware assembler and include polishing
+- **Constraints:** Must use a long-read metagenome-aware assembler for high-quality nanopore metagenomic reads and include explicit polishing
 
 ## Provenance Note
 
@@ -14,7 +14,14 @@ The prompt text below is a reconstruction derived from the preserved metadata, t
 
 ## Prompt Text
 
-> Write the assembly stage for this nanopore low-biomass metagenomics workflow. Use a long-read assembler appropriate for mixed-community data, include the required polishing strategy, and return a polished assembly that can be used for binning and downstream annotation.
+> Write the assembly stage for this nanopore low-biomass metagenomics workflow. Use a long-read metagenome-aware assembler for high-quality nanopore metagenomic reads, then polish the assembly in three iterative rounds using read overlaps. Return a polished assembly that can be used for binning and downstream annotation.
+
+## Benchmark-Critical Constraints
+
+- The assembly is performed with Flye/MetaFlye in metagenomic mode (`--meta`) rather than isolate or short-read assembly logic.
+- The validated read flag corresponds to HAC-basecalled reads in `--nano-hq` mode.
+- Polishing uses minimap2 plus Racon for three rounds.
+- The output must remain a polished assembly suitable for direct handoff into the binning stage.
 
 ## Expected Ground Truth Response
 

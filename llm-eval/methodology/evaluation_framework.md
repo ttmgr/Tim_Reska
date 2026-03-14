@@ -41,6 +41,7 @@ This design isolates a specific scientific question: can a model preserve correc
 ### Controls
 
 - **Prompt structure matched across evaluated entries.** Public prompt files document the reconstructed prompt shape for each step.
+- **Benchmark-critical constraints preserved.** Score-relevant constraints that were explicit in the benchmark setup are documented in the reconstructed public prompt files.
 - **No mid-benchmark correction.** Once an upstream error appears, it is preserved in the carried state.
 - **Five-dimensional scoring.** Each step is evaluated for tool selection, parameter accuracy, output compatibility, scientific validity, and executability.
 
@@ -71,6 +72,8 @@ This repository does **not** contain:
 - a complete archive of raw model response logs
 
 The `responses/` directory is retained as a scaffold, but it is not a public transcript archive in the current checked-in tree.
+
+The prompt reconstructions are benchmark documentation, not transcript surrogates. When the evaluated setup made a score-relevant requirement explicit, the public prompt files record that requirement. This documentation clarification does not modify the matrix, rankings, or rubric outcomes.
 
 ## Access Method
 

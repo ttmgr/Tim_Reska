@@ -6,7 +6,7 @@
 - **Step Name:** Functional annotation
 - **Objective:** Annotate reads, contigs, and bins for AMR and virulence features in a way that preserves the multi-level design of the validated workflow
 - **Context Provided:** Assembly and binning outputs from prior stages, plus the existence of the original read branch
-- **Constraints:** Must support metagenomic input and include specialized AMR / virulence logic rather than only general-purpose annotation
+- **Constraints:** Must support metagenomic input, preserve the read/contig/bin multi-level design, and include specialized AMR / virulence logic rather than only general-purpose annotation
 
 ## Provenance Note
 
@@ -14,7 +14,14 @@ The prompt text below is a reconstruction derived from the preserved metadata, t
 
 ## Prompt Text
 
-> Write the functional annotation stage for this nanopore metagenomics workflow. The answer should cover antimicrobial resistance and virulence screening, preserve the validated multi-level design of the pipeline, and note any required file-format conversion steps needed to apply the tools at the read level as well as to contigs and bins.
+> Write the functional annotation stage for this nanopore metagenomics workflow. Cover antimicrobial resistance and virulence screening across reads, contigs, and bins, and include any required file-format conversion needed for read-level screening as well as the contig- and bin-level branches.
+
+## Benchmark-Critical Constraints
+
+- The validated workflow keeps the annotation design multi-level across reads, contigs, and bins.
+- Read-level AMR screening requires FASTQ to FASTA conversion with `seqkit` before AMRFinderPlus.
+- AMRFinderPlus and ABRicate are both required to preserve the validated AMR and virulence branches.
+- Answers that collapse the workflow to contigs only or to general-purpose annotation tools are not faithful to the benchmarked design.
 
 ## Expected Ground Truth Response
 

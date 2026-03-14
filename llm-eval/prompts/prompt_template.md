@@ -32,6 +32,20 @@ Write the exact public prompt block shown to readers. If the original verbatim c
 - the output required for the next pipeline stage
 - any critical constraints such as ONT chemistry, database choice, or file-format expectations
 
+### Benchmark-critical constraints
+
+Add a separate section titled `## Benchmark-Critical Constraints` after the prompt text and before the expected ground truth response.
+
+This section is required whenever a constraint materially affects scoring or downstream compatibility.
+
+Use it to document benchmark-carried requirements in a short factual list. Typical examples include:
+
+- ONT chemistry or kit assumptions
+- exact database requirements
+- output-chaining obligations
+- low-biomass thresholds
+- multi-level design requirements across reads, contigs, and bins
+
 ### Expected ground truth response
 
 Summarize:

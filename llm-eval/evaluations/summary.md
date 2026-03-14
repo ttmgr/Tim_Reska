@@ -4,6 +4,8 @@
 
 The current benchmark covers 28 evaluated entries across 7 pipeline stages, yielding 196 scored step-results. The matrix remains consistent with the main finding of the project: local plausibility is not sufficient for end-to-end scientific validity. Quality control and taxonomic classification are now handled well by many modern systems, but assembly, binning, and functional annotation still expose persistent weaknesses in multi-step reasoning and domain-specific parameter choice.
 
+The public prompt files that accompany this benchmark are reconstructed documentation artifacts, not raw transcript exports. Where the evaluated setup made a score-relevant requirement explicit, the prompt documentation records it directly.
+
 ## Key Findings
 
 ### First fully correct pipeline per family
@@ -35,7 +37,7 @@ The current benchmark covers 28 evaluated entries across 7 pipeline stages, yiel
 
 ### Error compounding
 
-The compounding pattern is strongest when an upstream answer changes the expected object type for the next stage. A short-read assembly recommendation in step 5 produces the wrong contig assumptions for step 6; a contigs-only annotation plan in step 7 usually reflects the fact that the model never preserved the read-level branch of the pipeline at all. Because the benchmark carries forward prior state into fresh prompts without correcting mistakes, early errors remain visible downstream as chaining failures rather than being masked by later restarts.
+The compounding pattern is most visible when an upstream answer changes the expected object type for the next stage. A short-read assembly recommendation in step 5 produces the wrong contig assumptions for step 6; a contigs-only annotation plan in step 7 usually reflects the fact that the model never preserved the read-level branch of the pipeline at all. Because the benchmark carries forward prior state into fresh prompts without correcting mistakes, early errors remain visible downstream as chaining failures rather than being masked by later restarts.
 
 ## Scoring Heatmap
 
