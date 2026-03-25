@@ -154,6 +154,24 @@ Check cross-module consistency:
 
 Output: severity-rated issue list (CRITICAL / WARNING / NOTE) with file:line.
 
+## Subagent Patterns: MBB Presentation Design
+
+Deploy when creating or reviewing pitch decks, PDFs, or PPTX presentations.
+Full design system documented in `~/.claude/skills/mbb-slides.md`.
+
+Key rules for the agent prompt:
+- **Action titles**: every slide title is a complete sentence stating the takeaway
+  (BAD: "Architecture" / GOOD: "Each pipeline stage adds a measurable quality gate")
+- **One message per slide**: if a slide makes two points, split it
+- **SCR flow**: Situation → Complication → Resolution → Next Steps
+- **Data density**: max 5 bullets, every bullet has a number, every chart has a source
+- **3-color palette**: navy #0D2339, accent #107ACA, highlight #028901. Red #D00D00 for problems only.
+- **Visual hierarchy**: title (28-32pt) → key visual → source line (8pt). No fourth layer.
+- **Flowcharts**: max 6 boxes, one direction, 60-70% slide width
+
+Agent should read `scripts/generate_all.py`, apply all rules from the skill file,
+rewrite titles as action titles, and rebalance content density.
+
 ## Subagent Patterns: Reporting
 
 ### Deployment

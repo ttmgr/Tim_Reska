@@ -21,10 +21,10 @@ st.set_page_config(
 st.markdown("""
 <style>
     /* ---------- Global (Doctolib Oxygen) ---------- */
-    @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
     html, body, [class*="css"] {
-        font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         -webkit-font-smoothing: antialiased;
     }
 
@@ -41,11 +41,11 @@ st.markdown("""
         background: #ffffff;
         padding: 2rem 2.8rem 1.6rem 2.8rem;
         margin: -1rem -1rem 0 -1rem;
-        border-bottom: 1px solid #C4CDD6;
+        border-bottom: 1px solid #e2e8f0;
     }
 
     .doc-header h1 {
-        color: #0D2339;
+        color: #1a365d;
         font-size: 1.9rem;
         font-weight: 700;
         letter-spacing: -0.3px;
@@ -53,10 +53,10 @@ st.markdown("""
         line-height: 1.15;
     }
 
-    .doc-header h1 span { color: #107ACA; }
+    .doc-header h1 span { color: #2b6cb0; }
 
     .doc-header p {
-        color: #61788E;
+        color: #718096;
         font-size: 1rem;
         font-weight: 400;
         margin: 0;
@@ -64,55 +64,56 @@ st.markdown("""
 
     .doc-header .version-badge {
         display: inline-block;
-        background: #E7F4FD;
-        color: #107ACA;
-        font-size: 0.68rem;
-        font-weight: 700;
-        padding: 0.2rem 0.6rem;
-        border-radius: 4px;
+        background: #ebf4ff;
+        color: #2b6cb0;
+        font-size: 0.7rem;
+        font-weight: 600;
+        padding: 2px 8px;
+        border-radius: 10px;
         margin-left: 0.6rem;
         vertical-align: middle;
+        text-transform: uppercase;
     }
 
     /* ---------- Section headings ---------- */
     .section-label {
-        color: #0D2339;
+        color: #1a365d;
         font-size: 0.72rem;
-        font-weight: 700;
+        font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 1.5px;
         margin-bottom: 0.8rem;
         padding-bottom: 0.4rem;
-        border-bottom: 2px solid #107ACA;
+        border-bottom: 2px solid #2b6cb0;
         display: inline-block;
     }
 
     /* ---------- Navigation cards ---------- */
     .nav-card {
         background: #ffffff;
-        border: 1px solid #C4CDD6;
-        border-radius: 8px;
-        padding: 1.6rem 1.5rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        padding: 1.4rem 1.5rem;
         height: 100%;
         transition: box-shadow 0.2s ease, border-color 0.2s ease;
     }
 
     .nav-card:hover {
-        box-shadow: 0 1px 10px rgba(0,0,0,0.13);
-        border-color: #107ACA;
+        box-shadow: 0 4px 16px rgba(26,54,93,0.10);
+        border-color: #2b6cb0;
     }
 
     .nav-card-number {
-        color: #107ACA;
-        font-size: 0.68rem;
-        font-weight: 700;
+        color: #2b6cb0;
+        font-size: 0.7rem;
+        font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 1.5px;
         margin-bottom: 0.5rem;
     }
 
     .nav-card h3 {
-        color: #0D2339;
+        color: #1a365d;
         font-size: 1.05rem;
         font-weight: 700;
         margin: 0 0 0.5rem 0;
@@ -120,7 +121,7 @@ st.markdown("""
     }
 
     .nav-card p {
-        color: #2B4660;
+        color: #2d3748;
         font-size: 0.88rem;
         line-height: 1.55;
         margin: 0;
@@ -131,29 +132,29 @@ st.markdown("""
 
     .kpi-box {
         background: #ffffff;
-        border: 1px solid #C4CDD6;
-        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
         padding: 1.1rem 1.4rem;
         flex: 1;
         text-align: center;
         transition: box-shadow 0.2s ease;
     }
 
-    .kpi-box:hover { box-shadow: 0 1px 10px rgba(0,0,0,0.08); }
+    .kpi-box:hover { box-shadow: 0 4px 16px rgba(26,54,93,0.10); }
 
     .kpi-value {
-        color: #0D2339;
+        color: #1a365d;
         font-size: 1.65rem;
         font-weight: 700;
         line-height: 1.2;
         margin-bottom: 0.2rem;
     }
 
-    .kpi-value.blue { color: #107ACA; }
-    .kpi-value.green { color: #028901; }
+    .kpi-value.blue { color: #2b6cb0; }
+    .kpi-value.green { color: #38a169; }
 
     .kpi-label {
-        color: #61788E;
+        color: #718096;
         font-size: 0.7rem;
         font-weight: 600;
         text-transform: uppercase;
@@ -162,41 +163,41 @@ st.markdown("""
 
     /* ---------- Architecture diagram ---------- */
     .arch-flow {
-        background: #EEF2F7;
-        border: 1px solid #C4CDD6;
-        border-radius: 8px;
+        background: #edf2f7;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
         padding: 1.4rem 1.6rem;
         font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
         font-size: 0.8rem;
-        color: #2B4660;
+        color: #2d3748;
         line-height: 1.7;
         overflow-x: auto;
     }
 
-    .arch-flow span.stage { color: #107ACA; font-weight: 700; }
-    .arch-flow span.arrow { color: #C4CDD6; }
-    .arch-flow span.detail { color: #61788E; font-size: 0.72rem; }
+    .arch-flow span.stage { color: #2b6cb0; font-weight: 700; }
+    .arch-flow span.arrow { color: #a0aec0; }
+    .arch-flow span.detail { color: #718096; font-size: 0.72rem; }
 
     /* ---------- Footer ---------- */
     .doc-footer {
         margin-top: 2.5rem;
         padding-top: 1rem;
-        border-top: 1px solid #C4CDD6;
+        border-top: 1px solid #e2e8f0;
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
 
-    .doc-footer p { color: #61788E; font-size: 0.75rem; margin: 0; }
-    .doc-footer .disclaimer { color: #61788E; font-size: 0.7rem; font-style: italic; }
+    .doc-footer p { color: #718096; font-size: 0.75rem; margin: 0; }
+    .doc-footer .disclaimer { color: #718096; font-size: 0.7rem; font-style: italic; }
 
     /* ---------- Force light backgrounds everywhere ---------- */
     .stApp, .main, [data-testid="stAppViewContainer"],
     [data-testid="stAppViewBlockContainer"],
     .stApp > header, section[data-testid="stSidebar"] > div,
     [data-testid="stBottomBlockContainer"] {
-        background-color: #ffffff !important;
-        color: #0D2339 !important;
+        background-color: #f7fafc !important;
+        color: #1a365d !important;
     }
 
     /* ---------- Sidebar (light, Doctolib-style) ---------- */
@@ -204,9 +205,9 @@ st.markdown("""
     [data-testid="stSidebar"] > div,
     [data-testid="stSidebar"] > div > div,
     [data-testid="stSidebar"] > div > div > div {
-        background: #F8FAFB !important;
-        background-color: #F8FAFB !important;
-        border-right: 1px solid #C4CDD6 !important;
+        background: #f7fafc !important;
+        background-color: #f7fafc !important;
+        border-right: 1px solid #e2e8f0 !important;
     }
 
     [data-testid="stSidebar"] [data-testid="stMarkdown"] p,
@@ -215,7 +216,7 @@ st.markdown("""
     [data-testid="stSidebar"] p,
     [data-testid="stSidebar"] span,
     [data-testid="stSidebar"] label {
-        color: #2B4660 !important;
+        color: #2d3748 !important;
         font-size: 0.85rem;
     }
 
@@ -225,38 +226,38 @@ st.markdown("""
     [data-testid="stSidebar"] .stMarkdown h3,
     [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2,
     [data-testid="stSidebar"] h3 {
-        color: #0D2339 !important;
+        color: #1a365d !important;
         font-weight: 700;
     }
 
     [data-testid="stSidebar"] hr {
-        border-color: #C4CDD6 !important;
+        border-color: #e2e8f0 !important;
     }
 
     /* ---------- Force all text dark on main area ---------- */
-    h1, h2, h3, h4, h5, h6 { color: #0D2339 !important; }
-    p, li, span, label, div { color: #2B4660; }
-    .stMarkdown p, .stMarkdown li { color: #2B4660 !important; }
+    h1, h2, h3, h4, h5, h6 { color: #1a365d !important; }
+    p, li, span, label, div { color: #2d3748; }
+    .stMarkdown p, .stMarkdown li { color: #2d3748 !important; }
 
     /* ---------- Streamlit widgets light override ---------- */
     [data-testid="stSelectbox"] label,
     [data-testid="stSlider"] label,
     [data-testid="stNumberInput"] label,
     [data-testid="stTextInput"] label {
-        color: #0D2339 !important;
+        color: #1a365d !important;
     }
 
     .stSelectbox > div > div,
     .stSlider > div > div,
     [data-baseweb="select"] {
         background-color: #ffffff !important;
-        color: #0D2339 !important;
+        color: #1a365d !important;
     }
 
     /* Expander */
     [data-testid="stExpander"] {
         background-color: #ffffff !important;
-        border-color: #C4CDD6 !important;
+        border-color: #e2e8f0 !important;
     }
 
     /* Dataframes */
@@ -266,25 +267,26 @@ st.markdown("""
 
     .sidebar-badge {
         display: inline-block;
-        background: #E7F4FD;
-        color: #107ACA;
-        font-size: 0.68rem;
-        font-weight: 700;
-        padding: 0.2rem 0.6rem;
-        border-radius: 4px;
+        background: #ebf4ff;
+        color: #2b6cb0;
+        font-size: 0.7rem;
+        font-weight: 600;
+        padding: 2px 8px;
+        border-radius: 10px;
         letter-spacing: 0.5px;
+        text-transform: uppercase;
     }
 
     .sidebar-disclaimer {
-        background: #EEF2F7;
-        border: 1px solid #C4CDD6;
-        border-radius: 8px;
+        background: #edf2f7;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
         padding: 0.7rem 0.8rem;
         margin-top: 0.5rem;
     }
 
     .sidebar-disclaimer p {
-        color: #61788E !important;
+        color: #718096 !important;
         font-size: 0.72rem !important;
         line-height: 1.5;
         margin: 0;
@@ -382,6 +384,13 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+<p style="color:#2d3748; font-size:0.88rem; line-height:1.6; margin-top:0.8rem;">
+This pipeline is <strong>disease-agnostic</strong>: the DQS, Model Router, and Reliability Head work identically for any disease with a structured risk model.
+Pages 1-3 demonstrate cardiovascular underwriting. Page 4 shows Alzheimer's disease progression -- proving the framework generalises without code changes.
+</p>
+""", unsafe_allow_html=True)
+
 # ---------------------------------------------------------------------------
 # Why AI?
 # ---------------------------------------------------------------------------
@@ -389,41 +398,41 @@ st.markdown("<div style='height: 1.4rem'></div>", unsafe_allow_html=True)
 st.markdown('<div class="section-label">Why AI-Driven Underwriting</div>', unsafe_allow_html=True)
 
 st.markdown("""
-<div style="border:1px solid #C4CDD6; border-radius:8px; overflow:hidden; margin-bottom:1rem;">
+<div style="border:1px solid #e2e8f0; border-radius:6px; overflow:hidden; margin-bottom:1rem;">
 <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
   <thead>
-    <tr style="background:#EEF2F7;">
-      <th style="padding:0.55rem 0.8rem; text-align:left; font-size:0.7rem; color:#0D2339; text-transform:uppercase; letter-spacing:0.5px; font-weight:700;">Capability</th>
-      <th style="padding:0.55rem 0.8rem; text-align:center; font-size:0.7rem; color:#0D2339; text-transform:uppercase; letter-spacing:0.5px; font-weight:700;">Rules / Actuarial</th>
-      <th style="padding:0.55rem 0.8rem; text-align:center; font-size:0.7rem; color:#0D2339; text-transform:uppercase; letter-spacing:0.5px; font-weight:700;">Basic ML</th>
-      <th style="padding:0.55rem 0.8rem; text-align:center; font-size:0.7rem; color:#0D2339; text-transform:uppercase; letter-spacing:0.5px; font-weight:700;">MedRisk-ADH</th>
+    <tr style="background:#edf2f7;">
+      <th style="padding:0.55rem 0.8rem; text-align:left; font-size:0.7rem; color:#1a365d; text-transform:uppercase; letter-spacing:0.5px; font-weight:700;">Capability</th>
+      <th style="padding:0.55rem 0.8rem; text-align:center; font-size:0.7rem; color:#1a365d; text-transform:uppercase; letter-spacing:0.5px; font-weight:700;">Rules / Actuarial</th>
+      <th style="padding:0.55rem 0.8rem; text-align:center; font-size:0.7rem; color:#1a365d; text-transform:uppercase; letter-spacing:0.5px; font-weight:700;">Basic ML</th>
+      <th style="padding:0.55rem 0.8rem; text-align:center; font-size:0.7rem; color:#1a365d; text-transform:uppercase; letter-spacing:0.5px; font-weight:700;">MedRisk-ADH</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td style="padding:0.5rem 0.8rem; border-bottom:1px solid #EEF2F7; color:#2B4660;">Per-case reliability</td>
-        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #EEF2F7; text-align:center; color:#61788E;">No</td>
-        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #EEF2F7; text-align:center; color:#61788E;">No</td>
-        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #EEF2F7; text-align:center; color:#028901; font-weight:600;">DQS + P(wrong)</td></tr>
-    <tr style="background:#FAFBFC;"><td style="padding:0.5rem 0.8rem; border-bottom:1px solid #EEF2F7; color:#2B4660;">Handles missing data</td>
-        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #EEF2F7; text-align:center; color:#61788E;">Reject case</td>
-        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #EEF2F7; text-align:center; color:#D00D00;">Impute (PBW risk)</td>
-        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #EEF2F7; text-align:center; color:#028901; font-weight:600;">Route to right model</td></tr>
-    <tr><td style="padding:0.5rem 0.8rem; border-bottom:1px solid #EEF2F7; color:#2B4660;">Individual risk drivers</td>
-        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #EEF2F7; text-align:center; color:#61788E;">No</td>
-        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #EEF2F7; text-align:center; color:#61788E;">Limited</td>
-        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #EEF2F7; text-align:center; color:#028901; font-weight:600;">SHAP per patient</td></tr>
-    <tr style="background:#FAFBFC;"><td style="padding:0.5rem 0.8rem; border-bottom:1px solid #EEF2F7; color:#2B4660;">Disease progression</td>
-        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #EEF2F7; text-align:center; color:#61788E;">Static tables</td>
-        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #EEF2F7; text-align:center; color:#61788E;">No</td>
-        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #EEF2F7; text-align:center; color:#028901; font-weight:600;">CTMC (any disease)</td></tr>
-    <tr><td style="padding:0.5rem 0.8rem; border-bottom:1px solid #EEF2F7; color:#2B4660;">Confidence estimation</td>
-        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #EEF2F7; text-align:center; color:#61788E;">No</td>
-        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #EEF2F7; text-align:center; color:#61788E;">Uncalibrated</td>
-        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #EEF2F7; text-align:center; color:#028901; font-weight:600;">Cost-optimal decisions</td></tr>
-    <tr style="background:#FAFBFC;"><td style="padding:0.5rem 0.8rem; color:#2B4660;">EU AI Act compliance</td>
-        <td style="padding:0.5rem 0.8rem; text-align:center; color:#61788E;">Partial</td>
-        <td style="padding:0.5rem 0.8rem; text-align:center; color:#D00D00;">Difficult</td>
-        <td style="padding:0.5rem 0.8rem; text-align:center; color:#028901; font-weight:600;">Built-in (Art. 14, 15)</td></tr>
+    <tr><td style="padding:0.5rem 0.8rem; border-bottom:1px solid #edf2f7; color:#2d3748;">Per-case reliability</td>
+        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #edf2f7; text-align:center; color:#718096;">No</td>
+        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #edf2f7; text-align:center; color:#718096;">No</td>
+        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #edf2f7; text-align:center; color:#38a169; font-weight:600;">DQS + P(wrong)</td></tr>
+    <tr style="background:#f7fafc;"><td style="padding:0.5rem 0.8rem; border-bottom:1px solid #edf2f7; color:#2d3748;">Handles missing data</td>
+        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #edf2f7; text-align:center; color:#718096;">Reject case</td>
+        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #edf2f7; text-align:center; color:#e53e3e;">Impute (PBW risk)</td>
+        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #edf2f7; text-align:center; color:#38a169; font-weight:600;">Route to right model</td></tr>
+    <tr><td style="padding:0.5rem 0.8rem; border-bottom:1px solid #edf2f7; color:#2d3748;">Individual risk drivers</td>
+        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #edf2f7; text-align:center; color:#718096;">No</td>
+        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #edf2f7; text-align:center; color:#718096;">Limited</td>
+        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #edf2f7; text-align:center; color:#38a169; font-weight:600;">SHAP per patient</td></tr>
+    <tr style="background:#f7fafc;"><td style="padding:0.5rem 0.8rem; border-bottom:1px solid #edf2f7; color:#2d3748;">Disease progression</td>
+        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #edf2f7; text-align:center; color:#718096;">Static tables</td>
+        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #edf2f7; text-align:center; color:#718096;">No</td>
+        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #edf2f7; text-align:center; color:#38a169; font-weight:600;">CTMC (any disease)</td></tr>
+    <tr><td style="padding:0.5rem 0.8rem; border-bottom:1px solid #edf2f7; color:#2d3748;">Confidence estimation</td>
+        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #edf2f7; text-align:center; color:#718096;">No</td>
+        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #edf2f7; text-align:center; color:#718096;">Uncalibrated</td>
+        <td style="padding:0.5rem 0.8rem; border-bottom:1px solid #edf2f7; text-align:center; color:#38a169; font-weight:600;">Cost-optimal decisions</td></tr>
+    <tr style="background:#f7fafc;"><td style="padding:0.5rem 0.8rem; color:#2d3748;">EU AI Act compliance</td>
+        <td style="padding:0.5rem 0.8rem; text-align:center; color:#718096;">Partial</td>
+        <td style="padding:0.5rem 0.8rem; text-align:center; color:#e53e3e;">Difficult</td>
+        <td style="padding:0.5rem 0.8rem; text-align:center; color:#38a169; font-weight:600;">Built-in (Art. 14, 15)</td></tr>
   </tbody>
 </table>
 </div>
@@ -498,7 +507,7 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("""
 <div class="sidebar-disclaimer">
     <p><strong>Background</strong><br>
-    "Plausible but Wrong" coined in my own LLM evaluation research (ISME Communications 2024).
+    My published pipeline (ISME Communications 2024) was the ground truth that exposed "plausible but wrong" LLM outputs.
     22 LLMs evaluated over 36 months. 8 publications incl. Nature Communications.
     Built this system in ~48 hours with Claude.</p>
 </div>

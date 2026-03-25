@@ -20,3 +20,8 @@ data/*.csv
 !data/reports/*.pdf
 !data/reports/*.pptx
 .DS_Store
+
+# Confidential / personal files
+Reference_Letter_*.pdf
+Tim_Reska_Resume*.pdf
+template.pptx

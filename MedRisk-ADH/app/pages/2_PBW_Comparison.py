@@ -4,14 +4,17 @@ import sys
 from pathlib import Path
 
 _PROJECT_ROOT = str(Path(__file__).resolve().parent.parent.parent)
+_APP_DIR = str(Path(__file__).resolve().parent.parent)
 if _PROJECT_ROOT not in sys.path:
     sys.path.insert(0, _PROJECT_ROOT)
+if _APP_DIR not in sys.path:
+    sys.path.insert(0, _APP_DIR)
 
 import streamlit as st  # noqa: E402
 
-from app.components.dqs_gauge import dqs_components_bar, dqs_gauge  # noqa: E402
-from app.components.metrics_cards import decision_badge, dqs_tier_badge, metric_card  # noqa: E402
-from app.data_cache import load_app_data  # noqa: E402
+from components.dqs_gauge import dqs_components_bar, dqs_gauge  # noqa: E402
+from components.metrics_cards import decision_badge, dqs_tier_badge, metric_card  # noqa: E402
+from data_cache import load_app_data  # noqa: E402
 
 st.markdown("""
 <style>
@@ -20,21 +23,21 @@ st.markdown("""
         background-color: #ffffff !important;
     }
     .section-label {
-        color: #0D2339; font-size: 0.72rem; font-weight: 700;
+        color: #1a365d; font-size: 0.72rem; font-weight: 700;
         text-transform: uppercase; letter-spacing: 1.5px;
         margin-bottom: 0.8rem; padding-bottom: 0.4rem;
-        border-bottom: 2px solid #107ACA; display: inline-block;
+        border-bottom: 2px solid #2b6cb0; display: inline-block;
     }
     .page-subtitle {
-        color: #2B4660; font-size: 0.95rem; margin-top: -0.5rem; margin-bottom: 1.2rem;
+        color: #2d3748; font-size: 0.95rem; margin-top: -0.5rem; margin-bottom: 1.2rem;
     }
     .vs-badge {
-        display: inline-block; background: #EEF2F7; border: 1px solid #C4CDD6;
+        display: inline-block; background: #edf2f7; border: 1px solid #e2e8f0;
         border-radius: 50%; width: 48px; height: 48px; line-height: 48px;
-        text-align: center; font-size: 1rem; font-weight: 700; color: #0D2339;
+        text-align: center; font-size: 1rem; font-weight: 700; color: #1a365d;
     }
-    h1, h2, h3, h4 { color: #0D2339 !important; }
-    p, li { color: #2B4660 !important; }
+    h1, h2, h3, h4 { color: #1a365d !important; }
+    p, li { color: #2d3748 !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -95,10 +98,10 @@ with col_de:
     st.divider()
     m1, m2 = st.columns(2)
     with m1:
-        metric_card("Risk Score", f"{de_pred:.1%}", color="#107ACA")
+        metric_card("Risk Score", f"{de_pred:.1%}", color="#2b6cb0")
     with m2:
         metric_card("P(wrong)", f"{de_decision.p_wrong:.2%}",
-                    color="#028901" if de_decision.p_wrong < 0.3 else "#D00D00")
+                    color="#38a169" if de_decision.p_wrong < 0.3 else "#e53e3e")
 
     st.markdown(decision_badge(de_decision.decision), unsafe_allow_html=True)
 
@@ -128,10 +131,10 @@ with col_int:
     st.divider()
     m1, m2 = st.columns(2)
     with m1:
-        metric_card("Risk Score", f"{int_pred:.1%}", color="#107ACA")
+        metric_card("Risk Score", f"{int_pred:.1%}", color="#2b6cb0")
     with m2:
         metric_card("P(wrong)", f"{int_decision.p_wrong:.2%}",
-                    color="#028901" if int_decision.p_wrong < 0.3 else "#D00D00")
+                    color="#38a169" if int_decision.p_wrong < 0.3 else "#e53e3e")
 
     st.markdown(decision_badge(int_decision.decision), unsafe_allow_html=True)
 

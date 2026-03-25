@@ -38,17 +38,24 @@ PAGE_H = 210  # landscape A4 height mm
 MARGIN = 15
 CONTENT_W = PAGE_W - 2 * MARGIN
 
-# --- Colour palette ---
-DARK_BLUE = (26, 54, 93)       # #1a365d
-ACCENT_BLUE = (43, 108, 176)   # #2b6cb0
-LIGHT_BLUE = (235, 242, 250)   # #ebf2fa
-PBW_RED = (252, 129, 129)      # #fc8181
-PBW_RED_LIGHT = (254, 215, 215)  # #fed7d7
-GREEN = (104, 211, 145)        # #68d391
-GREEN_LIGHT = (198, 246, 213)  # #c6f6d5
-GREY_TEXT = (60, 60, 60)
+# --- Colour palette (Tim's design system) ---
+DARK_BLUE = (45, 52, 54)        # #2D3436 — titles
+ACCENT_BLUE = (44, 111, 160)    # #2C6FA0 — accent, KPI numbers
+LIGHT_BLUE = (248, 250, 251)    # #F8FAFB — subtle backgrounds
+PBW_RED = (192, 57, 43)         # #C0392B — error red
+PBW_RED_LIGHT = (254, 215, 215) # #fed7d7
+GREEN = (39, 174, 96)           # #27AE60 — success green
+GREEN_LIGHT = (198, 246, 213)   # #c6f6d5
+BODY_GREY = (178, 190, 195)     # #B2BEC3 — body text (muted)
+LABEL_GREY = (99, 110, 114)     # #636E72 — labels, footnotes
+DIVIDER = (238, 242, 247)       # #EEF2F7 — table borders, bg
 WHITE = (255, 255, 255)
 BLACK = (30, 30, 30)
+
+
+# Font constant: Calibri preferred, Helvetica (=Arial) as fpdf2 fallback
+FONT = "Calibri"
+FONT_MONO = "Courier"
 
 
 class SlideDeck(FPDF):
@@ -58,6 +65,32 @@ class SlideDeck(FPDF):
         super().__init__(orientation="L", unit="mm", format="A4")
         self.set_auto_page_break(auto=False)
         self.set_margins(MARGIN, MARGIN, MARGIN)
+        self._register_calibri()
+
+    def _register_calibri(self) -> None:
+        """Register Calibri if available, otherwise fall back to Helvetica."""
+        global FONT
+        calibri_paths = [
+            Path("/Library/Fonts/Calibri.ttf"),
+            Path.home() / "Library/Fonts/Calibri.ttf",
+            Path("/usr/share/fonts/truetype/msttcorefonts/calibri.ttf"),
+            Path("C:/Windows/Fonts/calibri.ttf"),
+        ]
+        for p in calibri_paths:
+            if p.exists():
+                self.add_font("Calibri", "", str(p), uni=True)
+                # Try bold variant
+                bold_p = p.with_name(p.stem + "b" + p.suffix)
+                if bold_p.exists():
+                    self.add_font("Calibri", "B", str(bold_p), uni=True)
+                italic_p = p.with_name(p.stem + "i" + p.suffix)
+                if italic_p.exists():
+                    self.add_font("Calibri", "I", str(italic_p), uni=True)
+                logger.info("Using Calibri font from %s", p)
+                return
+        # Fallback: Helvetica is metrically identical to Arial (design system fallback)
+        FONT = FONT
+        logger.info("Calibri not found, using Helvetica (Arial-equivalent) fallback")
 
     def header(self) -> None:
         """Thin top bar with project name."""
@@ -65,7 +98,7 @@ class SlideDeck(FPDF):
             return  # title slide has its own layout
         self.set_fill_color(*DARK_BLUE)
         self.rect(0, 0, PAGE_W, 8, "F")
-        self.set_font("Helvetica", "B", 7)
+        self.set_font(FONT, "B", 7)
         self.set_text_color(*WHITE)
         self.set_xy(MARGIN, 1)
         self.cell(0, 6, "MedRisk-ADH", new_x="LMARGIN", new_y="NEXT")
@@ -73,22 +106,22 @@ class SlideDeck(FPDF):
         self.ln(4)
 
     def footer(self) -> None:
-        """Page number in bottom-right."""
+        """Page number in bottom-right (9pt #B2BEC3)."""
         self.set_y(-10)
-        self.set_font("Helvetica", "", 7)
-        self.set_text_color(140, 140, 140)
+        self.set_font(FONT, "", 9)
+        self.set_text_color(*BODY_GREY)
         self.cell(0, 5, f"{self.page_no()} / 10", align="R")
         self.set_text_color(*BLACK)
 
     # --- Reusable slide elements ---
 
     def slide_title(self, title: str, subtitle: str = "") -> None:
-        """Slide heading block."""
-        self.set_font("Helvetica", "B", 24)
+        """Slide heading block — action title (19pt Bold #2D3436)."""
+        self.set_font(FONT, "B", 19)
         self.set_text_color(*DARK_BLUE)
-        self.cell(CONTENT_W, 14, title, new_x="LMARGIN", new_y="NEXT")
+        self.multi_cell(CONTENT_W, 9, title, new_x="LMARGIN", new_y="NEXT")
         if subtitle:
-            self.set_font("Helvetica", "", 12)
+            self.set_font(FONT, "", 14)
             self.set_text_color(*ACCENT_BLUE)
             self.cell(CONTENT_W, 8, subtitle, new_x="LMARGIN", new_y="NEXT")
         self.set_text_color(*BLACK)
@@ -104,8 +137,8 @@ class SlideDeck(FPDF):
 
     def body_text(self, text: str, size: int = 11) -> None:
         """Body paragraph."""
-        self.set_font("Helvetica", "", size)
-        self.set_text_color(*GREY_TEXT)
+        self.set_font(FONT, "", size)
+        self.set_text_color(*BODY_GREY)
         self.multi_cell(CONTENT_W, 6, text)
         self.set_text_color(*BLACK)
         self.ln(2)
@@ -113,27 +146,38 @@ class SlideDeck(FPDF):
     def bullet(self, text: str, size: int = 11, bold_prefix: str = "") -> None:
         """Single bullet point."""
         x0 = self.get_x()
-        self.set_font("Helvetica", "", size)
-        self.set_text_color(*GREY_TEXT)
+        self.set_font(FONT, "", size)
+        self.set_text_color(*BODY_GREY)
         self.cell(6, 6, "-", new_x="END")
         if bold_prefix:
-            self.set_font("Helvetica", "B", size)
+            self.set_font(FONT, "B", size)
             self.cell(0, 6, bold_prefix + " ", new_x="END")
-            self.set_font("Helvetica", "", size)
+            self.set_font(FONT, "", size)
         self.multi_cell(CONTENT_W - 6 - (self.get_x() - x0 - 6), 6, text)
         self.set_text_color(*BLACK)
 
     def key_metric(self, label: str, value: str, x: float, y: float, w: float = 60) -> None:
-        """Centred metric box."""
+        """Centred KPI box: 48pt Bold #2C6FA0 number, 14pt Bold #2D3436 label."""
         self.set_xy(x, y)
         self.set_fill_color(*LIGHT_BLUE)
-        self.set_font("Helvetica", "B", 20)
-        self.set_text_color(*DARK_BLUE)
-        self.cell(w, 14, value, align="C", fill=True, new_x="LMARGIN", new_y="NEXT")
-        self.set_xy(x, y + 14)
-        self.set_font("Helvetica", "", 9)
+        self.set_font(FONT, "B", 48)
         self.set_text_color(*ACCENT_BLUE)
-        self.cell(w, 6, label, align="C", new_x="LMARGIN", new_y="NEXT")
+        self.cell(w, 22, value, align="C", fill=True, new_x="LMARGIN", new_y="NEXT")
+        self.set_xy(x, y + 23)
+        self.set_font(FONT, "B", 14)
+        self.set_text_color(*DARK_BLUE)
+        self.cell(w, 7, label, align="C", new_x="LMARGIN", new_y="NEXT")
+        self.set_text_color(*BLACK)
+
+    def accent_bar(self, insight: str) -> None:
+        """Bottom accent bar: thin #2C6FA0 rectangle spanning slide width with key insight."""
+        bar_y = PAGE_H - 18
+        self.set_fill_color(*ACCENT_BLUE)
+        self.rect(0, bar_y, PAGE_W, 2, "F")
+        self.set_xy(MARGIN, bar_y + 3)
+        self.set_font(FONT, "B", 9)
+        self.set_text_color(*ACCENT_BLUE)
+        self.cell(CONTENT_W, 5, insight, align="C")
         self.set_text_color(*BLACK)
 
     def embed_chart(self, buf: BytesIO, x: float | None = None, w: float = 130) -> None:
@@ -212,7 +256,7 @@ def chart_dqs_by_market(data: dict) -> BytesIO:
 
     market_order = ["DE", "FR", "ES", "INT"]
     market_colors = {
-        "DE": "#2b6cb0", "FR": "#4299e1", "ES": "#ed8936", "INT": "#e53e3e",
+        "DE": "#2C6FA0", "FR": "#5A9BC7", "ES": "#B2BEC3", "INT": "#C0392B",
     }
 
     box_data = []
@@ -233,8 +277,8 @@ def chart_dqs_by_market(data: dict) -> BytesIO:
         patch.set_alpha(0.8)
 
     # Threshold lines
-    ax.axhline(0.80, color="#38a169", linestyle="--", linewidth=1, label="Adequate (0.80)")
-    ax.axhline(0.60, color="#dd6b20", linestyle="--", linewidth=1, label="Caution (0.60)")
+    ax.axhline(0.80, color="#27AE60", linestyle="--", linewidth=1, label="Adequate (0.80)")
+    ax.axhline(0.60, color="#C0392B", linestyle="--", linewidth=1, label="Caution (0.60)")
     ax.set_ylabel("Data Quality Score")
     ax.set_title("DQS Distribution by Market", fontweight="bold", fontsize=12)
     ax.legend(fontsize=8, loc="lower left")
@@ -264,24 +308,24 @@ def chart_pbw_scatter(data: dict) -> BytesIO:
     )
     ax.text(
         0.15, 0.90, "PBW\nDanger Zone",
-        fontsize=11, fontweight="bold", color="#c53030",
+        fontsize=11, fontweight="bold", color="#C0392B",
         ha="center", va="center", alpha=0.8,
     )
 
     # Non-flagged points
     ax.scatter(
         dqs[~pbw], conf[~pbw],
-        s=4, alpha=0.25, c="#2b6cb0", label="Normal", rasterized=True,
+        s=4, alpha=0.25, c="#2C6FA0", label="Normal", rasterized=True,
     )
     # Flagged points
     ax.scatter(
         dqs[pbw], conf[pbw],
-        s=12, alpha=0.6, c="#e53e3e", label="PBW flagged", rasterized=True,
+        s=12, alpha=0.6, c="#C0392B", label="PBW flagged", rasterized=True,
     )
 
     # Threshold lines
-    ax.axhline(0.80, color="#718096", linestyle=":", linewidth=0.8)
-    ax.axvline(0.60, color="#718096", linestyle=":", linewidth=0.8)
+    ax.axhline(0.80, color="#636E72", linestyle=":", linewidth=0.8)
+    ax.axvline(0.60, color="#636E72", linestyle=":", linewidth=0.8)
 
     ax.set_xlabel("Data Quality Score")
     ax.set_ylabel("Model Confidence (P(high risk))")
@@ -310,11 +354,11 @@ def slide_01_title(pdf: SlideDeck) -> None:
 
     # White text centred
     pdf.set_text_color(*WHITE)
-    pdf.set_font("Helvetica", "B", 32)
+    pdf.set_font(FONT, "B", 32)
     pdf.set_y(55)
     pdf.cell(CONTENT_W, 18, "MedRisk-ADH", align="C", new_x="LMARGIN", new_y="NEXT")
 
-    pdf.set_font("Helvetica", "", 16)
+    pdf.set_font(FONT, "", 16)
     pdf.set_text_color(180, 210, 245)
     pdf.cell(CONTENT_W, 10, "AI-Augmented Medical Underwriting", align="C", new_x="LMARGIN", new_y="NEXT")
     pdf.cell(CONTENT_W, 10, "with Failure Mode Detection", align="C", new_x="LMARGIN", new_y="NEXT")
@@ -329,11 +373,11 @@ def slide_01_title(pdf: SlideDeck) -> None:
     pdf.set_line_width(0.2)
     pdf.ln(10)
 
-    pdf.set_font("Helvetica", "", 12)
+    pdf.set_font(FONT, "", 12)
     pdf.set_text_color(*WHITE)
     pdf.cell(CONTENT_W, 8, "Tim Reska  |  Helmholtz Munich", align="C", new_x="LMARGIN", new_y="NEXT")
 
-    pdf.set_font("Helvetica", "I", 10)
+    pdf.set_font(FONT, "I", 10)
     pdf.set_text_color(160, 190, 230)
     pdf.cell(CONTENT_W, 8, "Proof of Concept  |  Synthetic Data  |  March 2026", align="C", new_x="LMARGIN", new_y="NEXT")
 
@@ -344,7 +388,7 @@ def slide_01_title(pdf: SlideDeck) -> None:
 def slide_02_problem(pdf: SlideDeck) -> None:
     """The Problem."""
     pdf.add_page()
-    pdf.slide_title("The Problem", "Confident-but-wrong decisions at scale")
+    pdf.slide_title("Confident AI predictions on bad data cost insurers 2,000+ mispriced policies per year", "Current underwriting models cannot detect when their own output is unreliable")
 
     pdf.body_text(
         "Current AI underwriting models produce a risk score for every applicant. "
@@ -376,11 +420,13 @@ def slide_02_problem(pdf: SlideDeck) -> None:
     pdf.key_metric("Undetected by AUC", "Yes", MARGIN + 105, 130, 75)
     pdf.key_metric("Current mitigation", "None", MARGIN + 200, 130, 75)
 
+    pdf.accent_bar("A 2% PBW rate is invisible in aggregate metrics but costs millions at portfolio scale")
+
 
 def slide_03_insight(pdf: SlideDeck) -> None:
     """The Insight."""
     pdf.add_page()
-    pdf.slide_title("The Insight", "A failure mode we have seen before")
+    pdf.slide_title("I discovered this failure mode in genomics AI and applied it to underwriting", "The same 'plausible-but-wrong' pattern from my published research (ISME Communications 2024)")
 
     pdf.body_text(
         'In our longitudinal evaluation of 22 large language models (ISME Communications 2024), '
@@ -403,12 +449,12 @@ def slide_03_insight(pdf: SlideDeck) -> None:
     # Left: LLMs
     pdf.set_xy(MARGIN, y0)
     pdf.set_fill_color(*LIGHT_BLUE)
-    pdf.set_font("Helvetica", "B", 11)
+    pdf.set_font(FONT, "B", 11)
     pdf.set_text_color(*DARK_BLUE)
     pdf.cell(col_w, 8, "  LLM Evaluation", fill=True, new_x="LMARGIN", new_y="NEXT")
     pdf.set_xy(MARGIN, y0 + 10)
-    pdf.set_font("Helvetica", "", 10)
-    pdf.set_text_color(*GREY_TEXT)
+    pdf.set_font(FONT, "", 10)
+    pdf.set_text_color(*BODY_GREY)
     pdf.multi_cell(col_w, 5.5, (
         "High-confidence taxonomic classifications that look "
         "plausible but are wrong. Detected only by expert review "
@@ -418,12 +464,12 @@ def slide_03_insight(pdf: SlideDeck) -> None:
     # Right: Underwriting
     pdf.set_xy(MARGIN + col_w + 10, y0)
     pdf.set_fill_color(*LIGHT_BLUE)
-    pdf.set_font("Helvetica", "B", 11)
+    pdf.set_font(FONT, "B", 11)
     pdf.set_text_color(*DARK_BLUE)
     pdf.cell(col_w, 8, "  Underwriting AI", fill=True, new_x="LMARGIN", new_y="NEXT")
     pdf.set_xy(MARGIN + col_w + 10, y0 + 10)
-    pdf.set_font("Helvetica", "", 10)
-    pdf.set_text_color(*GREY_TEXT)
+    pdf.set_font(FONT, "", 10)
+    pdf.set_text_color(*BODY_GREY)
     pdf.multi_cell(col_w, 5.5, (
         "High-confidence risk scores on patients with sparse records. "
         "Model imputes missing values from population priors. "
@@ -432,27 +478,33 @@ def slide_03_insight(pdf: SlideDeck) -> None:
 
     pdf.set_text_color(*BLACK)
     pdf.ln(6)
-    pdf.set_font("Helvetica", "B", 11)
+    pdf.set_font(FONT, "B", 11)
     pdf.set_text_color(*ACCENT_BLUE)
     pdf.cell(CONTENT_W, 8, "Solution: detect PBW before it reaches a decision.", align="C")
     pdf.set_text_color(*BLACK)
+
+    pdf.accent_bar("The same failure mode I documented in genomics AI applies directly to insurance underwriting")
 
 
 def slide_04_architecture(pdf: SlideDeck) -> None:
     """Architecture overview."""
     pdf.add_page()
-    pdf.slide_title("Architecture", "End-to-end pipeline with validation gate")
+    pdf.slide_title("Six pipeline stages each add a measurable quality gate", "No imputation -- each data profile gets its own model trained on available features")
 
     y0 = pdf.get_y() + 5
 
-    # Flow boxes
+    # Design system highlight fill for AI/model boxes
+    AI_FILL = (0xEB, 0xF3, 0xFA)  # #EBF3FA
+
+    # Flow boxes: (label, border_colour, fill_colour)
+    # Box 1: plain input (#2D3436), Boxes 2-5: AI (#2C6FA0 + #EBF3FA), Box 6: plain
     boxes = [
-        ("Patient\nRecord", LIGHT_BLUE, DARK_BLUE),
-        ("Data Quality\nScore (DQS)", (198, 246, 213), (39, 103, 73)),
-        ("XGBoost\nRisk Classifier", LIGHT_BLUE, DARK_BLUE),
-        ("Cox PH\nSurvival", LIGHT_BLUE, DARK_BLUE),
-        ("CTMC\nProgression", LIGHT_BLUE, DARK_BLUE),
-        ("Validation\nLayer", (254, 215, 215), (155, 44, 44)),
+        ("Patient\nRecord", DARK_BLUE, WHITE),
+        ("Data Quality\nScore", ACCENT_BLUE, AI_FILL),
+        ("XGBoost\nClassifier", ACCENT_BLUE, AI_FILL),
+        ("Cox PH\nSurvival", ACCENT_BLUE, AI_FILL),
+        ("CTMC\nProgression", ACCENT_BLUE, AI_FILL),
+        ("Validation\nLayer", DARK_BLUE, WHITE),
     ]
 
     box_w = 38
@@ -461,62 +513,67 @@ def slide_04_architecture(pdf: SlideDeck) -> None:
     total_w = len(boxes) * box_w + (len(boxes) - 1) * gap
     x_start = (PAGE_W - total_w) / 2
 
-    for i, (label, bg, fg) in enumerate(boxes):
+    for i, (label, border, fill) in enumerate(boxes):
         x = x_start + i * (box_w + gap)
-        pdf.set_fill_color(*bg)
-        pdf.set_draw_color(*fg)
-        pdf.rect(x, y0, box_w, box_h, "DF")
-        pdf.set_font("Helvetica", "B", 8)
-        pdf.set_text_color(*fg)
+        pdf.set_fill_color(*fill)
+        pdf.set_draw_color(*border)
+        pdf.set_line_width(0.4)
+        pdf.rounded_rect(x, y0, box_w, box_h, r=1.5, style="DF")
+        pdf.set_font(FONT, "B", 8)
+        pdf.set_text_color(*DARK_BLUE)
         pdf.set_xy(x, y0 + 3)
         pdf.multi_cell(box_w, 4, label, align="C")
 
-        # Arrow
+        # Arrow — muted #B2BEC3 with filled triangle arrowhead
         if i < len(boxes) - 1:
             ax = x + box_w
             ay = y0 + box_h / 2
-            pdf.set_draw_color(*ACCENT_BLUE)
-            pdf.set_line_width(0.5)
+            pdf.set_draw_color(*BODY_GREY)
+            pdf.set_line_width(0.4)
             pdf.line(ax + 1, ay, ax + gap - 1, ay)
-            # Arrowhead
-            pdf.line(ax + gap - 3, ay - 2, ax + gap - 1, ay)
-            pdf.line(ax + gap - 3, ay + 2, ax + gap - 1, ay)
+            pdf.set_fill_color(*BODY_GREY)
+            pdf.polygon(
+                [(ax + gap - 1, ay), (ax + gap - 4, ay - 2), (ax + gap - 4, ay + 2)],
+                style="F",
+            )
 
     pdf.set_line_width(0.2)
-    pdf.set_draw_color(0, 0, 0)
     pdf.set_text_color(*BLACK)
 
-    # Decision outputs
+    # Decision terminal pills — green/blue/red per design system
     y_dec = y0 + box_h + 15
     decisions = [
-        ("ACCEPT", (39, 103, 73), GREEN_LIGHT),
-        ("REVIEW", (163, 117, 26), (254, 240, 200)),
-        ("REJECT", (155, 44, 44), (254, 215, 215)),
+        ("ACCEPT", GREEN),        # #27AE60
+        ("REVIEW", ACCENT_BLUE),  # #2C6FA0
+        ("REJECT", PBW_RED),      # #C0392B
     ]
-    dec_w = 55
+    dec_w, dec_h = 55, 12
     dec_gap = 25
     dec_total = len(decisions) * dec_w + (len(decisions) - 1) * dec_gap
     dec_x_start = (PAGE_W - dec_total) / 2
 
-    # Arrow from validation box down
+    # Arrow from validation box down — muted #B2BEC3 with triangle head
     val_x = x_start + (len(boxes) - 1) * (box_w + gap) + box_w / 2
-    pdf.set_draw_color(*ACCENT_BLUE)
-    pdf.set_line_width(0.5)
+    pdf.set_draw_color(*BODY_GREY)
+    pdf.set_line_width(0.4)
     pdf.line(val_x, y0 + box_h, val_x, y_dec - 3)
+    pdf.set_fill_color(*BODY_GREY)
+    pdf.polygon([(val_x, y_dec - 1), (val_x - 2, y_dec - 4), (val_x + 2, y_dec - 4)], style="F")
     pdf.set_line_width(0.2)
 
-    for i, (label, fg, bg) in enumerate(decisions):
+    for i, (label, colour) in enumerate(decisions):
         x = dec_x_start + i * (dec_w + dec_gap)
-        pdf.set_fill_color(*bg)
-        pdf.set_draw_color(*fg)
-        pdf.rect(x, y_dec, dec_w, 12, "DF")
-        pdf.set_font("Helvetica", "B", 10)
-        pdf.set_text_color(*fg)
-        pdf.set_xy(x, y_dec + 2)
-        pdf.cell(dec_w, 8, label, align="C")
+        pdf.set_fill_color(*WHITE)
+        pdf.set_draw_color(*colour)
+        pdf.set_line_width(0.4)
+        pdf.rounded_rect(x, y_dec, dec_w, dec_h, r=dec_h / 2, style="DF")
+        pdf.set_font(FONT, "B", 10)
+        pdf.set_text_color(*colour)
+        pdf.set_xy(x, y_dec + 1)
+        pdf.cell(dec_w, dec_h - 2, label, align="C")
 
     pdf.set_text_color(*BLACK)
-    pdf.set_draw_color(0, 0, 0)
+    pdf.set_line_width(0.2)
 
     # Description below
     pdf.set_y(y_dec + 22)
@@ -534,11 +591,13 @@ def slide_04_architecture(pdf: SlideDeck) -> None:
         size=10, bold_prefix="Validation layer:",
     )
 
+    pdf.accent_bar("No imputation -- the model only scores what the data can support")
+
 
 def slide_05_dqs(pdf: SlideDeck) -> None:
     """Data Quality Score."""
     pdf.add_page()
-    pdf.slide_title("Data Quality Score", "Per-patient input quality assessment")
+    pdf.slide_title("The DQS tells the model how much to trust each input before inference", "Three weighted components measure completeness, consistency, and recency")
 
     pdf.body_text(
         "The DQS is computed before any model inference. It answers: "
@@ -547,7 +606,7 @@ def slide_05_dqs(pdf: SlideDeck) -> None:
     pdf.ln(2)
 
     # Formula
-    pdf.set_font("Helvetica", "B", 13)
+    pdf.set_font(FONT, "B", 13)
     pdf.set_text_color(*DARK_BLUE)
     pdf.cell(
         CONTENT_W, 10,
@@ -570,12 +629,12 @@ def slide_05_dqs(pdf: SlideDeck) -> None:
         x = MARGIN + i * (comp_w + 10)
         pdf.set_xy(x, y0)
         pdf.set_fill_color(*LIGHT_BLUE)
-        pdf.set_font("Helvetica", "B", 11)
+        pdf.set_font(FONT, "B", 11)
         pdf.set_text_color(*DARK_BLUE)
         pdf.cell(comp_w, 8, f"  {name} (w={weight})", fill=True, new_x="LMARGIN", new_y="NEXT")
         pdf.set_xy(x, y0 + 10)
-        pdf.set_font("Helvetica", "", 9)
-        pdf.set_text_color(*GREY_TEXT)
+        pdf.set_font(FONT, "", 9)
+        pdf.set_text_color(*BODY_GREY)
         pdf.multi_cell(comp_w, 5, desc)
 
     pdf.set_text_color(*BLACK)
@@ -583,7 +642,7 @@ def slide_05_dqs(pdf: SlideDeck) -> None:
     pdf.ln(3)
 
     # Tier thresholds
-    pdf.set_font("Helvetica", "B", 11)
+    pdf.set_font(FONT, "B", 11)
     pdf.set_text_color(*DARK_BLUE)
     pdf.cell(CONTENT_W, 8, "Decision Tiers", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(2)
@@ -595,24 +654,26 @@ def slide_05_dqs(pdf: SlideDeck) -> None:
     ]
     for name, thresh, desc, bg, fg in tiers:
         pdf.set_fill_color(*bg)
-        pdf.set_font("Helvetica", "B", 10)
+        pdf.set_font(FONT, "B", 10)
         pdf.set_text_color(*fg)
         pdf.cell(35, 7, f"  {name}", fill=True, new_x="END")
-        pdf.set_font("Helvetica", "B", 10)
-        pdf.set_text_color(*GREY_TEXT)
+        pdf.set_font(FONT, "B", 10)
+        pdf.set_text_color(*BODY_GREY)
         pdf.cell(25, 7, f"  {thresh}", new_x="END")
-        pdf.set_font("Helvetica", "", 10)
+        pdf.set_font(FONT, "", 10)
         pdf.cell(0, 7, f"  {desc}", new_x="LMARGIN", new_y="NEXT")
     pdf.set_text_color(*BLACK)
+
+    pdf.accent_bar("DQS is computed before inference -- the model knows how much to trust its input")
 
 
 def slide_06_multimarket(pdf: SlideDeck, chart_buf: BytesIO) -> None:
     """Multi-Market Design with chart."""
     pdf.add_page()
-    pdf.slide_title("Multi-Market Design", "Controlled data quality variance across healthcare systems")
+    pdf.slide_title("International markets show 2.4x higher mispricing risk than Germany", "4 European markets with controlled data quality degradation")
 
     # Table
-    pdf.set_font("Helvetica", "B", 9)
+    pdf.set_font(FONT, "B", 9)
     pdf.set_fill_color(*DARK_BLUE)
     pdf.set_text_color(*WHITE)
     col_ws = [25, 30, 30, 25, 35, 30]
@@ -631,7 +692,7 @@ def slide_06_multimarket(pdf: SlideDeck, chart_buf: BytesIO) -> None:
     for i, row in enumerate(rows):
         bg = LIGHT_BLUE if i % 2 == 0 else WHITE
         pdf.set_fill_color(*bg)
-        pdf.set_font("Helvetica", "B" if row[0] in ("DE", "INT") else "", 9)
+        pdf.set_font(FONT, "B" if row[0] in ("DE", "INT") else "", 9)
         for w, val in zip(col_ws, row):
             pdf.cell(w, 6, f"  {val}", fill=True, new_x="END")
         pdf.ln()
@@ -647,20 +708,22 @@ def slide_06_multimarket(pdf: SlideDeck, chart_buf: BytesIO) -> None:
     # Chart on right
     pdf.embed_chart(chart_buf, x=PAGE_W / 2 + 5, w=130)
 
+    pdf.accent_bar("The worst market has 2.4x the mispricing risk -- and standard metrics don't see it")
+
 
 def slide_07_pbw(pdf: SlideDeck, chart_buf: BytesIO, data: dict) -> None:
     """PBW Detector with scatter chart."""
     pdf.add_page()
-    pdf.slide_title("The PBW Detector", "Catching plausible-but-wrong predictions")
+    pdf.slide_title("High confidence on low-quality data is the signature of a plausible-but-wrong prediction", "The Reliability Head learns P(wrong) and makes cost-optimal decisions")
 
     # Left column: description
     col_w = CONTENT_W / 2 - 5
-    pdf.set_font("Helvetica", "B", 10)
+    pdf.set_font(FONT, "B", 10)
     pdf.set_text_color(*DARK_BLUE)
     pdf.cell(col_w, 7, "Flagging Rule", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(1)
-    pdf.set_font("Helvetica", "", 10)
-    pdf.set_text_color(*GREY_TEXT)
+    pdf.set_font(FONT, "", 10)
+    pdf.set_text_color(*BODY_GREY)
     pdf.multi_cell(col_w, 5.5, (
         "A prediction is flagged as PBW when:\n"
         "  1. Model confidence > 0.80   AND\n"
@@ -672,7 +735,7 @@ def slide_07_pbw(pdf: SlideDeck, chart_buf: BytesIO, data: dict) -> None:
     pdf.ln(3)
 
     # Flagging rates by market
-    pdf.set_font("Helvetica", "B", 10)
+    pdf.set_font(FONT, "B", 10)
     pdf.set_text_color(*DARK_BLUE)
     pdf.cell(col_w, 7, "PBW Flagging Rates", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(1)
@@ -682,10 +745,10 @@ def slide_07_pbw(pdf: SlideDeck, chart_buf: BytesIO, data: dict) -> None:
         n_total = mask.sum()
         n_flagged = data["pbw_flags"][mask].sum()
         rate = n_flagged / n_total * 100 if n_total > 0 else 0
-        pdf.set_font("Helvetica", "B", 10)
-        pdf.set_text_color(*GREY_TEXT)
+        pdf.set_font(FONT, "B", 10)
+        pdf.set_text_color(*BODY_GREY)
         pdf.cell(12, 6, f"  {m}", new_x="END")
-        pdf.set_font("Helvetica", "", 10)
+        pdf.set_font(FONT, "", 10)
 
         # Mini bar
         bar_w = rate * 1.2
@@ -703,11 +766,13 @@ def slide_07_pbw(pdf: SlideDeck, chart_buf: BytesIO, data: dict) -> None:
     # Chart on right
     pdf.embed_chart(chart_buf, x=PAGE_W / 2 + 5, w=130)
 
+    pdf.accent_bar("PBW detection catches the cases that look right but carry hidden liability")
+
 
 def slide_08_enables(pdf: SlideDeck, data: dict) -> None:
     """What This Enables."""
     pdf.add_page()
-    pdf.slide_title("What This Enables", "Automated underwriting with a safety net")
+    pdf.slide_title("The validation layer automates clean cases and escalates uncertain ones", "Human underwriters focus on the cases that actually need judgement")
 
     pdf.body_text(
         "The validation layer does not replace the model -- it gates its output. "
@@ -748,11 +813,13 @@ def slide_08_enables(pdf: SlideDeck, data: dict) -> None:
         bold_prefix="Risk reduction:",
     )
 
+    pdf.accent_bar("Clean cases are automated; uncertain cases get human attention where it matters")
+
 
 def slide_09_roadmap(pdf: SlideDeck) -> None:
     """Roadmap."""
     pdf.add_page()
-    pdf.slide_title("Roadmap", "From proof of concept to production")
+    pdf.slide_title("Phase 1 is complete -- Phase 2 requires real claims data for validation", "Synthetic PoC proves the architecture; real data proves the economics")
 
     phases = [
         (
@@ -803,20 +870,20 @@ def slide_09_roadmap(pdf: SlideDeck) -> None:
         pdf.set_xy(x, y0)
         pdf.set_fill_color(*bg)
         pdf.set_draw_color(*fg)
-        pdf.set_font("Helvetica", "B", 8)
+        pdf.set_font(FONT, "B", 8)
         pdf.set_text_color(*fg)
         pdf.cell(col_w, 6, f"  {status}", fill=True, new_x="LMARGIN", new_y="NEXT")
 
         # Title
         pdf.set_xy(x, y0 + 8)
-        pdf.set_font("Helvetica", "B", 11)
+        pdf.set_font(FONT, "B", 11)
         pdf.set_text_color(*DARK_BLUE)
         pdf.cell(col_w, 7, title, new_x="LMARGIN", new_y="NEXT")
 
         # Items
         pdf.set_xy(x, y0 + 18)
-        pdf.set_font("Helvetica", "", 9)
-        pdf.set_text_color(*GREY_TEXT)
+        pdf.set_font(FONT, "", 9)
+        pdf.set_text_color(*BODY_GREY)
         for item in items:
             pdf.set_x(x)
             pdf.cell(4, 5, "-", new_x="END")
@@ -841,7 +908,7 @@ def slide_09_roadmap(pdf: SlideDeck) -> None:
     # Timeline labels
     positions = [MARGIN + 40, PAGE_W / 2, PAGE_W - MARGIN - 55]
     labels = ["Q1 2026", "Q3 2026", "2027"]
-    pdf.set_font("Helvetica", "B", 9)
+    pdf.set_font(FONT, "B", 9)
     pdf.set_text_color(*ACCENT_BLUE)
     for pos, label in zip(positions, labels):
         pdf.set_xy(pos, y_arrow + 3)
@@ -852,7 +919,7 @@ def slide_09_roadmap(pdf: SlideDeck) -> None:
 def slide_10_ask(pdf: SlideDeck) -> None:
     """Next Steps / Ask."""
     pdf.add_page()
-    pdf.slide_title("Next Steps", "What we need to move to Phase 2")
+    pdf.slide_title("In 90 days I'd deliver calibrated PBW detection on real Allianz data", "Four requirements to move from synthetic PoC to production prototype")
 
     pdf.ln(2)
 
@@ -881,11 +948,11 @@ def slide_10_ask(pdf: SlideDeck) -> None:
 
     for title, desc in asks:
         pdf.set_fill_color(*LIGHT_BLUE)
-        pdf.set_font("Helvetica", "B", 11)
+        pdf.set_font(FONT, "B", 11)
         pdf.set_text_color(*DARK_BLUE)
         pdf.cell(CONTENT_W, 8, f"  {title}", fill=True, new_x="LMARGIN", new_y="NEXT")
-        pdf.set_font("Helvetica", "", 10)
-        pdf.set_text_color(*GREY_TEXT)
+        pdf.set_font(FONT, "", 10)
+        pdf.set_text_color(*BODY_GREY)
         pdf.multi_cell(CONTENT_W, 5.5, f"  {desc}")
         pdf.ln(3)
 
@@ -894,7 +961,7 @@ def slide_10_ask(pdf: SlideDeck) -> None:
 
     # Contact
     pdf.set_fill_color(*DARK_BLUE)
-    pdf.set_font("Helvetica", "B", 11)
+    pdf.set_font(FONT, "B", 11)
     pdf.set_text_color(*WHITE)
     pdf.cell(CONTENT_W, 10, "  Tim Reska  |  Helmholtz Munich  |  tim.reska@helmholtz-munich.de", fill=True, align="C")
     pdf.set_text_color(*BLACK)

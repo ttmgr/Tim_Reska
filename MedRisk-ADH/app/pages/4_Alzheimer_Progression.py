@@ -6,6 +6,16 @@ progression, from normal cognition through severe AD to death.
 
 from __future__ import annotations
 
+import sys
+from pathlib import Path
+
+_PROJECT_ROOT = str(Path(__file__).resolve().parent.parent.parent)
+_APP_DIR = str(Path(__file__).resolve().parent.parent)
+if _PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, _PROJECT_ROOT)
+if _APP_DIR not in sys.path:
+    sys.path.insert(0, _APP_DIR)
+
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
@@ -23,38 +33,38 @@ st.markdown("""
         background-color: #ffffff !important;
     }
     .section-label {
-        color: #0D2339; font-size: 0.72rem; font-weight: 700;
+        color: #1a365d; font-size: 0.72rem; font-weight: 700;
         text-transform: uppercase; letter-spacing: 1.5px;
         margin-bottom: 0.8rem; padding-bottom: 0.4rem;
-        border-bottom: 2px solid #107ACA; display: inline-block;
+        border-bottom: 2px solid #2b6cb0; display: inline-block;
     }
     .page-subtitle {
-        color: #2B4660; font-size: 0.95rem; margin-top: -0.5rem; margin-bottom: 1.2rem;
+        color: #2d3748; font-size: 0.95rem; margin-top: -0.5rem; margin-bottom: 1.2rem;
     }
-    h1, h2, h3, h4 { color: #0D2339 !important; }
-    p, li { color: #2B4660 !important; }
+    h1, h2, h3, h4 { color: #1a365d !important; }
+    p, li { color: #2d3748 !important; }
 
     /* Sidebar light override */
     [data-testid="stSidebar"],
     [data-testid="stSidebar"] > div,
     [data-testid="stSidebar"] > div > div {
-        background: #F8FAFB !important;
-        border-right: 1px solid #C4CDD6 !important;
+        background: #f7fafc !important;
+        border-right: 1px solid #e2e8f0 !important;
     }
     [data-testid="stSidebar"] p,
     [data-testid="stSidebar"] span,
     [data-testid="stSidebar"] label {
-        color: #2B4660 !important;
+        color: #2d3748 !important;
         font-size: 0.85rem;
     }
     [data-testid="stSidebar"] h1,
     [data-testid="stSidebar"] h2,
     [data-testid="stSidebar"] h3 {
-        color: #0D2339 !important;
+        color: #1a365d !important;
         font-weight: 700;
     }
     [data-testid="stSidebar"] hr {
-        border-color: #C4CDD6 !important;
+        border-color: #e2e8f0 !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -98,8 +108,8 @@ def get_ad_model(apoe4: bool = False):
 # Sidebar
 # ---------------------------------------------------------------------------
 st.sidebar.markdown("### Alzheimer's Disease")
-st.sidebar.markdown('<span style="display:inline-block;background:#E7F4FD;color:#107ACA;'
-                    'font-size:0.68rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:4px;">'
+st.sidebar.markdown('<span style="display:inline-block;background:#ebf4ff;color:#2b6cb0;'
+                    'font-size:0.68rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:10px;">'
                     'Disease Progression</span>', unsafe_allow_html=True)
 st.sidebar.markdown("---")
 
@@ -127,8 +137,8 @@ st.sidebar.markdown("""
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("""
-<div style="background:#EEF2F7;border:1px solid #C4CDD6;border-radius:8px;padding:0.7rem 0.8rem;">
-    <p style="color:#61788E;font-size:0.72rem;line-height:1.5;margin:0;">
+<div style="background:#edf2f7;border:1px solid #e2e8f0;border-radius:6px;padding:0.7rem 0.8rem;">
+    <p style="color:#718096;font-size:0.72rem;line-height:1.5;margin:0;">
     Proof of Concept<br>Transition rates from published literature. All patient data is synthetic.
     </p>
 </div>
@@ -139,13 +149,14 @@ st.sidebar.markdown("""
 # Main content
 # ---------------------------------------------------------------------------
 st.markdown("""
-<div style="background:#ffffff;padding:1.5rem 2rem 1rem 2rem;margin:-1rem -1rem 0 -1rem;border-bottom:1px solid #C4CDD6;">
-    <h1 style="color:#0D2339;font-size:1.6rem;font-weight:700;margin:0 0 0.3rem 0;">
+<div style="background:#ffffff;padding:1.5rem 2rem 1rem 2rem;margin:-1rem -1rem 0 -1rem;border-bottom:1px solid #e2e8f0;">
+    <h1 style="color:#1a365d;font-size:1.8rem;font-weight:700;margin:0 0 0.3rem 0;">
         Alzheimer's Disease Progression
-        <span style="display:inline-block;background:#E7F4FD;color:#107ACA;font-size:0.68rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:4px;margin-left:0.5rem;vertical-align:middle;">7-State CTMC</span>
+        <span style="display:inline-block;background:#ebf4ff;color:#2b6cb0;font-size:0.68rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:10px;margin-left:0.5rem;vertical-align:middle;">7-State CTMC</span>
+        <span style="display:inline-block;background:#f0fff4;color:#38a169;font-size:0.68rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:10px;margin-left:0.3rem;vertical-align:middle;">Generalizability Proof</span>
     </h1>
-    <p style="color:#61788E;font-size:0.95rem;margin:0;">
-        Continuous-time Markov chain model of cognitive decline from normal cognition to death
+    <p style="color:#718096;font-size:0.95rem;margin:0;">
+        This page demonstrates that MedRisk-ADH's core validation framework (DQS, Model Router, Reliability Head) generalises beyond cardiovascular risk. New diseases are added as data configurations, not code.
     </p>
 </div>
 """, unsafe_allow_html=True)
@@ -158,7 +169,7 @@ ad_model = get_ad_model(apoe4)
 # ---------------------------------------------------------------------------
 # State Occupation Chart
 # ---------------------------------------------------------------------------
-from app.components.progression_chart import progression_chart
+from components.progression_chart import progression_chart
 
 col_chart, col_info = st.columns([3, 1])
 
@@ -175,8 +186,8 @@ with col_chart:
     )
 
 with col_info:
-    st.markdown('<div style="color:#0D2339;font-size:0.72rem;font-weight:700;text-transform:uppercase;'
-                'letter-spacing:1.5px;margin-bottom:0.5rem;padding-bottom:0.3rem;border-bottom:2px solid #107ACA;'
+    st.markdown('<div style="color:#1a365d;font-size:0.72rem;font-weight:700;text-transform:uppercase;'
+                'letter-spacing:1.5px;margin-bottom:0.5rem;padding-bottom:0.3rem;border-bottom:2px solid #2b6cb0;'
                 'display:inline-block;">Mean Sojourn</div>', unsafe_allow_html=True)
 
     for i in range(AD_CONFIG.n_states):
@@ -193,8 +204,8 @@ st.markdown("<div style='height:0.8rem'></div>", unsafe_allow_html=True)
 # ---------------------------------------------------------------------------
 # Key Metrics Row
 # ---------------------------------------------------------------------------
-st.markdown('<div style="color:#0D2339;font-size:0.72rem;font-weight:700;text-transform:uppercase;'
-            'letter-spacing:1.5px;margin-bottom:0.8rem;padding-bottom:0.4rem;border-bottom:2px solid #107ACA;'
+st.markdown('<div style="color:#1a365d;font-size:0.72rem;font-weight:700;text-transform:uppercase;'
+            'letter-spacing:1.5px;margin-bottom:0.8rem;padding-bottom:0.4rem;border-bottom:2px solid #2b6cb0;'
             'display:inline-block;">Key Metrics</div>', unsafe_allow_html=True)
 
 mtta = ad_model.mean_time_to_absorption(start_state)
@@ -223,8 +234,8 @@ st.markdown("<div style='height:0.8rem'></div>", unsafe_allow_html=True)
 col_intensities, col_trajectories = st.columns(2)
 
 with col_intensities:
-    st.markdown('<div style="color:#0D2339;font-size:0.72rem;font-weight:700;text-transform:uppercase;'
-                'letter-spacing:1.5px;margin-bottom:0.8rem;padding-bottom:0.4rem;border-bottom:2px solid #107ACA;'
+    st.markdown('<div style="color:#1a365d;font-size:0.72rem;font-weight:700;text-transform:uppercase;'
+                'letter-spacing:1.5px;margin-bottom:0.8rem;padding-bottom:0.4rem;border-bottom:2px solid #2b6cb0;'
                 'display:inline-block;">Transition Intensities</div>', unsafe_allow_html=True)
 
     summary = ad_model.get_intensity_summary()
@@ -242,8 +253,8 @@ with col_intensities:
 # Simulated Trajectories
 # ---------------------------------------------------------------------------
 with col_trajectories:
-    st.markdown('<div style="color:#0D2339;font-size:0.72rem;font-weight:700;text-transform:uppercase;'
-                'letter-spacing:1.5px;margin-bottom:0.8rem;padding-bottom:0.4rem;border-bottom:2px solid #107ACA;'
+    st.markdown('<div style="color:#1a365d;font-size:0.72rem;font-weight:700;text-transform:uppercase;'
+                'letter-spacing:1.5px;margin-bottom:0.8rem;padding-bottom:0.4rem;border-bottom:2px solid #2b6cb0;'
                 'display:inline-block;">Simulated Trajectories (N=50)</div>', unsafe_allow_html=True)
 
     rng = np.random.default_rng(42)
@@ -260,7 +271,7 @@ with col_trajectories:
         fig_traj.add_trace(go.Scatter(
             x=times, y=states,
             mode="lines",
-            line={"width": 0.8, "color": "rgba(16, 122, 202, 0.25)"},
+            line={"width": 0.8, "color": "rgba(43, 108, 176, 0.25)"},
             showlegend=False,
             hoverinfo="skip",
         ))
@@ -277,7 +288,7 @@ with col_trajectories:
         margin={"t": 10, "b": 40, "l": 140},
         paper_bgcolor="#ffffff",
         plot_bgcolor="#ffffff",
-        font={"family": "Nunito Sans, Inter, sans-serif", "color": "#2B4660", "size": 11},
+        font={"family": "Inter, -apple-system, sans-serif", "color": "#2d3748", "size": 11},
     )
     st.plotly_chart(fig_traj, use_container_width=True)
 
@@ -301,8 +312,8 @@ with st.expander("Alzheimer's Biomarker Reference"):
 # Footer
 # ---------------------------------------------------------------------------
 st.markdown("""
-<div style="margin-top:2rem;padding-top:0.8rem;border-top:1px solid #C4CDD6;display:flex;justify-content:space-between;">
-    <p style="color:#61788E;font-size:0.75rem;margin:0;"><strong>Tim Reska</strong> &middot; Helmholtz Munich &middot; March 2026</p>
-    <p style="color:#61788E;font-size:0.7rem;font-style:italic;margin:0;">Transition rates from published literature. All data synthetic.</p>
+<div style="margin-top:2rem;padding-top:0.8rem;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;">
+    <p style="color:#718096;font-size:0.75rem;margin:0;"><strong>Tim Reska</strong> &middot; Helmholtz Munich &middot; March 2026</p>
+    <p style="color:#718096;font-size:0.7rem;font-style:italic;margin:0;">Transition rates from published literature. All data synthetic.</p>
 </div>
 """, unsafe_allow_html=True)

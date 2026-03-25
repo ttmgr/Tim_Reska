@@ -10,13 +10,13 @@ from medrisk.models.multistate import STATE_NAMES, MultistateModel
 
 # Default colors (cardiovascular model)
 _DEFAULT_COLORS = [
-    "rgba(2, 137, 1, 0.5)",       # green — healthy
-    "rgba(16, 122, 202, 0.5)",    # blue — risk factors
-    "rgba(249, 124, 0, 0.5)",     # orange — chronic
-    "rgba(208, 13, 0, 0.5)",      # red — complication
-    "rgba(13, 35, 57, 0.5)",      # dark navy — major event
+    "rgba(56, 161, 105, 0.5)",    # green — healthy
+    "rgba(43, 108, 176, 0.5)",    # blue — risk factors
+    "rgba(214, 158, 46, 0.5)",    # amber — chronic
+    "rgba(229, 62, 62, 0.5)",     # red — complication
+    "rgba(26, 54, 93, 0.5)",      # dark navy — major event
 ]
-_DEFAULT_LINE_COLORS = ["#028901", "#107ACA", "#F97C00", "#D00D00", "#0D2339"]
+_DEFAULT_LINE_COLORS = ["#38a169", "#2b6cb0", "#d69e2e", "#e53e3e", "#1a365d"]
 
 
 def progression_chart(
@@ -69,15 +69,15 @@ def progression_chart(
 
     fig.update_layout(
         title={"text": title,
-               "font": {"size": 13, "color": "#0D2339", "family": "Nunito Sans, Inter, sans-serif"}},
+               "font": {"size": 13, "color": "#1a365d", "family": "Inter, -apple-system, sans-serif"}},
         xaxis_title="Time (years)",
         yaxis_title="Probability",
         yaxis={"range": [0, 1]},
         height=350,
         margin={"t": 40, "b": 40},
-        legend={"orientation": "h", "y": -0.15, "font": {"size": 10, "color": "#2B4660"}},
+        legend={"orientation": "h", "y": -0.15, "font": {"size": 10, "color": "#2d3748"}},
         paper_bgcolor="#ffffff",
         plot_bgcolor="#ffffff",
-        font={"family": "Nunito Sans, Inter, sans-serif", "color": "#2B4660"},
+        font={"family": "Inter, -apple-system, sans-serif", "color": "#2d3748"},
     )
     st.plotly_chart(fig, use_container_width=True)

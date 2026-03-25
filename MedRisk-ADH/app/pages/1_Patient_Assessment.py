@@ -3,18 +3,21 @@
 import sys
 from pathlib import Path
 
-# Ensure project root is on path before any local imports
+# Ensure project root and app dir are on path before any local imports
 _PROJECT_ROOT = str(Path(__file__).resolve().parent.parent.parent)
+_APP_DIR = str(Path(__file__).resolve().parent.parent)
 if _PROJECT_ROOT not in sys.path:
     sys.path.insert(0, _PROJECT_ROOT)
+if _APP_DIR not in sys.path:
+    sys.path.insert(0, _APP_DIR)
 
 import streamlit as st  # noqa: E402
 
-from app.components.dqs_gauge import dqs_components_bar, dqs_gauge  # noqa: E402
-from app.components.metrics_cards import decision_badge, dqs_tier_badge, metric_card  # noqa: E402
-from app.components.progression_chart import progression_chart  # noqa: E402
-from app.components.shap_chart import shap_bar_chart  # noqa: E402
-from app.data_cache import load_app_data  # noqa: E402
+from components.dqs_gauge import dqs_components_bar, dqs_gauge  # noqa: E402
+from components.metrics_cards import decision_badge, dqs_tier_badge, metric_card  # noqa: E402
+from components.progression_chart import progression_chart  # noqa: E402
+from components.shap_chart import shap_bar_chart  # noqa: E402
+from data_cache import load_app_data  # noqa: E402
 
 st.markdown("""
 <style>
@@ -23,16 +26,16 @@ st.markdown("""
         background-color: #ffffff !important;
     }
     .section-label {
-        color: #0D2339; font-size: 0.72rem; font-weight: 700;
+        color: #1a365d; font-size: 0.72rem; font-weight: 700;
         text-transform: uppercase; letter-spacing: 1.5px;
         margin-bottom: 0.8rem; padding-bottom: 0.4rem;
-        border-bottom: 2px solid #107ACA; display: inline-block;
+        border-bottom: 2px solid #2b6cb0; display: inline-block;
     }
     .page-subtitle {
-        color: #2B4660; font-size: 0.95rem; margin-top: -0.5rem; margin-bottom: 1.2rem;
+        color: #2d3748; font-size: 0.95rem; margin-top: -0.5rem; margin-bottom: 1.2rem;
     }
-    h1, h2, h3, h4 { color: #0D2339 !important; }
-    p, li { color: #2B4660 !important; }
+    h1, h2, h3, h4 { color: #1a365d !important; }
+    p, li { color: #2d3748 !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -101,7 +104,7 @@ with col2:
         dqs_components_bar(dqs)
         if dqs.missingness_types:
             st.markdown(
-                '<div style="margin-top:0.6rem; font-size:0.7rem; color:#0D2339; '
+                '<div style="margin-top:0.6rem; font-size:0.7rem; color:#1a365d; '
                 'text-transform:uppercase; letter-spacing:1.5px; font-weight:600;">'
                 'Missing Data</div>',
                 unsafe_allow_html=True,
@@ -120,7 +123,7 @@ with dcol1:
 with dcol2:
     metric_card("P(wrong)", f"{decision.p_wrong:.2%}",
                 f"Cost accept: {decision.expected_cost_accept:.3f}",
-                color="#D00D00" if decision.p_wrong > 0.3 else "#028901")
+                color="#e53e3e" if decision.p_wrong > 0.3 else "#38a169")
 with dcol3:
     st.markdown('<div class="section-label">Decision</div>', unsafe_allow_html=True)
     st.markdown(decision_badge(decision.decision), unsafe_allow_html=True)

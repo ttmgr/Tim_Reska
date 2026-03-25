@@ -64,7 +64,7 @@ _register("E11.0", "T2D with hyperosmolarity", "IV", "E10-E14", "diabetes")
 _register("E11.2", "T2D with kidney complications", "IV", "E10-E14", "diabetes")
 _register("E11.21", "T2D with diabetic nephropathy", "IV", "E10-E14", "diabetes_renal")
 _register("E11.3", "T2D with ophthalmic complications", "IV", "E10-E14", "diabetes")
-_register("E11.311", "T2D with diabetic retinopathy", "IV", "E10-E14", "diabetes_eye")
+_register("E11.319", "T2D with diabetic retinopathy without macular edema", "IV", "E10-E14", "diabetes_eye")
 _register("E11.4", "T2D with neurological complications", "IV", "E10-E14", "diabetes")
 _register("E11.5", "T2D with circulatory complications", "IV", "E10-E14", "diabetes")
 _register("E11.65", "T2D with hyperglycemia", "IV", "E10-E14", "diabetes")
@@ -123,11 +123,12 @@ _register("G30.0", "Alzheimer disease with early onset", "VI", "G30-G32", "alzhe
 _register("G30.1", "Alzheimer disease with late onset", "VI", "G30-G32", "alzheimer_late")
 _register("G30.8", "Other Alzheimer disease", "VI", "G30-G32", "alzheimer")
 _register("G30.9", "Alzheimer disease, unspecified", "VI", "G30-G32", "alzheimer")
-# ICD-10-GM codes (German modification) for dementia in Alzheimer's
-_register("F00.0", "Dementia in Alzheimer, early onset", "V", "F00-F09", "alzheimer_early")
-_register("F00.1", "Dementia in Alzheimer, late onset", "V", "F00-F09", "alzheimer_late")
-_register("F00.2", "Dementia in Alzheimer, atypical or mixed", "V", "F00-F09", "alzheimer")
-_register("F00.9", "Dementia in Alzheimer, unspecified", "V", "F00-F09", "alzheimer")
+# ICD-10-GM only (German modification) — NOT in ICD-10-CM.
+# In ICD-10-CM, use G30.x + F02.8x instead.
+_register("F00.0", "Dementia in Alzheimer, early onset [GM only]", "V", "F00-F09", "alzheimer_early")
+_register("F00.1", "Dementia in Alzheimer, late onset [GM only]", "V", "F00-F09", "alzheimer_late")
+_register("F00.2", "Dementia in Alzheimer, atypical/mixed [GM only]", "V", "F00-F09", "alzheimer")
+_register("F00.9", "Dementia in Alzheimer, unspecified [GM only]", "V", "F00-F09", "alzheimer")
 
 # Hemiplegia
 _register("G81.9", "Hemiplegia, unspecified", "VI", "G80-G83", "hemiplegia")
