@@ -16,12 +16,10 @@ venv/
 data/*.parquet
 data/*.csv
 *.pdf
-!docs/*.pdf
-!data/reports/*.pdf
-!data/reports/*.pptx
+*.pptx
+*.html
 .DS_Store
 
 # Confidential / personal files
-Reference_Letter_*.pdf
-Tim_Reska_Resume*.pdf
-template.pptx
+docs/ceo_talking_points.md
+docs/allianz_briefing.md

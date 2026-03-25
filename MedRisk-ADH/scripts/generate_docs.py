@@ -182,12 +182,12 @@ def make_data_requirements():
     pdf.li("1. CPRD (UK) -- only source with labs. 60M patients. 2-4 months.")
     pdf.li("2. InGef (DE) -- 8.8M GKV. German ICD-10-GM. No labs. 3-6 months.")
     pdf.li("3. CMBD (Spain) -- hospital only. Free. 2-4 months.")
-    pdf.li("4. Allianz Internal -- target. Requires partnership + DPO.")
+    pdf.li("4. Insurer Internal -- target. Requires partnership + DPO.")
 
     pdf.h2("Legal Basis")
     pdf.li("Germany: SGB X Section 75 + DSGVO Art. 89")
     pdf.li("UK: UK GDPR + NHS Act 2006 Section 251")
-    pdf.li("Allianz: DSGVO Art. 6(1)(f) + Art. 35 DPIA")
+    pdf.li("Insurer: DSGVO Art. 6(1)(f) + Art. 35 DPIA")
 
     pdf.h2("Data Format")
     pdf.p("CSV/Parquet, one row per patient. We provide a loader for our PatientRecord schema.")

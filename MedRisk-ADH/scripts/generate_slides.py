@@ -919,7 +919,7 @@ def slide_09_roadmap(pdf: SlideDeck) -> None:
 def slide_10_ask(pdf: SlideDeck) -> None:
     """Next Steps / Ask."""
     pdf.add_page()
-    pdf.slide_title("In 90 days I'd deliver calibrated PBW detection on real Allianz data", "Four requirements to move from synthetic PoC to production prototype")
+    pdf.slide_title("In 90 days I'd deliver calibrated PBW detection on real claims data", "Four requirements to move from synthetic PoC to production prototype")
 
     pdf.ln(2)
 
