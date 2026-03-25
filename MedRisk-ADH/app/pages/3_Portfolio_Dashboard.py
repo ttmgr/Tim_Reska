@@ -5,8 +5,11 @@ from collections import Counter
 from pathlib import Path
 
 _PROJECT_ROOT = str(Path(__file__).resolve().parent.parent.parent)
+_APP_DIR = str(Path(__file__).resolve().parent.parent)
 if _PROJECT_ROOT not in sys.path:
     sys.path.insert(0, _PROJECT_ROOT)
+if _APP_DIR not in sys.path:
+    sys.path.insert(0, _APP_DIR)
 
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
@@ -14,8 +17,8 @@ import plotly.express as px  # noqa: E402
 import plotly.graph_objects as go  # noqa: E402
 import streamlit as st  # noqa: E402
 
-from app.components.metrics_cards import metric_card  # noqa: E402
-from app.data_cache import load_app_data  # noqa: E402
+from components.metrics_cards import metric_card  # noqa: E402
+from data_cache import load_app_data  # noqa: E402
 from medrisk.evaluation.metrics import auc_roc, brier_score  # noqa: E402
 
 st.markdown("""
@@ -25,16 +28,16 @@ st.markdown("""
         background-color: #ffffff !important;
     }
     .section-label {
-        color: #0D2339; font-size: 0.72rem; font-weight: 700;
+        color: #1a365d; font-size: 0.72rem; font-weight: 700;
         text-transform: uppercase; letter-spacing: 1.5px;
         margin-bottom: 0.8rem; padding-bottom: 0.4rem;
-        border-bottom: 2px solid #107ACA; display: inline-block;
+        border-bottom: 2px solid #2b6cb0; display: inline-block;
     }
     .page-subtitle {
-        color: #2B4660; font-size: 0.95rem; margin-top: -0.5rem; margin-bottom: 1.2rem;
+        color: #2d3748; font-size: 0.95rem; margin-top: -0.5rem; margin-bottom: 1.2rem;
     }
-    h1, h2, h3, h4 { color: #0D2339 !important; }
-    p, li { color: #2B4660 !important; }
+    h1, h2, h3, h4 { color: #1a365d !important; }
+    p, li { color: #2d3748 !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -43,13 +46,15 @@ st.markdown('<p class="page-subtitle">Aggregate view across all markets and pati
 
 # Shared Plotly layout defaults
 _PLOTLY_LAYOUT = dict(
-    font=dict(family="Nunito Sans, Inter, sans-serif", color="#2B4660"),
+    font=dict(family="Inter, -apple-system, sans-serif", color="#2d3748"),
     paper_bgcolor="#ffffff",
     plot_bgcolor="#ffffff",
-    title_font=dict(size=13, color="#0D2339", family="Nunito Sans, Inter, sans-serif"),
+    title_font=dict(size=13, color="#1a365d", family="Inter, -apple-system, sans-serif"),
+    xaxis=dict(gridcolor="rgba(0,0,0,0.06)", gridwidth=1),
+    yaxis=dict(gridcolor="rgba(0,0,0,0.06)", gridwidth=1),
 )
 
-MARKET_COLORS = {"DE": "#107ACA", "FR": "#4299e1", "ES": "#F97C00", "INT": "#D00D00"}
+MARKET_COLORS = {"DE": "#2b6cb0", "FR": "#4299e1", "ES": "#d69e2e", "INT": "#e53e3e"}
 
 # Load data
 data = load_app_data(n_per_market=1000)
@@ -74,13 +79,13 @@ n_reject = sum(1 for d in decisions if d.decision == "reject")
 with k1:
     metric_card("AUC-ROC", f"{auc:.3f}", f"{n_total:,} patients")
 with k2:
-    metric_card("Brier Score", f"{brier:.4f}", "Lower is better", color="#028901")
+    metric_card("Brier Score", f"{brier:.4f}", "Lower is better", color="#38a169")
 with k3:
     metric_card("Auto-Accept Rate", f"{n_accept/n_total:.0%}",
-                f"{n_accept:,} of {n_total:,}", color="#028901")
+                f"{n_accept:,} of {n_total:,}", color="#38a169")
 with k4:
     metric_card("Review + Reject", f"{(n_review+n_reject)/n_total:.0%}",
-                f"Review: {n_review:,} | Reject: {n_reject:,}", color="#D00D00")
+                f"Review: {n_review:,} | Reject: {n_reject:,}", color="#e53e3e")
 
 st.divider()
 
@@ -97,8 +102,8 @@ with row1_col1:
     fig = px.box(dqs_df, x="market", y="dqs", color="market",
                  color_discrete_map=MARKET_COLORS,
                  category_orders={"market": ["DE", "FR", "ES", "INT"]})
-    fig.add_hline(y=0.80, line_dash="dash", line_color="#028901", annotation_text="Adequate")
-    fig.add_hline(y=0.60, line_dash="dash", line_color="#F97C00", annotation_text="Caution")
+    fig.add_hline(y=0.80, line_dash="dash", line_color="#38a169", annotation_text="Adequate")
+    fig.add_hline(y=0.60, line_dash="dash", line_color="#d69e2e", annotation_text="Caution")
     fig.update_layout(**_PLOTLY_LAYOUT, height=350, showlegend=False, yaxis_title="DQS")
     st.plotly_chart(fig, use_container_width=True)
 
@@ -111,11 +116,12 @@ with row1_col2:
     dec_df = pd.DataFrame(dec_data)
     dec_counts = dec_df.groupby(["market", "decision"]).size().reset_index(name="count")
     fig = px.bar(dec_counts, x="market", y="count", color="decision",
-                 color_discrete_map={"accept": "#028901", "human_review": "#F97C00", "reject": "#D00D00"},
+                 color_discrete_map={"accept": "#38a169", "human_review": "#d69e2e", "reject": "#e53e3e"},
                  category_orders={"market": ["DE", "FR", "ES", "INT"],
                                   "decision": ["accept", "human_review", "reject"]},
                  barmode="stack")
-    fig.update_layout(**_PLOTLY_LAYOUT, height=350, yaxis_title="Patients")
+    fig.update_layout(**_PLOTLY_LAYOUT, height=350, yaxis_title="Patients",
+                      legend=dict(orientation="h", y=-0.15, font=dict(size=10, color="#2d3748")))
     st.plotly_chart(fig, use_container_width=True)
 
 st.divider()
@@ -133,13 +139,15 @@ with row2_col1:
     })
     fig = px.scatter(scatter_df, x="dqs", y="confidence", color="market",
                      color_discrete_map=MARKET_COLORS,
-                     opacity=0.4, size_max=5)
+                     opacity=0.35)
+    fig.update_traces(marker=dict(size=3))
     # PBW zone
     fig.add_shape(type="rect", x0=0, x1=0.6, y0=0.8, y1=1.02,
-                  fillcolor="#D00D00", opacity=0.08, line_width=0)
+                  fillcolor="#e53e3e", opacity=0.08, line_width=0)
     fig.add_annotation(x=0.3, y=0.9, text="PBW Zone", showarrow=False,
-                       font={"color": "#D00D00", "size": 11, "family": "Inter, sans-serif"})
-    fig.update_layout(**_PLOTLY_LAYOUT, height=400, xaxis_title="DQS", yaxis_title="Effective Confidence")
+                       font={"color": "#e53e3e", "size": 11, "family": "Inter, sans-serif"})
+    fig.update_layout(**_PLOTLY_LAYOUT, height=400, xaxis_title="DQS", yaxis_title="Effective Confidence",
+                      legend=dict(orientation="h", y=-0.15, font=dict(size=10, color="#2d3748")))
     st.plotly_chart(fig, use_container_width=True)
 
 # P(wrong) Distribution
@@ -152,20 +160,21 @@ with row2_col2:
     fig = px.histogram(pwrong_df, x="p_wrong", color="market", nbins=30,
                        color_discrete_map=MARKET_COLORS,
                        barmode="overlay", opacity=0.6)
-    fig.update_layout(**_PLOTLY_LAYOUT, height=400, xaxis_title="P(wrong)", yaxis_title="Count")
+    fig.update_layout(**_PLOTLY_LAYOUT, height=400, xaxis_title="P(wrong)", yaxis_title="Count",
+                      legend=dict(orientation="h", y=-0.15, font=dict(size=10, color="#2d3748")))
     st.plotly_chart(fig, use_container_width=True)
 
 st.divider()
 
 # Reliability Head Coefficients
 st.markdown('<div class="section-label">Reliability Head -- Interpretable Coefficients</div>', unsafe_allow_html=True)
-st.markdown('<p style="color:#61788E; font-size:0.85rem; margin-top:-0.3rem;">What predicts model error? Logistic regression coefficients show the relationship.</p>', unsafe_allow_html=True)
+st.markdown('<p style="color:#718096; font-size:0.85rem; margin-top:-0.3rem;">What predicts model error? Logistic regression coefficients show the relationship.</p>', unsafe_allow_html=True)
 rhead = data["reliability_head"]
 coeff_table = rhead.get_coefficient_table()
 if len(coeff_table) > 0:
     fig = px.bar(coeff_table.head(10), x="coefficient", y="feature", orientation="h",
                  color="coefficient",
-                 color_continuous_scale=["#4299e1", "#e2e8f0", "#D00D00"],
+                 color_continuous_scale=["#2b6cb0", "#edf2f7", "#e53e3e"],
                  color_continuous_midpoint=0)
     fig.update_layout(**_PLOTLY_LAYOUT, height=350,
                       yaxis={"categoryorder": "total ascending"},

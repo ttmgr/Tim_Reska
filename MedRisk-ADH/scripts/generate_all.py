@@ -31,18 +31,19 @@ OUT = Path(__file__).resolve().parent.parent / "data" / "reports"
 OUT.mkdir(parents=True, exist_ok=True)
 
 # ============================================================================
-# Colour palette (Doctolib Oxygen)
+# Colour palette (Tim's design system)
 # ============================================================================
-NAVY = (13, 35, 57)         # #0D2339
-BLUE = (16, 122, 202)       # #107ACA
-LIGHT_BLUE = (231, 244, 253)  # #E7F4FD
-MID_BLUE = (43, 70, 96)     # #2B4660
-LABEL_GREY = (97, 120, 142)   # #61788E
-BORDER = (196, 205, 214)      # #C4CDD6
-BG_LIGHT = (238, 242, 247)    # #EEF2F7
+NAVY = (45, 52, 54)           # #2D3436 — title text
+BLUE = (44, 111, 160)         # #2C6FA0 — accent blue
+LIGHT_BLUE = (248, 250, 251)  # #F8FAFB — subtle backgrounds
+MID_BLUE = (44, 111, 160)     # #2C6FA0 — accent (alias for body accent)
+BODY_GREY = (178, 190, 195)   # #B2BEC3 — body text (muted)
+LABEL_GREY = (99, 110, 114)   # #636E72 — labels, footnotes
+BORDER = (238, 242, 247)      # #EEF2F7 — dividers
+BG_LIGHT = (238, 242, 247)    # #EEF2F7 — code backgrounds
 WHITE = (255, 255, 255)
-GREEN = (2, 137, 1)
-RED = (229, 62, 62)
+GREEN = (39, 174, 96)         # #27AE60 — success
+RED = (192, 57, 43)           # #C0392B — error
 ORANGE = (237, 137, 54)
 
 
@@ -215,8 +216,8 @@ def chart_ad_progression() -> BytesIO:
     probs = model.state_occupation_probabilities(0, times)
 
     fig, ax = plt.subplots(figsize=(7, 3.5), dpi=150)
-    colors = ["#48bb78", "#90cdf4", "#4299e1", "#edbb36",
-              "#ed8936", "#e53e3e", "#1a202c"]
+    colors = ["#27AE60", "#B2BEC3", "#2C6FA0", "#EEF2F7",
+              "#636E72", "#C0392B", "#2D3436"]
     labels = [ALZHEIMER_CONFIG.state_names[i] for i in range(7)]
 
     ax.stackplot(times, probs.T, labels=labels, colors=colors, alpha=0.7)
@@ -244,7 +245,7 @@ def chart_cv_progression() -> BytesIO:
     probs = model.state_occupation_probabilities(0, times)
 
     fig, ax = plt.subplots(figsize=(7, 3.5), dpi=150)
-    colors = ["#48bb78", "#4299e1", "#ed8936", "#e53e3e", "#1a202c"]
+    colors = ["#27AE60", "#2C6FA0", "#B2BEC3", "#C0392B", "#2D3436"]
     labels = [CARDIOVASCULAR_CONFIG.state_names[i] for i in range(5)]
 
     ax.stackplot(times, probs.T, labels=labels, colors=colors, alpha=0.7)
@@ -308,16 +309,16 @@ def make_pitch_deck() -> None:
     pdf.add_page()
     pdf.set_font("Helvetica", "B", 22)
     pdf.set_text_color(*NAVY)
-    pdf.cell(CW, 12, "Tim Reska", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(CW, 12, "My published pipeline exposed 'plausible but wrong' LLM outputs", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(3)
     pdf.set_font("Helvetica", "", 11)
     pdf.set_text_color(*MID_BLUE)
-    pdf.multi_cell(CW, 7, "PhD Researcher, Helmholtz Munich & TU Munich | github.com/ttmgr")
+    pdf.multi_cell(CW, 7, "Tim Reska | PhD Helmholtz Munich | github.com/ttmgr")
     pdf.ln(3)
     for item in [
-        '"Plausible but Wrong" -- I coined this in my own peer-reviewed research (ISME Communications 2024). '
-        'I evaluated 22 LLMs over 36 months for scientific workflow generation and discovered that AI '
-        'produces confident, executable outputs that fail domain validation. I applied the same concept to underwriting.',
+        '"Plausible but Wrong" -- my peer-reviewed pipeline (ISME Communications 2024) was the ground truth '
+        'I used to evaluate 22 LLMs over 36 months. I observed that AI produces confident, executable outputs '
+        'that fail domain validation. I applied this insight to underwriting.',
         "3 years evaluating Claude: Sonnet 3.5 through Claude 4.6. I know where it works, where it fails, "
         "and how to get production value. Integrated Claude + MCP into live sequencing pipelines (-40% dev time).",
         "8 publications (Nature Communications contributor). 22,000+ accesses. Invited speaker: ETH Zurich, "
@@ -336,7 +337,7 @@ def make_pitch_deck() -> None:
     pdf.add_page()
     pdf.set_font("Helvetica", "B", 22)
     pdf.set_text_color(*NAVY)
-    pdf.cell(CW, 12, "The Problem: Plausible-but-Wrong", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(CW, 12, "Confident AI predictions on bad data cost insurers 2,000+ mispriced policies per year", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(5)
     pdf.set_font("Helvetica", "", 12)
     pdf.set_text_color(*MID_BLUE)
@@ -354,7 +355,7 @@ def make_pitch_deck() -> None:
     pdf.add_page()
     pdf.set_font("Helvetica", "B", 22)
     pdf.set_text_color(*NAVY)
-    pdf.cell(CW, 12, "The Solution: DQS + Reliability Head", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(CW, 12, "A reliability layer detects when AI predictions cannot be trusted", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(5)
     pdf.set_font("Helvetica", "", 11)
     pdf.set_text_color(*MID_BLUE)
@@ -371,21 +372,58 @@ def make_pitch_deck() -> None:
     pdf.add_page()
     pdf.set_font("Helvetica", "B", 22)
     pdf.set_text_color(*NAVY)
-    pdf.cell(CW, 12, "v2 Pipeline Architecture", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(CW, 12, "Six pipeline stages each add a measurable quality gate", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(8)
-    pdf.set_fill_color(*BG_LIGHT)
-    pdf.set_draw_color(*BORDER)
-    pdf.rect(M, pdf.get_y(), CW, 30, "DF")
-    pdf.set_xy(M + 5, pdf.get_y() + 3)
-    pdf.set_font("Courier", "", 10)
-    pdf.set_text_color(*NAVY)
-    pdf.cell(CW, 7, "Patient Record -> Data Profile -> DQS v2 -> Model Router -> Reliability Head -> Decision + Audit",
-             new_x="LMARGIN", new_y="NEXT")
-    pdf.set_xy(M + 5, pdf.get_y() + 2)
-    pdf.set_font("Helvetica", "", 9)
+    # Pipeline flowchart — design system compliant
+    DS_BORDER = (0x2D, 0x34, 0x36)    # #2D3436
+    DS_AI = (0x2C, 0x6F, 0xA0)        # #2C6FA0
+    DS_AI_FILL = (0xEB, 0xF3, 0xFA)   # #EBF3FA
+    DS_ARROW = (0xB2, 0xBE, 0xC3)     # #B2BEC3
+    DS_WHITE = (255, 255, 255)
+    DS_GREEN = (0x27, 0xAE, 0x60)     # #27AE60
+    DS_RED = (0xC0, 0x39, 0x2B)       # #C0392B
+
+    flow_boxes = [
+        ("Patient\nRecord", DS_BORDER, DS_WHITE),
+        ("Data\nProfile", DS_AI, DS_AI_FILL),
+        ("DQS v2", DS_AI, DS_AI_FILL),
+        ("Model\nRouter", DS_AI, DS_AI_FILL),
+        ("Reliability\nHead", DS_AI, DS_AI_FILL),
+        ("Decision\n+ Audit", DS_BORDER, DS_WHITE),
+    ]
+    fb_w, fb_h, fb_gap = 38, 18, 6
+    fb_total = len(flow_boxes) * fb_w + (len(flow_boxes) - 1) * fb_gap
+    fb_x0 = (W - fb_total) / 2
+    fb_y0 = pdf.get_y()
+
+    for idx, (lbl, brd, fll) in enumerate(flow_boxes):
+        fx = fb_x0 + idx * (fb_w + fb_gap)
+        pdf.set_fill_color(*fll)
+        pdf.set_draw_color(*brd)
+        pdf.set_line_width(0.4)
+        pdf.rounded_rect(fx, fb_y0, fb_w, fb_h, r=1.5, style="DF")
+        pdf.set_font("Helvetica", "B", 8)
+        pdf.set_text_color(*DS_BORDER)
+        pdf.set_xy(fx, fb_y0 + 2)
+        pdf.multi_cell(fb_w, 4, lbl, align="C")
+        # Arrow
+        if idx < len(flow_boxes) - 1:
+            ax_start = fx + fb_w + 1
+            ax_end = fx + fb_w + fb_gap - 1
+            ay = fb_y0 + fb_h / 2
+            pdf.set_draw_color(*DS_ARROW)
+            pdf.set_line_width(0.4)
+            pdf.line(ax_start, ay, ax_end, ay)
+            pdf.set_fill_color(*DS_ARROW)
+            pdf.polygon([(ax_end, ay), (ax_end - 3, ay - 1.5), (ax_end - 3, ay + 1.5)], style="F")
+
+    # Annotations below boxes
+    pdf.set_xy(M + 5, fb_y0 + fb_h + 2)
+    pdf.set_font("Helvetica", "I", 8)
     pdf.set_text_color(*LABEL_GREY)
-    pdf.cell(CW, 6, "what data available?    how good?    right model    P(wrong) + cost-optimal    accept/review/reject",
+    pdf.cell(CW, 5, "what data available?     how good?     right model     P(wrong) + cost-optimal     accept / review / reject",
              new_x="LMARGIN", new_y="NEXT")
+    pdf.set_line_width(0.2)
     pdf.ln(20)
     pdf.set_font("Helvetica", "", 11)
     pdf.set_text_color(*MID_BLUE)
@@ -400,7 +438,7 @@ def make_pitch_deck() -> None:
     pdf.add_page()
     pdf.set_font("Helvetica", "B", 22)
     pdf.set_text_color(*NAVY)
-    pdf.cell(CW, 12, "Multi-Market Validation", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(CW, 12, "International markets show 2.4x higher mispricing risk than Germany", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(3)
     pdf.set_font("Helvetica", "", 11)
     pdf.set_text_color(*MID_BLUE)
@@ -433,7 +471,7 @@ def make_pitch_deck() -> None:
     pdf.add_page()
     pdf.set_font("Helvetica", "B", 22)
     pdf.set_text_color(*NAVY)
-    pdf.cell(CW, 12, "PBW Detection", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(CW, 12, "The Reliability Head learns P(wrong) and makes cost-optimal decisions", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(3)
     pdf.set_font("Helvetica", "", 11)
     pdf.set_text_color(*MID_BLUE)
@@ -443,7 +481,7 @@ def make_pitch_deck() -> None:
     pdf.add_page()
     pdf.set_font("Helvetica", "B", 22)
     pdf.set_text_color(*NAVY)
-    pdf.cell(CW, 12, "Disease Progression: Cardiovascular", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(CW, 12, "Continuous-time Markov chains model progression from healthy to major event", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(3)
     pdf.set_font("Helvetica", "", 11)
     pdf.set_text_color(*MID_BLUE)
@@ -456,7 +494,7 @@ def make_pitch_deck() -> None:
     pdf.add_page()
     pdf.set_font("Helvetica", "B", 22)
     pdf.set_text_color(*NAVY)
-    pdf.cell(CW, 12, "Disease Progression: Alzheimer's", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(CW, 12, "The Alzheimer extension proves the framework generalises to any disease", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(3)
     pdf.set_font("Helvetica", "", 11)
     pdf.set_text_color(*MID_BLUE)
@@ -469,7 +507,7 @@ def make_pitch_deck() -> None:
     pdf.add_page()
     pdf.set_font("Helvetica", "B", 22)
     pdf.set_text_color(*NAVY)
-    pdf.cell(CW, 12, "Generalizable Framework", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(CW, 12, "New diseases are data configurations, not new code", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(5)
     pdf.set_font("Helvetica", "", 11)
     pdf.set_text_color(*MID_BLUE)
@@ -509,7 +547,7 @@ def make_pitch_deck() -> None:
     pdf.add_page()
     pdf.set_font("Helvetica", "B", 22)
     pdf.set_text_color(*NAVY)
-    pdf.cell(CW, 12, "Why AI? Beyond Rule-Based Underwriting", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(CW, 12, "AI-driven underwriting solves five problems current methods cannot", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(3)
     # SOTA comparison table
     pdf.set_font("Helvetica", "", 9)
@@ -543,25 +581,15 @@ def make_pitch_deck() -> None:
         pdf.ln()
     pdf.set_text_color(*MID_BLUE)
     pdf.ln(3)
-    pdf.set_font("Helvetica", "B", 11)
-    pdf.set_text_color(*NAVY)
-    pdf.cell(CW, 7, "LLM Extension (Phase 3 Vision):", new_x="LMARGIN", new_y="NEXT")
-    pdf.set_font("Helvetica", "", 10)
-    pdf.set_text_color(*MID_BLUE)
-    for item in [
-        "Unstructured record extraction -- LLMs read doctor notes, discharge summaries in DE/FR/ES/EN",
-        "Natural language explanations -- 'Age 78 contributes 12% to risk' instead of 'SHAP: age +0.12'",
-        "Literature-calibrated parameters -- LLM agents verify transition rates against PubMed",
-        "Continuous monitoring -- flag when new publications change recommended parameters",
-    ]:
-        pdf.cell(6, 6, "-")
-        pdf.multi_cell(CW - 6, 6, item)
+    pdf.set_font("Helvetica", "I", 9)
+    pdf.set_text_color(*LABEL_GREY)
+    pdf.cell(CW, 6, "Phase 3: LLM agents extract structured data from doctor notes across DE/FR/ES/EN and verify parameters against PubMed.", new_x="LMARGIN", new_y="NEXT")
 
     # --- Slide 11: Validation ---
     pdf.add_page()
     pdf.set_font("Helvetica", "B", 22)
     pdf.set_text_color(*NAVY)
-    pdf.cell(CW, 12, "Validation & Testing", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(CW, 12, "231 tests validate every component against published literature", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(5)
     # KPI boxes
     kpis = [("231", "Tests Passing"), ("0.71", "AUC-ROC"), ("0.010", "Brier Score"),
@@ -571,22 +599,22 @@ def make_pitch_deck() -> None:
         col = i % 3
         row = i // 3
         x = M + col * (kpi_w + 6)
-        y = 40 + row * 30
+        y = 40 + row * 45
         pdf.set_xy(x, y)
         pdf.set_fill_color(*LIGHT_BLUE)
-        pdf.set_font("Helvetica", "B", 18)
-        pdf.set_text_color(*NAVY)
-        pdf.cell(kpi_w, 12, val, align="C", fill=True, new_x="LMARGIN", new_y="NEXT")
-        pdf.set_xy(x, y + 13)
-        pdf.set_font("Helvetica", "", 8)
+        pdf.set_font("Helvetica", "B", 48)
         pdf.set_text_color(*BLUE)
-        pdf.cell(kpi_w, 5, label, align="C", new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(kpi_w, 22, val, align="C", fill=True, new_x="LMARGIN", new_y="NEXT")
+        pdf.set_xy(x, y + 23)
+        pdf.set_font("Helvetica", "B", 14)
+        pdf.set_text_color(*NAVY)
+        pdf.cell(kpi_w, 7, label, align="C", new_x="LMARGIN", new_y="NEXT")
 
     # --- Slide 12: What I'd Do in 90 Days ---
     pdf.add_page()
     pdf.set_font("Helvetica", "B", 22)
     pdf.set_text_color(*NAVY)
-    pdf.cell(CW, 12, "What I'd Do in the First 90 Days", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(CW, 12, "In 90 days I'd deliver calibrated PBW detection on real Allianz data", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(5)
     pdf.set_font("Helvetica", "", 11)
     pdf.set_text_color(*MID_BLUE)
@@ -649,11 +677,11 @@ def make_executive_brief() -> None:
 
     # Page 2: The Insight + Solution
     pdf.add_page()
-    pdf.h2("The Insight")
+    pdf.h2("Confident AI predictions on sparse data create invisible portfolio risk")
     pdf.p("Automated underwriting models produce confident predictions even on incomplete data. A patient with sparse records can receive the same risk score as one with comprehensive data -- but the sparse prediction is unreliable. We call these 'plausible-but-wrong' (PBW) predictions.")
     pdf.p("At scale, a 2% PBW rate across 100,000 policies means 2,000 mispriced decisions per year. Standard validation metrics (AUC, accuracy) cannot detect this failure mode because the predictions look correct.")
 
-    pdf.h2("The Solution")
+    pdf.h2("A reliability layer detects when predictions cannot be trusted")
     pdf.p("MedRisk-ADH adds a reliability layer on top of risk prediction:")
     pdf.li("Data Quality Score (DQS): quantifies completeness, consistency, and recency of each patient record")
     pdf.li("Data Profile: classifies what data is available (labs, medications, diagnoses) and routes to the right model")
@@ -663,7 +691,7 @@ def make_executive_brief() -> None:
 
     # Page 3: Results
     pdf.add_page()
-    pdf.h2("Proof of Concept Results")
+    pdf.h2("4,000 synthetic patients validate the quality-aware pipeline across 4 markets")
     pdf.p("Validated on 4,000 synthetic patients across 4 European markets with controlled data quality degradation:")
     pdf.table(
         ["Metric", "Value"],
@@ -685,7 +713,7 @@ def make_executive_brief() -> None:
 
     # Page 4: Alzheimer + Generalizability
     pdf.add_page()
-    pdf.h2("Disease-Specific Modeling")
+    pdf.h2("The Alzheimer extension proves the framework generalises to any disease")
     pdf.p("The framework generalises beyond cardiovascular risk. We demonstrate this with an Alzheimer's disease progression module:")
     pdf.li("7-state CTMC: Normal Cognition -> SCD -> MCI -> Mild AD -> Moderate AD -> Severe AD -> Death")
     pdf.li("Transition rates calibrated to published literature (Petersen et al., Brookmeyer et al.)")
@@ -699,7 +727,7 @@ def make_executive_brief() -> None:
 
     # Page 5: Why AI
     pdf.add_page()
-    pdf.h2("Why AI-Driven Underwriting")
+    pdf.h2("AI-driven underwriting solves 5 problems current methods cannot")
     pdf.p("Current underwriting methods leave reliability unaddressed:")
     pdf.table(
         ["Capability", "Rules/Actuarial", "Basic ML", "MedRisk-ADH"],
@@ -716,7 +744,7 @@ def make_executive_brief() -> None:
 
     # Page 6: The Ask
     pdf.add_page()
-    pdf.h2("The Ask")
+    pdf.h2("90 days with real Allianz data delivers calibrated PBW detection")
     pdf.p("Phase 2 validation requires real-world data. We propose a 3-month sprint:")
     pdf.li("Data partnership: access to pseudonymised Allianz claims and outcomes data")
     pdf.li("DPO clearance: DSGVO Art. 6(1)(f) legitimate interest + Art. 35 DPIA")
@@ -748,7 +776,7 @@ def make_technical_summary() -> None:
 
     # Architecture
     pdf.add_page()
-    pdf.h2("v2 Architecture")
+    pdf.h2("Six pipeline stages each add a measurable quality gate")
     pdf.p("Patient Record -> Data Profile -> DQS v2 -> Model Router -> Reliability Head -> Decision + Audit")
     pdf.h3("Source Modules")
     modules = [
@@ -769,7 +797,7 @@ def make_technical_summary() -> None:
 
     # Alzheimer Extension
     pdf.add_page()
-    pdf.h2("Alzheimer's Disease Extension")
+    pdf.h2("Alzheimer 7-state CTMC validates the disease-agnostic design")
     pdf.h3("7-State CTMC Model")
     pdf.p("States: Normal Cognition (NC) -> Subjective Cognitive Decline (SCD) -> Mild Cognitive Impairment (MCI) -> Mild AD -> Moderate AD -> Severe AD -> Death")
     pdf.table(
@@ -803,7 +831,7 @@ def make_technical_summary() -> None:
 
     # Testing
     pdf.add_page()
-    pdf.h2("Testing & Quality")
+    pdf.h2("231 tests validate every component against published literature")
     pdf.p("231 unit tests, all passing. Lint clean (ruff).")
     pdf.table(
         ["Test File", "Tests", "Coverage"],
@@ -819,7 +847,7 @@ def make_technical_summary() -> None:
 
     # AI/LLM Advantage
     pdf.add_page()
-    pdf.h2("AI/LLM Advantage Over SOTA")
+    pdf.h2("AI adds confidence calibration, data routing, and disease progression modeling")
     pdf.h3("What AI Adds (implemented in v2)")
     pdf.li("Confidence-calibrated predictions -- not just risk score, but P(wrong) for each prediction")
     pdf.li("Data-adaptive modeling -- model router selects the right model for available data instead of imputing missing values")
@@ -834,14 +862,14 @@ def make_technical_summary() -> None:
     pdf.li("Continuous parameter monitoring -- flag when new publications change recommended clinical parameters, triggering model recalibration")
 
     # Demo Apps
-    pdf.h2("Demo Applications")
+    pdf.h2("Four demo interfaces serve different audiences from technical to executive")
     pdf.li("Streamlit (make app): 4 pages -- Patient Assessment, PBW Comparison, Portfolio Dashboard, Alzheimer Progression")
     pdf.li("HTML technical: app/static/index.html (Chart.js, interactive)")
     pdf.li("HTML executive: app/static/executive.html (plain English)")
     pdf.li("Design: Doctolib Oxygen (light, Nunito Sans, #107ACA blue)")
 
     # Fact-checking
-    pdf.h2("Fact-Checking Summary")
+    pdf.h2("Three parallel agents verified every clinical number against PubMed")
     pdf.p("All clinical numbers verified against published literature by 3 parallel validation agents:")
     pdf.li("LOINC codes corrected: LP28695-8 -> 33203-1 (CSF Abeta42), LP39845-1 -> 72260-3 (p-tau181)")
     pdf.li("AD prevalence adjusted: baseline 1.2%, elderly 8x -> 9.6% for 65+ (published: 10.9%)")
@@ -989,12 +1017,13 @@ def make_user_manual() -> None:
 
 
 # ============================================================================
-# 5. POWERPOINT PITCH DECK (.pptx)
+# 5. POWERPOINT — PERSONAL PITCH DECK (.pptx)
 # ============================================================================
 def make_pptx() -> None:
-    """Generate a proper PowerPoint pitch deck with embedded charts."""
+    """Generate a personal pitch deck: Tim Reska for Allianz Digital Health."""
     from pptx import Presentation
     from pptx.dml.color import RGBColor
+    from pptx.enum.shapes import MSO_SHAPE
     from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
     from pptx.util import Emu, Inches, Pt
 
@@ -1011,332 +1040,369 @@ def make_pptx() -> None:
     label_grey = RGBColor(0x61, 0x78, 0x8E)
     white = RGBColor(0xFF, 0xFF, 0xFF)
 
-    blank = prs.slide_layouts[6]  # blank layout
+    green = RGBColor(0x02, 0x89, 0x01)
+    red = RGBColor(0xD0, 0x0D, 0x00)
+    blank = prs.slide_layouts[6]
 
-    def _add_text_box(slide, left, top, width, height, text,
-                      font_size=18, bold=False, color=navy, alignment=PP_ALIGN.LEFT):
-        from pptx.util import Inches, Pt
-        txBox = slide.shapes.add_textbox(Inches(left), Inches(top),
-                                         Inches(width), Inches(height))
-        tf = txBox.text_frame
+    def T(slide, l, t, w, h, text, sz=18, bold=False, col=navy, align=PP_ALIGN.LEFT):
+        """Add text box."""
+        tb = slide.shapes.add_textbox(Inches(l), Inches(t), Inches(w), Inches(h))
+        tf = tb.text_frame
         tf.word_wrap = True
         p = tf.paragraphs[0]
         p.text = text
-        p.font.size = Pt(font_size)
+        p.font.size = Pt(sz)
         p.font.bold = bold
-        p.font.color.rgb = color
-        p.alignment = alignment
+        p.font.color.rgb = col
+        p.alignment = align
         return tf
 
-    def _add_bullet(tf, text, font_size=14, color=mid_blue, level=0):
-        from pptx.util import Pt
+    def B(tf, text, sz=14, col=mid_blue):
+        """Add bullet."""
         p = tf.add_paragraph()
         p.text = text
-        p.font.size = Pt(font_size)
-        p.font.color.rgb = color
-        p.level = level
+        p.font.size = Pt(sz)
+        p.font.color.rgb = col
         p.space_before = Pt(4)
 
-    # --- Slide 1: Title ---
-    slide = prs.slides.add_slide(blank)
-    slide.background.fill.solid()
-    slide.background.fill.fore_color.rgb = white
-    _add_text_box(slide, 1.5, 1.8, 10, 1.2, "MedRisk-ADH",
-                  font_size=44, bold=True, color=navy, alignment=PP_ALIGN.CENTER)
-    _add_text_box(slide, 1.5, 3.0, 10, 0.8,
-                  "AI-Augmented Medical Underwriting with Confidence-Calibrated Failure Mode Detection",
-                  font_size=18, color=blue, alignment=PP_ALIGN.CENTER)
-    _add_text_box(slide, 1.5, 4.5, 10, 0.5, "v2.0 | Proof of Concept | All data is synthetic",
-                  font_size=12, color=label_grey, alignment=PP_ALIGN.CENTER)
-    _add_text_box(slide, 1.5, 5.5, 10, 0.5,
-                  "Tim Reska | Helmholtz Munich | March 2026",
-                  font_size=14, color=mid_blue, alignment=PP_ALIGN.CENTER)
+    # ================================================================
+    # SLIDE 1 — TITLE
+    # ================================================================
+    s = prs.slides.add_slide(blank)
+    s.background.fill.solid()
+    s.background.fill.fore_color.rgb = white
+    T(s, 1.5, 2.0, 10, 1.0, "Tim Reska", sz=44, bold=True, col=navy, align=PP_ALIGN.CENTER)
+    T(s, 1.5, 3.2, 10, 0.8,
+      "AI-Augmented Medical Underwriting",
+      sz=22, col=blue, align=PP_ALIGN.CENTER)
+    T(s, 1.5, 4.3, 10, 0.5,
+      "What I built in 48 hours with Claude to show you what's possible",
+      sz=14, col=mid_blue, align=PP_ALIGN.CENTER)
+    T(s, 1.5, 5.5, 10, 0.5,
+      "PhD Helmholtz Munich  |  github.com/ttmgr  |  March 2026",
+      sz=12, col=label_grey, align=PP_ALIGN.CENTER)
 
-    # --- Slide 2: About Me ---
-    slide = prs.slides.add_slide(blank)
-    _add_text_box(slide, 0.8, 0.5, 11, 0.8, "Tim Reska",
-                  font_size=36, bold=True, color=navy)
-    _add_text_box(slide, 0.8, 1.3, 11, 0.5,
-                  "PhD Researcher | Helmholtz Munich & TU Munich | github.com/ttmgr",
-                  font_size=16, color=blue)
-    tf_about = _add_text_box(slide, 0.8, 2.2, 11, 0.5, "", font_size=13, color=mid_blue)
-    _add_bullet(tf_about,
-                '"Plausible but Wrong" -- coined in my own peer-reviewed research (ISME Communications 2024). '
-                '22 LLMs evaluated over 36 months. Same concept applied to underwriting.', font_size=13)
-    _add_bullet(tf_about,
-                '3 years evaluating Claude (Sonnet 3.5 -> 4.6). Integrated Claude + MCP into live '
-                'pipelines, -40% development time.', font_size=13)
-    _add_bullet(tf_about,
-                '8 publications (Nature Communications). Invited speaker: ETH Zurich, Cambridge, TUM. '
-                '22,000+ accesses, 43+ citations.', font_size=13)
-    _add_bullet(tf_about,
-                'GenomicsForOneHealth: 10 pipelines across 7 international sites (DE/FR/ES). '
-                'Led 12-site multinational surveillance campaign.', font_size=13)
-    _add_bullet(tf_about,
-                'Built this entire system in ~48 hours with Claude.', font_size=13)
+    # ================================================================
+    # SLIDE 2 — WHO I AM
+    # ================================================================
+    s = prs.slides.add_slide(blank)
+    T(s, 0.8, 0.4, 11.5, 0.8,
+      "My published pipeline exposed 'plausible but wrong' LLM outputs",
+      sz=28, bold=True, col=navy)
+    T(s, 0.8, 1.2, 11.5, 0.4,
+      "PhD Helmholtz Munich & TU Munich  |  github.com/ttmgr",
+      sz=14, col=blue)
+    # Left: credentials
+    tf_l = T(s, 0.8, 2.0, 5.5, 0.4, "Research & Publications", sz=16, bold=True, col=navy)
+    B(tf_l, "8 peer-reviewed publications including Nature Communications", sz=13)
+    B(tf_l, "22,000+ accesses, 43+ citations", sz=13)
+    B(tf_l, "Invited speaker: ETH Zurich, Cambridge, TUM", sz=13)
+    B(tf_l, "PhD thesis: real-time genomics for pathogen detection", sz=13)
+    # Right: AI expertise
+    tf_r = T(s, 6.8, 2.0, 5.5, 0.4, "AI & Claude Expertise", sz=16, bold=True, col=navy)
+    B(tf_r, "36-month LLM evaluation: 22 models (GPT, Claude, Gemini)", sz=13)
+    B(tf_r, "Observed 'plausible but wrong' across all 3 LLM families (22 models)", sz=13)
+    B(tf_r, "Integrated Claude + MCP into live pipelines (-40% dev time)", sz=13)
+    B(tf_r, "10 modular pipelines deployed across 7 sites in DE/FR/ES", sz=13)
+    # Bottom: the connection
+    T(s, 0.8, 5.8, 11.5, 0.5,
+      "I applied my PBW research to medical underwriting -- and built the proof in 48 hours.",
+      sz=14, bold=True, col=blue, align=PP_ALIGN.CENTER)
 
-    # --- Slide 3: The Problem ---
-    slide = prs.slides.add_slide(blank)
-    _add_text_box(slide, 0.8, 0.5, 11, 0.8, "The Problem: Plausible-but-Wrong",
-                  font_size=32, bold=True, color=navy)
-    tf = _add_text_box(slide, 0.8, 1.6, 11, 1,
-                       "Automated underwriting models produce confident predictions even when input data is incomplete. These predictions pass standard validation but lead to mispriced policies.",
-                       font_size=16, color=mid_blue)
-    _add_bullet(tf, "A 2% PBW rate across 100,000 policies = 2,000 mispriced decisions per year")
-    _add_bullet(tf, "Standard metrics (AUC, accuracy) do not detect PBW -- the prediction looks correct")
-    _add_bullet(tf, "EU AI Act 2024 requires reliability assessment for high-risk AI in insurance (Art. 14, 15)")
+    # ================================================================
+    # SLIDE 3 — WHAT I NOTICED (the problem, personal framing)
+    # ================================================================
+    s = prs.slides.add_slide(blank)
+    T(s, 0.8, 0.4, 11.5, 0.8,
+      "Underwriting models are confidently wrong when data quality is poor",
+      sz=28, bold=True, col=navy)
+    T(s, 0.8, 1.3, 11.5, 0.5,
+      "I found the same failure mode in genomics AI -- and it applies directly to insurance",
+      sz=14, col=blue)
+    # Left: the problem
+    tf_l = T(s, 0.8, 2.2, 5.5, 0.4, "The failure mode", sz=16, bold=True, col=navy)
+    B(tf_l, "Model scores patient as '78% high risk' based on 3 diagnoses, no labs", sz=13)
+    B(tf_l, "Score looks right -- passes every sanity check", sz=13)
+    B(tf_l, "But it's echoing training data averages, not this patient's reality", sz=13)
+    B(tf_l, "I call this 'Plausible but Wrong' (ISME Communications 2024)", sz=13)
+    # Right: the scale
+    tf_r = T(s, 6.8, 2.2, 5.5, 0.4, "At portfolio scale", sz=16, bold=True, col=navy)
+    B(tf_r, "100,000 decisions/year x 2% PBW = 2,000 mispriced policies", sz=13)
+    B(tf_r, "Invisible in standard metrics (AUC, Brier score look fine)", sz=13)
+    B(tf_r, "EU AI Act 2024: Art. 14+15 require per-case reliability", sz=13)
+    B(tf_r, "No production system today validates this at individual level", sz=13)
 
-    # --- Slide 3: The Solution ---
-    slide = prs.slides.add_slide(blank)
-    _add_text_box(slide, 0.8, 0.5, 11, 0.8, "The Solution: DQS + Reliability Head",
-                  font_size=32, bold=True, color=navy)
-    tf = _add_text_box(slide, 0.8, 1.6, 11, 0.5,
-                       "A reliability layer on top of risk prediction:",
-                       font_size=16, color=mid_blue)
-    _add_bullet(tf, "Data Quality Score (DQS): 0.40 x completeness + 0.35 x consistency + 0.25 x recency")
-    _add_bullet(tf, "Data Profile: FULL / NO_LABS / NO_MEDS / MINIMAL -- one model per profile, no imputation")
-    _add_bullet(tf, "Reliability Head: learned P(wrong) with cost-optimal accept / review / reject decisions")
-    _add_bullet(tf, "JSON Lines audit trail for every decision (EU AI Act Art. 14 compliance)")
-
-    # --- Slide 4: Architecture ---
-    slide = prs.slides.add_slide(blank)
-    _add_text_box(slide, 0.8, 0.5, 11, 0.8, "v2 Pipeline Architecture",
-                  font_size=32, bold=True, color=navy)
-    # Architecture flow box
-    shape = slide.shapes.add_shape(
-        1, Inches(0.8), Inches(2.0), Inches(11.5), Inches(1.5),  # 1 = rectangle
-    )
-    shape.fill.solid()
-    shape.fill.fore_color.rgb = RGBColor(0xEE, 0xF2, 0xF7)
-    shape.line.color.rgb = RGBColor(0xC4, 0xCD, 0xD6)
-    tf = shape.text_frame
-    tf.word_wrap = True
-    p = tf.paragraphs[0]
-    p.text = "Patient Record  -->  Data Profile  -->  DQS v2  -->  Model Router  -->  Reliability Head  -->  Decision + Audit"
-    p.font.size = Pt(14)
-    p.font.color.rgb = navy
-    p.font.bold = True
-    p.alignment = PP_ALIGN.CENTER
-    p2 = tf.add_paragraph()
-    p2.text = "what data available?       how good?        right model         P(wrong) + cost-optimal      accept/review/reject"
-    p2.font.size = Pt(10)
-    p2.font.color.rgb = label_grey
-    p2.alignment = PP_ALIGN.CENTER
-
-    tf2 = _add_text_box(slide, 0.8, 4.0, 11, 0.5, "", font_size=14, color=mid_blue)
-    _add_bullet(tf2, "No imputation: each data profile gets its own XGBoost model")
-    _add_bullet(tf2, "Human override support with reason codes and audit linkage")
-    _add_bullet(tf2, "Governance: JSON Lines audit trail, shift detection (PSI/JS divergence)")
-
-    # --- Slide 5: Multi-Market ---
-    slide = prs.slides.add_slide(blank)
-    _add_text_box(slide, 0.8, 0.5, 11, 0.8, "Multi-Market Validation",
-                  font_size=32, bold=True, color=navy)
-    _add_text_box(slide, 0.8, 1.5, 11, 0.6,
-                  "4 European markets with controlled data quality degradation:",
-                  font_size=16, color=mid_blue)
-    # Table
-    from pptx.util import Inches, Pt, Emu
-    rows, cols = 5, 5
-    tbl = slide.shapes.add_table(rows, cols, Inches(1.5), Inches(2.5),
-                                  Inches(10), Inches(2.5)).table
-    headers = ["Market", "Coding Completeness", "Lab Completeness", "Mean DQS", "PBW Rate"]
-    data = [
-        ["Germany (DE)", "95%", "92%", "0.85", "0.9%"],
-        ["France (FR)", "90%", "88%", "0.80", "1.0%"],
-        ["Spain (ES)", "80%", "75%", "0.70", "1.3%"],
-        ["International", "60%", "50%", "0.45", "2.1%"],
+    # ================================================================
+    # SLIDE 4 — WHAT I BUILT (the demo, not the architecture)
+    # ================================================================
+    s = prs.slides.add_slide(blank)
+    T(s, 0.8, 0.4, 11.5, 0.8,
+      "I built a working underwriting system in 48 hours to show you what's possible",
+      sz=28, bold=True, col=navy)
+    T(s, 0.8, 1.3, 11.5, 0.5,
+      "Not a slide deck -- a running application with 231 tests and every number verified against PubMed",
+      sz=14, col=blue)
+    # Pipeline flowchart — 5 rounded boxes with muted arrows (design system)
+    ds_border = RGBColor(0x2D, 0x34, 0x36)
+    ds_ai_border = RGBColor(0x2C, 0x6F, 0xA0)
+    ds_ai_fill = RGBColor(0xEB, 0xF3, 0xFA)
+    ds_arrow = RGBColor(0xB2, 0xBE, 0xC3)
+    pipeline_labels = [
+        ("Patient\nRecord", ds_border, white),
+        ("Data Quality\nScore", ds_ai_border, ds_ai_fill),
+        ("Model\nRouter", ds_ai_border, ds_ai_fill),
+        ("P(wrong)", ds_ai_border, ds_ai_fill),
+        ("Decision", ds_border, white),
     ]
-    for i, h in enumerate(headers):
-        cell = tbl.cell(0, i)
-        cell.text = h
-        for p in cell.text_frame.paragraphs:
-            p.font.size = Pt(12)
-            p.font.bold = True
-            p.font.color.rgb = white
-            p.alignment = PP_ALIGN.CENTER
-        cell.fill.solid()
-        cell.fill.fore_color.rgb = navy
-    for r, row_data in enumerate(data):
-        for c, val in enumerate(row_data):
-            cell = tbl.cell(r + 1, c)
-            cell.text = val
-            for p in cell.text_frame.paragraphs:
-                p.font.size = Pt(11)
-                p.font.color.rgb = mid_blue
-                p.alignment = PP_ALIGN.CENTER
+    box_w_in, box_h_in, arrow_gap_in = 1.9, 0.7, 0.35
+    total_flow_w = len(pipeline_labels) * box_w_in + (len(pipeline_labels) - 1) * arrow_gap_in
+    flow_x0 = (13.333 - total_flow_w) / 2
+    flow_y0 = 2.4
+    for bidx, (blabel, bborder, bfill) in enumerate(pipeline_labels):
+        bx = flow_x0 + bidx * (box_w_in + arrow_gap_in)
+        box = s.shapes.add_shape(
+            MSO_SHAPE.ROUNDED_RECTANGLE,
+            Inches(bx), Inches(flow_y0), Inches(box_w_in), Inches(box_h_in),
+        )
+        box.fill.solid()
+        box.fill.fore_color.rgb = bfill
+        box.line.color.rgb = bborder
+        box.line.width = Pt(1.5)
+        btf = box.text_frame
+        btf.word_wrap = True
+        bp = btf.paragraphs[0]
+        bp.text = blabel
+        bp.font.size = Pt(11)
+        bp.font.bold = True
+        bp.font.color.rgb = ds_border
+        bp.alignment = PP_ALIGN.CENTER
+        btf.paragraphs[0].space_before = Pt(0)
+        # Arrow connector
+        if bidx < len(pipeline_labels) - 1:
+            ax1 = Inches(bx + box_w_in)
+            ax2 = Inches(bx + box_w_in + arrow_gap_in)
+            ay = Inches(flow_y0 + box_h_in / 2)
+            conn = s.shapes.add_connector(1, ax1, ay, ax2, ay)
+            conn.line.color.rgb = ds_arrow
+            conn.line.width = Pt(1.5)
+    # Key points below
+    tf2 = T(s, 0.8, 4.0, 5.5, 0.4, "What it does", sz=15, bold=True, col=navy)
+    B(tf2, "Scores data quality BEFORE the model runs", sz=13)
+    B(tf2, "Routes to the right model for available data (no imputation)", sz=13)
+    B(tf2, "Estimates P(wrong) and makes cost-optimal decisions", sz=13)
+    tf3 = T(s, 6.8, 4.0, 5.5, 0.4, "How I built it", sz=15, bold=True, col=navy)
+    B(tf3, "Claude as co-pilot for architecture, coding, and testing", sz=13)
+    B(tf3, "LLM agents for PubMed literature verification", sz=13)
+    B(tf3, "Same AI workflow I'd use at Allianz -- but with real data", sz=13)
 
-    _add_text_box(slide, 0.8, 5.5, 11, 0.5,
-                  "INT market has 2.4x the PBW rate of DE -- data quality directly drives prediction reliability.",
-                  font_size=14, bold=True, color=blue)
-
-    # --- Slide 6: PBW Detection ---
-    slide = prs.slides.add_slide(blank)
-    _add_text_box(slide, 0.8, 0.5, 11, 0.8, "PBW Detection",
-                  font_size=32, bold=True, color=navy)
-    tf = _add_text_box(slide, 0.8, 1.6, 5.5, 1,
-                       "High confidence + low data quality = plausible-but-wrong.",
-                       font_size=16, color=mid_blue)
-    _add_bullet(tf, "v1: fixed threshold (confidence > 0.80 AND DQS < 0.60)")
-    _add_bullet(tf, "v2: Reliability Head learns P(wrong) from validation errors")
-    _add_bullet(tf, "Cost-optimal: argmin of expected cost for accept/review/reject")
-    _add_bullet(tf, "Per-patient audit: P(wrong), DQS, model used, decision rationale")
-
-    # --- Slide 7: CV Progression ---
-    slide = prs.slides.add_slide(blank)
-    _add_text_box(slide, 0.8, 0.5, 11, 0.8, "Disease Progression: Cardiovascular",
-                  font_size=32, bold=True, color=navy)
-    _add_text_box(slide, 0.8, 1.4, 11, 0.5,
-                  "5-state CTMC: Healthy --> Risk Factors --> Chronic Disease --> Complication --> Major Event",
-                  font_size=14, color=mid_blue)
-    cv_buf = chart_cv_progression()
-    cv_buf.seek(0)
+    # ================================================================
+    # SLIDE 5 — WHAT IT FOUND (the punchline)
+    # ================================================================
+    s = prs.slides.add_slide(blank)
+    T(s, 0.8, 0.4, 11.5, 0.8,
+      "International markets show 2.4x higher mispricing risk than Germany",
+      sz=28, bold=True, col=navy)
+    T(s, 0.8, 1.3, 11.5, 0.5,
+      "4 European markets, controlled data quality degradation -- the same 3 countries I worked in for genomics",
+      sz=14, col=blue)
+    # Table
     import tempfile, os
-    with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as f:
-        f.write(cv_buf.read())
-        cv_tmp = f.name
-    slide.shapes.add_picture(cv_tmp, Inches(1.5), Inches(2.2), Inches(10), Inches(4.5))
-    os.unlink(cv_tmp)
+    rows_n, cols_n = 5, 4
+    tbl = s.shapes.add_table(rows_n, cols_n, Inches(1.5), Inches(2.3),
+                              Inches(10), Inches(2.2)).table
+    for i, h in enumerate(["Market", "Data Quality", "Mean DQS", "PBW Flag Rate"]):
+        c = tbl.cell(0, i)
+        c.text = h
+        for pp in c.text_frame.paragraphs:
+            pp.font.size = Pt(12)
+            pp.font.bold = True
+            pp.font.color.rgb = white
+            pp.alignment = PP_ALIGN.CENTER
+        c.fill.solid()
+        c.fill.fore_color.rgb = navy
+    for r, rd in enumerate([
+        ["Germany (DE)", "High (95% coding, 92% labs)", "0.85", "0.9%"],
+        ["France (FR)", "Good (90% coding, 88% labs)", "0.80", "1.0%"],
+        ["Spain (ES)", "Medium (80% coding, 75% labs)", "0.70", "1.3%"],
+        ["International", "Low (60% coding, 50% labs)", "0.45", "2.1%"],
+    ]):
+        for c_i, val in enumerate(rd):
+            c = tbl.cell(r + 1, c_i)
+            c.text = val
+            for pp in c.text_frame.paragraphs:
+                pp.font.size = Pt(11)
+                pp.font.color.rgb = red if (r == 3 and c_i == 3) else mid_blue
+                pp.alignment = PP_ALIGN.CENTER
+    T(s, 0.8, 5.3, 11.5, 0.5,
+      "The worst market has 2.4x the mispricing risk -- and standard metrics don't see it.",
+      sz=14, bold=True, col=blue, align=PP_ALIGN.CENTER)
 
-    # --- Slide 8: AD Progression ---
-    slide = prs.slides.add_slide(blank)
-    _add_text_box(slide, 0.8, 0.5, 11, 0.8, "Disease Progression: Alzheimer's",
-                  font_size=32, bold=True, color=navy)
-    _add_text_box(slide, 0.8, 1.4, 11, 0.5,
-                  "7-state CTMC: NC --> SCD --> MCI --> Mild AD --> Moderate AD --> Severe AD --> Death",
-                  font_size=14, color=mid_blue)
+    # ================================================================
+    # SLIDE 6 — IT WORKS FOR ANY DISEASE (AD proof + chart)
+    # ================================================================
+    s = prs.slides.add_slide(blank)
+    T(s, 0.8, 0.4, 11.5, 0.8,
+      "I added Alzheimer's disease in one config file to prove the framework generalises",
+      sz=28, bold=True, col=navy)
+    T(s, 0.8, 1.3, 11.5, 0.4,
+      "7 states from normal cognition to death -- all transition rates verified against PubMed systematic reviews",
+      sz=14, col=blue)
     ad_buf = chart_ad_progression()
     ad_buf.seek(0)
     with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as f:
         f.write(ad_buf.read())
         ad_tmp = f.name
-    slide.shapes.add_picture(ad_tmp, Inches(1.5), Inches(2.2), Inches(10), Inches(4.5))
+    s.shapes.add_picture(ad_tmp, Inches(1.0), Inches(2.0), Inches(7.5), Inches(4.2))
     os.unlink(ad_tmp)
+    # Right side key facts
+    tf_r = T(s, 9.0, 2.0, 3.5, 0.4, "Added as config:", sz=14, bold=True, col=navy)
+    B(tf_r, "8 ICD-10 codes", sz=12, col=mid_blue)
+    B(tf_r, "4 biomarkers (MMSE, MoCA, CSF)", sz=12, col=mid_blue)
+    B(tf_r, "4 medications (ATC-coded)", sz=12, col=mid_blue)
+    B(tf_r, "ApoE4 risk modifier", sz=12, col=mid_blue)
+    B(tf_r, "Zero changes to the engine", sz=12, col=green)
 
-    # --- Slide 9: Generalizable Framework ---
-    slide = prs.slides.add_slide(blank)
-    _add_text_box(slide, 0.8, 0.5, 11, 0.8, "Generalizable Framework",
-                  font_size=32, bold=True, color=navy)
-    _add_text_box(slide, 0.8, 1.5, 11, 0.6,
-                  "New diseases are added as data configurations -- no code changes required.",
-                  font_size=16, color=mid_blue)
-    # Left column
-    tf_l = _add_text_box(slide, 0.8, 2.5, 5.5, 0.5, "Cardiovascular (5 states)",
-                         font_size=18, bold=True, color=navy)
-    _add_bullet(tf_l, "Healthy --> Risk --> Chronic --> Complication --> Death")
-    _add_bullet(tf_l, "10 lab values, 8 medication classes")
-    _add_bullet(tf_l, "56 ICD-10 codes across 28 categories")
-    _add_bullet(tf_l, "Charlson Comorbidity Index integration")
-    # Right column
-    tf_r = _add_text_box(slide, 6.8, 2.5, 5.5, 0.5, "Alzheimer's (7 states)",
-                         font_size=18, bold=True, color=navy)
-    _add_bullet(tf_r, "NC --> SCD --> MCI --> Mild --> Moderate --> Severe --> Death")
-    _add_bullet(tf_r, "MMSE, MoCA, CSF biomarkers, ApoE4 genotype")
-    _add_bullet(tf_r, "8 ICD-10 codes (G30.x, F00.x), 4 medications")
-    _add_bullet(tf_r, "Graduated ApoE4 risk modifier by disease stage")
-
-    # --- Slide 10: Why AI? ---
-    slide = prs.slides.add_slide(blank)
-    _add_text_box(slide, 0.8, 0.5, 11, 0.8, "Why AI? Beyond Rule-Based Underwriting",
-                  font_size=32, bold=True, color=navy)
-    # SOTA comparison table
-    rows_t, cols_t = 8, 4
-    tbl2 = slide.shapes.add_table(rows_t, cols_t, Inches(0.8), Inches(1.6),
-                                   Inches(11.5), Inches(3.2)).table
-    sota_h = ["Capability", "Rules / Actuarial", "Basic ML", "MedRisk-ADH (AI)"]
-    sota_d = [
-        ["Per-case reliability", "No", "No", "Yes (DQS + P(wrong))"],
-        ["Handles missing data", "Reject case", "Impute (PBW risk)", "Route to right model"],
-        ["Individual risk drivers", "No", "Limited", "SHAP per patient"],
-        ["Disease progression", "Static tables", "No", "CTMC (any disease)"],
-        ["Confidence estimation", "No", "Uncalibrated", "Cost-optimal decisions"],
-        ["Audit trail", "Manual", "None", "JSON Lines per case"],
-        ["EU AI Act ready", "Partial", "Difficult", "Built-in (Art. 14, 15)"],
-    ]
-    for i, h in enumerate(sota_h):
-        cell = tbl2.cell(0, i)
-        cell.text = h
-        for pp in cell.text_frame.paragraphs:
-            pp.font.size = Pt(10)
+    # ================================================================
+    # SLIDE 7 — WHY AI (comparison table)
+    # ================================================================
+    s = prs.slides.add_slide(blank)
+    T(s, 0.8, 0.4, 11.5, 0.8,
+      "AI-driven underwriting solves five problems current methods cannot",
+      sz=28, bold=True, col=navy)
+    rows_t, cols_t = 6, 4
+    tbl2 = s.shapes.add_table(rows_t, cols_t, Inches(0.8), Inches(1.5),
+                               Inches(11.5), Inches(2.8)).table
+    for i, h in enumerate(["What you need", "Rules / Actuarial", "Basic ML", "What I build"]):
+        c = tbl2.cell(0, i)
+        c.text = h
+        for pp in c.text_frame.paragraphs:
+            pp.font.size = Pt(11)
             pp.font.bold = True
             pp.font.color.rgb = white
             pp.alignment = PP_ALIGN.CENTER
-        cell.fill.solid()
-        cell.fill.fore_color.rgb = navy
-    for r, row_data in enumerate(sota_d):
-        for c, val in enumerate(row_data):
-            cell = tbl2.cell(r + 1, c)
-            cell.text = val
-            for pp in cell.text_frame.paragraphs:
-                pp.font.size = Pt(9)
-                pp.font.color.rgb = RGBColor(0x02, 0x89, 0x01) if c == 3 else mid_blue
+        c.fill.solid()
+        c.fill.fore_color.rgb = navy
+    for r, rd in enumerate([
+        ["Know when to trust the AI", "No", "No", "DQS + P(wrong) per case"],
+        ["Handle incomplete records", "Reject", "Impute (creates PBW)", "Route to right model"],
+        ["Explain each decision", "No", "Limited", "SHAP per patient + audit"],
+        ["Model disease progression", "Static tables", "No", "CTMC for any disease"],
+        ["EU AI Act compliance", "Partial", "Difficult", "Built in from day 1"],
+    ]):
+        for c_i, val in enumerate(rd):
+            c = tbl2.cell(r + 1, c_i)
+            c.text = val
+            for pp in c.text_frame.paragraphs:
+                pp.font.size = Pt(10)
+                pp.font.color.rgb = green if c_i == 3 else (red if "Impute" in val or "Difficult" in val else mid_blue)
                 pp.alignment = PP_ALIGN.CENTER
+    # LLM vision below table
+    tf_v = T(s, 0.8, 4.8, 11.5, 0.4, "Phase 3: LLM agents extract structured data from doctor notes across languages, "
+             "generate natural language risk explanations, and continuously verify parameters against new literature.",
+             sz=12, col=label_grey)
 
-    tf_llm = _add_text_box(slide, 0.8, 5.2, 11, 0.5, "LLM Extension (Phase 3 Vision):",
-                           font_size=16, bold=True, color=navy)
-    _add_bullet(tf_llm, "Unstructured record extraction -- LLMs read doctor notes in DE/FR/ES/EN", font_size=12)
-    _add_bullet(tf_llm, "Natural language explanations -- human-readable risk narratives instead of SHAP values", font_size=12)
-    _add_bullet(tf_llm, "Literature-calibrated parameters -- LLM agents verify rates against PubMed continuously", font_size=12)
+    # ================================================================
+    # SLIDE 8 — HOW I WORK WITH AI (the differentiator)
+    # ================================================================
+    s = prs.slides.add_slide(blank)
+    T(s, 0.8, 0.4, 11.5, 0.8,
+      "This is how I work: one person + Claude = output of a 5-person team",
+      sz=28, bold=True, col=navy)
+    T(s, 0.8, 1.3, 11.5, 0.5,
+      "3 years of Claude evaluation taught me exactly where AI works and where it needs human expertise",
+      sz=14, col=blue)
+    # Process steps
+    steps = [
+        ("I define the problem", "PBW in underwriting -- from my own published research"),
+        ("Claude builds the code", "Pipeline, models, tests, app -- 21,000 lines in 48 hours"),
+        ("I verify the science", "LLM agents query PubMed -- I validate against domain knowledge"),
+        ("Claude handles scale", "231 tests, 4 markets, 2 diseases, fact-checked, EU AI Act ready"),
+        ("I make the decisions", "Architecture, clinical thresholds, what to show, what matters"),
+    ]
+    for i, (title, detail) in enumerate(steps):
+        y = 2.3 + i * 0.95
+        # Step number
+        shape = s.shapes.add_shape(1, Inches(0.8), Inches(y), Inches(0.6), Inches(0.6))
+        shape.fill.solid()
+        shape.fill.fore_color.rgb = blue if i % 2 == 0 else navy
+        shape.line.fill.background()
+        stf = shape.text_frame
+        stf.paragraphs[0].text = str(i + 1)
+        stf.paragraphs[0].font.size = Pt(16)
+        stf.paragraphs[0].font.bold = True
+        stf.paragraphs[0].font.color.rgb = white
+        stf.paragraphs[0].alignment = PP_ALIGN.CENTER
+        T(s, 1.6, y, 4.0, 0.5, title, sz=14, bold=True, col=navy)
+        T(s, 5.8, y, 6.5, 0.5, detail, sz=13, col=mid_blue)
 
-    # --- Slide 11: Validation ---
-    slide = prs.slides.add_slide(blank)
-    _add_text_box(slide, 0.8, 0.5, 11, 0.8, "Validation & Testing",
-                  font_size=32, bold=True, color=navy)
-    kpis = [("231", "Tests Passing"), ("0.71", "AUC-ROC"), ("0.010", "Brier Score"),
-            ("0.72", "C-index"), ("4,000", "Synthetic Patients"), ("2", "Disease Models")]
-    for i, (val, label) in enumerate(kpis):
-        col = i % 3
-        row = i // 3
-        x = 1.5 + col * 3.5
-        y = 1.8 + row * 2.5
-        shape = slide.shapes.add_shape(
-            1, Inches(x), Inches(y), Inches(3), Inches(2),
-        )
+    # ================================================================
+    # SLIDE 9 — 90 DAYS
+    # ================================================================
+    s = prs.slides.add_slide(blank)
+    T(s, 0.8, 0.4, 11.5, 0.8,
+      "In 90 days I'd deliver calibrated PBW detection on real Allianz data",
+      sz=28, bold=True, col=navy)
+    # Month boxes
+    months = [
+        ("Month 1", "Audit & Map",
+         "Audit current underwriting pipeline for PBW risk. Map data quality across Allianz markets. "
+         "Identify the 3 highest-impact failure modes."),
+        ("Month 2", "Calibrate & Train",
+         "Calibrate DQS on real Allianz data. Retrain model router on actual data profiles. "
+         "Deliver first real-data PBW prevalence estimate by market."),
+        ("Month 3", "Ship & Document",
+         "Production prototype: REST API for per-case quality scoring. Validated PBW detection rates. "
+         "EU AI Act compliance documentation."),
+    ]
+    for i, (month, subtitle, desc) in enumerate(months):
+        x = 0.8 + i * 4.0
+        shape = s.shapes.add_shape(1, Inches(x), Inches(1.7), Inches(3.6), Inches(3.5))
         shape.fill.solid()
         shape.fill.fore_color.rgb = light_blue
         shape.line.color.rgb = RGBColor(0xC4, 0xCD, 0xD6)
-        tf = shape.text_frame
-        tf.word_wrap = True
-        p = tf.paragraphs[0]
-        p.text = val
-        p.font.size = Pt(36)
+        stf = shape.text_frame
+        stf.word_wrap = True
+        p = stf.paragraphs[0]
+        p.text = month
+        p.font.size = Pt(11)
         p.font.bold = True
-        p.font.color.rgb = navy
-        p.alignment = PP_ALIGN.CENTER
-        p2 = tf.add_paragraph()
-        p2.text = label
-        p2.font.size = Pt(12)
-        p2.font.color.rgb = blue
-        p2.alignment = PP_ALIGN.CENTER
+        p.font.color.rgb = blue
+        p2 = stf.add_paragraph()
+        p2.text = subtitle
+        p2.font.size = Pt(18)
+        p2.font.bold = True
+        p2.font.color.rgb = navy
+        p2.space_before = Pt(6)
+        p3 = stf.add_paragraph()
+        p3.text = desc
+        p3.font.size = Pt(11)
+        p3.font.color.rgb = mid_blue
+        p3.space_before = Pt(10)
+    T(s, 0.8, 5.8, 11.5, 0.5,
+      "I built this proof of concept in 48 hours. Imagine what I do with real data and 90 days.",
+      sz=14, bold=True, col=blue, align=PP_ALIGN.CENTER)
 
-    # --- Slide 12: What I'd Do in 90 Days ---
-    slide = prs.slides.add_slide(blank)
-    _add_text_box(slide, 0.8, 0.5, 11, 0.8, "What I'd Do in the First 90 Days",
-                  font_size=32, bold=True, color=navy)
-    tf = _add_text_box(slide, 0.8, 1.6, 11, 0.5, "", font_size=14, color=mid_blue)
-    _add_bullet(tf, "Month 1: Audit current pipeline for PBW risk. Map data quality across Allianz markets.", font_size=14)
-    _add_bullet(tf, "Month 2: Calibrate DQS on real data. First real-data PBW prevalence estimate.", font_size=14)
-    _add_bullet(tf, "Month 3: Production prototype with REST API, validated detection rates, EU AI Act docs.", font_size=14)
-
-    tf2 = _add_text_box(slide, 0.8, 4.0, 11, 0.5, "What you get:",
-                        font_size=18, bold=True, color=navy)
-    _add_bullet(tf2, "I built this entire system in ~48 hours with Claude -- imagine 90 days with real data", font_size=14)
-    _add_bullet(tf2, "PhD bioinformatics + AI tools = output that normally takes a team of 3-5 developers", font_size=14)
-    _add_bullet(tf2, "Domain expertise: genomics, disease progression, clinical coding, EU AI Act", font_size=14)
-
-    # --- Slide 12: Thank You ---
-    slide = prs.slides.add_slide(blank)
-    _add_text_box(slide, 1.5, 2.5, 10, 1.2, "Thank You",
-                  font_size=44, bold=True, color=navy, alignment=PP_ALIGN.CENTER)
-    _add_text_box(slide, 1.5, 4.0, 10, 0.5, "Tim Reska | Helmholtz Munich",
-                  font_size=18, color=mid_blue, alignment=PP_ALIGN.CENTER)
-    _add_text_box(slide, 1.5, 5.5, 10, 0.5,
-                  "Proof of Concept | All data is synthetic | March 2026",
-                  font_size=12, color=label_grey, alignment=PP_ALIGN.CENTER)
+    # ================================================================
+    # SLIDE 10 — LET'S TALK
+    # ================================================================
+    s = prs.slides.add_slide(blank)
+    T(s, 1.5, 2.0, 10, 0.8, "Let's build this together.",
+      sz=36, bold=True, col=navy, align=PP_ALIGN.CENTER)
+    T(s, 1.5, 3.2, 10, 0.5, "Tim Reska",
+      sz=22, col=mid_blue, align=PP_ALIGN.CENTER)
+    T(s, 1.5, 3.9, 10, 0.5,
+      "PhD Helmholtz Munich  |  8 publications  |  3 years evaluating Claude",
+      sz=14, col=label_grey, align=PP_ALIGN.CENTER)
+    T(s, 1.5, 4.6, 10, 0.5,
+      "timreska@gmail.com  |  github.com/ttmgr  |  linkedin.com/in/timreska",
+      sz=13, col=blue, align=PP_ALIGN.CENTER)
+    T(s, 1.5, 5.8, 10, 0.5,
+      "All data in this demo is synthetic. The system, the science, and the skills are real.",
+      sz=11, col=label_grey, align=PP_ALIGN.CENTER)
 
     path = OUT / "medrisk_adh_deck.pptx"
     prs.save(str(path))
-    logger.info("  -> %s (12 slides)", path.name)
+    logger.info("  -> %s (%d slides)", path.name, len(prs.slides))
 
 
 # ============================================================================

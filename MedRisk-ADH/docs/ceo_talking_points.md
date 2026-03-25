@@ -8,30 +8,48 @@
 
 ## 1-Minute Elevator Pitch
 
-> I built a working AI underwriting system in about 48 hours using Claude as my co-pilot. Not a slide deck -- a running application with 231 tests, four European markets, two disease models, and every clinical number verified against PubMed.
+> You said the expert needs to understand disease progressions — the rest can be done via LLMs. That's exactly my profile.
 >
-> The core insight: every underwriting model today has a blind spot. It produces confident predictions even when the input data is too sparse to support them. I call these "plausible-but-wrong" predictions. My system detects them before they become mispriced policies -- by scoring data quality per patient, estimating the probability that each prediction is wrong, and routing uncertain cases to human underwriters.
+> My PhD was 4 years of modeling biological state transitions: how pathogens evolve through resistance stages over time. The math is Continuous-Time Markov Chains — the same framework I used here to model Alzheimer's progression through 7 clinical stages and cardiovascular disease through 5 states. I didn't learn this for the interview. I've been fitting transition matrices to real data throughout my PhD.
 >
-> On synthetic data across four markets, the system flags a 2.4x difference in mispricing risk between German and international data environments. At 100,000 decisions per year, that's the difference between 900 and 2,100 cases that need human eyes. I built this to show you what I can do with AI tools. Imagine what I could do with real Allianz data and a few months.
+> To prove that the combination works — domain expertise plus AI — I built a complete underwriting system in 48 hours with Claude. Not a slide deck: a running application with 231 tests, four European markets, two disease models, every clinical number verified against PubMed. It detects "plausible-but-wrong" predictions — cases where the AI is confident but the data is too sparse to trust. On synthetic data across four markets, it flags a 2.4x difference in mispricing risk between German and international environments.
+>
+> I understand the disease progressions. Claude handles the engineering at scale. Imagine what I could do with real Allianz data and 90 days.
 
-**Key framing:** You built this. With AI. In days, not months. This is what the role looks like when someone who understands both the science and the tools does it.
+**Key framing:** Lead with the König quote. You match her exact description: disease progression expertise + LLM leverage. The 48-hour proof is the evidence, not the pitch.
+
+**ADH mission alignment:** The JD says ADH strives for "rule-breaking approaches in health insurance." Building a complete AI underwriting system in 48 hours with an LLM co-pilot — instead of a 6-month team project — is exactly that. One person with domain expertise and AI tools, operating with startup agility inside Allianz's global infrastructure.
 
 ---
 
 ## My Background (Why I'm the Right Person)
 
 ### The PBW Origin Story
-I didn't invent "plausible but wrong" for this interview. I discovered it in my own research. Over 36 months, I evaluated 22 LLMs (GPT-4o through GPT-5, Claude Sonnet 3.5 through Claude 4.6, Gemini 2.0 through 3 Pro) for their ability to generate bioinformatics pipelines. I validated their output against my own peer-reviewed methodology published in ISME Communications (2024).
+I published a peer-reviewed bioinformatics pipeline in ISME Communications (2024). That pipeline became the ground truth I used to evaluate 22 LLMs over 36 months (GPT-4o through GPT-5, Claude Sonnet 3.5 through Claude 4.6, Gemini 2.0 through 3 Pro). I tested whether they could reproduce my validated methodology.
 
-The key finding: AI-generated code that is syntactically correct, executable, and passes surface review — but makes domain-specific choices that fail expert validation. I called this "plausible but wrong." It's the same failure mode in underwriting: a model produces a confident prediction that looks right but isn't supported by the data.
+The key observation: every LLM family produced code that is syntactically correct, executable, and passes surface review — but makes domain-specific choices that fail expert validation. I call this "plausible but wrong." It's the same failure mode in underwriting: a model produces a confident prediction that looks right but isn't supported by the data.
 
-**MedRisk-ADH is the direct application of my own published research to a new domain.**
+**MedRisk-ADH applies this observation to a new domain — using my experience spotting PBW in genomics to detect it in underwriting.**
+
+### Why genomics is the perfect training ground for disease progression modeling
+
+This is the key transition: my PhD was not just sequencing — it was **mathematical modeling of biological processes over time**.
+
+- **Pathogen evolution is a Markov process.** In real-time genomics, you model how a pathogen mutates through states — susceptible → resistant → multi-drug resistant — with transition rates estimated from sequencing data. That's the same mathematical framework as disease progression: Normal Cognition → MCI → Mild AD → Moderate AD → Severe AD → Death. The math is identical. The states are different.
+- **Data quality variance across countries is my lived experience.** I deployed 10 pipelines across 7 sites in Germany, France, and Spain. German labs delivered 95% complete sequencing data. Spanish field sites delivered 60%. I built quality-aware pipelines that adapted to what was available — not imputing what was missing. That's exactly what MedRisk-ADH does for underwriting data across DE/FR/ES/INT markets.
+- **I know where AI works and where it fails.** 36 months evaluating 22 LLMs taught me that AI produces confident outputs even on domains it doesn't understand. In genomics, that means plausible but wrong bioinformatics code. In underwriting, that means confident risk scores on sparse patient data. The failure mode is the same — I just changed the domain.
+
+**Bottom line for Frau König:** I understand disease progressions because I modeled biological processes for 4 years. The LLMs handle the engineering at scale. The domain expertise — knowing which transition rates are plausible, which biomarkers matter, when to trust the model and when not to — that's what I bring.
 
 ### What I Bring
-- **3 years evaluating Claude specifically**: From Sonnet 3.5 to Claude 4.6. I know where it works, where it fails, and how to get production value from it. I integrated Claude + MCP servers into live sequencing pipelines, reducing development time by 40%.
-- **Scientific rigor**: PhD Helmholtz Munich (GPA 1.6). 8 peer-reviewed publications including Nature Communications. 22,000+ accesses, 43+ citations. Invited speaker at ETH Zurich, University of Cambridge, TUM.
-- **Deployment at scale**: Led GenomicsForOneHealth — 10 modular Oxford Nanopore pipelines deployed across 7 international sites with no dedicated IT support. Directed a 12-site multinational surveillance campaign across Germany, France, and Spain (the same 3 countries as MedRisk-ADH's European markets).
-- **The 48-hour proof**: I built MedRisk-ADH — 231 tests, 2 disease models, 4 markets, fact-checked against PubMed, EU AI Act compliant — in about 48 hours with Claude. This is what one person with the right tools and domain knowledge can do.
+- **Medical science foundation**: MSc Biochemistry (not CS — I come from the science side). Collaborated with **Rechts der Isar Hospital** (Munich) on clinical health surveillance. My PhD supervisor Prof. Lara Urban (now University of Zurich) describes me as having "interdisciplinary skill set ranging from laboratory, technical, to computational expertise."
+- **Disease progression expertise**: 4 years modeling biological state transitions (pathogen evolution, drug resistance emergence) — the same CTMC mathematics that powers MedRisk-ADH's Alzheimer and cardiovascular models.
+- **Regulatory compliance is second nature**: Served as **Occupational Safety Officer** for the entire Helmholtz AI lab — attended Safety & Compliance workshops, established SOPs, ensured regulatory compliance. The same mindset I applied to EU AI Act compliance in MedRisk-ADH.
+- **I build platforms, not just projects**: Built the **computational framework for the entire research group** (HPC pipelines, data analysis infrastructure). My pipelines were adopted into the **University of Zurich "One Health" surveillance strategy** — that's production deployment, not a prototype.
+- **Team builder and trainer**: First member of a new research group — helped build it from scratch. **Trained 6 researchers** in lab and computational methods. Created troubleshooting guides and SOPs. Led **2 independent research projects** out of 7 total. Prof. Urban calls me "a cohesive centre" of the group.
+- **International network already in place**: Rechts der Isar Hospital (Munich), Global Health Institute (Barcelona), University of Zurich, School of Agriculture (Turin), Spanish Institute for Game and Wildlife Research — the same countries as ADH's European markets.
+- **3 years evaluating Claude specifically**: From Sonnet 3.5 to Claude 4.6. I know where it works, where it fails, and how to get production value from it. Integrated Claude + MCP servers into live sequencing pipelines, reducing development time by 40%.
+- **The 48-hour proof**: I built MedRisk-ADH — 231 tests, 2 disease models, 4 markets, fact-checked against PubMed, EU AI Act compliant — in about 48 hours with Claude. Prof. Urban's description of me: "does not shy away from unconventional problem-solving" and "gets things done efficiently." This demo is the evidence.
 
 ### The GitHub Trail
 - github.com/ttmgr — portfolio with LLM evaluation framework, pipeline collection, publications
@@ -40,7 +58,7 @@ The key finding: AI-generated code that is syntactically correct, executable, an
 
 ---
 
-## The Problem (Why This Matters)
+## Confident AI predictions on bad data cost insurers 2,000+ mispriced policies per year
 
 ### What is PBW in plain English
 
@@ -70,7 +88,7 @@ Enforcement begins 2026. Insurers deploying AI without these safeguards face reg
 
 ---
 
-## What We Built (The Solution)
+## A reliability layer detects when AI predictions cannot be trusted
 
 ### The Pipeline
 
@@ -126,7 +144,7 @@ Every decision produces a JSON Lines audit record: patient ID, DQS components, m
 
 ---
 
-## The Alzheimer Extension (Generalizability Proof)
+## The Alzheimer extension proves the framework generalises to any disease
 
 ### Why we added it
 
@@ -162,7 +180,7 @@ Every clinical number was verified against PubMed and WHO references.
 
 ---
 
-## Why AI / LLM (The Strategic Argument)
+## AI-driven underwriting solves 6 problems current methods cannot
 
 ### What AI adds that rules/actuarial/basic ML cannot
 
@@ -190,7 +208,7 @@ This is **not replacing underwriters** — it is telling them where to look. The
 
 ---
 
-## Key Numbers (Have These Ready)
+## Key numbers that prove the system works
 
 | Metric | Value | Context |
 |--------|-------|---------|
@@ -219,6 +237,10 @@ This is **not replacing underwriters** — it is telling them where to look. The
 ---
 
 ## Anticipated Questions & Answers
+
+### 0. "You're a genomics PhD — why do you think you can model disease progression for insurance?"
+
+Because disease progression modeling is what I've been doing for 4 years — just in a different domain. My PhD modeled how pathogens evolve through states over time: susceptible → resistant → multi-drug resistant. The math is a Continuous-Time Markov Chain — exactly the same framework I use in MedRisk-ADH for Alzheimer's (7 states) and cardiovascular disease (5 states). I didn't learn CTMC for this interview; I've been fitting transition matrices to real biological data throughout my PhD. The difference is the states: instead of resistance mutations, it's cognitive decline stages. Instead of sequencing quality, it's underwriting data quality. The mathematical framework, the calibration against published literature, the handling of incomplete observations across countries — that's all directly transferable. And to prove it: I built two disease progression models in 48 hours, with every transition rate verified against PubMed systematic reviews. That's not a weekend project from someone learning the domain — that's applied expertise.
 
 ### 1. "Why synthetic data? Can we trust these numbers?"
 
@@ -276,13 +298,25 @@ Three reasons. First, the validation layer needs calibration against *your* data
 
 Good question — this is the residual risk. High DQS means the *data supports* the prediction, but the model can still be wrong (irreducible error, rare disease presentations, novel drug interactions). The system addresses this through three mechanisms: (a) the Reliability Head estimates P(wrong) even for high-DQS cases — it uses model disagreement across the three-model ensemble (EPU) as an additional signal; (b) calibration-confidence mismatch (CCM) catches cases where the model's raw confidence diverges from its calibrated probability; and (c) the feedback loop in Phase 3 tracks whether "accepted" cases were later found to be mispriced, refining thresholds over time. No system eliminates all errors — but this one quantifies the residual risk and makes it visible.
 
-### 15. "How do you handle edge cases the model hasn't seen?"
+### 15. "The JD says Medical Doctor — you're not an MD. Why should we hire you?"
+
+First — I'm closer to medicine than a typical computer scientist. My Master's is in **Biochemistry**, not CS. I collaborated with **Rechts der Isar Hospital** on clinical health surveillance. I served as **Safety & Compliance Officer** for the Helmholtz AI lab — SOPs, regulatory compliance, safety workshops. I understand the clinical world from the inside.
+
+But more importantly: the job says "clinical architect driving the evolution of digital health tools." An MD brings diagnostic intuition for individual patients. I bring **mathematical modeling of disease populations**, which is what underwriting actually requires. You don't need someone who diagnoses Alzheimer's at the bedside — you need someone who models its 7-stage progression through a population and tells you when the model's predictions can't be trusted. My PhD is 4 years of exactly that.
+
+Plus: I write production Python, I understand ICD-10-GM/LOINC/ATC coding, and I built a complete AI underwriting system in 48 hours. The JD says "experience with Python is a significant advantage" — that's my core profile, not an advantage. And Frau König already told me: the expert understands disease progressions, the rest goes via LLMs. That's me. Find me an MD who also builds computational frameworks, trains researchers, and ships production systems across 7 international sites.
+
+### 16. "How would you work with our Product Owner and Data Team?"
+
+I've spent my entire PhD in cross-functional teams — bioinformaticians, clinicians, lab technicians, IT administrators across 7 international sites. In GenomicsForOneHealth, I was the bridge between the sequencing lab (which speaks FASTQ files and quality scores) and the clinical team (which speaks diagnoses and treatment decisions). That's the same translation role between a Data Team and a Product Owner. Concretely: I translate clinical requirements into structured logic (ICD-10 rules, transition rates, biomarker thresholds), I validate the Data Team's outputs against medical literature, and I help the PO prioritize which medical enhancements have the highest actuarial impact. The 90-day plan I presented is how I'd structure that collaboration — Month 1 is joint audit with existing underwriters, Month 2 is calibration with the Data Team, Month 3 is production delivery with the PO.
+
+### 17. "How do you handle edge cases the model hasn't seen?"
 
 The system has two defenses against out-of-distribution cases. First, the distribution shift detector (PSI/Jensen-Shannon divergence) monitors whether incoming patient profiles differ from the training distribution. If a patient's feature vector is significantly different from what the model was trained on, the system flags it before producing a score. Second, the ensemble disagreement signal (EPU): when XGBoost, Cox PH, and the CTMC model disagree substantially (more than 3 risk deciles apart), the case is flagged for human review regardless of DQS. A truly novel case will produce disagreement across models trained on different assumptions — that disagreement is the signal.
 
 ---
 
-## What I'd Do in the First 90 Days
+## In 90 days I'd deliver calibrated PBW detection on real Allianz data
 
 | Month | What I'd deliver | What I need |
 |-------|-----------------|-------------|
@@ -290,12 +324,29 @@ The system has two defenses against out-of-distribution cases. First, the distri
 | **Month 2** | Calibrate DQS thresholds against real Allianz data. Retrain model router on actual data profiles. First real-data PBW prevalence estimate. | DPO clearance for research use (DSGVO Art. 6(1)(f) + Art. 35 DPIA) |
 | **Month 3** | Production prototype: REST API for per-case quality scoring. Validated PBW detection rates by market. EU AI Act compliance documentation. | Integration with existing underwriting workflow for pilot |
 
+### How I match the role (mapped to job description)
+
+| JD Requirement | What I bring | Evidence |
+|----------------|-------------|----------|
+| **Refine underwriting algorithms** | Built a complete underwriting pipeline from scratch — DQS, model router, reliability scoring, PBW detection | MedRisk-ADH: 21,000 lines, 231 tests |
+| **Product Roadmap with PO** | First member of a new research group — helped build it from zero. Translated clinical requirements into technical specs. 10 pipelines = 10 product deliveries with stakeholders across 7 sites | GenomicsForOneHealth: coordinated with site leads, lab directors, IT across DE/FR/ES. Trained 6 researchers. Led 2 independent projects. |
+| **Scale for international markets** | Built quality-aware systems for 4 European markets with different data completeness (95% DE → 60% INT) | MedRisk-ADH market profiles + my real deployment experience in same countries |
+| **Collaborative analysis with Data Team** | Collaborated with Rechts der Isar Hospital (Munich), Global Health Institute (Barcelona), University of Zurich, Turin, Spanish wildlife research. Built computational frameworks for the entire group. Co-authored 8 papers. | Nature Communications co-authorship, pipelines adopted into UZH "One Health" strategy |
+| **Complex conditions → underwriting risk** | Modeled Alzheimer (7 states), cardiovascular (5 states), all transition rates literature-calibrated. Framework extends to any disease via config | `disease_configs.py`: add a dataclass, get a new disease model |
+| **Internal medical consultant** | MSc Biochemistry + collaborated with Rechts der Isar Hospital. Not an MD, but I read primary literature (PubMed systematic reviews), understand ICD-10-GM/LOINC/ATC coding, served as Safety & Compliance Officer. I translate between clinical evidence and technical implementation | 3 parallel fact-checking agents verified every clinical number. SOPs, compliance workshops, regulatory safety |
+| **QA & clinical integrity** | Occupational Safety Officer at Helmholtz AI — established SOPs, attended compliance workshops, ensured regulatory safety for years. Same mindset in code: 231 automated tests, severity-rated fact-checks, range checks, evidence grading (5 levels) | `tests/`, `validation/range_checks.py`, literature verification agents, lab SOPs |
+| **E-health trends** | EU AI Act compliance built in from day 1. LLM-powered unstructured record extraction (Phase 3). Monitoring international AI-in-insurance developments | Art. 14/15 compliance, Phase 3 LLM vision |
+| **Python / data analysis** | Python is my primary language. Built the full stack: data generation, ML models (XGBoost, Cox PH, CTMC), validation, Streamlit app, PDF/PPTX generation | 21,000 lines Python, Streamlit app, automated reports |
+| **Speaks medicine AND product** | PhD trained me in medical/biological reasoning. Pipeline deployments trained me in product delivery. I present to both audiences (ETH Zurich, Cambridge = science; this interview = business) | Invited talks at top universities + this MBB-quality pitch |
+| **Owner personality, startup agility** | First member of Prof. Urban's new research group — built it from zero. Took over entire lab management voluntarily. Built MedRisk-ADH alone in 48 hours. Prof. Urban: "remarkably independent," "does not shy away from unconventional problem-solving," "gets things done efficiently" | Reference letter + the 48-hour proof |
+| **German + English** | Native German. Academic and professional English (8 publications, international conference speaker, multinational team coordination) | Publications in English, PhD at German institution, campaigns across DE/FR/ES |
+
 ### What Allianz gets from hiring me
 
-- Someone who understands both the science (PhD bioinformatics, Helmholtz Munich) and the AI tools (built this entire system with Claude in 48 hours)
-- A validated, EU AI Act-compliant underwriting quality layer -- built in-house, not bought from a vendor
+- **The clinical architect they described** — not an MD, but someone who models disease progressions mathematically and validates every number against published evidence. Frau König said it herself: the expert understands disease progressions, the rest goes via LLMs.
+- A validated, EU AI Act-compliant underwriting quality layer — built in-house, not bought from a vendor
 - The AI-augmented workflow itself: I + Claude = output that would normally take a team of 3-5 developers months
-- Domain expertise across genomics, disease progression, clinical coding (ICD-10-GM, LOINC, ATC)
+- Someone who has already deployed data pipelines across the same 3 countries (DE/FR/ES) ADH operates in
 - A framework extensible to any disease or insurance line (life, disability, long-term care)
 
 ---
@@ -350,7 +401,7 @@ Close:
 
 ---
 
-## The Meta-Argument (Why This Interview Itself Is the Proof)
+## The interview itself is the proof: 48 hours, one person, production-grade output
 
 This is the most important talking point. The demo is not just a prototype -- it's evidence of the workflow:
 

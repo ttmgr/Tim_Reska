@@ -19,7 +19,8 @@ Patient Record -> Data Profile -> DQS v2 -> Model Router -> Reliability Head -> 
 - `pipeline.py` -- end-to-end orchestrator
 - `models/disease_configs.py` -- disease config registry (cardiovascular + Alzheimer)
 
-## Alzheimer's Disease Extension
+## Alzheimer's Disease Extension -- Proof of Framework Generalizability
+The core DQS, Model Router, and Reliability Head are disease-agnostic. To prove this, we implemented a complete Alzheimer's module using the same engine as cardiovascular risk:
 - 7-state CTMC: NC -> SCD -> MCI -> Mild AD -> Moderate AD -> Severe AD -> Death
 - Transition rates calibrated to published literature (Petersen et al., Brookmeyer et al.)
 - 8 ICD-10 codes: G30.0/G30.1/G30.8/G30.9, F00.0/F00.1/F00.2/F00.9
