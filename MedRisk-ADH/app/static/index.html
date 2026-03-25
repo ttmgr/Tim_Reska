@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedRisk-ADH v2 | Interactive Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #F8FAFB;
+    color: #2B4660;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: #ffffff;
+    padding: 1.75rem 3rem;
+    border-bottom: 1px solid #C4CDD6;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  .header h1 {
+    color: #0D2339;
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  .header h1 span {
+    font-weight: 400;
+    color: #61788E;
+    font-size: 0.85rem;
+    margin-left: 0.75rem;
+    letter-spacing: 0;
+    vertical-align: middle;
+  }
+  .header p {
+    color: #61788E;
+    font-size: 0.82rem;
+    margin-top: 0.25rem;
+    font-weight: 400;
+  }
+  .header-badge {
+    background: #E7F4FD;
+    border: 1px solid #107ACA33;
+    color: #107ACA;
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* ── Tabs ── */
+  .tabs {
+    display: flex;
+    background: #ffffff;
+    border-bottom: 1px solid #C4CDD6;
+    padding: 0 3rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .tab {
+    padding: 0.85rem 1.5rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #61788E;
+    border-bottom: 2.5px solid transparent;
+    transition: all 0.15s ease;
+    user-select: none;
+    letter-spacing: 0.2px;
+  }
+  .tab:hover { color: #2B4660; background: #F8FAFB; }
+  .tab.active {
+    color: #0D2339;
+    border-bottom-color: #107ACA;
+    font-weight: 700;
+    background: transparent;
+  }
+
+  /* ── Content ── */
+  .content { max-width: 1200px; margin: 0 auto; padding: 1.75rem 3rem 2.5rem; }
+  .page { display: none; animation: fadeIn 0.2s ease; }
+  .page.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 900px) {
+    .content { padding: 1.25rem 1rem; }
+    .tabs { padding: 0 1rem; }
+    .header { padding: 1.5rem 1rem; }
+    .kpi-row { grid-template-columns: repeat(2, 1fr) !important; }
+    .chart-row { grid-template-columns: 1fr !important; }
+    .comparison { grid-template-columns: 1fr !important; }
+    .comp-vs { padding: 0.5rem 0 !important; }
+  }
+
+  /* ── KPI Cards ── */
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+  .kpi {
+    background: #fff;
+    border: 1px solid #C4CDD6;
+    border-radius: 8px;
+    padding: 1.25rem 1rem;
+    text-align: center;
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .kpi:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); transform: translateY(-1px); }
+  .kpi-value {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #0D2339;
+    line-height: 1.1;
+    letter-spacing: -1px;
+  }
+  .kpi-value.green { color: #028901; }
+  .kpi-value.amber { color: #F97C00; }
+  .kpi-value.red { color: #D00D00; }
+  .kpi-label {
+    font-size: 0.65rem;
+    color: #61788E;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 0.5rem;
+    font-weight: 600;
+  }
+  .kpi-sub {
+    font-size: 0.72rem;
+    color: #61788E;
+    margin-top: 0.15rem;
+    font-weight: 400;
+  }
+
+  /* ── Sections ── */
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #0D2339;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 2px solid #107ACA;
+    display: inline-block;
+    padding-bottom: 0.4rem;
+    margin-bottom: 1.25rem;
+  }
+  .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 2rem; }
+  .chart-box {
+    background: #fff;
+    border: 1px solid #C4CDD6;
+    border-radius: 8px;
+    padding: 1.25rem;
+  }
+  .chart-box h3 {
+    font-size: 0.78rem;
+    color: #0D2339;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+
+  /* ── Table ── */
+  .table-wrap {
+    background: #fff;
+    border: 1px solid #C4CDD6;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+  thead { position: sticky; top: 0; z-index: 2; }
+  th {
+    background: #EEF2F7;
+    color: #0D2339;
+    padding: 0.7rem 0.9rem;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    white-space: nowrap;
+  }
+  td {
+    padding: 0.55rem 0.9rem;
+    border-bottom: 1px solid #EEF2F7;
+    color: #2B4660;
+  }
+  tbody tr:nth-child(even) td { background: #FAFBFC; }
+  tbody tr:hover td { background: #E7F4FD; }
+  td:first-child { font-weight: 600; color: #0D2339; }
+
+  /* ── Badges ── */
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+  .badge-accept { background: #e6ffed; color: #22543d; border: 1px solid #c6f6d5; }
+  .badge-review { background: #fefcbf; color: #744210; border: 1px solid #f6e05e; }
+  .badge-reject { background: #fed7d7; color: #742a2a; border: 1px solid #feb2b2; }
+  .badge-adequate { background: #e6ffed; color: #22543d; border: 1px solid #c6f6d5; }
+  .badge-caution { background: #fefcbf; color: #744210; border: 1px solid #f6e05e; }
+  .badge-insufficient { background: #fed7d7; color: #742a2a; border: 1px solid #feb2b2; }
+
+  /* ── Comparison ── */
+  .comparison { display: grid; grid-template-columns: 1fr 56px 1fr; gap: 0; margin-bottom: 2rem; }
+  .comp-col {
+    background: #fff;
+    border: 1px solid #C4CDD6;
+    border-radius: 8px;
+    padding: 1.5rem 1.75rem;
+    transition: box-shadow 0.15s ease;
+  }
+  .comp-col:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+  .comp-col.clean { border-top: 3px solid #028901; }
+  .comp-col.flagged { border-top: 3px solid #D00D00; }
+  .comp-vs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: #C4CDD6;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  .comp-col h3 {
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+    font-weight: 700;
+    color: #0D2339;
+  }
+  .comp-col .comp-subtitle {
+    font-size: 0.72rem;
+    color: #61788E;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .comp-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #EEF2F7;
+    font-size: 0.82rem;
+  }
+  .comp-stat:last-child { border-bottom: none; }
+  .comp-stat .label { color: #61788E; font-weight: 400; }
+  .comp-stat .value { font-weight: 600; color: #0D2339; }
+  .comp-dqs-highlight {
+    background: #F8FAFB;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+    text-align: center;
+  }
+  .comp-dqs-highlight .dqs-num {
+    font-size: 1.8rem;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+  .comp-dqs-highlight .dqs-label {
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #61788E;
+    font-weight: 600;
+    margin-top: 0.2rem;
+  }
+  .dqs-good { color: #028901; background: #f0fff4; border: 1px solid #c6f6d5; }
+  .dqs-bad { color: #D00D00; background: #fff5f5; border: 1px solid #fed7d7; }
+
+  /* ── Insight box ── */
+  .insight {
+    background: #E7F4FD;
+    border: 1px solid #107ACA33;
+    border-left: 4px solid #107ACA;
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .insight strong { color: #0D2339; }
+  .insight p { font-size: 0.85rem; line-height: 1.65; color: #2B4660; }
+
+  /* ── Filter bar ── */
+  .filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .filter-bar label {
+    font-size: 0.75rem;
+    color: #61788E;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .filter-bar select {
+    padding: 0.4rem 0.75rem;
+    border: 1px solid #C4CDD6;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-family: 'Nunito Sans', sans-serif;
+    color: #2B4660;
+    background: #fff;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+  }
+  .filter-bar select:hover { border-color: #61788E; }
+  .filter-bar select:focus { outline: none; border-color: #107ACA; box-shadow: 0 0 0 3px rgba(16,122,202,0.1); }
+  .filter-count {
+    font-size: 0.72rem;
+    color: #61788E;
+    font-weight: 500;
+    margin-left: auto;
+  }
+
+  /* ── Patient table wrapper ── */
+  .patient-table-wrapper {
+    max-height: 520px;
+    overflow-y: auto;
+    border-radius: 8px;
+    border: 1px solid #C4CDD6;
+  }
+  .patient-table-wrapper table { border-collapse: collapse; }
+  .patient-table-wrapper thead { position: sticky; top: 0; z-index: 2; }
+  .patient-table-wrapper::-webkit-scrollbar { width: 6px; }
+  .patient-table-wrapper::-webkit-scrollbar-track { background: #F8FAFB; }
+  .patient-table-wrapper::-webkit-scrollbar-thumb { background: #C4CDD6; border-radius: 3px; }
+
+  /* ── Footer ── */
+  .footer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.25rem 3rem 2rem;
+    border-top: 1px solid #C4CDD6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #61788E;
+    font-size: 0.72rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .footer-left { display: flex; align-items: center; gap: 0.75rem; }
+  .version-badge {
+    background: #EEF2F7;
+    color: #0D2339;
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+  }
+  .footer-disclaimer {
+    font-style: italic;
+    color: #61788E;
+    max-width: 400px;
+    text-align: right;
+  }
+
+  /* ── Loading ── */
+  #loading {
+    text-align: center;
+    padding: 5rem 2rem;
+    color: #61788E;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+  .loading-spinner {
+    display: inline-block;
+    width: 28px; height: 28px;
+    border: 3px solid #C4CDD6;
+    border-top-color: #107ACA;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin-bottom: 0.75rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <h1>MedRisk-ADH<span>|&nbsp; Interactive Demo</span></h1>
+      <p>AI-Augmented Medical Underwriting with Confidence-Calibrated Failure Mode Detection</p>
+    </div>
+    <div class="header-badge">Proof of Concept</div>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" data-page="dashboard">Portfolio Dashboard</div>
+  <div class="tab" data-page="comparison">PBW Comparison</div>
+  <div class="tab" data-page="patients">Patient Explorer</div>
+</div>
+
+<div id="loading">
+  <div class="loading-spinner"></div>
+  <div>Loading cohort data&hellip;</div>
+</div>
+
+<div class="content" id="main-content" style="display:none;">
+
+<!-- PAGE 1: Dashboard -->
+<div class="page active" id="page-dashboard">
+  <div class="kpi-row" id="kpi-row"></div>
+
+  <div class="section-label">Market Analysis</div>
+  <div class="chart-row">
+    <div class="chart-box"><h3>DQS Distribution by Market</h3><canvas id="chart-dqs-box"></canvas></div>
+    <div class="chart-box"><h3>Decision Breakdown by Market</h3><canvas id="chart-decisions"></canvas></div>
+  </div>
+
+  <div class="chart-row">
+    <div class="chart-box"><h3>Confidence vs Data Quality</h3><canvas id="chart-scatter"></canvas></div>
+    <div class="chart-box"><h3>P(wrong) Distribution</h3><canvas id="chart-pwrong"></canvas></div>
+  </div>
+
+  <div class="section-label">Market Summary</div>
+  <div class="table-wrap" id="market-table"></div>
+</div>
+
+<!-- PAGE 2: PBW Comparison -->
+<div class="page" id="page-comparison">
+  <div class="section-label">Plausible-but-Wrong Detection</div>
+  <p style="margin-bottom:1.5rem; color:#61788E; font-size:0.85rem; line-height:1.65; max-width:720px;">
+    Same underlying patient demographics &mdash; different data quality. The DQS and Reliability Head catch
+    predictions that look confident but are not supported by evidence.
+  </p>
+  <div class="comparison" id="comparison-grid"></div>
+  <div class="insight" id="comparison-insight"></div>
+</div>
+
+<!-- PAGE 3: Patient Explorer -->
+<div class="page" id="page-patients">
+  <div class="section-label">Patient Explorer</div>
+  <div class="filter-bar">
+    <label>Market</label>
+    <select id="market-filter" onchange="renderPatientTable()">
+      <option value="ALL">All Markets</option>
+      <option value="DE">DE</option><option value="FR">FR</option>
+      <option value="ES">ES</option><option value="INT">INT</option>
+    </select>
+    <label>Decision</label>
+    <select id="decision-filter" onchange="renderPatientTable()">
+      <option value="ALL">All Decisions</option>
+      <option value="accept">Accept</option><option value="human_review">Review</option>
+      <option value="reject">Reject</option>
+    </select>
+    <span class="filter-count" id="filter-count"></span>
+  </div>
+  <div class="patient-table-wrapper" id="patient-table"></div>
+</div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-left">
+    <span class="version-badge">v2.0</span>
+    <span><strong>Tim Reska</strong> &middot; Helmholtz Munich &middot; March 2026</span>
+  </div>
+  <span class="footer-disclaimer">All data is synthetic and GDPR-safe. No real patient information is used.</span>
+</div>
+
+<script>
+let DATA = [];
+const MARKETS = ['DE', 'FR', 'ES', 'INT'];
+const MARKET_COLORS = { DE: '#107ACA', FR: '#4299e1', ES: '#F97C00', INT: '#D00D00' };
+const DEC_COLORS = { accept: '#028901', human_review: '#F97C00', reject: '#D00D00' };
+
+/* ── Global Chart.js defaults ── */
+Chart.defaults.font.family = "'Nunito Sans', -apple-system, sans-serif";
+Chart.defaults.font.size = 11;
+Chart.defaults.color = '#61788E';
+Chart.defaults.plugins.legend.labels.usePointStyle = true;
+Chart.defaults.plugins.legend.labels.pointStyleWidth = 8;
+Chart.defaults.plugins.legend.labels.padding = 16;
+Chart.defaults.plugins.legend.labels.font = { size: 11, weight: '500' };
+Chart.defaults.elements.bar.borderRadius = 3;
+Chart.defaults.responsive = true;
+Chart.defaults.maintainAspectRatio = true;
+
+/* ── Tab switching ── */
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', function() {
+    const pageId = this.dataset.page;
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('page-' + pageId).classList.add('active');
+    this.classList.add('active');
+  });
+});
+
+function badge(type, value) {
+  const cls = 'badge-' + (type === 'decision' ? value.replace('human_review','review') : value);
+  const label = value.replace(/_/g, ' ').toUpperCase();
+  return `<span class="badge ${cls}">${label}</span>`;
+}
+
+/* ── Shared chart axis/grid config ── */
+function cleanAxis(opts) {
+  return Object.assign({
+    grid: { color: '#EEF2F7', drawBorder: false },
+    border: { display: false },
+    ticks: { padding: 6, font: { size: 10 } }
+  }, opts);
+}
+function cleanScale(xOpts, yOpts) {
+  return { x: cleanAxis(xOpts), y: cleanAxis(yOpts) };
+}
+
+// Load CSV
+Papa.parse('cohort_data.csv', {
+  download: true, header: true, dynamicTyping: true,
+  complete: function(results) {
+    DATA = results.data.filter(r => r.patient_id);
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('main-content').style.display = 'block';
+    renderDashboard();
+    renderComparison();
+    renderPatientTable();
+  }
+});
+
+function renderDashboard() {
+  // KPIs
+  const n = DATA.length;
+  const nAccept = DATA.filter(r => r.decision === 'accept').length;
+  const nReview = DATA.filter(r => r.decision === 'human_review').length;
+  const nReject = DATA.filter(r => r.decision === 'reject').length;
+  const meanDQS = (DATA.reduce((s,r) => s + r.dqs, 0) / n);
+  const meanPw = (DATA.reduce((s,r) => s + r.p_wrong, 0) / n);
+
+  document.getElementById('kpi-row').innerHTML = `
+    <div class="kpi">
+      <div class="kpi-value">${n.toLocaleString()}</div>
+      <div class="kpi-label">Total Patients</div>
+      <div class="kpi-sub">${MARKETS.length} markets</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value green">${(nAccept/n*100).toFixed(0)}%</div>
+      <div class="kpi-label">Auto-Accept</div>
+      <div class="kpi-sub">${nAccept.toLocaleString()} patients</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value amber">${(nReview/n*100).toFixed(0)}%</div>
+      <div class="kpi-label">Human Review</div>
+      <div class="kpi-sub">${nReview.toLocaleString()} patients</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value red">${(nReject/n*100).toFixed(0)}%</div>
+      <div class="kpi-label">Rejected</div>
+      <div class="kpi-sub">${nReject.toLocaleString()} patients</div>
+    </div>
+  `;
+
+  // DQS Bar chart
+  const dqsByMarket = MARKETS.map(m => {
+    const vals = DATA.filter(r => r.market === m).map(r => r.dqs);
+    return { market: m, mean: vals.reduce((a,b)=>a+b,0)/vals.length,
+             min: Math.min(...vals), max: Math.max(...vals) };
+  });
+
+  new Chart(document.getElementById('chart-dqs-box'), {
+    type: 'bar',
+    data: { labels: MARKETS,
+      datasets: [{ label: 'Mean DQS', data: dqsByMarket.map(d => +d.mean.toFixed(3)),
+                    backgroundColor: MARKETS.map(m => MARKET_COLORS[m]),
+                    borderColor: MARKETS.map(m => MARKET_COLORS[m]),
+                    borderWidth: 0, borderRadius: 4, barPercentage: 0.6 }]
+    },
+    options: {
+      scales: cleanScale(
+        { grid: { display: false } },
+        { min: 0, max: 1, title: { display: true, text: 'DQS', font: { size: 10, weight: '600' } } }
+      ),
+      plugins: { legend: { display: false },
+        tooltip: { callbacks: { label: ctx => 'Mean DQS: ' + ctx.raw.toFixed(3) } }
+      }
+    }
+  });
+
+  // Decision stacked bar
+  const decByMarket = MARKETS.map(m => {
+    const rows = DATA.filter(r => r.market === m);
+    return { accept: rows.filter(r=>r.decision==='accept').length,
+             human_review: rows.filter(r=>r.decision==='human_review').length,
+             reject: rows.filter(r=>r.decision==='reject').length };
+  });
+
+  new Chart(document.getElementById('chart-decisions'), {
+    type: 'bar',
+    data: { labels: MARKETS,
+      datasets: [
+        { label: 'Accept', data: decByMarket.map(d=>d.accept), backgroundColor: '#028901cc', borderWidth: 0 },
+        { label: 'Review', data: decByMarket.map(d=>d.human_review), backgroundColor: '#F97C00cc', borderWidth: 0 },
+        { label: 'Reject', data: decByMarket.map(d=>d.reject), backgroundColor: '#D00D00cc', borderWidth: 0 },
+      ]
+    },
+    options: {
+      scales: cleanScale(
+        { stacked: true, grid: { display: false } },
+        { stacked: true, title: { display: true, text: 'Patients', font: { size: 10, weight: '600' } } }
+      ),
+      plugins: { legend: { position: 'bottom' } }
+    }
+  });
+
+  // Scatter: confidence vs DQS
+  const scatterData = MARKETS.map(m => ({
+    label: m,
+    data: DATA.filter(r => r.market === m).map(r => ({ x: r.dqs, y: r.confidence })),
+    backgroundColor: MARKET_COLORS[m] + '55',
+    borderColor: MARKET_COLORS[m],
+    pointRadius: 2.5,
+    pointHoverRadius: 5,
+  }));
+
+  new Chart(document.getElementById('chart-scatter'), {
+    type: 'scatter',
+    data: { datasets: scatterData },
+    options: {
+      scales: cleanScale(
+        { min: 0, max: 1, title: { display: true, text: 'DQS', font: { size: 10, weight: '600' } } },
+        { min: 0.49, max: 1, title: { display: true, text: 'Confidence', font: { size: 10, weight: '600' } } }
+      ),
+      plugins: {
+        legend: { position: 'bottom' },
+        tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: DQS ${ctx.raw.x.toFixed(3)}, Conf ${ctx.raw.y.toFixed(3)}` } }
+      }
+    }
+  });
+
+  // P(wrong) histogram
+  const bins = Array.from({length: 20}, (_, i) => i * 0.05);
+  const histData = MARKETS.map(m => {
+    const vals = DATA.filter(r => r.market === m).map(r => r.p_wrong);
+    const counts = bins.map(b => vals.filter(v => v >= b && v < b + 0.05).length);
+    return { label: m, data: counts, backgroundColor: MARKET_COLORS[m] + '88',
+             borderColor: MARKET_COLORS[m], borderWidth: 0, borderRadius: 2 };
+  });
+
+  new Chart(document.getElementById('chart-pwrong'), {
+    type: 'bar',
+    data: { labels: bins.map(b => b.toFixed(2)), datasets: histData },
+    options: {
+      scales: cleanScale(
+        { grid: { display: false }, title: { display: true, text: 'P(wrong)', font: { size: 10, weight: '600' } },
+          ticks: { maxRotation: 45, autoSkip: true, maxTicksLimit: 10 } },
+        { title: { display: true, text: 'Count', font: { size: 10, weight: '600' } } }
+      ),
+      plugins: { legend: { position: 'bottom' } }
+    }
+  });
+
+  // Market summary table
+  let html = '<table><thead><tr><th>Market</th><th>N</th><th>Mean DQS</th><th>Accept</th><th>Review</th><th>Reject</th><th>Accept %</th><th>Mean P(wrong)</th></tr></thead><tbody>';
+  MARKETS.forEach(m => {
+    const rows = DATA.filter(r => r.market === m);
+    const nA = rows.filter(r=>r.decision==='accept').length;
+    const nR = rows.filter(r=>r.decision==='human_review').length;
+    const nRj = rows.filter(r=>r.decision==='reject').length;
+    const mDqs = (rows.reduce((s,r)=>s+r.dqs,0)/rows.length).toFixed(3);
+    const mPw = (rows.reduce((s,r)=>s+r.p_wrong,0)/rows.length).toFixed(3);
+    html += `<tr><td><strong>${m}</strong></td><td>${rows.length}</td><td>${mDqs}</td>
+      <td>${nA}</td><td>${nR}</td><td>${nRj}</td>
+      <td>${(nA/rows.length*100).toFixed(1)}%</td><td>${mPw}</td></tr>`;
+  });
+  html += '</tbody></table>';
+  document.getElementById('market-table').innerHTML = html;
+}
+
+function renderComparison() {
+  const de = DATA.filter(r => r.market === 'DE').sort((a,b) => b.dqs - a.dqs);
+  const int_ = DATA.filter(r => r.market === 'INT').sort((a,b) => a.dqs - b.dqs);
+  const d = de[0], f = int_[0];
+
+  function compCol(p, title, subtitle, colClass) {
+    const dqsClass = p.dqs >= 0.7 ? 'dqs-good' : 'dqs-bad';
+    return `<div class="comp-col ${colClass}">
+      <h3>${title}</h3>
+      <div class="comp-subtitle">${subtitle}</div>
+      <div class="comp-dqs-highlight ${dqsClass}">
+        <div class="dqs-num">${p.dqs.toFixed(3)}</div>
+        <div class="dqs-label">Data Quality Score</div>
+        <div style="margin-top:0.4rem;">${badge('tier', p.dqs_tier)}</div>
+      </div>
+      <div class="comp-stat"><span class="label">Age / Sex</span><span class="value">${p.age} / ${p.sex}</span></div>
+      <div class="comp-stat"><span class="label">BMI</span><span class="value">${p.bmi}</span></div>
+      <div class="comp-stat"><span class="label">Diagnoses</span><span class="value">${p.n_diagnoses}</span></div>
+      <div class="comp-stat"><span class="label">Lab results</span><span class="value">${p.n_labs}</span></div>
+      <div class="comp-stat"><span class="label">Medications</span><span class="value">${p.n_medications}</span></div>
+      <div class="comp-stat"><span class="label">Risk Score</span><span class="value">${(p.risk_score*100).toFixed(1)}%</span></div>
+      <div class="comp-stat"><span class="label">P(wrong)</span><span class="value" style="color:${p.p_wrong > 0.3 ? '#D00D00' : '#028901'}; font-weight:700;">${(p.p_wrong*100).toFixed(1)}%</span></div>
+      <div class="comp-stat"><span class="label">Decision</span><span class="value">${badge('decision', p.decision)}</span></div>
+    </div>`;
+  }
+
+  document.getElementById('comparison-grid').innerHTML =
+    compCol(d, 'DE (Germany)', 'Clean Case \u2014 High Data Quality', 'clean') +
+    '<div class="comp-vs">vs</div>' +
+    compCol(f, 'INT (International)', 'Flagged Case \u2014 Low Data Quality', 'flagged');
+
+  document.getElementById('comparison-insight').innerHTML = `
+    <p><strong>Key Insight:</strong> Both patients have similar demographics, but the DE patient has
+    ${d.n_diagnoses} diagnoses, ${d.n_labs} labs, ${d.n_medications} medications \u2014 while the INT patient
+    has ${f.n_diagnoses} diagnoses, ${f.n_labs} labs, ${f.n_medications} medications.
+    The Reliability Head estimates P(wrong)&nbsp;=&nbsp;${(d.p_wrong*100).toFixed(0)}% for DE
+    vs&nbsp;${(f.p_wrong*100).toFixed(0)}% for INT. Without MedRisk-ADH, both would be treated identically.</p>
+  `;
+}
+
+function renderPatientTable() {
+  const mf = document.getElementById('market-filter').value;
+  const df = document.getElementById('decision-filter').value;
+  let rows = DATA;
+  if (mf !== 'ALL') rows = rows.filter(r => r.market === mf);
+  if (df !== 'ALL') rows = rows.filter(r => r.decision === df);
+  const total = rows.length;
+  rows = rows.slice(0, 200);
+
+  document.getElementById('filter-count').textContent =
+    `Showing ${rows.length} of ${total} patients`;
+
+  let html = '<table><thead><tr><th>ID</th><th>Market</th><th>Age</th><th>Sex</th><th>BMI</th><th>Dx</th><th>Labs</th><th>DQS</th><th>Tier</th><th>Risk</th><th>P(wrong)</th><th>Decision</th></tr></thead><tbody>';
+  rows.forEach(r => {
+    const pwColor = r.p_wrong > 0.3 ? '#D00D00' : '#028901';
+    html += `<tr>
+      <td>${r.patient_id}</td><td>${r.market}</td><td>${r.age}</td><td>${r.sex}</td>
+      <td>${r.bmi}</td><td>${r.n_diagnoses}</td><td>${r.n_labs}</td>
+      <td>${r.dqs.toFixed(3)}</td><td>${badge('tier', r.dqs_tier)}</td>
+      <td>${(r.risk_score*100).toFixed(1)}%</td>
+      <td style="color:${pwColor}; font-weight:600;">${(r.p_wrong*100).toFixed(1)}%</td>
+      <td>${badge('decision', r.decision)}</td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  document.getElementById('patient-table').innerHTML = html;
+}
+</script>
+</body>
+</html>
