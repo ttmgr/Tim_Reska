@@ -614,13 +614,13 @@ def make_pitch_deck() -> None:
     pdf.add_page()
     pdf.set_font("Helvetica", "B", 22)
     pdf.set_text_color(*NAVY)
-    pdf.cell(CW, 12, "In 90 days I'd deliver calibrated PBW detection on real Allianz data", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(CW, 12, "In 90 days I'd deliver calibrated PBW detection on real claims data", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(5)
     pdf.set_font("Helvetica", "", 11)
     pdf.set_text_color(*MID_BLUE)
     phases = [
-        ("Month 1", "Audit current underwriting pipeline for PBW risk. Map data quality across Allianz markets. Identify the 3 highest-impact failure modes."),
-        ("Month 2", "Calibrate DQS on real Allianz data. Retrain model router on actual data profiles. First real-data PBW prevalence estimate."),
+        ("Month 1", "Audit current underwriting pipeline for PBW risk. Map data quality across target markets. Identify the 3 highest-impact failure modes."),
+        ("Month 2", "Calibrate DQS on real claims data. Retrain model router on actual data profiles. First real-data PBW prevalence estimate."),
         ("Month 3", "Production prototype: REST API for per-case quality scoring. EU AI Act compliance documentation. Validated PBW detection rates."),
     ]
     for title, desc in phases:
@@ -673,7 +673,7 @@ def make_executive_brief() -> None:
     pdf = DocPDF()
     pdf.cover("Executive Briefing",
               "MedRisk-ADH -- AI-Augmented Medical Underwriting",
-              "Prepared for Allianz Digital Health")
+              "Prepared for insurance industry demonstration")
 
     # Page 2: The Insight + Solution
     pdf.add_page()
@@ -744,9 +744,9 @@ def make_executive_brief() -> None:
 
     # Page 6: The Ask
     pdf.add_page()
-    pdf.h2("90 days with real Allianz data delivers calibrated PBW detection")
+    pdf.h2("90 days with real claims data delivers calibrated PBW detection")
     pdf.p("Phase 2 validation requires real-world data. We propose a 3-month sprint:")
-    pdf.li("Data partnership: access to pseudonymised Allianz claims and outcomes data")
+    pdf.li("Data partnership: access to pseudonymised claims and outcomes data")
     pdf.li("DPO clearance: DSGVO Art. 6(1)(f) legitimate interest + Art. 35 DPIA")
     pdf.li("Clinical advisory: 2-3 medical underwriters for threshold calibration")
     pdf.h3("Recommended Data Sources")
@@ -754,7 +754,7 @@ def make_executive_brief() -> None:
         ["Source", "Coverage", "Labs?", "Timeline", "Cost"],
         [["CPRD (UK)", "60M patients", "Yes", "2-4 months", "GBP 25-80K"],
          ["InGef (DE)", "8.8M GKV", "No", "3-6 months", "EUR 30-80K"],
-         ["Allianz Internal", "Target", "TBD", "DPO-dependent", "Partnership"]],
+         ["Insurer Internal", "Target", "TBD", "DPO-dependent", "Partnership"]],
         col_widths=[30, 30, 15, 30, 35],
     )
     pdf.h3("Regulatory Alignment")
@@ -1020,7 +1020,7 @@ def make_user_manual() -> None:
 # 5. POWERPOINT — PERSONAL PITCH DECK (.pptx)
 # ============================================================================
 def make_pptx() -> None:
-    """Generate a personal pitch deck: Tim Reska for Allianz Digital Health."""
+    """Generate a personal pitch deck: Tim Reska — AI-augmented medical underwriting."""
     from pptx import Presentation
     from pptx.dml.color import RGBColor
     from pptx.enum.shapes import MSO_SHAPE
@@ -1193,7 +1193,7 @@ def make_pptx() -> None:
     tf3 = T(s, 6.8, 4.0, 5.5, 0.4, "How I built it", sz=15, bold=True, col=navy)
     B(tf3, "Claude as co-pilot for architecture, coding, and testing", sz=13)
     B(tf3, "LLM agents for PubMed literature verification", sz=13)
-    B(tf3, "Same AI workflow I'd use at Allianz -- but with real data", sz=13)
+    B(tf3, "Same AI workflow I'd use in production -- but with real data", sz=13)
 
     # ================================================================
     # SLIDE 5 — WHAT IT FOUND (the punchline)
@@ -1340,15 +1340,15 @@ def make_pptx() -> None:
     # ================================================================
     s = prs.slides.add_slide(blank)
     T(s, 0.8, 0.4, 11.5, 0.8,
-      "In 90 days I'd deliver calibrated PBW detection on real Allianz data",
+      "In 90 days I'd deliver calibrated PBW detection on real claims data",
       sz=28, bold=True, col=navy)
     # Month boxes
     months = [
         ("Month 1", "Audit & Map",
-         "Audit current underwriting pipeline for PBW risk. Map data quality across Allianz markets. "
+         "Audit current underwriting pipeline for PBW risk. Map data quality across target markets. "
          "Identify the 3 highest-impact failure modes."),
         ("Month 2", "Calibrate & Train",
-         "Calibrate DQS on real Allianz data. Retrain model router on actual data profiles. "
+         "Calibrate DQS on real claims data. Retrain model router on actual data profiles. "
          "Deliver first real-data PBW prevalence estimate by market."),
         ("Month 3", "Ship & Document",
          "Production prototype: REST API for per-case quality scoring. Validated PBW detection rates. "

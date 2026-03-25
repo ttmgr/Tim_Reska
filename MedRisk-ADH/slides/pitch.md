@@ -108,7 +108,7 @@ PhD Helmholtz Munich  &middot;  github.com/ttmgr  &middot;  March 2026
 
 # The expert understands disease progressions — the LLM handles the rest
 
-*This is exactly how Frau König described the role: domain expertise + AI leverage*
+*Domain expertise drives the architecture — AI handles the scale*
 
 ### My process
 1. **I bring the domain knowledge** — disease progression modeling from 4 years of PhD research, data quality management from 7 international sites
@@ -121,13 +121,13 @@ PhD Helmholtz Munich  &middot;  github.com/ttmgr  &middot;  March 2026
 
 ---
 
-# In 90 days I'd deliver calibrated PBW detection on real Allianz data
+# In 90 days I'd deliver calibrated PBW detection on real claims data
 
 ### Month 1 — Audit & Map
-Audit current underwriting pipeline for PBW risk. Map data quality across Allianz markets. Identify the **3 highest-impact failure modes**.
+Audit current underwriting pipeline for PBW risk. Map data quality across target markets. Identify the **3 highest-impact failure modes**.
 
 ### Month 2 — Calibrate & Train
-Calibrate DQS on real Allianz data. Retrain model router on actual data profiles. Deliver **first real-data PBW prevalence estimate** by market.
+Calibrate DQS on real claims data. Retrain model router on actual data profiles. Deliver **first real-data PBW prevalence estimate** by market.
 
 ### Month 3 — Ship & Document
 Production prototype: **REST API** for per-case quality scoring. Validated PBW detection rates. **EU AI Act compliance documentation**.

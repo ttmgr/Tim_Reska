@@ -34,7 +34,7 @@
 **DSGVO path (Germany):**
 - GKV research data: §75 SGB X (secondary use for research), requires BIPS/InGef application + institutional ethics vote
 - PKV data: Art. 6(1)(f) DSGVO legitimate interest for actuarial modelling, or Art. 89 research exemption with DPIA
-- Allianz internal: data stays within Allianz infrastructure, DPO clearance under existing data governance
+- Insurer internal: data stays within insurer infrastructure, DPO clearance under existing data governance
 
 **Technical tasks:**
 1. Retrain models on real prevalence distributions
@@ -51,7 +51,7 @@
 **Goal:** Deploy as a validation layer in a live underwriting workflow.
 
 **Requirements:**
-- Insurance partner commitment (Allianz Digital Health or equivalent)
+- Insurance partner commitment
 - EU AI Act compliance framework (Art. 6 risk classification, Art. 14 human oversight)
 - DPIA (Datenschutz-Folgenabschätzung, Art. 35 DSGVO) for health data processing at scale
 
