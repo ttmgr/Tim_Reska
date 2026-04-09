@@ -6,7 +6,7 @@ authors:
   - family-names: "Reska"
     given-names: "Tim"
     affiliation: "Helmholtz Munich & Technical University of Munich"
-    orcid: ""
+    orcid: "https://orcid.org/0009-0001-9700-5128"
 date-released: "2025-01-01"
 url: "https://github.com/ttmgr/Tim_Reska"
 repository-code: "https://github.com/ttmgr/Tim_Reska"

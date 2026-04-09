@@ -1,13 +1,12 @@
-# Dependencies
-node_modules/
-.pnp/
-.pnp.js
-
-# Build
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
 dist/
 build/
-.next/
-out/
+.venv/
+venv/
 
 # Environment
 .env
