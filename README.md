@@ -4,7 +4,7 @@ PhD researcher in genomics and bioinformatics working on One Health genomic surv
 
 Affiliation: Helmholtz Munich and the Technical University of Munich, Munich, Germany. I also contribute to the broader [GenomicsForOneHealth](https://github.com/ttmgr/GenomicsForOneHealth) collection developed by the One Health group under the supervision of [Lara Urban](https://sites.google.com/view/urban-lab/home). As described in that repository, the group is based at the University of Zurich and its Food Safety and One Health Institutes, with affiliations to Helmholtz AI.
 
-Links: [Email](mailto:timreska@gmail.com) | [LinkedIn](https://linkedin.com/in/timreska) | [Google Scholar](https://scholar.google.com)
+Links: [Email](mailto:timreska@gmail.com) | [LinkedIn](https://linkedin.com/in/timreska)
 
 ## Research focus
 
@@ -69,7 +69,7 @@ Links: [Pipeline overview](./pipelines/listeria-adaptive-sampling/) | [Study rep
 - Urban L, Perlas A, Francino O, et al. [Real-time genomics for One Health](https://doi.org/10.15252/msb.202311686). *Molecular Systems Biology* (2023).
 - Sauerborn E, Corredor NC, Reska T, et al. [Detection of hidden antibiotic resistance through real-time genomics](https://www.nature.com/articles/s41467-024-49851-4). *Nature Communications* (2024).
 
-A fuller publication record is available on [Google Scholar](https://scholar.google.com).
+A fuller publication record is available on [LinkedIn](https://linkedin.com/in/timreska).
 
 ## Methods and technical areas
 
