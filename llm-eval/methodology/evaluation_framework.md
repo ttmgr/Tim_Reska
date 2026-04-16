@@ -2,7 +2,7 @@
 
 ## Objective
 
-Assess whether current large language models can produce a correct, end-to-end nanopore metagenomics pipeline through sequential prompting in a way that preserves scientific validity across chained workflow stages.
+Assess whether current large language models can produce correct, end-to-end nanopore metagenomics pipelines through sequential prompting in a way that preserves scientific validity across chained workflow stages. The benchmark uses two independent ground truth pipelines to test whether model competence generalizes across different analytical paradigms.
 
 ## Why sequential evaluation is necessary
 
@@ -19,13 +19,39 @@ These are chaining failures, not syntax failures.
 
 ## Protocol
 
-### Ground truth
+### Ground truths
 
-The benchmark is anchored to the validated aerobiome workflow described in:
+The benchmark is anchored to two validated workflows:
+
+**Pipeline 1 — Aerobiome (7 steps, linear):**
 
 > Reska T, Pozdniakova S, Urban L. *Air monitoring by nanopore sequencing*. ISME Communications (2024). DOI: [10.1093/ismeco/ycae058](https://doi.org/10.1093/ismeco/ycae058)
 
-The public reference implementation is summarized in [`pipeline_reference.md`](pipeline_reference.md) and cross-linked to the local [`../pipelines/aerobiome/`](../pipelines/aerobiome/) workflow.
+Reference: [`pipeline_reference.md`](pipeline_reference.md) | Pipeline: [`../pipelines/aerobiome/`](../pipelines/aerobiome/)
+
+**Pipeline 2 — Wetland surveillance (10 steps, 4 parallel tracks):**
+
+> Perlas A\*, Reska T\*, et al. *Real-time genomic pathogen, resistance, and host range characterization from passive water sampling of wetland ecosystems*. Applied and Environmental Microbiology (2025/2026).
+
+Reference: [`pipeline_reference_wetland.md`](pipeline_reference_wetland.md) | Pipeline: [`../pipelines/wetland-surveillance/`](../pipelines/wetland-surveillance/)
+
+## Dual-Pipeline Design
+
+The two ground truth pipelines test fundamentally different analytical dimensions:
+
+| Dimension | Aerobiome | Wetland |
+|:----------|:----------|:--------|
+| Structure | 7-step linear | 10-step, 4 parallel tracks |
+| Nucleic acids | DNA only | DNA + RNA |
+| Paradigms | Shotgun metagenomics | Shotgun + amplicon + reference-based + phylogenetic |
+| Basecalling | HAC mode (Guppy/Dorado v4.x) | SUP mode (Dorado v5.0.0) |
+| Assembly | Single assembler (MetaFlye) | Dual assembler (metaFlye + nanoMDBG) |
+| Unique tools | — | MEGAN-CE, Prodigal, PlasmidFinder, OBITools4, VSEARCH, MIDORI2, BCFtools, IQ-TREE2 |
+| Tool count | ~10 | ~30 |
+
+The wetland pipeline is designed to be harder: models that achieve a fully correct aerobiome pipeline may still fail on the wetland pipeline's multi-omics, multi-paradigm structure. The cross-pipeline comparison directly measures whether model competence generalizes.
+
+For the wetland pipeline, the stateless cumulative protocol is adapted to handle multi-track branching: the evaluator carries forward the track context (which nucleic acid, which analysis paradigm) in addition to the expected output state.
 
 ### Stateless cumulative prompting
 
@@ -81,8 +107,8 @@ The evaluated outputs were collected through public interfaces rather than API-o
 
 ## Limitations
 
-- **Single reference pipeline:** the benchmark covers one validated nanopore metagenomics workflow.
-- **Single-domain scope:** the results should not be generalized automatically to other sequencing modalities or analytical domains.
+- **Same research group:** both ground truth pipelines involve the same first/co-first author, which means both share similar tool preferences and analytical style.
+- **Nanopore-only scope:** the results should not be generalized automatically to other sequencing modalities.
 - **Dated snapshot:** the scoring matrix reflects tested behavior at specific dates.
 - **Human scoring:** the rubric was applied by a single domain expert.
 - **Protocol dependence:** the benchmark measures performance under stateless state-carrying prompts; other prompting regimes may differ.
