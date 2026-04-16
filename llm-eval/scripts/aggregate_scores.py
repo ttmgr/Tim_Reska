@@ -36,6 +36,10 @@ FULLY_CORRECT = {
 }
 
 DIMENSIONS = list(SCORE_MAP.keys())
+
+PIPELINE_STEP_COUNTS = {"aerobiome": 7, "wetland": 10}
+PIPELINE_LABELS = {"aerobiome": "Aerobiome", "wetland": "Wetland"}
+
 CORE_VERSION_ORDER = {
     "openai": [
         "gpt4o",
@@ -115,8 +119,13 @@ MODEL_LABELS = {
 }
 
 
-def load_scores(csv_path: Path) -> pd.DataFrame:
+def load_scores(csv_path: Path, pipeline: str | None = None) -> pd.DataFrame:
     df = pd.read_csv(csv_path)
+    # Handle pipeline column — if absent, treat all rows as aerobiome
+    if "pipeline" not in df.columns:
+        df.insert(0, "pipeline", "aerobiome")
+    if pipeline is not None:
+        df = df[df["pipeline"] == pipeline].copy()
     for dim in DIMENSIONS:
         df[dim] = df[dim].astype(str).str.strip().replace("nan", "")
         df[f"{dim}_num"] = df[dim].map(SCORE_MAP[dim])
@@ -158,14 +167,18 @@ def is_step_fully_correct(row: pd.Series) -> bool:
     return all(row[dim] == expected for dim, expected in FULLY_CORRECT.items())
 
 
-def first_fully_correct(df: pd.DataFrame) -> dict[str, str | None]:
+def first_fully_correct(df: pd.DataFrame, expected_steps: int | None = None) -> dict[str, str | None]:
+    if expected_steps is None:
+        # Infer from pipeline column if present
+        pipelines = df["pipeline"].unique() if "pipeline" in df.columns else ["aerobiome"]
+        expected_steps = PIPELINE_STEP_COUNTS.get(pipelines[0], df["step_number"].nunique())
     results = {}
     for family in preferred_family_sequence(df):
         results[family] = None
         family_models = [m for m in preferred_models(df) if m[0] == family]
         for fam, version in family_models:
             version_df = df[(df["model_family"] == fam) & (df["model_version"] == version)]
-            if len(version_df) != 7:
+            if len(version_df) != expected_steps:
                 continue
             if all(is_step_fully_correct(row) for _, row in version_df.iterrows()):
                 results[family] = version
@@ -273,7 +286,10 @@ def write_by_model(df: pd.DataFrame, output_dir: Path) -> None:
     for family, version in ordered_models:
         subset = df[(df["model_family"] == family) & (df["model_version"] == version)].copy()
         subset = subset.sort_values("step_number")
-        full_correct = len(subset) == 7 and all(subset.apply(is_step_fully_correct, axis=1))
+        # Determine expected step count from pipeline column
+        pipelines = subset["pipeline"].unique() if "pipeline" in subset.columns else ["aerobiome"]
+        expected_steps = PIPELINE_STEP_COUNTS.get(pipelines[0], subset["step_number"].nunique())
+        full_correct = len(subset) == expected_steps and all(subset.apply(is_step_fully_correct, axis=1))
         lines = [
             f"# {model_label(family, version)}",
             "",
@@ -366,23 +382,54 @@ def build_summary(df: pd.DataFrame) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
+def run_pipeline(repo_root: Path, csv_path: Path, pipeline: str) -> str:
+    """Generate all outputs for a single pipeline."""
+    if pipeline == "aerobiome":
+        eval_dir = repo_root / "evaluations"
+    else:
+        eval_dir = repo_root / "evaluations" / pipeline
+
+    summary_path = eval_dir / "summary_generated.md"
+    by_step_dir = eval_dir / "by_step"
+    by_model_dir = eval_dir / "by_model"
+
+    df = load_scores(csv_path, pipeline=pipeline)
+    if df.empty:
+        return ""
+
+    expected_steps = PIPELINE_STEP_COUNTS.get(pipeline, df["step_number"].nunique())
+    write_by_step(df, by_step_dir)
+    write_by_model(df, by_model_dir)
+    summary = build_summary(df)
+    summary_path.parent.mkdir(parents=True, exist_ok=True)
+    summary_path.write_text(summary)
+    return summary
+
+
 def main() -> int:
     repo_root = Path(__file__).resolve().parent.parent
     csv_path = repo_root / "results" / "tables" / "scoring_matrix.csv"
-    summary_path = repo_root / "evaluations" / "summary_generated.md"
-    by_step_dir = repo_root / "evaluations" / "by_step"
-    by_model_dir = repo_root / "evaluations" / "by_model"
 
     if not csv_path.exists():
         print(f"Error: {csv_path} not found.", file=sys.stderr)
         return 1
 
-    df = load_scores(csv_path)
-    write_by_step(df, by_step_dir)
-    write_by_model(df, by_model_dir)
-    summary = build_summary(df)
-    summary_path.write_text(summary)
-    sys.stdout.write(summary)
+    # Detect which pipelines are present in the CSV
+    df_all = pd.read_csv(csv_path)
+    if "pipeline" not in df_all.columns:
+        pipelines = ["aerobiome"]
+    else:
+        pipelines = sorted(df_all["pipeline"].unique())
+
+    for pipeline in pipelines:
+        summary = run_pipeline(repo_root, csv_path, pipeline)
+        if summary:
+            label = PIPELINE_LABELS.get(pipeline, pipeline.title())
+            print(f"\n{'=' * 60}")
+            print(f"  {label} Pipeline")
+            print(f"{'=' * 60}\n")
+            sys.stdout.write(summary)
+
     return 0
 
 

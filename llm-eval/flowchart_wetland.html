@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wetland Surveillance Pipeline - Evaluation Flowchart</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #ffffff;
+            color: #334155;
+            min-height: 100vh;
+            padding: 2.5rem 2rem;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; }
+
+        .title-block {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .title-block h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .title-block .subtitle {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .pipeline-section {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .pipeline-section h2 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .track-label {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+        }
+
+        .track-shared { background: #dbeafe; color: #1e40af; }
+        .track-1 { background: #dcfce7; color: #166534; }
+        .track-2 { background: #fce7f3; color: #9d174d; }
+        .track-3 { background: #fef3c7; color: #92400e; }
+        .track-4 { background: #ede9fe; color: #5b21b6; }
+
+        .steps-grid {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .steps-grid.shared { grid-template-columns: 1fr; }
+        .steps-grid.tracks { grid-template-columns: 1fr 1fr; }
+
+        .step-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 0.85rem 1rem;
+            transition: box-shadow 0.15s;
+        }
+
+        .step-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+
+        .step-number {
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: #1e293b;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 1.5rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
+        .step-name {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #1e293b;
+        }
+
+        .step-tools {
+            margin-top: 0.4rem;
+            font-size: 0.75rem;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        .tool-tag {
+            display: inline-block;
+            background: #f1f5f9;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.7rem;
+            margin-right: 0.2rem;
+            margin-bottom: 0.15rem;
+        }
+
+        .scoring-section {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .score-dim {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 0.75rem;
+            text-align: center;
+        }
+
+        .score-dim .label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .score-dim .levels {
+            font-size: 0.75rem;
+            color: #334155;
+            margin-top: 0.3rem;
+        }
+
+        .tracks-container {
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            gap: 1rem;
+        }
+
+        .track-column { display: flex; flex-direction: column; gap: 0.75rem; }
+
+        .arrow-down {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 1.2rem;
+            padding: 0.3rem 0;
+        }
+
+        .meta-note {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="title-block">
+            <h1>Wetland Surveillance Pipeline - LLM Evaluation Framework</h1>
+            <div class="subtitle">10 evaluation steps across 4 parallel analysis tracks | Perlas, Reska et al.</div>
+        </div>
+
+        <!-- Shared Preprocessing -->
+        <div class="pipeline-section">
+            <h2><span class="track-label track-shared">Shared</span> Preprocessing</h2>
+            <div class="step-card">
+                <span class="step-number">1</span>
+                <span class="step-name">Basecalling, Demux, Adapter Trimming, QC</span>
+                <div class="step-tools">
+                    <span class="tool-tag">Dorado v5.0.0 SUP</span>
+                    <span class="tool-tag">Porechop v0.2.4</span>
+                    <span class="tool-tag">NanoFilt v2.8.0</span>
+                    <br>Track-specific QC: Q>=9/100bp (shotgun/virome) | Q>=8/150bp (AIV)
+                </div>
+            </div>
+        </div>
+
+        <div class="arrow-down">|</div>
+
+        <!-- Four tracks -->
+        <div class="tracks-container">
+            <!-- Left column: Track 1 (Shotgun) -->
+            <div class="track-column">
+                <div class="pipeline-section">
+                    <h2><span class="track-label track-1">Track 1</span> Shotgun Metagenomics (DNA)</h2>
+
+                    <div class="steps-grid shared">
+                        <div class="step-card">
+                            <span class="step-number">2</span>
+                            <span class="step-name">Taxonomic Classification + Normalization</span>
+                            <div class="step-tools">
+                                <span class="tool-tag">Kraken2 v2.1.2</span>
+                                <span class="tool-tag">NCBI nt_core</span>
+                                <span class="tool-tag">SeqKit v2.3.0</span>
+                                87k reads normalization
+                            </div>
+                        </div>
+                        <div class="step-card">
+                            <span class="step-number">3</span>
+                            <span class="step-name">Metagenomic Assembly (Dual Assembler)</span>
+                            <div class="step-tools">
+                                <span class="tool-tag">metaFlye v2.9.6</span>
+                                <span class="tool-tag">nanoMDBG v1.1</span>
+                                <code>--nano-hq --meta</code>
+                            </div>
+                        </div>
+                        <div class="step-card">
+                            <span class="step-number">4</span>
+                            <span class="step-name">Assembly Polishing + Contig Annotation</span>
+                            <div class="step-tools">
+                                <span class="tool-tag">3x Racon v1.5.0</span>
+                                <span class="tool-tag">Medaka v1.7.2</span>
+                                <span class="tool-tag">Prokka v1.14.5</span>
+                                <br>metaFlye: 3x Racon + Medaka | nanoMDBG: Medaka only
+                            </div>
+                        </div>
+                        <div class="step-card">
+                            <span class="step-number">5</span>
+                            <span class="step-name">Pathogen Identification (MEGAN LCA)</span>
+                            <div class="step-tools">
+                                <span class="tool-tag">minimap2 v2.28</span>
+                                <span class="tool-tag">MEGAN-CE v6.21.1</span>
+                                <span class="tool-tag">CZ ID v0.2.1</span>
+                                >=50% LCA | >=5 reads
+                            </div>
+                        </div>
+                        <div class="step-card">
+                            <span class="step-number">6</span>
+                            <span class="step-name">AMR, Virulence, and Plasmid Detection</span>
+                            <div class="step-tools">
+                                <span class="tool-tag">AMRFinderPlus v4.0.23 --plus</span>
+                                <span class="tool-tag">Prodigal v2.6.3</span>
+                                <span class="tool-tag">DIAMOND v2.1.13 VFDB</span>
+                                <span class="tool-tag">PlasmidFinder v2.1.6</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right column: Tracks 2, 3, 4 -->
+            <div class="track-column">
+                <div class="pipeline-section">
+                    <h2><span class="track-label track-2">Track 2</span> RNA Virome</h2>
+                    <div class="step-card">
+                        <span class="step-number">7</span>
+                        <span class="step-name">Virome Assembly + Classification</span>
+                        <div class="step-tools">
+                            <span class="tool-tag">nanoMDBG v1.1</span>
+                            <span class="tool-tag">Medaka v1.7.2</span>
+                            <span class="tool-tag">DIAMOND BLASTx NR</span>
+                            viral taxid 10239 | >=80% identity
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pipeline-section">
+                    <h2><span class="track-label track-3">Track 3</span> eDNA Metabarcoding</h2>
+                    <div class="step-card">
+                        <span class="step-number">8</span>
+                        <span class="step-name">Vertebrate Metabarcoding (12S rRNA)</span>
+                        <div class="step-tools">
+                            <span class="tool-tag">OBITools4 v1.3.1</span>
+                            <span class="tool-tag">Cutadapt v4.2</span>
+                            <span class="tool-tag">VSEARCH v2.21</span>
+                            <span class="tool-tag">MIDORI2 Unique 266</span>
+                            97% OTU | eBird validation
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pipeline-section">
+                    <h2><span class="track-label track-4">Track 4</span> AIV Whole-Genome</h2>
+                    <div class="steps-grid shared">
+                        <div class="step-card">
+                            <span class="step-number">9</span>
+                            <span class="step-name">AIV Consensus Calling</span>
+                            <div class="step-tools">
+                                <span class="tool-tag">minimap2 v2.28</span>
+                                <span class="tool-tag">SAMtools v1.17</span>
+                                <span class="tool-tag">BCFtools v1.17</span>
+                                8-segment | 2-pass mapping
+                            </div>
+                        </div>
+                        <div class="step-card">
+                            <span class="step-number">10</span>
+                            <span class="step-name">AIV Phylogenetics + Subtyping</span>
+                            <div class="step-tools">
+                                <span class="tool-tag">MAFFT v7.526</span>
+                                <span class="tool-tag">IQ-TREE2 v2.3.4</span>
+                                <span class="tool-tag">GISAID BLAST</span>
+                                -m MFP | 1000 UFboot + SH-aLRT
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scoring dimensions -->
+        <div class="scoring-section">
+            <div class="score-dim">
+                <div class="label">Tool Selection</div>
+                <div class="levels">C / A / I</div>
+            </div>
+            <div class="score-dim">
+                <div class="label">Parameter Accuracy</div>
+                <div class="levels">C / P / I</div>
+            </div>
+            <div class="score-dim">
+                <div class="label">Output Compatibility</div>
+                <div class="levels">P / F</div>
+            </div>
+            <div class="score-dim">
+                <div class="label">Scientific Validity</div>
+                <div class="levels">S / Q / I</div>
+            </div>
+            <div class="score-dim">
+                <div class="label">Executability</div>
+                <div class="levels">R / M / N</div>
+            </div>
+        </div>
+
+        <p class="meta-note">28 models x 10 steps = 280 scored step-results | Same 5-dimensional rubric as the aerobiome pipeline</p>
+    </div>
+</body>
+
+</html>

@@ -4,18 +4,19 @@
 
 ## Purpose
 
-Against Plausibility: LLM Evaluation documents a structured study of whether large language models can generate a scientifically valid nanopore metagenomics pipeline through sequential workflow construction.
+Against Plausibility: LLM Evaluation documents a structured study of whether large language models can generate scientifically valid nanopore metagenomics pipelines through sequential workflow construction.
 
-The benchmark is anchored to a published ground-truth workflow for low-biomass air metagenomics and scores each response across five dimensions: tool selection, parameter accuracy, output compatibility, scientific validity, and executability.
+The benchmark is anchored to **two independent, published ground-truth workflows** — one for low-biomass air metagenomics and one for multi-omics wetland surveillance — and scores each response across five dimensions: tool selection, parameter accuracy, output compatibility, scientific validity, and executability. The dual-pipeline design tests whether model competence generalizes across fundamentally different analytical paradigms.
 
 The public prompt files in this repository are reconstructed documentation artifacts rather than raw chat exports. Score-relevant constraints from the benchmark setup are documented in those files. This clarification does not change the scoring matrix, rubric outcomes, or rankings.
 
 ## Dataset Scope
 
 - Evaluated entries: 28
-- Scored step-results: 196
-- Pipeline steps: 7
-- Ground truth: [Reska T, Pozdniakova S, Urban L. *Air monitoring by nanopore sequencing*](https://doi.org/10.1093/ismeco/ycae058)
+- Total scored step-results: 476 (196 aerobiome + 280 wetland)
+- Pipeline steps: 17 total (7 aerobiome + 10 wetland)
+- Ground truth 1 (aerobiome): [Reska T, Pozdniakova S, Urban L. *Air monitoring by nanopore sequencing*. ISME Communications (2024)](https://doi.org/10.1093/ismeco/ycae058)
+- Ground truth 2 (wetland): Perlas A\*, Reska T\*, et al. *Real-time genomic pathogen, resistance, and host range characterization from passive water sampling of wetland ecosystems*. Applied and Environmental Microbiology (2025/2026)
 
 ### Evaluation groups
 
@@ -56,8 +57,10 @@ This benchmark is useful beyond nanopore metagenomics because it measures a broa
 
 - whether the model respects domain-specific tool choices rather than generic popularity
 - whether outputs from one step are actually consumable by the next
-- whether local correctness survives across a seven-step workflow
+- whether local correctness survives across a seven- or ten-step workflow
 - whether apparent competence masks analytical failure
+- whether model competence generalizes from a single linear pipeline to a multi-track, multi-omics workflow
+- whether models can distinguish between shotgun, amplicon, reference-based, and phylogenetic paradigms
 
 ## Evaluation Framework Overview
 
@@ -65,15 +68,16 @@ This benchmark is useful beyond nanopore metagenomics because it measures a broa
 
 ```mermaid
 graph TD
-    GT["Ground truth pipeline<br/>Reska et al. 2024"]
-    P["Reconstructed standardized prompt<br/>step objective · prior state · constraints"]
+    GT1["Ground truth 1: Aerobiome<br/>Reska et al. 2024<br/>7-step linear pipeline"]
+    GT2["Ground truth 2: Wetland<br/>Perlas, Reska et al. 2025<br/>10-step, 4-track pipeline"]
 
-    GT --> P
-    P --> C1["Longitudinal families<br/>OpenAI · Claude · Gemini"]
-    P --> C2["Supplemental interface / singleton evaluations<br/>Deep Research · DeepSeek · GLM-5"]
+    GT1 --> P1["Aerobiome prompts<br/>7 steps"]
+    GT2 --> P2["Wetland prompts<br/>10 steps across 4 tracks"]
 
-    C1 --> E["Evaluate against ground truth"]
-    C2 --> E
+    P1 --> M["28 evaluated models<br/>OpenAI · Claude · Gemini<br/>Deep Research · DeepSeek · GLM-5"]
+    P2 --> M
+
+    M --> E["Evaluate against<br/>ground truth"]
 
     E --> D1["Tool selection"]
     E --> D2["Parameter accuracy"]
@@ -81,7 +85,7 @@ graph TD
     E --> D4["Scientific validity"]
     E --> D5["Executability"]
 
-    D1 --> AGG["Aggregate and visualize<br/>CSV → markdown → figures"]
+    D1 --> AGG["Aggregate per pipeline<br/>+ cross-pipeline comparison"]
     D2 --> AGG
     D3 --> AGG
     D4 --> AGG
@@ -90,9 +94,11 @@ graph TD
 
 ## Experimental Design
 
-### Ground truth
+### Ground truths
 
-The reference workflow is the validated aerobiome pipeline documented in [`../pipelines/aerobiome/`](../pipelines/aerobiome/) and described in more detail in [`methodology/pipeline_reference.md`](methodology/pipeline_reference.md). It processes Oxford Nanopore long-read data from ultra-low biomass environmental air samples prepared with RBK114.24 chemistry.
+**Pipeline 1 — Aerobiome (7 steps, linear):** The validated aerobiome pipeline documented in [`../pipelines/aerobiome/`](../pipelines/aerobiome/) and described in [`methodology/pipeline_reference.md`](methodology/pipeline_reference.md). It processes Oxford Nanopore long-read data from ultra-low biomass environmental air samples prepared with RBK114.24 chemistry. Steps: basecalling → QC → host depletion → taxonomy → assembly → binning → functional annotation.
+
+**Pipeline 2 — Wetland surveillance (10 steps, 4 tracks):** The validated wetland multi-omics pipeline documented in [`../pipelines/wetland-surveillance/`](../pipelines/wetland-surveillance/) and described in [`methodology/pipeline_reference_wetland.md`](methodology/pipeline_reference_wetland.md). It processes dual-extracted DNA and RNA from passive water samplers through four parallel analysis tracks: shotgun metagenomics, RNA virome, eDNA metabarcoding, and AIV whole-genome sequencing. The wetland pipeline tests multi-omics reasoning, multi-paradigm awareness (shotgun vs amplicon vs reference-based vs phylogenetic), and a substantially larger tool space (~30 tools vs ~10).
 
 ### Stateless cumulative protocol
 
@@ -133,7 +139,9 @@ Where the evaluation setup made a score-relevant constraint explicit, the recons
 
 ## Key Findings
 
-### First fully correct pipeline per family
+### Aerobiome pipeline
+
+#### First fully correct pipeline per family
 
 - OpenAI: GPT-5
 - Claude: Opus 4.5
@@ -144,7 +152,7 @@ Where the evaluation setup made a score-relevant constraint explicit, the recons
 
 Later fully correct entries in the current matrix also include Sonnet 4.6, Gemini 3.1 Pro, ChatGPT Deep Research, and Claude Deep Research.
 
-### Step difficulty
+#### Step difficulty
 
 Average composite score across all 28 evaluated entries:
 
@@ -157,6 +165,17 @@ Average composite score across all 28 evaluated entries:
 - Quality control: 0.89
 
 The hardest parts of the benchmark remain the ones that require multi-stage compatibility reasoning rather than one-command recall: assembly, binning, and functional annotation.
+
+### Wetland pipeline
+
+Wetland pipeline evaluation is in progress. The ground truth, prompts, scoring criteria, and evaluation infrastructure are complete. Model scores will be populated as evaluations are conducted.
+
+The wetland pipeline is expected to be substantially harder due to:
+- Multi-omics (DNA + RNA) vs single-omics
+- 4 parallel analysis tracks vs 1 linear pipeline
+- Amplicon metabarcoding tools (OBITools4, VSEARCH, MIDORI2) that are niche and underrepresented in training data
+- RNA virome analysis requiring different assembly and classification strategies
+- AIV phylogenetics requiring MAFFT, IQ-TREE2, and GISAID-specific workflows
 
 ### Heatmap
 
@@ -190,19 +209,37 @@ These figures track only the OpenAI, Claude, and Gemini core version series.
 
 ```text
 llm-eval/
-├── flowchart.html                    Interactive summary of the benchmark design
-├── methodology/                      Protocol, scoring rubric, reference pipeline, supporting notes
-├── prompts/                          Reconstructed public prompt documents for each step
-├── responses/                        Directory scaffold only; raw chat transcripts are not included here
+├── flowchart.html                    Interactive summary (aerobiome)
+├── methodology/
+│   ├── pipeline_reference.md         Ground truth: aerobiome pipeline (7 steps)
+│   ├── pipeline_reference_wetland.md Ground truth: wetland pipeline (10 steps, 4 tracks)
+│   ├── scoring_criteria.md           Base scoring rubric (5 dimensions)
+│   ├── scoring_criteria_wetland.md   Wetland-specific scoring extensions
+│   └── evaluation_framework.md       Protocol and study design
+├── prompts/
+│   ├── step_01_*.md ... step_07_*.md Aerobiome prompt reconstructions
+│   └── wetland/
+│       └── step_01_*.md ... step_10_*.md  Wetland prompt reconstructions
+├── responses/                        Directory scaffold (transcripts not included)
+│   ├── chatgpt/, claude/, gemini/    Aerobiome response scaffold
+│   └── wetland/                      Wetland response scaffold
 ├── evaluations/
-│   ├── summary.md                    Curated human-written summary
-│   ├── summary_generated.md          Script-generated matrix summary
-│   ├── by_step/                      Script-generated step summaries
-│   └── by_model/                     Script-generated per-entry summaries
+│   ├── summary.md                    Aerobiome curated summary
+│   ├── summary_generated.md          Aerobiome script-generated summary
+│   ├── by_step/                      Aerobiome step summaries
+│   ├── by_model/                     Aerobiome per-entry summaries
+│   ├── wetland/                      Wetland evaluation outputs
+│   │   ├── by_step/                  Wetland step summaries
+│   │   └── by_model/                 Wetland per-entry summaries
+│   └── cross_pipeline/              Cross-pipeline comparison
 ├── results/
-│   ├── figures/                      Generated visualizations
-│   └── tables/scoring_matrix.csv     Source-of-truth scoring matrix
-└── scripts/                          Aggregation and plotting scripts
+│   ├── figures/                      Generated visualizations (per-pipeline + cross-pipeline)
+│   └── tables/scoring_matrix.csv     Unified source-of-truth (pipeline column)
+└── scripts/
+    ├── aggregate_scores.py           Per-pipeline markdown summaries
+    ├── generate_heatmap.py           Per-pipeline scoring heatmaps
+    ├── generate_radar.py             Per-pipeline radar/timeline/difficulty charts
+    └── generate_cross_pipeline.py    Cross-pipeline comparison figures
 ```
 
 ## How to Use This Repository
@@ -232,15 +269,16 @@ llm-eval/
 
 ```bash
 pip install -r requirements.txt
-python scripts/aggregate_scores.py
-python scripts/generate_heatmap.py
-python scripts/generate_radar.py
+python scripts/aggregate_scores.py       # Per-pipeline markdown summaries
+python scripts/generate_heatmap.py       # Per-pipeline scoring heatmaps
+python scripts/generate_radar.py         # Per-pipeline radar/timeline/difficulty charts
+python scripts/generate_cross_pipeline.py  # Cross-pipeline comparison (requires both pipelines scored)
 ```
 
 ## Limitations
 
 - Interface dependence: the benchmark reflects web-interface behavior, not API-only behavior.
-- Single ground truth: the reference workflow is one validated pipeline for one data type.
+- Two ground truths from the same research group: both reference pipelines involve the same first/co-first author, which means both share similar tool preferences and analytical style.
 - Sequential dependency by design: upstream errors contaminate downstream prompts when the state is carried forward.
 - Missing raw transcript archive: this public repository does not contain the full raw chat logs used during evaluation.
 - Rater subjectivity: scoring was performed by a single domain expert.

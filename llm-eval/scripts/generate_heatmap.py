@@ -28,7 +28,7 @@ SCORE_MAP = {
 }
 
 DIMENSIONS = list(SCORE_MAP.keys())
-STEP_LABELS = {
+STEP_LABELS_AEROBIOME = {
     1: "Basecalling",
     2: "QC",
     3: "Host\nDepletion",
@@ -37,6 +37,28 @@ STEP_LABELS = {
     6: "Binning",
     7: "Annotation",
 }
+STEP_LABELS_WETLAND = {
+    1: "Basecalling\n& QC",
+    2: "Taxonomy\n& Norm.",
+    3: "Assembly\n(Dual)",
+    4: "Polish &\nAnnotate",
+    5: "Pathogen\nID",
+    6: "AMR/Vir/\nPlasmid",
+    7: "RNA\nVirome",
+    8: "eDNA\nMetabarc.",
+    9: "AIV\nConsensus",
+    10: "AIV\nPhylo.",
+}
+PIPELINE_STEP_LABELS = {
+    "aerobiome": STEP_LABELS_AEROBIOME,
+    "wetland": STEP_LABELS_WETLAND,
+}
+PIPELINE_TITLES = {
+    "aerobiome": "Aerobiome Pipeline",
+    "wetland": "Wetland Surveillance Pipeline",
+}
+# Keep backward compat alias
+STEP_LABELS = STEP_LABELS_AEROBIOME
 FAMILY_ORDER = ["openai", "claude", "gemini", "google", "deepseek", "zhipu"]
 VERSION_ORDER = {
     "openai": [
@@ -114,8 +136,12 @@ FAMILY_LABELS = {
 }
 
 
-def load_scores(csv_path: Path) -> pd.DataFrame:
+def load_scores(csv_path: Path, pipeline: str | None = None) -> pd.DataFrame:
     df = pd.read_csv(csv_path)
+    if "pipeline" not in df.columns:
+        df.insert(0, "pipeline", "aerobiome")
+    if pipeline is not None:
+        df = df[df["pipeline"] == pipeline].copy()
     for dim in DIMENSIONS:
         df[dim] = df[dim].astype(str).str.strip()
     df["step_number"] = df["step_number"].astype(int)
@@ -145,7 +171,7 @@ def ordered_models(df: pd.DataFrame) -> list[tuple[str, str]]:
     return ordered
 
 
-def build_matrix(df: pd.DataFrame) -> tuple[np.ndarray, list[str], list[str], list[tuple[str, int, int]]]:
+def build_matrix(df: pd.DataFrame, pipeline: str = "aerobiome") -> tuple[np.ndarray, list[str], list[str], list[tuple[str, int, int]]]:
     models = ordered_models(df)
     steps = sorted(df["step_number"].unique())
     matrix = np.full((len(models), len(steps)), np.nan)
@@ -170,12 +196,14 @@ def build_matrix(df: pd.DataFrame) -> tuple[np.ndarray, list[str], list[str], li
         start = end + 1
 
     y_labels = [MODEL_LABELS.get(model, f"{model[0]}/{model[1]}") for model in models]
-    x_labels = [STEP_LABELS.get(step, f"Step {step}") for step in steps]
+    step_labels = PIPELINE_STEP_LABELS.get(pipeline, STEP_LABELS_AEROBIOME)
+    x_labels = [step_labels.get(step, f"Step {step}") for step in steps]
     return matrix, y_labels, x_labels, family_spans
 
 
 def plot_heatmap(matrix: np.ndarray, y_labels: list[str], x_labels: list[str],
-                 family_spans: list[tuple[str, int, int]], output_path: Path) -> None:
+                 family_spans: list[tuple[str, int, int]], output_path: Path,
+                 title: str = "LLM Nanopore Metagenomics Pipeline Evaluation") -> None:
     fig_height = max(14, len(y_labels) * 0.45)
     fig, ax = plt.subplots(figsize=(10, fig_height))
 
@@ -231,7 +259,7 @@ def plot_heatmap(matrix: np.ndarray, y_labels: list[str], x_labels: list[str],
               ncol=4, fontsize=8, frameon=False)
 
     ax.set_title(
-        f"LLM Nanopore Metagenomics Pipeline Evaluation ({len(y_labels)} evaluated entries)",
+        title,
         fontsize=13,
         fontweight="bold",
         pad=16,
@@ -246,16 +274,33 @@ def plot_heatmap(matrix: np.ndarray, y_labels: list[str], x_labels: list[str],
 def main() -> int:
     repo_root = Path(__file__).resolve().parent.parent
     csv_path = repo_root / "results" / "tables" / "scoring_matrix.csv"
-    output_path = repo_root / "results" / "figures" / "scoring_heatmap.png"
+    figs = repo_root / "results" / "figures"
 
     if not csv_path.exists():
         print(f"Error: {csv_path} not found.", file=sys.stderr)
         return 1
 
-    df = load_scores(csv_path)
-    matrix, y_labels, x_labels, family_spans = build_matrix(df)
-    plot_heatmap(matrix, y_labels, x_labels, family_spans, output_path)
-    print(f"Heatmap saved to {output_path}")
+    # Detect pipelines
+    df_all = pd.read_csv(csv_path)
+    if "pipeline" not in df_all.columns:
+        pipelines = ["aerobiome"]
+    else:
+        pipelines = sorted(df_all["pipeline"].unique())
+
+    for pipeline in pipelines:
+        df = load_scores(csv_path, pipeline=pipeline)
+        if df.empty:
+            continue
+        matrix, y_labels, x_labels, family_spans = build_matrix(df, pipeline=pipeline)
+        title_label = PIPELINE_TITLES.get(pipeline, pipeline.title())
+        title = f"{title_label} — LLM Evaluation ({len(y_labels)} entries)"
+        if pipeline == "aerobiome":
+            output_path = figs / "scoring_heatmap.png"
+        else:
+            output_path = figs / f"{pipeline}_scoring_heatmap.png"
+        plot_heatmap(matrix, y_labels, x_labels, family_spans, output_path, title=title)
+        print(f"Heatmap saved to {output_path}")
+
     return 0
 
 

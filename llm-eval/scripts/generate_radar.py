@@ -42,8 +42,12 @@ LONGITUDINAL_VERSION_ORDER = {
 }
 
 
-def load_and_score(csv_path: str) -> pd.DataFrame:
+def load_and_score(csv_path: str, pipeline: str | None = None) -> pd.DataFrame:
     df = pd.read_csv(csv_path)
+    if "pipeline" not in df.columns:
+        df.insert(0, "pipeline", "aerobiome")
+    if pipeline is not None:
+        df = df[df["pipeline"] == pipeline].copy()
     for dim in DIMENSIONS:
         df[f"{dim}_num"] = df[dim].map(SCORE_MAP[dim])
     return df
@@ -104,15 +108,26 @@ def plot_family_radars(df: pd.DataFrame, output_path: str):
     plt.close()
 
 
-def plot_step_difficulty(df: pd.DataFrame, output_path: str):
+STEP_NAMES_AEROBIOME = {
+    1: "Basecalling", 2: "QC", 3: "Host Depletion",
+    4: "Taxonomy", 5: "Assembly", 6: "Binning", 7: "Annotation",
+}
+STEP_NAMES_WETLAND = {
+    1: "Basecalling & QC", 2: "Taxonomy & Norm.", 3: "Assembly (Dual)",
+    4: "Polish & Annotate", 5: "Pathogen ID", 6: "AMR/Vir/Plasmid",
+    7: "RNA Virome", 8: "eDNA Metabarc.", 9: "AIV Consensus", 10: "AIV Phylo.",
+}
+PIPELINE_STEP_NAMES = {"aerobiome": STEP_NAMES_AEROBIOME, "wetland": STEP_NAMES_WETLAND}
+PIPELINE_TITLES = {"aerobiome": "Aerobiome Pipeline", "wetland": "Wetland Surveillance Pipeline"}
+
+
+def plot_step_difficulty(df: pd.DataFrame, output_path: str, pipeline: str = "aerobiome"):
     """Horizontal bar chart: average composite score per step, color-coded."""
-    fig, ax = plt.subplots(figsize=(8, 5))
+    fig_height = 5 if pipeline == "aerobiome" else 7
+    fig, ax = plt.subplots(figsize=(8, fig_height))
 
     steps = sorted(df["step_number"].unique())
-    step_names = {
-        1: "Basecalling", 2: "QC", 3: "Host Depletion",
-        4: "Taxonomy", 5: "Assembly", 6: "Binning", 7: "Annotation"
-    }
+    step_names = PIPELINE_STEP_NAMES.get(pipeline, STEP_NAMES_AEROBIOME)
 
     scores = []
     for s in steps:
@@ -140,7 +155,9 @@ def plot_step_difficulty(df: pd.DataFrame, output_path: str):
     ax.set_yticklabels([f"{s}. {step_names.get(s, '')}" for s in steps], fontsize=9)
     ax.set_xlim(0, 1.05)
     ax.set_xlabel("Average Composite Score (all models)", fontsize=9)
-    ax.set_title("Step Difficulty Ranking (all 28 evaluated entries)",
+    title_label = PIPELINE_TITLES.get(pipeline, pipeline.title())
+    n_models = df.groupby(["model_family", "model_version"]).ngroups
+    ax.set_title(f"Step Difficulty — {title_label} ({n_models} entries)",
                  fontsize=12, fontweight="bold", color="#1e293b", pad=12)
     ax.invert_yaxis()
 
@@ -230,11 +247,22 @@ def main():
         print(f"Error: {csv_path} not found.")
         sys.exit(1)
 
-    df = load_and_score(str(csv_path))
+    # Detect pipelines
+    df_all = pd.read_csv(csv_path)
+    if "pipeline" not in df_all.columns:
+        pipelines = ["aerobiome"]
+    else:
+        pipelines = sorted(df_all["pipeline"].unique())
 
-    plot_family_radars(df, str(figs / "family_radar.png"))
-    plot_step_difficulty(df, str(figs / "step_difficulty.png"))
-    plot_version_timeline(df, str(figs / "version_timeline.png"))
+    for pipeline in pipelines:
+        df = load_and_score(str(csv_path), pipeline=pipeline)
+        if df.empty:
+            continue
+
+        prefix = "" if pipeline == "aerobiome" else f"{pipeline}_"
+        plot_family_radars(df, str(figs / f"{prefix}family_radar.png"))
+        plot_step_difficulty(df, str(figs / f"{prefix}step_difficulty.png"), pipeline=pipeline)
+        plot_version_timeline(df, str(figs / f"{prefix}version_timeline.png"))
 
 
 if __name__ == "__main__":
