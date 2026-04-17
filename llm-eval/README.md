@@ -166,36 +166,23 @@ Average composite score across all 28 evaluated entries:
 
 The hardest parts of the benchmark remain the ones that require multi-stage compatibility reasoning rather than one-command recall: assembly, binning, and functional annotation.
 
-### Wetland pipeline
+#### Heatmap (Aerobiome pipeline)
 
-Wetland pipeline evaluation is in progress. The ground truth, prompts, scoring criteria, and evaluation infrastructure are complete. Model scores will be populated as evaluations are conducted.
+![Aerobiome pipeline — scoring heatmap for all 28 evaluated entries × 7 pipeline steps](results/figures/scoring_heatmap.png)
 
-The wetland pipeline is expected to be substantially harder due to:
-- Multi-omics (DNA + RNA) vs single-omics
-- 4 parallel analysis tracks vs 1 linear pipeline
-- Amplicon metabarcoding tools (OBITools4, VSEARCH, MIDORI2) that are niche and underrepresented in training data
-- RNA virome analysis requiring different assembly and classification strategies
-- AIV phylogenetics requiring MAFFT, IQ-TREE2, and GISAID-specific workflows
+#### Longitudinal family comparison (Aerobiome pipeline)
 
-### Heatmap
+The radar and timeline figures track only the OpenAI, Claude, and Gemini core version series.
 
-Composite scores per evaluated entry and pipeline step. Green indicates fully correct behavior; red indicates major analytical or executable failure.
+![Aerobiome pipeline — longitudinal family radar charts](results/figures/family_radar.png)
 
-![Scoring heatmap for all 28 evaluated entries × 7 pipeline steps](results/figures/scoring_heatmap.png)
+![Aerobiome pipeline — longitudinal family timeline](results/figures/version_timeline.png)
 
-### Longitudinal family comparison
+#### Step ranking (Aerobiome pipeline)
 
-These figures track only the OpenAI, Claude, and Gemini core version series.
+![Aerobiome pipeline — step difficulty ranking across all 28 evaluated entries](results/figures/step_difficulty.png)
 
-![Longitudinal family radar charts](results/figures/family_radar.png)
-
-![Longitudinal family timeline](results/figures/version_timeline.png)
-
-### Step ranking
-
-![Step difficulty ranking across all 28 evaluated entries](results/figures/step_difficulty.png)
-
-### Recurring failure patterns
+#### Recurring failure patterns (Aerobiome pipeline)
 
 - Basecalling failures cluster around wrong ONT model names, wrong Q thresholds, or omission of the basecall → trim → filter tool chain.
 - QC failures are usually FastQC-first answers or incomplete nanopore-specific reporting.
@@ -205,11 +192,64 @@ These figures track only the OpenAI, Claude, and Gemini core version series.
 - Binning failures are dominated by overly strict completeness thresholds, single-tool binning, or broken coverage/binning order.
 - Functional annotation failures most often miss read-level screening, omit `seqkit` FASTQ → FASTA conversion, or restrict AMR analysis to contigs alone.
 
+### Wetland pipeline
+
+#### First fully correct pipeline per family
+
+No model — across any family — produces a fully correct 10-step wetland pipeline in the current matrix. The barrier is concentrated in three steps where **zero of 28 entries reach full correctness**: pathogen identification (Step 5, no MEGAN-CE LCA), RNA virome assembly + classification (Step 7, niche nanoMDBG + DIAMOND BLASTx NR chain), and eDNA metabarcoding (Step 8, OBITools4 + VSEARCH + MIDORI2 combination). The three "Deep Research" interface entries (ChatGPT, Claude, Google Gemini) are the only entries that come close — they recover the niche toolchain through web search at inference time, but still miss one or more rubric thresholds on those three steps.
+
+In the core version series, the strongest wetland performers are GPT-5 (OpenAI), Opus 4.5 / Opus 4.6 / Sonnet 4.6 (Claude), and Gemini 3 Pro / Gemini 3.1 Pro (Gemini), which each clear the easier steps (basecalling/QC, taxonomy, AIV consensus, AIV phylogenetics) but degrade on the multi-paradigm steps.
+
+#### Step difficulty (Wetland pipeline)
+
+Average composite score across all 28 evaluated entries:
+
+- eDNA metabarcoding: 0.23
+- RNA virome: 0.46
+- Pathogen identification: 0.54
+- Polishing and annotation: 0.55
+- Metagenomic assembly: 0.61
+- AMR / virulence / plasmid: 0.62
+- AIV phylogenetics: 0.66
+- AIV consensus: 0.71
+- Basecalling and QC: 0.72
+- Taxonomic classification: 0.83
+
+The hardest wetland steps are the ones that require a **different analytical paradigm** from shotgun metagenomics — amplicon clustering (Step 8) and reference-based RNA viral characterization (Step 7) — rather than the ones that require more tool-chain reasoning within a shared paradigm.
+
+#### Heatmap (Wetland pipeline)
+
+![Wetland pipeline — scoring heatmap for all 28 evaluated entries × 10 pipeline steps](results/figures/wetland_scoring_heatmap.png)
+
+#### Longitudinal family comparison (Wetland pipeline)
+
+![Wetland pipeline — longitudinal family radar charts](results/figures/wetland_family_radar.png)
+
+![Wetland pipeline — longitudinal family timeline](results/figures/wetland_version_timeline.png)
+
+#### Step ranking (Wetland pipeline)
+
+![Wetland pipeline — step difficulty ranking across all 28 evaluated entries](results/figures/wetland_step_difficulty.png)
+
+#### Recurring failure patterns (Wetland pipeline)
+
+- **Basecalling / QC** failures cluster around HAC mode (instead of SUP), single QC threshold applied across all four tracks, or Chopper substituted for Porechop + NanoFilt.
+- **Taxonomic classification** failures are dominated by the wrong Kraken2 database variant (Standard or PlusPF instead of nt_core) and by omission of SeqKit normalization to 87k reads.
+- **Metagenomic assembly** failures are almost entirely the absence of the dual assembler strategy: 25 of 28 entries recommend metaFlye alone and never surface nanoMDBG. Only the three Deep Research entries recover the dual-assembler design.
+- **Polishing / annotation** failures apply the same polishing strategy to both assemblers or omit the three-round Racon step required by metaFlye.
+- **Pathogen identification (Step 5)** shows the signature failure of the benchmark: 0 of 28 entries use MEGAN-CE LCA. Most models substitute Kraken2 alone or generic BLAST, which provides community composition rather than high-confidence pathogen calls.
+- **AMR / virulence / plasmid** failures omit `--plus` mode on AMRFinderPlus, skip Prodigal ORF prediction, drop VFDB virulence screening, or ignore PlasmidFinder entirely.
+- **RNA virome (Step 7)** — the dominant failure is applying DNA shotgun tooling to RNA virome data. Of the 28 entries, 0 recover the full nanoMDBG + Medaka + DIAMOND BLASTx (NCBI NR) + viral-taxid chain.
+- **eDNA metabarcoding (Step 8)** is the hardest step in the benchmark (mean 0.23). The failure is paradigm-level: models treat 12S amplicons as shotgun reads and recommend Kraken2, MetaPhlAn, or BLAST-vs-nt. OBITools4 is essentially unknown to the core-version models, and MIDORI2 is rarely mentioned as the 12S reference.
+- **AIV consensus (Step 9)** failures are typically single-pass reference mapping without segment-specific reference selection via `samtools idxstats`.
+- **AIV phylogenetics (Step 10)** failures run MAFFT + a generic ML tree but miss IQ-TREE2 with ModelFinder Plus and dual bootstrap (UFboot + SH-aLRT).
+
 ## Repository Structure
 
 ```text
 llm-eval/
 ├── flowchart.html                    Interactive summary (aerobiome)
+├── flowchart_wetland.html            Interactive summary (wetland)
 ├── methodology/
 │   ├── pipeline_reference.md         Ground truth: aerobiome pipeline (7 steps)
 │   ├── pipeline_reference_wetland.md Ground truth: wetland pipeline (10 steps, 4 tracks)
@@ -228,10 +268,13 @@ llm-eval/
 │   ├── summary_generated.md          Aerobiome script-generated summary
 │   ├── by_step/                      Aerobiome step summaries
 │   ├── by_model/                     Aerobiome per-entry summaries
-│   ├── wetland/                      Wetland evaluation outputs
+│   ├── wetland/
+│   │   ├── summary.md                Wetland curated summary
+│   │   ├── summary_generated.md      Wetland script-generated summary
 │   │   ├── by_step/                  Wetland step summaries
 │   │   └── by_model/                 Wetland per-entry summaries
-│   └── cross_pipeline/              Cross-pipeline comparison
+│   └── cross_pipeline/
+│       └── summary.md                Cross-pipeline comparison narrative
 ├── results/
 │   ├── figures/                      Generated visualizations (per-pipeline + cross-pipeline)
 │   └── tables/scoring_matrix.csv     Unified source-of-truth (pipeline column)
@@ -247,9 +290,16 @@ llm-eval/
 ### For scientists evaluating LLMs for bioinformatics
 
 1. Read [`methodology/evaluation_framework.md`](methodology/evaluation_framework.md) for the protocol and scope.
-2. Read [`methodology/pipeline_reference.md`](methodology/pipeline_reference.md) for the validated reference workflow.
-3. Use [`evaluations/summary.md`](evaluations/summary.md) for the human-readable interpretation.
-4. Use [`evaluations/summary_generated.md`](evaluations/summary_generated.md) plus [`evaluations/by_step/`](evaluations/by_step/) and [`evaluations/by_model/`](evaluations/by_model/) for matrix-derived drill-down.
+2. Pick the pipeline that matches your use case and read its ground truth:
+   - Aerobiome (7-step linear shotgun metagenomics): [`methodology/pipeline_reference.md`](methodology/pipeline_reference.md)
+   - Wetland (10-step, 4-track multi-omics surveillance): [`methodology/pipeline_reference_wetland.md`](methodology/pipeline_reference_wetland.md)
+3. Read the curated human summary for that pipeline:
+   - Aerobiome: [`evaluations/summary.md`](evaluations/summary.md)
+   - Wetland: [`evaluations/wetland/summary.md`](evaluations/wetland/summary.md)
+4. Drill down by step or model using the matrix-derived outputs:
+   - Aerobiome: [`evaluations/summary_generated.md`](evaluations/summary_generated.md), [`evaluations/by_step/`](evaluations/by_step/), [`evaluations/by_model/`](evaluations/by_model/)
+   - Wetland: [`evaluations/wetland/summary_generated.md`](evaluations/wetland/summary_generated.md), [`evaluations/wetland/by_step/`](evaluations/wetland/by_step/), [`evaluations/wetland/by_model/`](evaluations/wetland/by_model/)
+5. If you need to compare generalization between the two pipelines, read [`evaluations/cross_pipeline/summary.md`](evaluations/cross_pipeline/summary.md).
 
 ### For AI researchers
 
@@ -260,10 +310,10 @@ llm-eval/
 
 ### For applied AI teams and consultancies
 
-1. Use [`evaluations/summary.md`](evaluations/summary.md) to see where plausible outputs fail under domain review.
-2. Use [`results/tables/scoring_matrix.csv`](results/tables/scoring_matrix.csv) to inspect step-specific weaknesses by model family.
+1. For single-pipeline competence, use [`evaluations/summary.md`](evaluations/summary.md) (aerobiome). For multi-paradigm competence, use [`evaluations/wetland/summary.md`](evaluations/wetland/summary.md) — it is the harder pipeline and a better indicator of real-world analytical robustness.
+2. Use [`results/tables/scoring_matrix.csv`](results/tables/scoring_matrix.csv) to inspect step-specific weaknesses by model family and by pipeline.
 3. Use [`methodology/evaluation_framework.md`](methodology/evaluation_framework.md) as a template for evaluating your own multi-step technical workflows.
-4. Use the aerobiome reference pipeline to compare benchmark behavior against a fully specified real workflow rather than a toy task.
+4. To measure how well aerobiome-level competence transfers to a multi-track workload, read [`evaluations/cross_pipeline/summary.md`](evaluations/cross_pipeline/summary.md) and inspect `results/figures/cross_pipeline_*.png`.
 
 ### Reproducing derived outputs
 
