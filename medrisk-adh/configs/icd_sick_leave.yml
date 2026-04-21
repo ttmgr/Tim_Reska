@@ -1,0 +1,147 @@
+# ICD-10 chapter → sick-leave parameters for German working population.
+# Sources:
+#   - BAuA (Bundesanstalt für Arbeitsschutz und Arbeitsmedizin): sick-leave statistics 2022
+#   - Techniker Krankenkasse Gesundheitsreport 2023
+#   - BARMER Arztreport 2023
+#   - Weibull AFT parameters (mu, sigma) estimated from published mean/CV figures
+#     log(T) = mu + sigma*epsilon, epsilon ~ Gumbel(0,1)
+#     → T ~ Weibull with scale=exp(mu), shape=1/sigma
+#   - ktg_rr: relative risk multiplier for KTG claim severity vs population average
+
+chapters:
+  A_B:
+    label: "Infectious & parasitic diseases (ICD A–B)"
+    mu: 2.14
+    sigma: 0.92
+    mean_days: 8.5
+    pct_sick_days: 0.05        # share of total sick days in GKV population
+    ktg_rr: 0.8                # KTG relative risk vs chapter average
+    comorbidity_rr: 1.1        # multiplier if comorbidity present
+
+  C_D:
+    label: "Neoplasms & blood diseases (ICD C–D)"
+    mu: 3.64
+    sigma: 1.10
+    mean_days: 38.2
+    pct_sick_days: 0.06
+    ktg_rr: 3.5
+    comorbidity_rr: 1.5
+
+  E:
+    label: "Endocrine, nutritional & metabolic (ICD E, incl. diabetes)"
+    mu: 2.64
+    sigma: 0.98
+    mean_days: 14.0
+    pct_sick_days: 0.04
+    ktg_rr: 1.4
+    comorbidity_rr: 1.3
+
+  F:
+    label: "Mental & behavioural disorders (ICD F)"
+    mu: 3.75
+    sigma: 1.15
+    mean_days: 42.5
+    pct_sick_days: 0.18
+    ktg_rr: 4.2
+    comorbidity_rr: 1.6
+
+  G:
+    label: "Diseases of the nervous system (ICD G)"
+    mu: 2.92
+    sigma: 1.02
+    mean_days: 18.5
+    pct_sick_days: 0.04
+    ktg_rr: 1.8
+    comorbidity_rr: 1.2
+
+  I:
+    label: "Diseases of the circulatory system (ICD I)"
+    mu: 3.09
+    sigma: 1.05
+    mean_days: 22.0
+    pct_sick_days: 0.08
+    ktg_rr: 2.5
+    comorbidity_rr: 1.4
+
+  J:
+    label: "Diseases of the respiratory system (ICD J)"
+    mu: 1.97
+    sigma: 0.88
+    mean_days: 7.2
+    pct_sick_days: 0.11
+    ktg_rr: 0.7
+    comorbidity_rr: 1.1
+
+  K:
+    label: "Diseases of the digestive system (ICD K)"
+    mu: 2.08
+    sigma: 0.90
+    mean_days: 8.0
+    pct_sick_days: 0.04
+    ktg_rr: 0.8
+    comorbidity_rr: 1.1
+
+  M:
+    label: "Diseases of the musculoskeletal system (ICD M)"
+    mu: 2.97
+    sigma: 1.03
+    mean_days: 19.5
+    pct_sick_days: 0.25
+    ktg_rr: 2.0
+    comorbidity_rr: 1.3
+
+  S_T:
+    label: "Injuries & poisoning (ICD S–T)"
+    mu: 2.82
+    sigma: 1.00
+    mean_days: 16.8
+    pct_sick_days: 0.12
+    ktg_rr: 1.6
+    comorbidity_rr: 1.2
+
+  Z:
+    label: "Factors influencing health status (ICD Z)"
+    mu: 1.61
+    sigma: 0.82
+    mean_days: 5.0
+    pct_sick_days: 0.03
+    ktg_rr: 0.5
+    comorbidity_rr: 1.0
+
+  _other:
+    label: "All other ICD chapters"
+    mu: 2.52
+    sigma: 0.95
+    mean_days: 12.4
+    pct_sick_days: 0.00        # residual; computed as 1 - sum(others)
+    ktg_rr: 1.0
+    comorbidity_rr: 1.0
+
+# ICD-10 prefix → chapter mapping (first character or two characters)
+icd_chapter_map:
+  A: A_B
+  B: A_B
+  C: C_D
+  D: C_D
+  E: E
+  F: F
+  G: G
+  H: _other
+  I: I
+  J: J
+  K: K
+  L: _other
+  M: M
+  N: _other
+  O: _other
+  P: _other
+  Q: _other
+  R: _other
+  S: S_T
+  T: S_T
+  U: _other
+  V: S_T
+  W: S_T
+  X: S_T
+  Y: S_T
+  Z: Z

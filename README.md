@@ -29,6 +29,9 @@ If you need to decide across the wider group collection rather than the curated 
 | [`pipelines/wetland-surveillance/`](./pipelines/wetland-surveillance/) | Wetland multi-omics surveillance workflow | Shared first-author workflow paired with the group repository's [Wetland Health](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health) study materials |
 | [`pipelines/listeria-adaptive-sampling/`](./pipelines/listeria-adaptive-sampling/) | Food-safety adaptive sampling workflow overview | First-author project overview paired with the group repository's [Listeria Adaptive Sampling](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Food_Safety/Listeria-Adaptive-Sampling) pipeline scaffold |
 | [GenomicsForOneHealth](https://github.com/ttmgr/GenomicsForOneHealth) | Group-wide One Health pipeline collection | Environmental metagenomics, food safety, clinical, veterinary, eDNA, viability, and collaborative project infrastructure |
+| [`disease-progression/`](./disease-progression/) | Disease progression modeling framework | Survival analysis, competing risks, and transformer architectures on longitudinal EHR data for risk quantification |
+| [`disease-network/`](./disease-network/) | Interactive clinical atlas | D3.js dashboard for exploring disease state transitions and underwriting scenarios |
+| [`medrisk-adh/`](./medrisk-adh/) | AI underwriting with failure mode detection | Streamlit platform demonstrating plausible-but-wrong detection via data quality–confidence mismatch |
 
 Within the group collection, my main contributions are in environmental metagenomics and food safety: [Air Metagenomics](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics), [Wetland Health](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health), and [Listeria Adaptive Sampling](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Food_Safety/Listeria-Adaptive-Sampling).
 
@@ -61,6 +64,38 @@ First-author food-safety workflow for Oxford Nanopore adaptive sampling of *List
 Status: manuscript in preparation.
 
 Links: [Pipeline overview](./pipelines/listeria-adaptive-sampling/) | [Study repository and metadata](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Food_Safety/Listeria-Adaptive-Sampling)
+
+### Disease progression modeling
+
+A reproducible Python framework for predicting patient trajectories through discrete disease states using survival analysis and deep learning. Ingests synthetic FHIR bundles via Synthea, transforms them to an OMOP-lite schema, and benchmarks Cox PH, multistate Markov chains, DeepSurv, DeepHit, and SurvTRACE (transformer-based competing-risks survival) against two clinical tracks: cardiovascular disease and Type 2 diabetes. Includes fairness auditing, model cards, a GDPR/EU AI Act regulatory context document, and a full pytest suite.
+
+Stack: Python 3.10+, PyTorch, lifelines, pycox, scikit-survival, hmmlearn, FHIR.resources.
+
+Links: [`disease-progression/`](./disease-progression/)
+
+---
+
+### Interactive clinical atlas
+
+A standalone browser dashboard built in vanilla JavaScript (D3.js, Chart.js) for visualising disease state transitions and comparing intervention scenarios in a German medical underwriting context. Eight disease nodes with evidence-linked uncertainty bands, patient profile controls, and timeline/network/trajectory views. No framework dependencies — the entire application ships as a single HTML entry point.
+
+Stack: ES6 modules, D3.js, Chart.js, HTML5, CSS3.
+
+Links: [`disease-network/`](./disease-network/)
+
+---
+
+### MedRisk-ADH — AI underwriting with failure mode detection
+
+A Streamlit multi-page application demonstrating a validation layer for automated underwriting. The core idea: automated underwriting AI fails most dangerously not when it is obviously wrong, but when it is **confidently wrong on low-quality data** (the plausible-but-wrong failure mode). The platform computes a Data Quality Score (DQS) for each patient before inference and flags cases where model confidence exceeds what the input data can actually support.
+
+Three risk models (XGBoost binary classifier, Cox PH survival model, CTMC multistate Markov chain) feed a validation layer that checks Calibration-Confidence Mismatch (CCM) and Epistemic Prediction Uncertainty (EPU). A GDPR-safe multi-market synthetic cohort generator with controlled data degradation across four market profiles (DE / FR / ES / INT) enables reproducible failure mode experiments.
+
+Stack: Python 3.11+, Streamlit, XGBoost, lifelines, PyTorch, Plotly, reportlab, python-pptx.
+
+Links: [`medrisk-adh/`](./medrisk-adh/)
+
+---
 
 ## Selected publications
 

@@ -1,0 +1,2134 @@
+# KTG Underwriting Profiles — Clinical risk assessment for Krankentagegeld (PKV).
+# Encoded from: docs/ktg_underwriting_manual.md, Parts 1 & 3.
+# Evidence tiers: T1 = guideline-level, T2 = observational, T3 = expert/market practice.
+# All ICD codes are ICD-10-GM unless noted otherwise.
+
+profiles:
+
+  # ---------------------------------------------------------------------------
+  # 1.1 Psychiatric Conditions
+  # ---------------------------------------------------------------------------
+
+  mood_disorders:
+    cluster: psychiatric
+    label: "Mood Disorders (Depressive & Bipolar Spectrum)"
+    icd_codes: ["F31", "F32", "F33", "F34"]
+    icd_subtypes:
+      F31:
+        severity: very_high
+        label: "Bipolare Stoerung"
+      F32.0:
+        severity: mild
+        label: "Leichte depressive Episode"
+      F32.1:
+        severity: moderate
+        label: "Mittelgradige depressive Episode"
+      F32.2:
+        severity: severe
+        label: "Schwere depressive Episode ohne psychotische Symptome"
+      F32.3:
+        severity: very_severe
+        label: "Schwere depressive Episode mit psychotischen Symptomen"
+      F33:
+        severity: high
+        label: "Rezidivierende depressive Stoerung"
+      F34:
+        severity: moderate
+        label: "Anhaltende affektive Stoerungen"
+
+    au_durations:
+      single_mild_moderate:
+        description: "Single mild/moderate episode (F32.0/F32.1)"
+        median_weeks: [6, 12]
+        recurrence_rate: 0.30
+        recurrence_window_years: 5
+        evidence: T2
+        source: "DGPPN S3 Leitlinie Depression"
+      single_severe:
+        description: "Single severe episode (F32.2/F32.3)"
+        median_weeks: [12, 24]
+        recurrence_rate: 0.50
+        recurrence_window_years: 2
+        evidence: T2
+      recurrent:
+        description: "Recurrent disorder (F33) — each subsequent episode more severe and longer"
+        median_weeks: null  # escalating per episode
+        recurrence_rate: 0.90
+        recurrence_window_years: null  # lifetime after 3+ episodes
+        evidence: T1
+      bipolar:
+        description: "Bipolar disorder (F31) — highest KTG risk in mood cluster"
+        median_weeks: null  # cycling unpredictable
+        episodes_per_decade: [5, 10]
+        recurrence_rate: null
+        evidence: T1
+      treatment_resistant:
+        description: "Treatment-resistant depression — AU often exceeds 12 months"
+        median_weeks: [52, null]
+        recurrence_rate: null
+        evidence: T3
+
+    prognostic_factors:
+      - name: remission_status
+        type: categorical
+        thresholds:
+          full: "Return to prior occupational level"
+          partial: "Residual symptoms present"
+        risk_impact: "Most critical factor — full vs partial remission"
+        evidence: T1
+
+      - name: episode_count
+        type: integer
+        thresholds:
+          low: 1
+          high: 2
+        risk_impact: "Two prior episodes = high-risk category regardless of current remission"
+        evidence: T1
+
+      - name: time_since_last_episode_months
+        type: numeric
+        thresholds:
+          high_risk: 12
+          moderate_risk: 24
+          lower_risk: 24  # >24 months in full remission with stable medication
+        risk_impact: "<12 months = high risk; 12-24 = moderate; >24 in full remission = lower"
+        evidence: T2
+
+      - name: medication
+        type: categorical
+        thresholds:
+          on_antidepressant: "Not necessarily negative if for relapse prevention"
+          off_medication_recurrent: "May indicate poor adherence or treatment gap"
+        risk_impact: "Context-dependent — prophylactic vs absent after recurrent episodes"
+        evidence: T3
+
+      - name: inpatient_psychiatric_treatment
+        type: boolean
+        thresholds:
+          present: true
+        risk_impact: "Strong negative prognostic marker — indicates severity requiring hospitalisation"
+        evidence: T1
+
+      - name: comorbid_anxiety
+        type: boolean
+        thresholds:
+          present: true
+        risk_impact: "Doubles long-term AU duration"
+        evidence: T2
+
+      - name: comorbid_substance_use
+        type: boolean
+        thresholds:
+          present: true
+        risk_impact: "Major risk amplifier — see comorbidity matrix"
+        evidence: T2
+
+      - name: occupational_stress_exposure
+        type: categorical
+        thresholds:
+          high_demand: "Physicians, managers, lawyers"
+        risk_impact: "Higher recurrence risk in high-demand professions"
+        evidence: T3
+
+      - name: bipolar_vs_unipolar
+        type: categorical
+        thresholds:
+          bipolar: "Categorically higher risk for KTG"
+        risk_impact: "Long-term medication required; manic episodes cause acute non-AU risk events"
+        evidence: T1
+
+    underwriting_responses:
+      accept:
+        conditions:
+          - "First episode"
+          - "Full remission >24 months"
+          - "No psychotropic medication"
+          - "No hospitalisation"
+          - "No recurrence risk markers"
+        evidence: T2
+      loading:
+        conditions:
+          - "First episode"
+          - "Remission 12-24 months"
+          - "Stable on antidepressant for relapse prevention"
+          - "Good occupational function"
+        loading_range: [10, 50]
+        evidence: T3
+      exclusion:
+        conditions:
+          - "Recurrent episodes (>=2)"
+          - "Currently stable but history of multiple AU episodes"
+        exclusion_type: "Psychiatric AU excluded"
+        evidence: T3
+      postpone:
+        conditions:
+          - "Active episode ongoing"
+          - "Recently initiated treatment"
+          - "<6 months remission"
+        duration_months: [12, 24]
+        evidence: T3
+      decline:
+        conditions:
+          - "Recurrent severe disorder with >=3 inpatient admissions"
+          - "Treatment-resistant depression"
+          - "Bipolar disorder with recent cycling"
+          - "Any active episode at time of application"
+        evidence: T3
+
+    failure_modes:
+      - type: overreaction
+        description: "Treating a single ICD F32 code from 5 years ago as equivalent to current recurrent depression — ignores time decay and episode count"
+      - type: underestimation
+        description: "Accepting F33 applicant because most recent AU episode was coded F43 (adjustment disorder) — missed pattern recognition across episodes"
+      - type: coding_ambiguity
+        description: "F32/F43 differential is clinically significant but coding varies by treating physician; algorithms cannot distinguish without severity markers in physician report"
+      - type: missed_bipolar
+        description: "F31 is sometimes initially coded F32 or F33 until pattern is recognised — first bipolar manic episode may appear as F30 without prior depressive history"
+
+    lookback_standard_years: 3
+    lookback_extended_years: 5
+    lookback_extended_condition: "Severe or hospitalised single episode"
+    lookback_notes: "For F33 recurrent: standard=10 years, extended=lifetime. Each prior episode is prognostically relevant; no meaningful decay [T1]"
+
+  # ---------------------------------------------------------------------------
+
+  anxiety_stress:
+    cluster: psychiatric
+    label: "Anxiety and Stress-Related Disorders"
+    icd_codes: ["F40", "F41", "F43", "Z73"]
+    icd_subtypes:
+      F40.2:
+        severity: low
+        label: "Spezifische (isolierte) Phobien"
+      F41.0:
+        severity: moderate
+        label: "Panikstörung"
+      F41.1:
+        severity: moderate_high
+        label: "Generalisierte Angststörung (GAD)"
+      F41.2:
+        severity: moderate
+        label: "Angst und depressive Störung, gemischt"
+      F43.1:
+        severity: high
+        label: "Posttraumatische Belastungsstörung (PTSD)"
+      F43.2:
+        severity: low
+        label: "Anpassungsstörungen"
+      Z73:
+        severity: variable
+        label: "Burnout / Probleme bei der Lebensbewältigung (not a psychiatric diagnosis)"
+
+    au_durations:
+      simple_phobia:
+        description: "Simple phobia (F40.2) — minimal AU impact if occupationally non-disabling"
+        median_weeks: [0, 2]
+        recurrence_rate: null
+        evidence: T2
+      panic_disorder:
+        description: "Panic disorder (F41.0) — acute episodes, moderate AU risk"
+        median_weeks: [3, 8]
+        recurrence_rate: null
+        recurrence_note: "Per year in untreated cases"
+        evidence: T2
+      gad:
+        description: "Generalised anxiety disorder (F41.1) — chronic course, significant AU"
+        median_weeks: [4, 6]
+        recurrence_rate: null
+        recurrence_note: "Per year in treated patients"
+        evidence: T2
+      adjustment_disorder:
+        description: "Adjustment disorder (F43.2) — time-limited (resolves within 6 months of stressor removal)"
+        median_weeks: null
+        recurrence_rate: null
+        recurrence_note: "Single AU episode typical"
+        evidence: T1
+      ptsd:
+        description: "PTSD (F43.1) — highly variable; chronic PTSD has AU profile closer to severe depression"
+        median_weeks: null
+        recurrence_rate: null
+        evidence: T2
+      burnout:
+        description: "Burnout (Z73) — Z73 is not a psychiatric diagnosis; AU duration varies enormously"
+        median_weeks: null
+        recurrence_rate: null
+        evidence: T3
+
+    prognostic_factors:
+      - name: chronicity
+        type: categorical
+        thresholds:
+          isolated_reaction: "Isolated adjustment reaction"
+          chronic: "Chronic anxiety disorder"
+        risk_impact: "Clinically distinct — must be separated"
+        evidence: T2
+
+      - name: stressor_resolution
+        type: boolean
+        thresholds:
+          resolved: true
+          ongoing: false
+        risk_impact: "For F43, ongoing stressor (divorce, family illness) worsens prognosis"
+        evidence: T2
+
+      - name: comorbid_mood_disorder
+        type: boolean
+        thresholds:
+          present: true
+        risk_impact: "GAD + depression has worst AU prognosis in anxiety cluster"
+        evidence: T1
+
+      - name: treatment_status
+        type: categorical
+        thresholds:
+          cbt_completed: "CBT completion for phobia/panic = favourable"
+          untreated_gad: "Untreated GAD = higher risk"
+        risk_impact: "Treatment completion strongly modifies prognosis"
+        evidence: T2
+
+      - name: burnout_underlying_f_code
+        type: boolean
+        thresholds:
+          no_f_code: "Risk closer to general population"
+        risk_impact: "Seek underlying F-code; if absent, Z73 is lower risk"
+        evidence: T3
+
+      - name: ptsd_trauma_type
+        type: categorical
+        thresholds:
+          single_incident: "Better prognosis"
+          complex_childhood: "Worse prognosis"
+        risk_impact: "Complex PTSD has worse prognosis than single-incident"
+        evidence: T2
+
+    underwriting_responses:
+      accept:
+        conditions:
+          - "Isolated phobia (non-occupationally-disabling)"
+          - "Single F43 episode fully resolved >12 months"
+          - "Z73 without underlying F-code"
+        evidence: T3
+      loading:
+        conditions:
+          - "GAD in remission >12 months on stable medication"
+          - "Resolved panic disorder with CBT"
+        loading_range: [10, 25]
+        evidence: T3
+      exclusion:
+        conditions:
+          - "Chronic GAD with >=2 AU episodes"
+          - "Ongoing medication for anxiety"
+        exclusion_type: "Psychiatric AU excluded"
+        evidence: T3
+      postpone:
+        conditions:
+          - "Active F43 or F41 episode"
+          - "<6 months since last AU for psychiatric cause"
+        duration_months: [12, 12]
+        evidence: T3
+      decline:
+        conditions:
+          - "PTSD with severe functional impairment"
+          - "Treatment-resistant anxiety disorder"
+          - "Chronic anxiety + comorbid depression"
+        evidence: T3
+
+    failure_modes:
+      - type: overreaction
+        description: "Treating Z73 as equivalent to F41 — Z73 is a contact reason code, not a psychiatric diagnosis"
+      - type: underestimation
+        description: "Accepting F43 without checking whether F32/F33 codes exist earlier in history — adjustment disorder sometimes used to soften a depression diagnosis"
+      - type: missed_ptsd
+        description: "F43.1 may appear as only one ICD entry but represent a chronic severely impairing condition; algorithm may not weight it differently from adjustment disorder"
+      - type: coding_heterogeneity
+        description: "GAD, panic, and mixed anxiety-depression (F41.2) are clinically distinct but may be coded interchangeably by GPs"
+
+    lookback_standard_years: 3
+    lookback_extended_years: 5
+    lookback_extended_condition: "Chronic or hospitalised"
+
+  # ---------------------------------------------------------------------------
+
+  personality_disorders:
+    cluster: psychiatric
+    label: "Personality Disorders"
+    icd_codes: ["F60", "F61"]
+    icd_subtypes:
+      F60.0:
+        severity: moderate
+        label: "Paranoide Persönlichkeitsstörung"
+      F60.2:
+        severity: low_au_but_integrity_concern
+        label: "Dissoziale Persönlichkeitsstörung"
+      F60.3:
+        severity: very_high
+        label: "Emotional instabile / Borderline Persönlichkeitsstörung"
+      F60.4:
+        severity: moderate
+        label: "Histrionische Persönlichkeitsstörung"
+      F60.5:
+        severity: low_or_negative
+        label: "Anankastische Persönlichkeitsstörung"
+      F60.6:
+        severity: high
+        label: "Ängstlich-vermeidende Persönlichkeitsstörung"
+      F60.7:
+        severity: moderate_high
+        label: "Abhängige Persönlichkeitsstörung"
+      F61:
+        severity: variable
+        label: "Kombinierte Persönlichkeitsstörungen"
+
+    au_durations:
+      borderline:
+        description: "Borderline (F60.3) — highest AU risk; crisis episodes cause recurrent short AU; inpatient admissions common"
+        median_weeks: [6, null]
+        recurrence_rate: null
+        recurrence_note: "Annual AU often exceeds 6 weeks"
+        evidence: T2
+      anxious_avoidant:
+        description: "Anxious-avoidant (F60.6) — chronic low-grade impairment; moderate annual AU"
+        median_weeks: null
+        recurrence_rate: null
+        recurrence_note: "Risk amplified by high-demand occupations"
+        evidence: T2
+      dependent:
+        description: "Dependent (F60.7) — AU often triggered by relationship crises; unpredictable pattern"
+        median_weeks: null
+        recurrence_rate: null
+        evidence: T3
+      anankastic:
+        description: "Anankastic (F60.5) — may reduce AU in structured occupations; monitor for comorbid OCD"
+        median_weeks: null
+        recurrence_rate: null
+        recurrence_note: "May have zero or negative KTG impact"
+        evidence: T3
+      antisocial:
+        description: "Antisocial (F60.2) — low direct AU risk but underwriting integrity concerns"
+        median_weeks: null
+        recurrence_rate: null
+        evidence: T3
+
+    prognostic_factors:
+      - name: chronicity
+        type: categorical
+        thresholds:
+          chronic: "Personality disorders are chronic by definition — remission does not apply in traditional sense"
+        risk_impact: "Assess current functional level and treatment engagement"
+        evidence: T1
+
+      - name: dbt_completion
+        type: boolean
+        thresholds:
+          completed: true
+        risk_impact: "DBT completion for borderline significantly improves prognosis and reduces crisis episodes"
+        evidence: T1
+
+      - name: inpatient_admissions
+        type: integer
+        thresholds:
+          each_admission: "Significantly increases expected future AU"
+        risk_impact: "Strong negative prognostic marker"
+        evidence: T2
+
+      - name: comorbid_substance_use
+        type: boolean
+        thresholds:
+          present: true
+        risk_impact: "Major risk amplifier"
+        evidence: T2
+
+      - name: occupational_stability
+        type: boolean
+        thresholds:
+          stable_2_years: "Sustained employment in same role >2 years = favourable"
+        risk_impact: "Favourable functional marker"
+        evidence: T3
+
+      - name: age
+        type: numeric
+        thresholds:
+          attenuation_age: 35
+        risk_impact: "Borderline symptoms often attenuate somewhat after age 35-40"
+        evidence: T2
+
+    underwriting_responses:
+      accept:
+        conditions:
+          - "Anankastic personality disorder"
+          - "Stable occupational function"
+          - "No hospitalisation"
+          - "No AU in past 3 years"
+        evidence: T3
+      exclusion:
+        conditions:
+          - "Most other personality disorders with good functional stability"
+          - "No recent crisis"
+        exclusion_type: "Psychiatric AU excluded"
+        evidence: T3
+      postpone:
+        conditions:
+          - "Borderline with >=1 inpatient admission in past 3 years"
+          - "Any personality disorder with active crisis pattern"
+          - "Combination with substance use disorder"
+        evidence: T3
+      decline:
+        conditions:
+          - "Borderline with multiple inpatient admissions"
+          - "Antisocial with legal history"
+          - "Any personality disorder causing >8 weeks AU in past 12 months"
+        evidence: T3
+
+    failure_modes:
+      - type: over_penalising_anankastic
+        description: "F60.5 may have zero or negative KTG impact in structured professions"
+      - type: missing_severity_distinction
+        description: "Treating F60.3 borderline identically to F60.5 anankastic is a major error"
+      - type: coding_rarity
+        description: "Personality disorder diagnoses are under-coded in German primary care — absence of F60 does not mean absence of PD; look for repeated crisis-coded contacts"
+      - type: missing_dbt_marker
+        description: "Completed DBT is a clinically meaningful positive prognostic factor that no algorithm currently extracts from free text"
+
+    lookback_standard_years: null  # lifetime
+    lookback_extended_years: null  # lifetime
+    lookback_extended_condition: "Chronic by definition; no time decay"
+
+  # ---------------------------------------------------------------------------
+  # 1.2 Musculoskeletal Conditions
+  # ---------------------------------------------------------------------------
+
+  disc_conditions:
+    cluster: musculoskeletal
+    label: "Intervertebral Disc Conditions"
+    icd_codes: ["M50", "M51"]
+    icd_subtypes:
+      M50:
+        severity: moderate
+        label: "Zervikaler Bandscheibenschaden"
+      M51:
+        severity: moderate
+        label: "Sonstiger Bandscheibenschaden (lumbar/thoracic) — without radiculopathy"
+      M51.1:
+        severity: high
+        label: "Bandscheibenprolaps mit Radikulopathie"
+
+    au_durations:
+      uncomplicated_degeneration:
+        description: "Uncomplicated M51 (disc degeneration without radiculopathy)"
+        median_weeks: [2, 6]
+        recurrence_rate: [0.40, 0.60]
+        recurrence_window_years: 5
+        evidence: T2
+      radiculopathy_conservative:
+        description: "M51.1 with radiculopathy, conservative management"
+        median_weeks: [6, 12]
+        surgery_rate: 0.30
+        evidence: T2
+      post_surgical_discectomy:
+        description: "Post-surgical (discectomy) — return to work typically 6-12 weeks"
+        median_weeks: [6, 12]
+        reherniation_rate: [0.05, 0.15]
+        reherniation_window_years: 5
+        evidence: T1
+        source: "AWMF S2k Leitlinie Bandscheibenprolaps"
+      multilevel_chronic:
+        description: "Multiple level disease or chronic radiculopathy — recurrent pattern"
+        median_weeks: [4, 8]
+        recurrence_rate: null
+        recurrence_note: "Expect 4-8 weeks AU annually long-term"
+        evidence: T2
+
+    prognostic_factors:
+      - name: radiological_severity
+        type: categorical
+        thresholds:
+          single_level: "Lower risk"
+          multilevel: "Higher risk"
+          spinal_stenosis_comorbidity: "Significantly higher risk"
+        risk_impact: "Multilevel disease and spinal stenosis substantially elevate risk"
+        evidence: T2
+
+      - name: neurological_deficit
+        type: categorical
+        thresholds:
+          motor_weakness: "Severe"
+          bladder_bowel: "Severe — usually surgical indication"
+        risk_impact: "Motor weakness or bladder/bowel involvement = severe"
+        evidence: T1
+
+      - name: surgery_history
+        type: categorical
+        thresholds:
+          microdiscectomy: "Better prognosis"
+          fusion: "Higher complexity"
+        risk_impact: "Type, outcome, and time since surgery all matter"
+        evidence: T1
+
+      - name: occupation
+        type: categorical
+        thresholds:
+          heavy_manual: "Significantly worsens prognosis"
+          sedentary_ergonomic: "Better prognosis"
+        risk_impact: "Heavy manual labour significantly worsens prognosis"
+        evidence: T1
+
+      - name: bmi_obesity
+        type: numeric
+        thresholds:
+          elevated: 30
+        risk_impact: "Strong prognostic factor for recurrence"
+        evidence: T2
+
+      - name: pain_chronification
+        type: boolean
+        thresholds:
+          chronic_weeks: 12
+        risk_impact: "Pain >12 weeks = risk of central sensitisation, dramatically worsens prognosis"
+        evidence: T1
+
+      - name: psychosocial_yellow_flags
+        type: categorical
+        thresholds:
+          catastrophising: "Predicts chronification"
+          depression: "Predicts chronification"
+          job_dissatisfaction: "Predicts chronification"
+        risk_impact: "STarT Back tool yellow flags predict chronification"
+        evidence: T1
+
+    underwriting_responses:
+      accept:
+        conditions:
+          - "M51 without radiculopathy"
+          - "Single episode >24 months ago"
+          - "Full recovery"
+          - "Sedentary occupation"
+        evidence: T2
+      loading:
+        conditions:
+          - "M51 with past radiculopathy"
+          - "Conservatively treated"
+          - "Remission >12 months"
+          - "No surgery"
+          - "Non-manual occupation"
+        loading_range: [15, 30]
+        evidence: T3
+      loading_plus_exclusion:
+        conditions:
+          - "Post-surgery discectomy with good outcome >12 months"
+          - "White-collar occupation"
+        exclusion_type: "Musculoskeletal exclusion"
+        evidence: T3
+      decline:
+        conditions:
+          - "Chronic radiculopathy with ongoing medication"
+          - "Multilevel disease with surgery history + heavy occupation"
+          - "Failed back surgery syndrome"
+        evidence: T3
+
+    failure_modes:
+      - type: missing_radiculopathy_distinction
+        description: "Not distinguishing M51 (degeneration) from M51.1 (radiculopathy) — categorically different risk"
+      - type: missing_occupation_data
+        description: "Identical ICD history carries very different risk in a physiotherapist vs a software developer"
+      - type: post_surgery_underestimation
+        description: "Successful microdiscectomy outcome not always captured — algorithm may permanently flag surgical history without noting good recovery"
+      - type: ignoring_psychosocial_flags
+        description: "Psychosocial yellow flags never present in ICD codes; require physician report interpretation"
+
+    lookback_standard_years: 5
+    lookback_extended_years: 10
+    lookback_extended_condition: "Multilevel disease or failed surgery"
+
+  # ---------------------------------------------------------------------------
+
+  non_specific_back_pain:
+    cluster: musculoskeletal
+    label: "Non-specific Back Pain"
+    icd_codes: ["M54"]
+    icd_subtypes:
+      M54.4:
+        severity: moderate
+        label: "Ischialgie"
+      M54.5:
+        severity: low_to_moderate
+        label: "Kreuzschmerz (LBP)"
+      M54.6:
+        severity: low
+        label: "Schmerzen im BWS-Bereich"
+
+    au_durations:
+      acute_nonspecific:
+        description: "Acute non-specific LBP — 90% resolve within 6 weeks"
+        median_weeks: [1, 4]
+        recurrence_rate: null
+        evidence: T1
+        source: "NVL Kreuzschmerz"
+      recurrent:
+        description: "Recurrent LBP (>=3 episodes within 12 months)"
+        median_weeks: [6, 12]
+        recurrence_rate: null
+        recurrence_note: "Annual AU burden 6-12 weeks"
+        evidence: T2
+      chronic:
+        description: "Chronic LBP (>12 weeks) — major driver of long-term disability"
+        median_weeks: [8, 14]
+        recurrence_rate: null
+        recurrence_note: "Mean 8-14 weeks per year"
+        evidence: T1
+      ischialgia:
+        description: "Ischialgia (M54.4) — distinguish from true radiculopathy (M51.1)"
+        median_weeks: [4, 8]
+        recurrence_rate: null
+        evidence: T2
+
+    prognostic_factors:
+      - name: episode_count_and_chronicity
+        type: categorical
+        thresholds:
+          isolated_acute: "Very different risk"
+          recurrent: ">=3 episodes in 12 months"
+          chronic: ">12 weeks duration"
+        risk_impact: "Most important factors — isolated acute vs recurrent/chronic"
+        evidence: T1
+
+      - name: opioid_use
+        type: boolean
+        thresholds:
+          present: true
+        risk_impact: "Serious red flag indicating chronification and severity"
+        evidence: T1
+
+      - name: occupation_physical_load
+        type: categorical
+        thresholds:
+          heavy_manual: "Strong causal and prognostic relationship"
+        risk_impact: "Strong evidence for causal and prognostic relationship"
+        evidence: T1
+
+      - name: psychosocial_factors
+        type: categorical
+        thresholds:
+          yellow_flags: "Same as disc pathology"
+        risk_impact: "Catastrophising, depression, job dissatisfaction predict chronification"
+        evidence: T1
+
+      - name: imaging_findings
+        type: categorical
+        thresholds:
+          no_structural_finding: "Favourable — rules out serious pathology"
+        risk_impact: "Absence of structural finding on MRI is actually favourable"
+        evidence: T2
+
+    underwriting_responses:
+      accept:
+        conditions:
+          - "Isolated M54 AU <2 weeks"
+          - ">18 months ago"
+          - "No recurrence"
+          - "No chronic pattern"
+        evidence: T2
+      loading:
+        conditions:
+          - "2-3 episodes within 3 years"
+          - "Total AU <8 weeks"
+          - "No chronification markers"
+        loading_range: [10, 20]
+        evidence: T3
+      exclusion:
+        conditions:
+          - "Recurrent pattern (>=3 episodes)"
+          - "Chronic LBP diagnosis"
+          - "Opioid use"
+        exclusion_type: "Musculoskeletal exclusion"
+        evidence: T3
+      decline:
+        conditions:
+          - "Chronic LBP with permanent disability markers"
+          - "Ongoing opioid therapy"
+          - "Heavy manual occupation with multilevel changes"
+        evidence: T3
+
+    failure_modes:
+      - type: overreaction
+        description: "Single M54 episode from 4 years ago triggering loading — textbook overreaction"
+      - type: missing_structural_distinction
+        description: "Not distinguishing M54 (non-specific) from M51 (structural) — systematically different risk"
+      - type: missing_recurrence_pattern
+        description: "Three separate M54 AU episodes coded identically; algorithm may treat as one condition without counting episodes across years"
+      - type: opioid_marker_absent
+        description: "Opioid prescriptions for back pain may appear in medication section, not in ICD codes — integration gap"
+
+    lookback_standard_years: 3
+    lookback_extended_years: 5
+    lookback_extended_condition: "Chronic pattern"
+
+  # ---------------------------------------------------------------------------
+
+  soft_tissue:
+    cluster: musculoskeletal
+    label: "Soft Tissue Disorders"
+    icd_codes: ["M79"]
+    icd_subtypes:
+      M79.0:
+        severity: low
+        label: "Rheumatismus, nicht naeher bezeichnet"
+      M79.1:
+        severity: low
+        label: "Myalgie"
+      M79.2:
+        severity: low
+        label: "Neuralgie und Neuritis, nicht naeher bezeichnet"
+      M79.3:
+        severity: low
+        label: "Panniculitis, nicht naeher bezeichnet"
+      M79.7:
+        severity: high
+        label: "Fibromyalgie-Syndrom (FMS)"
+
+    au_durations:
+      general_m79_non_fms:
+        description: "General M79 (non-FMS) — typically acute"
+        median_weeks: [1, 3]
+        recurrence_rate: null
+        recurrence_note: "High recurrence but usually short individual episodes"
+        evidence: T2
+      fibromyalgia:
+        description: "M79.7 Fibromyalgia — chronic condition"
+        median_weeks: [6, 10]
+        recurrence_rate: null
+        recurrence_note: "Mean annual AU 6-10 weeks; 10-20% on long-term sick leave at any point"
+        long_term_sick_leave_pct: [0.10, 0.20]
+        evidence: T2
+      fibromyalgia_psychiatric_comorbid:
+        description: "Fibromyalgia with comorbid psychiatric disorder"
+        median_weeks: [12, null]
+        recurrence_rate: null
+        recurrence_note: "AU burden may exceed 12 weeks annually"
+        evidence: T2
+
+    prognostic_factors:
+      - name: fms_vs_nonspecific
+        type: categorical
+        thresholds:
+          fms: "M79.7 — very different risk profile"
+          non_specific: "Other M79 — much lower risk"
+        risk_impact: "Must be separated — very different risk profiles"
+        evidence: T2
+
+      - name: comorbid_mood_disorder
+        type: boolean
+        thresholds:
+          present: true
+        risk_impact: "Near-universal in FMS; comorbid depression often drives AU more than pain itself"
+        evidence: T2
+
+      - name: fms_medication
+        type: categorical
+        thresholds:
+          duloxetine: "Suggests confirmed FMS diagnosis"
+          pregabalin: "Suggests confirmed FMS diagnosis"
+          amitriptyline: "Suggests confirmed FMS diagnosis"
+        risk_impact: "Central sensitisation medications suggest confirmed FMS"
+        evidence: T2
+
+      - name: functional_status
+        type: categorical
+        thresholds:
+          full_time_employment: "Favourable marker in FMS"
+        risk_impact: "Ability to maintain full-time employment = favourable marker"
+        evidence: T3
+
+    underwriting_responses:
+      accept:
+        conditions:
+          - "Non-specific M79 (non-FMS)"
+          - "Single episode"
+          - "Resolved"
+        evidence: T3
+      loading:
+        conditions:
+          - "M79.7 FMS with stable full-time employment"
+          - "No psychiatric comorbidity"
+          - "Minimal medication"
+        loading_range: null  # not specified in manual
+        evidence: T3
+      exclusion:
+        conditions:
+          - "FMS with moderate impact"
+          - "Controlled comorbidities"
+        exclusion_type: "Musculoskeletal exclusion"
+        evidence: T3
+      decline:
+        conditions:
+          - "FMS with severe functional impairment"
+          - "Psychiatric comorbidity"
+          - "Opioid or high-dose gabapentinoid use"
+          - "Prior long-term sick leave"
+        evidence: T3
+
+    failure_modes:
+      - type: uniform_m79_treatment
+        description: "Treating all M79 codes uniformly — M79.1 myalgia and M79.7 FMS are categorically different risks"
+      - type: missing_fms_via_medication
+        description: "Duloxetine prescribed for FMS may not be linked to M79.7 in code data"
+      - type: fms_comorbidity_blindness
+        description: "Psychiatric and FMS codes often coded separately; algorithm summing both naively may not capture synergistic AU risk"
+
+    lookback_standard_years: 3
+    lookback_extended_years: 5
+    lookback_extended_condition: "Chronic pattern"
+    lookback_notes: "Lookback uses general musculoskeletal non-specific category from Part 3"
+
+  # ---------------------------------------------------------------------------
+
+  rheumatoid_arthritis:
+    cluster: musculoskeletal
+    label: "Rheumatoid Arthritis"
+    icd_codes: ["M05", "M06"]
+    icd_subtypes:
+      M05:
+        severity: high
+        label: "Seropositive rheumatoide Arthritis — more erosive course"
+      M06:
+        severity: moderate_to_high
+        label: "Sonstige rheumatoide Arthritis (inkl. seronegative) — heterogeneous"
+
+    au_durations:
+      active_unoptimised:
+        description: "Active RA without optimal treatment"
+        median_weeks: [8, 20]
+        recurrence_rate: null
+        recurrence_note: "Multiple flares per year possible"
+        evidence: T2
+      remission_on_dmards:
+        description: "RA in remission on DMARDs"
+        median_weeks: [2, 4]
+        recurrence_rate: null
+        recurrence_note: "Annual AU in well-controlled patients"
+        evidence: T2
+        source: "ACR/EULAR treat-to-target data"
+      on_biologics:
+        description: "RA on biologics (anti-TNF etc.) — remission rates 40-60%"
+        median_weeks: null
+        remission_rate: [0.40, 0.60]
+        evidence: T1
+      erosive:
+        description: "RA with joint erosions/deformities — permanent functional limitation"
+        median_weeks: null
+        recurrence_rate: null
+        recurrence_note: "Elevated long-term AU"
+        evidence: T1
+
+    prognostic_factors:
+      - name: das28
+        type: numeric
+        thresholds:
+          remission: 2.6
+        risk_impact: "DAS28 <2.6 = clinical remission criterion; not in application data but requestable"
+        evidence: T1
+
+      - name: seropositivity
+        type: categorical
+        thresholds:
+          seropositive_m05: "More erosive course"
+          seronegative_m06: "Heterogeneous"
+        risk_impact: "Seropositive RA has more erosive course — M05 vs M06 is meaningful"
+        evidence: T1
+
+      - name: medication_level
+        type: categorical
+        thresholds:
+          hydroxychloroquine_methotrexate: "Mono csDMARD"
+          combination_csdmards: "Escalation — higher severity"
+          biologics_jak_inhibitors: "Most advanced — reflects high severity"
+        risk_impact: "Medication escalation reflects disease severity"
+        evidence: T1
+
+      - name: joint_erosions_deformities
+        type: boolean
+        thresholds:
+          present: true
+        risk_impact: "Radiological finding indicating irreversible damage — very negative"
+        evidence: T1
+
+      - name: extra_articular_manifestations
+        type: boolean
+        thresholds:
+          present: true
+        risk_impact: "Felty syndrome, pulmonary RA = systemic severe disease"
+        evidence: T1
+
+      - name: comorbid_cardiovascular
+        type: boolean
+        thresholds:
+          present: true
+        risk_impact: "RA independently elevates CV risk by 50%"
+        evidence: T1
+
+    underwriting_responses:
+      loading:
+        conditions:
+          - "RA in clinical remission >12 months"
+          - "DAS28 <2.6"
+          - "Stable DMARD"
+          - "No erosions"
+          - "White-collar occupation"
+        loading_range: [20, 40]
+        evidence: T3
+      loading_plus_exclusion:
+        conditions:
+          - "Active disease"
+          - "Moderate severity"
+          - "Responsive to treatment"
+        exclusion_type: "Musculoskeletal exclusion"
+        evidence: T3
+      postpone:
+        conditions:
+          - "Newly diagnosed RA awaiting treatment response assessment"
+        evidence: T3
+      decline:
+        conditions:
+          - "Severe erosive RA"
+          - "Biologic escalation with incomplete response"
+          - "Significant functional limitation"
+          - "Manual occupation"
+        evidence: T3
+
+    failure_modes:
+      - type: missing_seropositive_distinction
+        description: "Not distinguishing M05 (seropositive, more severe) from M06 (seronegative, heterogeneous) — coding difference carries clinical weight"
+      - type: missing_medication_escalation
+        description: "Biologic prescription should be a strong risk escalation trigger that ICD codes alone do not capture"
+      - type: underestimating_cv_comorbidity
+        description: "RA itself is a CV risk multiplier — underestimating CV comorbidity risk in RA"
+
+    lookback_standard_years: 5
+    lookback_extended_years: null  # lifetime if active
+    lookback_extended_condition: "Active disease"
+
+  # ---------------------------------------------------------------------------
+  # 1.3 Cardiovascular Conditions
+  # ---------------------------------------------------------------------------
+
+  hypertension:
+    cluster: cardiovascular
+    label: "Hypertension"
+    icd_codes: ["I10", "I11", "I12", "I13"]
+    icd_subtypes:
+      I10:
+        severity: low_to_moderate
+        label: "Essentielle Hypertonie"
+      I11:
+        severity: high
+        label: "Hypertensive Herzkrankheit"
+      I12:
+        severity: high
+        label: "Hypertensive Nierenkrankheit"
+      I13:
+        severity: very_high
+        label: "Hypertensive Herz- und Nierenkrankheit"
+
+    au_durations:
+      controlled_no_organ_damage:
+        description: "Controlled I10 without organ damage — minimal direct AU impact"
+        median_weeks: null
+        recurrence_rate: null
+        recurrence_note: "Most AU arises from comorbidities or treatment side-effects"
+        evidence: T2
+      hypertensive_crisis:
+        description: "Hypertensive crisis or emergency — rare in well-managed patients"
+        median_weeks: [1, 4]
+        recurrence_rate: null
+        evidence: T2
+      organ_involvement:
+        description: "I11/I12/I13 — AU driven by cardiac or renal complications"
+        median_weeks: null
+        recurrence_rate: null
+        recurrence_note: "AU driven by complications rather than hypertension per se"
+        evidence: T1
+
+    prognostic_factors:
+      - name: bp_control
+        type: categorical
+        thresholds:
+          controlled: "Last documented BP reading within range"
+          uncontrolled: "Elevated despite medication"
+        risk_impact: "Blood pressure control and number of agents required"
+        evidence: T2
+
+      - name: antihypertensive_agent_count
+        type: integer
+        thresholds:
+          mild: 1
+          moderate: [2, 3]
+          high_risk: 4
+        risk_impact: "1 drug = mild; 2-3 = moderate; >=4 or resistant = high risk"
+        evidence: T2
+
+      - name: target_organ_damage
+        type: categorical
+        thresholds:
+          lvh: "Left ventricular hypertrophy"
+          microalbuminuria: "Renal marker"
+          retinopathy: "Eye damage"
+          ckd: "Chronic kidney disease"
+        risk_impact: "LVH, microalbuminuria, retinopathy, CKD stage — all elevate risk"
+        evidence: T1
+
+      - name: metabolic_comorbidities
+        type: boolean
+        thresholds:
+          present: true
+        risk_impact: "Diabetes + hypertension = major risk multiplier"
+        evidence: T1
+
+      - name: age_at_diagnosis
+        type: numeric
+        thresholds:
+          early_onset: 40
+        risk_impact: "Early-onset (<40 years) implies longer exposure and higher lifetime complication risk"
+        evidence: T2
+
+    underwriting_responses:
+      accept:
+        conditions:
+          - "Isolated I10"
+          - "Well-controlled on 1-2 agents"
+          - "No organ damage"
+          - "No metabolic comorbidity"
+        evidence: T2
+      loading:
+        conditions:
+          - "2-3 antihypertensive agents"
+          - "OR mild microalbuminuria"
+          - "OR hypertension + one metabolic factor"
+        loading_range: [15, 30]
+        evidence: T3
+      loading_or_exclusion:
+        conditions:
+          - "Hypertensive heart disease (I11)"
+          - "Moderate CKD"
+          - "Resistant hypertension"
+        evidence: T3
+      decline:
+        conditions:
+          - "Malignant hypertension"
+          - "I11/I12/I13 with significant organ damage"
+          - "Multiple high-risk comorbidities"
+        evidence: T3
+
+    failure_modes:
+      - type: uniform_i10
+        description: "Treating all I10 codes as equal risk — controlled single-agent hypertension is near-normal KTG risk"
+      - type: ignoring_medication_data
+        description: "Number of antihypertensives required is the most powerful proxy for severity available in application data"
+      - type: missing_organ_damage_codes
+        description: "Missing I11/I12/I13 distinction — hypertension-with-organ-damage codes carry materially higher risk than pure I10"
+
+    lookback_standard_years: 3
+    lookback_extended_years: 5
+    lookback_extended_condition: "Organ damage present"
+
+  # ---------------------------------------------------------------------------
+
+  cad:
+    cluster: cardiovascular
+    label: "Chronic Ischaemic Heart Disease / Coronary Artery Disease"
+    icd_codes: ["I25", "I21", "I22"]
+    icd_subtypes:
+      I25.0:
+        severity: moderate
+        label: "Atherosklerotische Herzkrankheit"
+      I25.1:
+        severity: high
+        label: "Atherosklerotische Herzkrankheit mit Angina pectoris"
+      I25.5:
+        severity: very_high
+        label: "Ischämische Kardiomyopathie"
+      I21:
+        severity: very_high
+        label: "Akuter Myokardinfarkt (Z.n.)"
+      I22:
+        severity: very_high
+        label: "Rezidivierender Myokardinfarkt (Z.n.)"
+
+    au_durations:
+      stable_cad_no_mi:
+        description: "Stable CAD without prior MI, medically managed"
+        median_weeks: [2, 4]
+        recurrence_rate: null
+        recurrence_note: "Per year; AU primarily from acute events"
+        evidence: T2
+      post_mi_ef_preserved:
+        description: "Post-MI, EF preserved — return to work 4-12 weeks"
+        median_weeks: [4, 12]
+        recurrence_rate: null
+        evidence: T2
+      post_mi_reduced_ef:
+        description: "Post-MI, reduced EF (<40%) — heart failure trajectory"
+        median_weeks: null
+        recurrence_rate: null
+        recurrence_note: "Significantly elevated long-term AU"
+        evidence: T1
+      post_cabg:
+        description: "Post-CABG — return to work 8-16 weeks"
+        median_weeks: [8, 16]
+        recurrence_rate: null
+        recurrence_note: "Long-term AU depends on residual disease and EF"
+        evidence: T2
+      post_pci:
+        description: "Post-PCI (stent) if uncomplicated — return to work 2-6 weeks"
+        median_weeks: [2, 6]
+        recurrence_rate: null
+        evidence: T2
+
+    prognostic_factors:
+      - name: lvef
+        type: numeric
+        thresholds:
+          preserved: 50
+          significantly_impaired: 40
+        risk_impact: "Most important single prognostic parameter; >50% preserved, <40% significantly impaired"
+        evidence: T1
+
+      - name: vessel_count
+        type: integer
+        thresholds:
+          single_vessel: 1
+          multi_vessel: 2
+        risk_impact: "Single-vessel vs multi-vessel disease"
+        evidence: T1
+
+      - name: revascularisation_status
+        type: categorical
+        thresholds:
+          complete: "Favourable"
+          incomplete: "Elevated residual risk"
+        risk_impact: "Complete vs incomplete revascularisation"
+        evidence: T1
+
+      - name: post_event_medication_adherence
+        type: boolean
+        thresholds:
+          full_regimen: true
+        risk_impact: "Dual antiplatelet, statin, ACE inhibitor — full regimen is favourable marker"
+        evidence: T1
+
+      - name: residual_angina
+        type: integer
+        thresholds:
+          ccs_class_elevated: 2
+        risk_impact: "CCS class >=2 angina = elevated risk"
+        evidence: T1
+
+      - name: comorbidities
+        type: categorical
+        thresholds:
+          diabetes: "Multiplicative risk"
+          renal_failure: "Multiplicative risk"
+          hypertension: "Multiplicative risk"
+        risk_impact: "Diabetes, renal failure, hypertension — multiplicative risk"
+        evidence: T1
+
+    underwriting_responses:
+      loading:
+        conditions:
+          - "Stable CAD, no MI"
+          - "EF >55%"
+          - "Fully revascularised PCI"
+          - "Sedentary occupation"
+          - "Optimal medication"
+          - ">12 months stable"
+        loading_range: [25, 50]
+        evidence: T3
+      loading_or_exclusion:
+        conditions:
+          - "Post-MI with preserved EF"
+          - ">24 months stable"
+          - "Full revascularisation"
+        exclusion_type: "Cardiac exclusion"
+        evidence: T3
+      postpone:
+        conditions:
+          - "Recent MI or CABG <24 months"
+        duration_months: [24, 24]
+        evidence: T3
+      decline:
+        conditions:
+          - "Reduced EF (<40%)"
+          - "Multi-vessel unrevascularised disease"
+          - "CCS >=2 angina"
+          - "Ischaemic cardiomyopathy"
+        evidence: T3
+
+    failure_modes:
+      - type: homogeneous_i25
+        description: "Treating I25 as a homogeneous block — I25.0 (atherosclerosis, no symptoms) is very different from I25.5 (ischaemic cardiomyopathy)"
+      - type: no_lvef_data
+        description: "Algorithms rarely receive echocardiographic data — major gap between ICD-coded risk and functional reality"
+      - type: post_pci_underestimation
+        description: "Algorithm may not distinguish complete revascularisation from incomplete; the residual disease burden is the key variable"
+
+    lookback_standard_years: 5
+    lookback_extended_years: null  # lifetime
+    lookback_extended_condition: "Cardiovascular events are landmark events; never fully decay"
+
+  # ---------------------------------------------------------------------------
+
+  atrial_fibrillation:
+    cluster: cardiovascular
+    label: "Atrial Fibrillation"
+    icd_codes: ["I48"]
+    icd_subtypes:
+      I48.0:
+        severity: low_to_moderate
+        label: "Paroxysmal"
+      I48.1:
+        severity: moderate
+        label: "Persistierend"
+      I48.2:
+        severity: high
+        label: "Chronisch / permanent"
+      I48.9:
+        severity: variable
+        label: "Nicht naeher bezeichnet"
+
+    au_durations:
+      lone_paroxysmal:
+        description: "Lone paroxysmal AF in young patient, structurally normal heart"
+        median_weeks: [1, 2]
+        recurrence_rate: null
+        recurrence_note: "Per year for cardioversion or monitoring; minimal AU"
+        evidence: T2
+      af_comorbid_cardiac:
+        description: "AF with comorbid cardiac disease (heart failure, valvular)"
+        median_weeks: null
+        recurrence_rate: null
+        recurrence_note: "AU driven by underlying condition"
+        evidence: T1
+      af_stroke:
+        description: "AF with stroke event"
+        median_weeks: [4, 24]
+        recurrence_rate: null
+        recurrence_note: "Ongoing disability possible"
+        evidence: T2
+
+    prognostic_factors:
+      - name: af_subtype
+        type: categorical
+        thresholds:
+          paroxysmal_i480: "Less risk"
+          permanent_i482: "Implies less cardiovascular reserve"
+        risk_impact: "Permanent AF implies less cardiovascular reserve"
+        evidence: T1
+
+      - name: cha2ds2_vasc
+        type: integer
+        thresholds:
+          low: 0
+          moderate: [1, 2]
+          high: 3
+        risk_impact: "Stroke risk stratification — each additional point = elevated risk"
+        evidence: T1
+
+      - name: anticoagulation
+        type: boolean
+        thresholds:
+          on_oac: true
+        risk_impact: "OAC (DOAC/warfarin) on board = stroke prevention — favourable marker"
+        evidence: T1
+
+      - name: underlying_cardiac_disease
+        type: boolean
+        thresholds:
+          structural: true
+        risk_impact: "Structural heart disease (reduced EF, valvular, hypertrophic) = much higher risk than lone AF"
+        evidence: T1
+
+      - name: ablation
+        type: boolean
+        thresholds:
+          successful_sinus_rhythm: true
+        risk_impact: "Successful catheter ablation with maintained sinus rhythm = favourable"
+        evidence: T2
+
+      - name: thyroid_induced
+        type: boolean
+        thresholds:
+          hyperthyroid: true
+        risk_impact: "Hyperthyroid-induced AF resolves with treatment — unique self-limiting subgroup"
+        evidence: T2
+
+    underwriting_responses:
+      accept:
+        conditions:
+          - "Lone paroxysmal AF"
+          - "Structurally normal heart"
+          - "Low CHA2DS2-VASc"
+          - "Rate-controlled"
+          - "Anticoagulated if indicated"
+        evidence: T3
+      loading:
+        conditions:
+          - "Persistent/permanent AF"
+          - "CHA2DS2-VASc 1-2"
+          - "No significant comorbidity"
+        loading_range: [20, 35]
+        evidence: T3
+      loading_or_exclusion:
+        conditions:
+          - "AF + 1-2 comorbidities (hypertension, diabetes, mild heart failure)"
+        exclusion_type: "Cardiovascular exclusion"
+        evidence: T3
+      decline:
+        conditions:
+          - "AF with prior stroke/TIA"
+          - "AF with severe structural heart disease"
+          - "Uncontrolled heart rate"
+        evidence: T3
+
+    failure_modes:
+      - type: unspecified_equals_chronic
+        description: "Treating I48.9 (unspecified) the same as I48.2 (chronic) — subtype coding matters significantly"
+      - type: missing_comorbidity_context
+        description: "AF risk is almost entirely determined by comorbidities; AF ICD code alone cannot generate a meaningful underwriting decision"
+      - type: anticoagulation_blind_spot
+        description: "DOAC prescription for AF is a clinically important marker that algorithms without medication integration miss"
+
+    lookback_standard_years: 5
+    lookback_extended_years: null  # lifetime if permanent
+    lookback_extended_condition: "Permanent AF"
+
+  # ---------------------------------------------------------------------------
+  # 1.4 Metabolic Conditions
+  # ---------------------------------------------------------------------------
+
+  t2dm:
+    cluster: metabolic
+    label: "Type 2 Diabetes Mellitus"
+    icd_codes: ["E11"]
+    icd_subtypes:
+      E11.0:
+        severity: high
+        label: "Mit Koma"
+      E11.1:
+        severity: high
+        label: "Mit Ketoazidose"
+      E11.2:
+        severity: moderate_high
+        label: "Mit Nierenkomplikationen"
+      E11.3:
+        severity: moderate_high
+        label: "Mit Augenkomplikationen"
+      E11.4:
+        severity: high
+        label: "Mit neurologischen Komplikationen"
+      E11.5:
+        severity: high
+        label: "Mit peripheren vaskulaeren Komplikationen"
+      E11.6:
+        severity: moderate
+        label: "Mit sonstigen naeher bezeichneten Komplikationen"
+      E11.7:
+        severity: very_high
+        label: "Mit multiplen Komplikationen"
+      E11.9:
+        severity: low_to_moderate
+        label: "Ohne Komplikationen"
+
+    au_durations:
+      uncomplicated_controlled:
+        description: "E11.9 (no complications), HbA1c <7.5%, diet/metformin"
+        median_weeks: null
+        recurrence_rate: null
+        recurrence_note: "Minimal direct AU; risk arises from future complications"
+        evidence: T2
+      mild_complications:
+        description: "E11 with mild complications (retinopathy, microalbuminuria)"
+        median_weeks: [4, 8]
+        recurrence_rate: null
+        recurrence_note: "Moderate AU elevation; 4-8 weeks/year"
+        evidence: T2
+      macrovascular_complications:
+        description: "E11 with macrovascular complications (CAD, PAD, stroke)"
+        median_weeks: null
+        recurrence_rate: null
+        recurrence_note: "AU profile dominated by cardiovascular events"
+        evidence: T1
+      severe_neuropathy:
+        description: "E11 with severe neuropathy or foot complications — amputation risk"
+        median_weeks: null
+        recurrence_rate: null
+        recurrence_note: "Significant AU; amputation risk is long-term tail risk"
+        evidence: T1
+      renal_failure:
+        description: "E11 with renal failure (diabetic nephropathy, CKD >=3)"
+        median_weeks: null
+        recurrence_rate: null
+        recurrence_note: "Major long-term AU risk; dialysis = decline territory"
+        evidence: T1
+
+    prognostic_factors:
+      - name: hba1c
+        type: numeric
+        thresholds:
+          well_controlled: 7.0
+          acceptable: 8.0
+          poor: 9.0
+        risk_impact: "<7.0% well controlled; 7.0-8.0% acceptable; >8.0% poor; >9.0% very poor"
+        evidence: T1
+
+      - name: complications
+        type: categorical
+        thresholds:
+          microvascular: "Retinopathy, nephropathy, neuropathy"
+          macrovascular: "CAD, PAD, stroke"
+        risk_impact: "Presence of micro- or macrovascular complications dramatically elevates risk"
+        evidence: T1
+
+      - name: medication_escalation
+        type: categorical
+        thresholds:
+          diet_only: "Earliest stage"
+          metformin: "First-line oral"
+          dual_oral: "Escalation"
+          insulin: "Most advanced — insulin pump = most intensive"
+        risk_impact: "Medication escalation is a proxy for disease progression"
+        evidence: T1
+
+      - name: insulin_use
+        type: boolean
+        thresholds:
+          any_insulin: true
+        risk_impact: "Any insulin = more advanced disease; pump = most advanced"
+        evidence: T1
+
+      - name: duration_years
+        type: numeric
+        thresholds:
+          elevated_risk: 10
+        risk_impact: ">10 years = higher cumulative complication risk even if currently controlled"
+        evidence: T1
+
+      - name: comorbid_hypertension
+        type: boolean
+        thresholds:
+          present: true
+        risk_impact: "Near-universal in T2DM; combination is greater than additive for KTG"
+        evidence: T1
+
+      - name: obesity
+        type: boolean
+        thresholds:
+          present: true
+        risk_impact: "Exacerbates insulin resistance; weight loss can reverse early T2DM"
+        evidence: T1
+
+    underwriting_responses:
+      loading_low:
+        conditions:
+          - "E11.9"
+          - "HbA1c <7.5%"
+          - "Diet or metformin only"
+          - "No complications"
+          - "<5 years duration"
+          - "BMI <30"
+        loading_range: [15, 25]
+        evidence: "T2/T3"
+      loading_moderate:
+        conditions:
+          - "E11.9"
+          - "HbA1c 7.5-8.0%"
+          - "2 oral agents"
+          - "Mild microalbuminuria"
+          - "<10 years duration"
+        loading_range: [25, 50]
+        evidence: T3
+      exclusion_or_high_loading:
+        conditions:
+          - "Insulin therapy"
+          - "HbA1c 8-9%"
+          - "Moderate complications"
+        exclusion_type: "Metabolic exclusion"
+        evidence: T3
+      decline:
+        conditions:
+          - "HbA1c >9.0%"
+          - "Macrovascular complications"
+          - "CKD >=3"
+          - "Insulin + complication cluster"
+          - "Heavy manual occupation"
+        evidence: T3
+
+    failure_modes:
+      - type: uniform_e11
+        description: "Treating all E11 as uniform risk — E11.9 uncomplicated on metformin vs E11.7 multiple complications are not comparable"
+      - type: hba1c_not_extracted
+        description: "HbA1c is routinely available in questionnaires and reports but algorithms often treat it as free text, failing to extract it"
+      - type: missing_medication_escalation
+        description: "Oral hypoglycaemic drug count is a powerful proxy for disease progression"
+      - type: underestimating_t2dm_hypertension
+        description: "Algorithms treating T2DM + hypertension as additive underestimate synergistic KTG risk"
+
+    lookback_standard_years: 5
+    lookback_extended_years: null  # lifetime if complications
+    lookback_extended_condition: "Established complications"
+
+  # ---------------------------------------------------------------------------
+
+  obesity:
+    cluster: metabolic
+    label: "Obesity"
+    icd_codes: ["E66"]
+    icd_subtypes:
+      E66.0:
+        severity: variable
+        label: "Adipositas durch uebermässige Kalorienzufuhr"
+      E66.1:
+        severity: variable
+        label: "Arzneimittelinduzierte Adipositas"
+      E66.8:
+        severity: variable
+        label: "Sonstige Adipositas"
+      E66.9:
+        severity: variable
+        label: "Adipositas, nicht naeher bezeichnet"
+
+    bmi_classes:
+      class_i: {range: [30.0, 34.9], label: "Class I"}
+      class_ii: {range: [35.0, 39.9], label: "Class II"}
+      class_iii: {range: [40.0, null], label: "Class III (morbid)"}
+
+    au_durations:
+      class_i_no_comorbidities:
+        description: "Class I obesity without comorbidities — modest AU elevation"
+        median_weeks: [2, 4]
+        recurrence_rate: null
+        recurrence_note: "2-4 weeks/year above baseline"
+        evidence: T2
+      class_ii_iii:
+        description: "Class II-III obesity — AU risk escalates rapidly"
+        median_weeks: [4, 8]
+        recurrence_rate: null
+        recurrence_note: "4-8 weeks/year directly attributable"
+        evidence: T2
+      metabolic_syndrome:
+        description: "Obesity + metabolic syndrome (E66 + hypertension + dyslipidaemia + impaired glucose)"
+        median_weeks: null
+        recurrence_rate: null
+        recurrence_note: "Major AU driver"
+        evidence: T1
+      obesity_plus_msk:
+        description: "Obesity + musculoskeletal — back and joint pain AU risk multiplied"
+        median_weeks: null
+        recurrence_rate: null
+        evidence: T2
+
+    prognostic_factors:
+      - name: bmi_class
+        type: categorical
+        thresholds:
+          class_i: "Modest elevation"
+          class_ii: "Significant elevation"
+          class_iii: "Dramatically elevated risk (BMI >=40)"
+        risk_impact: "Class III = dramatically elevated; Class I = modest"
+        evidence: T1
+
+      - name: metabolic_syndrome_components
+        type: integer
+        thresholds:
+          count: "Number and severity of associated metabolic risk factors"
+        risk_impact: "Number and severity of components determines risk"
+        evidence: T1
+
+      - name: weight_trajectory
+        type: categorical
+        thresholds:
+          losing: "Actively losing with intervention = favourable"
+          gaining: "Gaining = unfavourable"
+        risk_impact: "Very different outlook depending on trajectory"
+        evidence: T2
+
+      - name: bariatric_surgery
+        type: boolean
+        thresholds:
+          successful_sustained: true
+        risk_impact: "Successful bariatric surgery with sustained weight loss = favourable prognostic reversal"
+        evidence: T1
+
+      - name: sleep_apnoea
+        type: categorical
+        thresholds:
+          cpap_adherent: "Positive marker"
+          untreated_osa: "Highly impairing"
+        risk_impact: "G47.3 near-universal in class II-III; CPAP adherence is positive marker; untreated OSA is highly impairing"
+        evidence: T2
+
+    underwriting_responses:
+      loading_low:
+        conditions:
+          - "E66 Class I"
+          - "No metabolic comorbidities"
+        loading_range: null  # loading applied but range not specified
+        evidence: T3
+      loading_moderate:
+        conditions:
+          - "E66 Class II"
+          - "1 metabolic comorbidity"
+          - "No severe complications"
+        loading_range: [20, 35]
+        evidence: T3
+      high_loading_or_exclusion:
+        conditions:
+          - "E66 Class III without bariatric surgery"
+          - "Multiple comorbidities"
+        evidence: T3
+      decline:
+        conditions:
+          - "Class III + diabetes + hypertension + CAD combination"
+          - "OSA non-adherent to treatment"
+          - "BMI >45 + manual occupation"
+        evidence: T3
+
+    failure_modes:
+      - type: bmi_self_report_bias
+        description: "BMI from health questionnaire self-report; significant underreporting bias"
+      - type: missing_comorbidity_cluster
+        description: "E66 code alone gives little information; risk is in the comorbidity cluster"
+      - type: missing_bariatric_surgery
+        description: "L-code for bariatric surgery may be in medication/surgical history but not linked to current metabolic status in algorithm"
+
+    lookback_standard_years: 3
+    lookback_extended_years: 5
+    lookback_extended_condition: "Class III obesity"
+    lookback_notes: "Current BMI matters most — current metabolic status more important than historical code"
+
+  # ---------------------------------------------------------------------------
+  # 1.5 Neurological Conditions
+  # ---------------------------------------------------------------------------
+
+  ms:
+    cluster: neurological
+    label: "Multiple Sclerosis"
+    icd_codes: ["G35"]
+    icd_subtypes:
+      G35:
+        severity: high_to_very_high
+        label: "Multiple Sklerose"
+
+    disease_courses:
+      rrms: {label: "Relapsing-remitting (RRMS)", onset_pct: 0.85}
+      spms: {label: "Secondary progressive (SPMS)"}
+      ppms: {label: "Primary progressive (PPMS)"}
+
+    au_durations:
+      rrms_low_activity:
+        description: "RRMS, low disease activity, no disability — relapse AU 2-8 weeks per event"
+        median_weeks: [2, 8]
+        relapse_rate_untreated: [1.0, 2.0]
+        relapse_rate_effective_dmt: [0.3, 0.5]
+        evidence: T1
+      rrms_high_efficacy_dmt:
+        description: "RRMS on high-efficacy DMT (natalizumab, ocrelizumab) — approach near-normal in best-case"
+        median_weeks: null
+        recurrence_rate: null
+        recurrence_note: "AU substantially reduced"
+        evidence: T1
+      spms_ppms:
+        description: "SPMS/PPMS — progressive disability accumulation; permanent disability common"
+        median_weeks: null
+        recurrence_rate: null
+        recurrence_note: "Long-term AU risk very high"
+        evidence: T1
+      edss_0_to_2_5:
+        description: "EDSS 0-2.5 (minimal disability) — near-normal work function"
+        median_weeks: null
+        recurrence_rate: null
+        evidence: T2
+      edss_gte_3:
+        description: "EDSS >=3.0 — meaningful functional impairment; AU escalates with each EDSS step"
+        median_weeks: null
+        recurrence_rate: null
+        evidence: T1
+
+    prognostic_factors:
+      - name: edss
+        type: numeric
+        thresholds:
+          minimal: 2.5
+          meaningful_impairment: 3.0
+        risk_impact: "Most important single functional marker (0-10 scale)"
+        evidence: T1
+
+      - name: disease_course
+        type: categorical
+        thresholds:
+          rrms: "Better prognosis"
+          spms: "Progressive"
+          ppms: "Progressive"
+        risk_impact: "RRMS vs SPMS vs PPMS — fundamentally different trajectories"
+        evidence: T1
+
+      - name: dmt_level
+        type: categorical
+        thresholds:
+          none: "Untreated"
+          platform: "Interferons, glatiramer"
+          high_efficacy: "Natalizumab, alemtuzumab, ocrelizumab"
+        risk_impact: "DMT level reflects disease severity and treatment intent"
+        evidence: T1
+
+      - name: relapse_rate
+        type: numeric
+        thresholds:
+          threshold_years: 2
+        risk_impact: "Relapse rate over past 2 years on current therapy"
+        evidence: T1
+
+      - name: mri_activity
+        type: boolean
+        thresholds:
+          gadolinium_enhancing: true
+        risk_impact: "Gadolinium-enhancing lesions indicate active inflammation"
+        evidence: T1
+
+      - name: time_since_last_relapse
+        type: numeric
+        thresholds: {}
+        risk_impact: "Longer = more favourable"
+        evidence: T2
+
+      - name: age_at_onset
+        type: numeric
+        thresholds: {}
+        risk_impact: "Younger onset = longer exposure but sometimes more benign RRMS course"
+        evidence: T2
+
+      - name: sphincter_cognitive_involvement
+        type: boolean
+        thresholds:
+          present: true
+        risk_impact: "Very poor prognostic markers for occupational function"
+        evidence: T1
+
+    underwriting_responses:
+      postpone:
+        conditions:
+          - "Newly diagnosed MS"
+          - "Treatment just initiated"
+          - "Insufficient data on disease activity"
+        duration_months: [36, 60]
+        evidence: T3
+      loading_plus_exclusion:
+        conditions:
+          - "RRMS"
+          - "EDSS 0-1.5"
+          - "On effective DMT"
+          - "0 relapses in past 2 years"
+          - ">3 years stable"
+        exclusion_type: "Neurological exclusion"
+        loading_range: null  # high loading implied
+        evidence: T3
+      exclusion_only:
+        conditions:
+          - "RRMS"
+          - "EDSS <=2.5"
+          - "Low disease activity"
+        exclusion_type: "Neurological exclusion"
+        evidence: T3
+      decline:
+        conditions:
+          - "EDSS >=3.0"
+          - "SPMS/PPMS"
+          - "Active relapses"
+          - "High MRI burden"
+          - "Cognitive or sphincter involvement"
+        evidence: T3
+
+    failure_modes:
+      - type: uniform_g35
+        description: "Treating all G35 as equal — newly diagnosed RRMS EDSS 0 vs SPMS EDSS 4 are not comparable"
+      - type: no_edss_access
+        description: "The most important clinical variable is almost never present in administrative data"
+      - type: dmt_level_proxy
+        description: "High-efficacy DMT prescription (natalizumab = hospital prescription) vs platform therapy can sometimes be inferred — underutilised signal"
+
+    lookback_standard_years: null  # lifetime
+    lookback_extended_years: null  # lifetime
+    lookback_extended_condition: "Chronic progressive; no time decay"
+
+  # ---------------------------------------------------------------------------
+
+  migraine:
+    cluster: neurological
+    label: "Migraine"
+    icd_codes: ["G43", "G44.2"]
+    icd_subtypes:
+      G43.0:
+        severity: low_to_moderate
+        label: "Migräne ohne Aura"
+      G43.1:
+        severity: moderate
+        label: "Migräne mit Aura"
+      G43.3:
+        severity: high
+        label: "Komplizierte Migräne"
+      G43.8:
+        severity: variable
+        label: "Sonstige Migräne"
+      G43.9:
+        severity: variable
+        label: "Migräne, nicht naeher bezeichnet"
+      G44.2:
+        severity: low
+        label: "Spannungskopfschmerz (lower risk)"
+      G44.4:
+        severity: high
+        label: "Medikamenteninduzierter Kopfschmerz (MOH)"
+
+    au_durations:
+      episodic_low_frequency:
+        description: "Episodic migraine, 1-4 attacks/month, good triptan response"
+        median_days: [5, 15]
+        recurrence_rate: null
+        recurrence_note: "AU 5-15 days/year"
+        evidence: T2
+      high_frequency_episodic:
+        description: "High-frequency episodic migraine (8-14 days/month)"
+        median_days: [20, 40]
+        recurrence_rate: null
+        recurrence_note: "AU 20-40 days/year"
+        evidence: T2
+      chronic:
+        description: "Chronic migraine (>=15 days/month) — major AU driver"
+        median_days: [60, 80]
+        recurrence_rate: null
+        recurrence_note: "Up to 60-80 days/year"
+        evidence: T2
+      migraine_with_aura:
+        description: "Migraine with aura — higher stroke risk especially in women on OCP"
+        median_days: null
+        recurrence_rate: null
+        evidence: T1
+
+    prognostic_factors:
+      - name: attack_frequency
+        type: numeric
+        thresholds:
+          low: 4
+          high_frequency: 14
+          chronic: 15
+        risk_impact: "Most important KTG factor; attacks per month must be established"
+        evidence: T1
+
+      - name: triptan_responsiveness
+        type: categorical
+        thresholds:
+          good: "Manageable AU"
+          medication_overuse_headache: "Chronic pattern = major red flag"
+        risk_impact: "Good triptan response = manageable; MOH (G44.4) = chronification"
+        evidence: T1
+
+      - name: preventive_therapy
+        type: boolean
+        thresholds:
+          on_preventive: true
+        risk_impact: "Use of beta-blocker, topiramate, CGRP antagonists suggests significant disease burden"
+        evidence: T2
+
+      - name: medication_overuse_headache
+        type: boolean
+        thresholds:
+          present: true
+        risk_impact: "Paradoxically worsens migraine; indicator of chronification and poor management"
+        evidence: T1
+
+      - name: comorbid_depression_anxiety
+        type: boolean
+        thresholds:
+          present: true
+        risk_impact: "Extremely common with chronic migraine; amplifies AU"
+        evidence: T2
+
+    underwriting_responses:
+      accept:
+        conditions:
+          - "Episodic migraine <=4 days/month"
+          - "Good acute medication response"
+          - "No preventive medication required"
+        evidence: T2
+      loading:
+        conditions:
+          - "Episodic migraine 5-8 days/month"
+          - "On preventive therapy"
+          - "No MOH"
+        loading_range: [10, 20]
+        evidence: T3
+      loading_plus_exclusion:
+        conditions:
+          - "High-frequency episodic migraine 8-14 days/month"
+          - "No chronic conversion"
+        exclusion_type: "Neurological exclusion"
+        evidence: T3
+      decline_or_exclusion_only:
+        conditions:
+          - "Chronic migraine >=15 days/month"
+          - "MOH"
+          - "Occupations where sudden incapacity is dangerous"
+        evidence: T3
+
+    failure_modes:
+      - type: frequency_not_captured
+        description: "G43 coding frequency not captured — all G43 patients appear identical regardless of 2 vs 20 attacks/month; the most critical variable is not in the code"
+      - type: missing_moh
+        description: "Medication overuse headache may be coded G44.4 or not at all — algorithms miss it"
+      - type: overreaction_single_g43
+        description: "Patients with 1-2 migraines per year are normal-risk for KTG; algorithm flagging all G43 is a major overreaction failure mode"
+
+    lookback_standard_years: 3
+    lookback_extended_years: 5
+    lookback_extended_condition: "Chronic pattern history"
+
+  # ---------------------------------------------------------------------------
+
+  epilepsy:
+    cluster: neurological
+    label: "Epilepsy"
+    icd_codes: ["G40", "G41"]
+    icd_subtypes:
+      G40.0:
+        severity: variable
+        label: "Lokalisationsbezogene idiopathische Epilepsie"
+      G40.1:
+        severity: variable
+        label: "Lokalisationsbezogene symptomatische Epilepsie"
+      G40.2:
+        severity: variable
+        label: "Lokalisationsbezogene kryptogene Epilepsie"
+      G40.3:
+        severity: variable
+        label: "Generalisierte idiopathische Epilepsie"
+      G40.4:
+        severity: variable
+        label: "Sonstige generalisierte Epilepsie"
+      G40.5:
+        severity: variable
+        label: "Spezielle epileptische Syndrome"
+      G40.6:
+        severity: variable
+        label: "Grand-mal-Anfaelle, nicht naeher bezeichnet"
+      G40.9:
+        severity: variable
+        label: "Epilepsie, nicht naeher bezeichnet"
+      G41:
+        severity: very_high
+        label: "Status epilepticus"
+
+    au_durations:
+      seizure_free_24_months:
+        description: "Seizure-free >=24 months on monotherapy — minimal direct AU"
+        median_weeks: null
+        recurrence_rate: null
+        recurrence_note: "Primary risk is occupational restriction"
+        evidence: T2
+      active_seizures:
+        description: "Active seizures (>=1/year) — AU per seizure event 1-4 weeks"
+        median_weeks: [1, 4]
+        recurrence_rate: null
+        recurrence_note: "Risk of status epilepticus adds tail risk"
+        evidence: T2
+      refractory:
+        description: "Refractory epilepsy (>=2 adequate drugs failed) — significant AU"
+        median_weeks: null
+        recurrence_rate: null
+        recurrence_note: "Surgery consideration"
+        evidence: T1
+
+    prognostic_factors:
+      - name: seizure_free_duration
+        type: numeric
+        thresholds:
+          meaningful_months: 24
+        risk_impact: "Most important marker; >=24 months = meaningful threshold"
+        evidence: T1
+
+      - name: aed_count
+        type: integer
+        thresholds:
+          monotherapy: 1
+          polytherapy: 2
+        risk_impact: "Monotherapy vs polytherapy is a strong proxy for disease control"
+        evidence: T1
+
+      - name: driving_licence_status
+        type: categorical
+        thresholds:
+          revoked: "Objective marker of insufficient seizure control"
+          intact: "Favourable"
+        risk_impact: "Revoked licence = objective marker of insufficient control"
+        evidence: T2
+
+      - name: seizure_type
+        type: categorical
+        thresholds:
+          focal: "Lower injury risk"
+          generalised_tonic_clonic: "More injury risk"
+        risk_impact: "Generalised tonic-clonic carries more injury risk"
+        evidence: T1
+
+      - name: epilepsy_syndrome
+        type: categorical
+        thresholds:
+          idiopathic_generalised: "Better prognosis"
+          focal_symptomatic: "Worse prognosis"
+        risk_impact: "Idiopathic generalised epilepsies have better prognosis"
+        evidence: T1
+
+      - name: occupation
+        type: categorical
+        thresholds:
+          safety_critical: "Work at heights, driving, machinery"
+        risk_impact: "Major occupational restriction implications"
+        evidence: T1
+
+    underwriting_responses:
+      loading:
+        conditions:
+          - "Seizure-free >=24 months"
+          - "Monotherapy"
+          - "Driving licence intact"
+          - "No occupational restriction required"
+        loading_range: null  # loading applied, range not specified
+        evidence: T3
+      exclusion:
+        conditions:
+          - "Seizure-free >=12 months"
+          - "Well-tolerated medication"
+          - "Non-safety-critical occupation"
+        exclusion_type: "Neurological exclusion"
+        evidence: T3
+      postpone:
+        conditions:
+          - "Newly initiated AED"
+          - "Seizure frequency not yet established"
+        duration_months: [12, 12]
+        evidence: T3
+      decline:
+        conditions:
+          - "Refractory epilepsy"
+          - "Frequent seizures"
+          - "Safety-critical occupation"
+          - "Status epilepticus history"
+        evidence: T3
+
+    failure_modes:
+      - type: missing_aed_count
+        description: "Polypharmacy is a strong severity proxy; algorithms without medication integration miss this entirely"
+      - type: missing_driving_status
+        description: "Licence revocation is an objective external severity marker, available only from questionnaire free text"
+      - type: overreacting_childhood_epilepsy
+        description: "Juvenile absence epilepsy with adult remission is fundamentally different from adult-onset focal epilepsy"
+
+    lookback_standard_years: 5
+    lookback_extended_years: null  # lifetime if refractory
+    lookback_extended_condition: "Refractory epilepsy"

@@ -1,0 +1,78 @@
+# studies.yml — named study collections mapping logical names to source datasets and fields.
+# Use with: medrisk-fetch fetch --study <name>
+
+nhanes_diabetes:
+  source: nhanes
+  description: "NHANES diabetes phenotyping: demographics, labs (glucose/HbA1c), exam (BP/BMI), questionnaire (diagnosis/medication)"
+  dataset_ids:
+    - "nhanes::2017-2018::demographics"
+    - "nhanes::2017-2018::labs"
+    - "nhanes::2017-2018::examination"
+    - "nhanes::2017-2018::questionnaire"
+    - "nhanes::2015-2016::demographics"
+    - "nhanes::2015-2016::labs"
+    - "nhanes::2015-2016::examination"
+    - "nhanes::2015-2016::questionnaire"
+  key_variables:
+    - SEQN         # participant ID
+    - RIAGENDR     # sex
+    - RIDAGEYR     # age
+    - RIDRETH3     # race/ethnicity
+    - LBXGH        # HbA1c
+    - LBXGLU       # fasting glucose
+    - BPXSY1       # systolic BP reading 1
+    - BPXDI1       # diastolic BP reading 1
+    - BMXBMI       # BMI
+    - DIQ010       # doctor-told diabetes
+    - BPQ020       # ever told high blood pressure
+
+nhanes_hypertension:
+  source: nhanes
+  description: "NHANES hypertension phenotyping"
+  dataset_ids:
+    - "nhanes::2017-2018::demographics"
+    - "nhanes::2017-2018::examination"
+    - "nhanes::2017-2018::questionnaire"
+  key_variables:
+    - SEQN
+    - RIAGENDR
+    - RIDAGEYR
+    - BPXSY1
+    - BPXDI1
+    - BPQ020
+    - BPQ040A   # taking BP medication
+
+t1d_granada:
+  source: t1_granada
+  description: "T1DiabetesGranada longitudinal CGM + biochemical + diagnosis dataset"
+  dataset_ids:
+    - "t1_granada::8386456"
+
+places_diabetes_county:
+  source: cdc_places
+  description: "CDC PLACES county-level diabetes and hypertension prevalence"
+  dataset_ids:
+    - "cdc_places::2023::county"
+  measures:
+    - DIABETES    # diagnosed diabetes among adults
+    - BPHIGH      # high blood pressure among adults
+    - OBESITY     # obesity among adults
+
+ukb_diabetes_complications:
+  source: uk_biobank
+  description: "UK Biobank diabetes complication progression (requires approved application data)"
+  dataset_ids:
+    - "ukb::application"
+  field_ids:
+    - 31          # sex
+    - 34          # year of birth
+    - 21003       # age at recruitment
+    - 41270       # diagnoses ICD10 (hospital)
+    - 41280       # date of first in-patient diagnosis
+    - 40000       # date of death
+
+biolincc_framingham:
+  source: biolincc
+  description: "Framingham Heart Study teaching dataset (3 exam cycles, 20-year follow-up)"
+  dataset_ids:
+    - "biolincc::teaching::framingham"

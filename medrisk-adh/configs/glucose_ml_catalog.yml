@@ -1,0 +1,53 @@
+# glucose_ml_catalog.yml — catalog of Glucose-ML component datasets.
+# Each entry describes one of the 10 CGM datasets aggregated by Glucose-ML.
+# backend: which adapter to delegate download to ("zenodo" | "http" | "physionet")
+
+datasets:
+  - id: "glucose_ml::t1dms"
+    title: "T1DMS (Type 1 Diabetes Metabolic Simulator)"
+    backend: zenodo
+    zenodo_record_id: null  # fill in when record ID is known
+    access: open
+    n_persons: ~30
+    description: "Simulated CGM traces from UVA/Padova T1D metabolic simulator"
+
+  - id: "glucose_ml::t2dm_cgm"
+    title: "T2DM CGM Study"
+    backend: http
+    url: null
+    access: open
+    n_persons: ~100
+    description: "Continuous glucose monitoring in type 2 diabetes"
+
+  - id: "glucose_ml::ohio_t1dm"
+    title: "OhioT1DM"
+    backend: http
+    url: null
+    access: controlled
+    n_persons: 12
+    description: "OhioT1DM dataset for blood glucose level prediction (2018/2020)"
+    notes: "Requires registration at Ohio State University"
+
+  - id: "glucose_ml::diatrend"
+    title: "DiaTrend"
+    backend: zenodo
+    zenodo_record_id: null
+    access: open
+    n_persons: ~54
+    description: "CGM dataset for diabetes management"
+
+  - id: "glucose_ml::replace_bg"
+    title: "REPLACE-BG"
+    backend: zenodo
+    zenodo_record_id: null
+    access: open
+    n_persons: ~226
+    description: "Randomized trial CGM data, type 1 diabetes"
+
+  - id: "glucose_ml::hall"
+    title: "Hall et al. CGM"
+    backend: zenodo
+    zenodo_record_id: null
+    access: open
+    n_persons: ~57
+    description: "Free-living CGM data from non-diabetic individuals"

@@ -1,0 +1,235 @@
+# KTG Comorbidity Interaction Matrix — Non-linear disease interactions for underwriting.
+# Encoded from: docs/ktg_underwriting_manual.md, Part 2.
+# Evidence tiers: T1 = guideline-level, T2 = observational, T3 = expert/market practice.
+# au_multiplier: factor by which combined AU exceeds naive additive estimate.
+
+interactions:
+
+  # ---------------------------------------------------------------------------
+  # Case A: Recurrent depression + Fibromyalgia
+  # ---------------------------------------------------------------------------
+
+  depression_chronic_pain:
+    id: depression_chronic_pain
+    label: "Depression + Chronic Pain (back/fibromyalgia)"
+    codes_a: ["F32", "F33"]
+    codes_b: ["M54", "M79.7"]
+    interaction_type: synergistic_amplification
+    au_multiplier: 1.75  # midpoint of 1.5-2.0x
+    au_multiplier_range: [1.5, 2.0]
+    expert_review: true
+    recommendation: "Decline or very high loading with dual exclusion (musculoskeletal + psychiatric AU). Mandatory expert review."
+    evidence: T2
+    description: >
+      Fibromyalgia syndrome and recurrent depression share neural pathways —
+      central sensitisation and serotonergic dysregulation. Patients with both
+      conditions experience higher pain severity, lower treatment response, and
+      dramatically longer AU per episode. The combination is one of the most
+      AU-intensive pairings seen in PKV. Expected AU 12-20 weeks/year; far
+      exceeding either condition alone (depression ~8 weeks, FMS ~8 weeks
+      separately). Pain catastrophisation and reduced rehabilitation engagement
+      drive the synergistic effect. Linear addition underestimates risk.
+    au_weeks_per_year: [12, 20]
+    individual_au_comparison:
+      depression_alone: 8
+      fms_alone: 8
+
+  # ---------------------------------------------------------------------------
+  # Case B: T2DM + Hypertension + Obesity (metabolic triad)
+  # ---------------------------------------------------------------------------
+
+  metabolic_triad:
+    id: metabolic_triad
+    label: "T2DM + Hypertension + Obesity (metabolic syndrome triad)"
+    codes_a: ["E11"]
+    codes_b: ["I10", "E66"]
+    interaction_type: multiplicative_cv
+    au_multiplier: null  # depends on control status
+    expert_review: true
+    recommendation: >
+      High loading (40-60%) or decline depending on HbA1c control and organ
+      damage status. Do not apply three separate loadings naively.
+    evidence: T2
+    description: >
+      The metabolic syndrome triad. Each component amplifies the others: obesity
+      worsens insulin resistance and blood pressure; hypertension accelerates
+      diabetic kidney disease. The 10-year cardiovascular event risk in this
+      combination significantly exceeds any single-component estimate. KTG risk
+      arises from both acute events and chronic complications. Current AU ~4-8
+      weeks/year; 10-year disability risk substantial. Naive linear addition of
+      separate loadings is incorrect — CV event risk is multiplicative not additive.
+    au_weeks_per_year: [4, 8]
+    loading_range: [40, 60]
+    algorithm_failure: "Naive linear addition; CV event risk is multiplicative not additive"
+
+  # ---------------------------------------------------------------------------
+  # Case C: RRMS + Depression
+  # ---------------------------------------------------------------------------
+
+  ms_depression:
+    id: ms_depression
+    label: "RRMS + Depression"
+    codes_a: ["G35"]
+    codes_b: ["F33"]
+    interaction_type: neurological_comorbidity
+    au_multiplier: 1.8  # roughly doubled from MS alone midpoint
+    expert_review: true
+    recommendation: >
+      Decline for standard KTG. Possible acceptance with very high loading and
+      dual exclusion only. Expert review mandatory.
+    evidence: T2
+    description: >
+      Depression occurs in ~50% of MS patients and is frequently under-treated.
+      In MS, depression is not merely a psychological reaction but has
+      neurobiological underpinnings (demyelination in limbic pathways). The
+      combination produces a disability burden substantially higher than either
+      alone. Standard antidepressant treatments are less effective in MS-related
+      depression. MS already flagged; depression may be under-coded; interaction
+      missed by algorithms.
+    au_weeks_per_year:
+      ms_alone: [8, 15]
+      ms_plus_depression: [16, 24]
+    depression_prevalence_in_ms: 0.50
+
+  # ---------------------------------------------------------------------------
+  # Case D: AF (paroxysmal) + Hypertension — over-penalised example
+  # ---------------------------------------------------------------------------
+
+  af_hypertension_overpenalised:
+    id: af_hypertension_overpenalised
+    label: "AF (paroxysmal) + Hypertension (controlled)"
+    codes_a: ["I48"]
+    codes_b: ["I10"]
+    interaction_type: over_penalised_by_algorithm
+    au_multiplier: null  # no amplification — single moderate loading is correct
+    expert_review: false
+    expert_review_note: "Algorithm output should be verified by human underwriter"
+    recommendation: >
+      Accept with single moderate loading (25-30%). Do NOT stack cardiovascular
+      loadings naively. AF + controlled hypertension on DOAC is not equivalent
+      to structural heart disease.
+    evidence: T3
+    description: >
+      Paroxysmal AF in a patient with controlled hypertension on 2 agents and
+      CHA2DS2-VASc = 2 (on DOAC). Many algorithms will flag both I48 and I10
+      with separate loadings and produce a combined loading that is clinically
+      disproportionate. The actual AU risk here is moderate, primarily driven by
+      hypertension; the AF per se adds stroke risk managed by DOAC. AF episodes
+      usually brief; cardioversions occasional. Often separately coded;
+      interaction invisible to algorithm.
+    au_weeks_per_year: [2, 4]
+    loading_range: [25, 30]
+    algorithm_failure: "Naive stacking of cardiovascular loadings overestimates risk"
+
+  # ---------------------------------------------------------------------------
+  # Case E: Borderline PD + Substance dependence
+  # ---------------------------------------------------------------------------
+
+  borderline_substance:
+    id: borderline_substance
+    label: "Borderline PD + Substance Use Disorder"
+    codes_a: ["F60.3"]
+    codes_b: ["F10", "F11", "F12", "F13", "F14", "F15", "F16", "F17", "F18", "F19"]
+    interaction_type: synergistic_psychiatric
+    au_multiplier: null  # unquantifiable — decline
+    expert_review: true
+    recommendation: >
+      Decline for KTG. No loading or exclusion option is actuarially adequate.
+      Expert review mandatory.
+    evidence: T2
+    description: >
+      The combination of borderline personality disorder and substance dependence
+      produces the most unstable psychiatric profile in the KTG context. Impulsivity
+      drives substance use; substance intoxication precipitates self-harm and crisis;
+      crises lead to acute inpatient admissions; discharge leads to relapse. AU pattern
+      is recurrent and unpredictable with sustained high frequency. May both be coded
+      but interaction effect not captured; should always be expert review.
+    au_weeks_per_year: [8, 24]
+    au_note: "In active phase; multi-month inpatient episodes possible"
+
+  # ---------------------------------------------------------------------------
+  # Case F: Post-discectomy + Chronic LBP
+  # ---------------------------------------------------------------------------
+
+  post_disc_surgery_chronic_lbp:
+    id: post_disc_surgery_chronic_lbp
+    label: "Disc Prolapse (post-microdiscectomy) + Chronic LBP"
+    codes_a: ["M51.1"]
+    codes_b: ["M54.5"]
+    interaction_type: post_surgical_incomplete_recovery
+    au_multiplier: null  # depends on recovery quality
+    expert_review: true
+    recommendation: >
+      Request post-surgical functional assessment. Accept with musculoskeletal
+      exclusion if surgeon report indicates good outcome; higher loading or
+      decline if failed back surgery pattern. Physician report required to
+      distinguish outcomes.
+    evidence: "T2/T3"
+    description: >
+      Persistent chronic LBP following disc surgery is common (15-30% of cases).
+      The combination of a surgical history with ongoing M54.5 coding suggests
+      incomplete recovery. The critical question is whether the chronic pain is
+      mechanical (residual disc degeneration) or neuropathic/central (failed back
+      surgery syndrome). Algorithms typically load both codes without assessing
+      recovery quality. Physician report is mandatory.
+    au_weeks_per_year:
+      genuine_chronic_pain: [6, 12]
+      good_recovery_residual: [2, 4]
+    persistent_pain_rate: [0.15, 0.30]
+
+  # ---------------------------------------------------------------------------
+  # Case G: Migraine + GAD
+  # ---------------------------------------------------------------------------
+
+  migraine_gad:
+    id: migraine_gad
+    label: "Migraine (episodic) + GAD"
+    codes_a: ["G43"]
+    codes_b: ["F41.1"]
+    interaction_type: bidirectional_worsening
+    au_multiplier: null  # not dramatically above isolated conditions
+    expert_review: false
+    expert_review_note: "Algorithmic with human verification of treatment status"
+    recommendation: >
+      Accept with moderate loading (20-30%). Both conditions well-documented;
+      combined exclusion may be preferable to loading if sum insured is high.
+      Not typically a mandatory expert review case.
+    evidence: T2
+    description: >
+      GAD and chronic migraine have a well-established bidirectional comorbidity.
+      Anxiety lowers pain threshold and reduces triptan efficacy; migraine triggers
+      anxiety about attacks (anticipatory anxiety). The interaction creates a
+      self-reinforcing cycle. However, the combined AU is usually predictable and
+      manageable if both conditions are well-treated. Often separately coded;
+      interaction invisible to algorithm.
+    au_weeks_per_year: [4, 8]
+    loading_range: [20, 30]
+
+  # ---------------------------------------------------------------------------
+  # Case H: Obesity Class III (post-bariatric surgery) — reversal case
+  # ---------------------------------------------------------------------------
+
+  obesity_post_bariatric:
+    id: obesity_post_bariatric
+    label: "Obesity Class III (post-bariatric surgery with sustained weight loss)"
+    codes_a: ["E66"]
+    codes_b: []  # post-bariatric reversal — no second ICD cluster
+    interaction_type: post_treatment_risk_reversal
+    au_multiplier: null  # closer to normal population if metabolic remission
+    expert_review: true
+    recommendation: >
+      Do not underwrite on historical E66 code alone. Request current BMI, HbA1c,
+      blood pressure, medication list. If metabolic remission confirmed: accept with
+      modest loading reflecting residual obesity-related musculoskeletal risk.
+      Code-driven algorithm will produce wrong answer; human review required.
+    evidence: T3
+    description: >
+      This case is the reverse of typical obesity risk assessment. The current
+      metabolic status post-bariatric surgery may be near-normal despite the
+      historical E66 code. Algorithms flag E66 as high risk without recognising
+      that successful bariatric surgery with sustained weight loss is a major
+      favourable risk reversal. Current metabolic parameters (HbA1c, BP, lipids)
+      are the appropriate basis for underwriting, not the historical BMI code.
+      If post-bariatric remission of T2DM and hypertension: modest AU, closer
+      to normal population.
+    algorithm_failure: "Code-driven algorithm will produce wrong answer from historical E66 code"
