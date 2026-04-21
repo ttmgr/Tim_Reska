@@ -1,0 +1,10 @@
+scope,kw_H,kw_p,group_a,group_b,n_steps_a,n_steps_b,mean_a,mean_b,cliff_delta,cliff_magnitude,mwu_p,mwu_r,dunn_p_holm
+Pooled,0.1411,0.9319,GPT-5,Opus 4.6,17,17,0.9176,0.9353,-0.059,negligible,0.7396,-0.059,
+Pooled,0.1411,0.9319,GPT-5,Gemini 3.1 Pro,17,17,0.9176,0.9294,-0.01,negligible,0.9677,-0.01,
+Pooled,0.1411,0.9319,Opus 4.6,Gemini 3.1 Pro,17,17,0.9353,0.9294,0.048,negligible,0.7869,0.048,
+Aerobiome,,,GPT-5,Opus 4.6,7,7,1.0,1.0,0.0,negligible,1.0,0.0,
+Aerobiome,,,GPT-5,Gemini 3.1 Pro,7,7,1.0,1.0,0.0,negligible,1.0,0.0,
+Aerobiome,,,Opus 4.6,Gemini 3.1 Pro,7,7,1.0,1.0,0.0,negligible,1.0,0.0,
+Wetland,0.1707,0.9182,GPT-5,Opus 4.6,10,10,0.86,0.89,-0.1,negligible,0.7187,-0.1,
+Wetland,0.1707,0.9182,GPT-5,Gemini 3.1 Pro,10,10,0.86,0.88,-0.03,negligible,0.9368,-0.03,
+Wetland,0.1707,0.9182,Opus 4.6,Gemini 3.1 Pro,10,10,0.89,0.88,0.07,negligible,0.8097,0.07,
