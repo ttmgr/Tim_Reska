@@ -1,0 +1,463 @@
+# Diabetes Code Lists
+# ====================
+# Curated ICD-10-CM, ATC, and LOINC codes for diabetes disease
+# progression modeling, including micro- and macrovascular complications.
+#
+# Sources:
+#   - ICD-10-CM 2024 (CMS)
+#   - ATC/DDD Index 2024 (WHO Collaborating Centre)
+#   - LOINC 2.77 (Regenstrief Institute)
+
+metadata:
+  track: diabetes
+  version: "1.0.0"
+  last_updated: "2025-01-15"
+  description: >
+    Code lists for diabetes mellitus progression including Type 1, Type 2,
+    microvascular complications (retinopathy, nephropathy, neuropathy),
+    macrovascular complications, and related metabolic monitoring.
+
+# ---------------------------------------------------------------
+# CONDITIONS (ICD-10-CM)
+# ---------------------------------------------------------------
+conditions:
+  type1_diabetes:
+    description: "Type 1 diabetes mellitus"
+    code_system: "ICD-10-CM"
+    codes:
+      - code: "E10"
+        display: "Type 1 diabetes mellitus"
+      - code: "E10.9"
+        display: "Type 1 DM without complications"
+      - code: "E10.65"
+        display: "Type 1 DM with hyperglycemia"
+      - code: "E10.69"
+        display: "Type 1 DM with other specified complication"
+      - code: "E10.10"
+        display: "Type 1 DM with ketoacidosis without coma"
+      - code: "E10.11"
+        display: "Type 1 DM with ketoacidosis with coma"
+
+  type2_diabetes:
+    description: "Type 2 diabetes mellitus"
+    code_system: "ICD-10-CM"
+    codes:
+      - code: "E11"
+        display: "Type 2 diabetes mellitus"
+      - code: "E11.9"
+        display: "Type 2 DM without complications"
+      - code: "E11.65"
+        display: "Type 2 DM with hyperglycemia"
+      - code: "E11.69"
+        display: "Type 2 DM with other specified complication"
+      - code: "E11.00"
+        display: "Type 2 DM with hyperosmolarity without NKHHC"
+      - code: "E11.01"
+        display: "Type 2 DM with hyperosmolarity with coma"
+      - code: "E11.8"
+        display: "Type 2 DM with unspecified complications"
+
+  other_diabetes:
+    description: "Other and unspecified diabetes"
+    code_system: "ICD-10-CM"
+    codes:
+      - code: "E12"
+        display: "Malnutrition-related diabetes mellitus"
+      - code: "E13"
+        display: "Other specified diabetes mellitus"
+      - code: "E13.9"
+        display: "Other specified DM without complications"
+      - code: "E14"
+        display: "Unspecified diabetes mellitus"
+
+  diabetic_retinopathy:
+    description: "Diabetic retinopathy (microvascular complication)"
+    code_system: "ICD-10-CM"
+    codes:
+      - code: "E11.31"
+        display: "Type 2 DM with unspecified diabetic retinopathy"
+      - code: "E11.311"
+        display: "Type 2 DM with unspecified diabetic retinopathy with macular edema"
+      - code: "E11.319"
+        display: "Type 2 DM with unspecified diabetic retinopathy without macular edema"
+      - code: "E11.32"
+        display: "Type 2 DM with mild nonproliferative diabetic retinopathy"
+      - code: "E11.33"
+        display: "Type 2 DM with moderate nonproliferative diabetic retinopathy"
+      - code: "E11.34"
+        display: "Type 2 DM with severe nonproliferative diabetic retinopathy"
+      - code: "E11.35"
+        display: "Type 2 DM with proliferative diabetic retinopathy"
+      - code: "E11.351"
+        display: "Type 2 DM with proliferative diabetic retinopathy with macular edema"
+      - code: "E11.359"
+        display: "Type 2 DM with proliferative diabetic retinopathy without macular edema"
+      - code: "E10.31"
+        display: "Type 1 DM with unspecified diabetic retinopathy"
+      - code: "E10.35"
+        display: "Type 1 DM with proliferative diabetic retinopathy"
+      - code: "H36.0"
+        display: "Diabetic retinopathy (manifestation code)"
+
+  diabetic_nephropathy:
+    description: "Diabetic nephropathy / diabetic kidney disease"
+    code_system: "ICD-10-CM"
+    codes:
+      - code: "E11.21"
+        display: "Type 2 DM with diabetic nephropathy"
+      - code: "E11.22"
+        display: "Type 2 DM with diabetic chronic kidney disease"
+      - code: "E11.29"
+        display: "Type 2 DM with other diabetic kidney complication"
+      - code: "E10.21"
+        display: "Type 1 DM with diabetic nephropathy"
+      - code: "E10.22"
+        display: "Type 1 DM with diabetic chronic kidney disease"
+      - code: "N08.3"
+        display: "Glomerular disorders in diabetes mellitus"
+      - code: "N18.1"
+        display: "Chronic kidney disease, stage 1"
+      - code: "N18.2"
+        display: "Chronic kidney disease, stage 2 (mild)"
+      - code: "N18.3"
+        display: "Chronic kidney disease, stage 3 (moderate)"
+      - code: "N18.4"
+        display: "Chronic kidney disease, stage 4 (severe)"
+      - code: "N18.5"
+        display: "Chronic kidney disease, stage 5"
+      - code: "N18.6"
+        display: "End-stage renal disease"
+
+  diabetic_neuropathy:
+    description: "Diabetic neuropathy (microvascular complication)"
+    code_system: "ICD-10-CM"
+    codes:
+      - code: "E11.40"
+        display: "Type 2 DM with diabetic neuropathy, unspecified"
+      - code: "E11.41"
+        display: "Type 2 DM with diabetic mononeuropathy"
+      - code: "E11.42"
+        display: "Type 2 DM with diabetic polyneuropathy"
+      - code: "E11.43"
+        display: "Type 2 DM with diabetic autonomic (poly)neuropathy"
+      - code: "E11.44"
+        display: "Type 2 DM with diabetic amyotrophy"
+      - code: "E10.40"
+        display: "Type 1 DM with diabetic neuropathy, unspecified"
+      - code: "E10.42"
+        display: "Type 1 DM with diabetic polyneuropathy"
+      - code: "G63.2"
+        display: "Diabetic polyneuropathy (manifestation code)"
+      - code: "G99.0"
+        display: "Autonomic neuropathy in diseases classified elsewhere"
+
+  diabetic_foot:
+    description: "Diabetic foot complications"
+    code_system: "ICD-10-CM"
+    codes:
+      - code: "E11.51"
+        display: "Type 2 DM with diabetic peripheral angiopathy without gangrene"
+      - code: "E11.52"
+        display: "Type 2 DM with diabetic peripheral angiopathy with gangrene"
+      - code: "E11.621"
+        display: "Type 2 DM with foot ulcer"
+      - code: "E11.622"
+        display: "Type 2 DM with other skin ulcer"
+      - code: "L97"
+        display: "Non-pressure chronic ulcer of lower limb"
+
+  macrovascular_complications:
+    description: "Macrovascular complications of diabetes"
+    code_system: "ICD-10-CM"
+    codes:
+      - code: "E11.51"
+        display: "Type 2 DM with diabetic peripheral angiopathy"
+      - code: "I25.10"
+        display: "Atherosclerotic heart disease of native coronary artery"
+      - code: "I63.9"
+        display: "Cerebral infarction, unspecified"
+      - code: "I73.9"
+        display: "Peripheral vascular disease, unspecified"
+      - code: "I70.2"
+        display: "Atherosclerosis of native arteries of extremities"
+
+  comorbidities:
+    description: "Common comorbidities in diabetes progression"
+    code_system: "ICD-10-CM"
+    codes:
+      - code: "E78.0"
+        display: "Pure hypercholesterolemia"
+      - code: "E78.1"
+        display: "Pure hyperglyceridemia"
+      - code: "E78.2"
+        display: "Mixed hyperlipidemia"
+      - code: "E78.5"
+        display: "Dyslipidemia, unspecified"
+      - code: "I10"
+        display: "Essential (primary) hypertension"
+      - code: "E66"
+        display: "Overweight and obesity"
+      - code: "E66.01"
+        display: "Morbid (severe) obesity due to excess calories"
+      - code: "K76.0"
+        display: "Fatty (change of) liver, NEC (NAFLD/NASH)"
+
+# ---------------------------------------------------------------
+# MEDICATIONS (ATC)
+# ---------------------------------------------------------------
+medications:
+  insulin:
+    description: "Insulins and analogues (A10A)"
+    code_system: "ATC"
+    codes:
+      - code: "A10AB01"
+        display: "Insulin (human), rapid-acting"
+      - code: "A10AB04"
+        display: "Insulin lispro"
+      - code: "A10AB05"
+        display: "Insulin aspart"
+      - code: "A10AB06"
+        display: "Insulin glulisine"
+      - code: "A10AC01"
+        display: "Insulin (human), intermediate-acting"
+      - code: "A10AE04"
+        display: "Insulin glargine"
+      - code: "A10AE05"
+        display: "Insulin detemir"
+      - code: "A10AE06"
+        display: "Insulin degludec"
+
+  biguanides:
+    description: "Biguanides (A10BA) -- first-line therapy"
+    code_system: "ATC"
+    codes:
+      - code: "A10BA02"
+        display: "Metformin"
+
+  sulfonylureas:
+    description: "Sulfonylureas (A10BB)"
+    code_system: "ATC"
+    codes:
+      - code: "A10BB01"
+        display: "Glibenclamide (glyburide)"
+      - code: "A10BB07"
+        display: "Glipizide"
+      - code: "A10BB09"
+        display: "Gliclazide"
+      - code: "A10BB12"
+        display: "Glimepiride"
+
+  dpp4_inhibitors:
+    description: "DPP-4 inhibitors (A10BH)"
+    code_system: "ATC"
+    codes:
+      - code: "A10BH01"
+        display: "Sitagliptin"
+      - code: "A10BH02"
+        display: "Vildagliptin"
+      - code: "A10BH03"
+        display: "Saxagliptin"
+      - code: "A10BH05"
+        display: "Linagliptin"
+
+  glp1_agonists:
+    description: "GLP-1 receptor agonists (A10BJ)"
+    code_system: "ATC"
+    codes:
+      - code: "A10BJ01"
+        display: "Exenatide"
+      - code: "A10BJ02"
+        display: "Liraglutide"
+      - code: "A10BJ05"
+        display: "Dulaglutide"
+      - code: "A10BJ06"
+        display: "Semaglutide"
+      - code: "A10BJ07"
+        display: "Tirzepatide"
+
+  sglt2_inhibitors:
+    description: "SGLT2 inhibitors (A10BK) -- renal and CV protective"
+    code_system: "ATC"
+    codes:
+      - code: "A10BK01"
+        display: "Dapagliflozin"
+      - code: "A10BK02"
+        display: "Canagliflozin"
+      - code: "A10BK03"
+        display: "Empagliflozin"
+      - code: "A10BK04"
+        display: "Ertugliflozin"
+
+  thiazolidinediones:
+    description: "Thiazolidinediones (A10BG)"
+    code_system: "ATC"
+    codes:
+      - code: "A10BG02"
+        display: "Rosiglitazone"
+      - code: "A10BG03"
+        display: "Pioglitazone"
+
+# ---------------------------------------------------------------
+# LABORATORY / OBSERVATIONS (LOINC)
+# ---------------------------------------------------------------
+observations:
+  glycemic_control:
+    description: "Glycemic monitoring"
+    code_system: "LOINC"
+    codes:
+      - code: "4548-4"
+        display: "Hemoglobin A1c/Hemoglobin.total in Blood"
+        unit: "%"
+        target_range: "< 7.0"
+      - code: "4549-2"
+        display: "Hemoglobin A1c/Hemoglobin.total in Blood by Electrophoresis"
+        unit: "%"
+      - code: "2345-7"
+        display: "Glucose [Mass/volume] in Serum or Plasma"
+        unit: "mg/dL"
+      - code: "1558-6"
+        display: "Fasting glucose [Mass/volume] in Serum or Plasma"
+        unit: "mg/dL"
+      - code: "14771-0"
+        display: "Fasting glucose [Mass/volume] in Capillary blood"
+        unit: "mg/dL"
+
+  renal_function:
+    description: "Renal function monitoring for diabetic nephropathy"
+    code_system: "LOINC"
+    codes:
+      - code: "2160-0"
+        display: "Creatinine [Mass/volume] in Serum or Plasma"
+        unit: "mg/dL"
+      - code: "48642-3"
+        display: "eGFR by CKD-EPI creatinine equation"
+        unit: "mL/min/1.73m2"
+        staging:
+          G1: ">= 90"
+          G2: "60-89"
+          G3a: "45-59"
+          G3b: "30-44"
+          G4: "15-29"
+          G5: "< 15"
+      - code: "62238-1"
+        display: "eGFR by CKD-EPI creatinine-cystatin C"
+        unit: "mL/min/1.73m2"
+      - code: "14959-1"
+        display: "Microalbumin [Mass/volume] in Urine"
+        unit: "mg/L"
+      - code: "9318-7"
+        display: "Albumin/Creatinine ratio [Mass ratio] in Urine"
+        unit: "mg/g"
+        staging:
+          A1_normal: "< 30"
+          A2_moderately_increased: "30-300"
+          A3_severely_increased: "> 300"
+      - code: "3094-0"
+        display: "BUN [Mass/volume] in Serum or Plasma"
+        unit: "mg/dL"
+
+  lipid_panel:
+    description: "Lipid monitoring for CV risk in diabetes"
+    code_system: "LOINC"
+    codes:
+      - code: "2093-3"
+        display: "Total Cholesterol"
+        unit: "mg/dL"
+      - code: "2085-9"
+        display: "HDL Cholesterol"
+        unit: "mg/dL"
+      - code: "13457-7"
+        display: "LDL Cholesterol (calculated)"
+        unit: "mg/dL"
+      - code: "2571-8"
+        display: "Triglycerides"
+        unit: "mg/dL"
+
+  liver_function:
+    description: "Liver function (relevant for NAFLD/NASH screening)"
+    code_system: "LOINC"
+    codes:
+      - code: "1742-6"
+        display: "ALT [Enzymatic activity/volume] in Serum or Plasma"
+        unit: "U/L"
+      - code: "1920-8"
+        display: "AST [Enzymatic activity/volume] in Serum or Plasma"
+        unit: "U/L"
+      - code: "6768-6"
+        display: "Alkaline phosphatase"
+        unit: "U/L"
+
+  vitals:
+    description: "Vital signs for diabetes management"
+    code_system: "LOINC"
+    codes:
+      - code: "8480-6"
+        display: "Systolic blood pressure"
+        unit: "mmHg"
+      - code: "8462-4"
+        display: "Diastolic blood pressure"
+        unit: "mmHg"
+      - code: "29463-7"
+        display: "Body weight"
+        unit: "kg"
+      - code: "39156-5"
+        display: "BMI [Ratio]"
+        unit: "kg/m2"
+
+# ---------------------------------------------------------------
+# OUTCOME / PROGRESSION DEFINITIONS
+# ---------------------------------------------------------------
+outcomes:
+  glycemic_progression:
+    description: >
+      Glycemic progression milestones used to define disease states
+      in multistate models.
+    states:
+      - name: "normal_glucose"
+        hba1c_range: "< 5.7"
+      - name: "prediabetes"
+        hba1c_range: "5.7 - 6.4"
+      - name: "diabetes_controlled"
+        hba1c_range: "6.5 - 7.9"
+      - name: "diabetes_uncontrolled"
+        hba1c_range: ">= 8.0"
+
+  ckd_progression:
+    description: "CKD stage progression (KDIGO)"
+    states:
+      - name: "G1"
+        egfr_range: ">= 90"
+      - name: "G2"
+        egfr_range: "60 - 89"
+      - name: "G3a"
+        egfr_range: "45 - 59"
+      - name: "G3b"
+        egfr_range: "30 - 44"
+      - name: "G4"
+        egfr_range: "15 - 29"
+      - name: "G5"
+        egfr_range: "< 15"
+      - name: "dialysis_transplant"
+        icd10_codes: ["Z99.2", "Z94.0"]
+
+  microvascular_composite:
+    description: >
+      Composite microvascular endpoint: new or worsening retinopathy,
+      nephropathy (doubling of creatinine or ESRD), or neuropathy.
+    components:
+      - retinopathy:
+          icd10_prefix: ["E11.3", "E10.3", "H36.0"]
+      - nephropathy:
+          icd10_prefix: ["E11.2", "E10.2", "N18"]
+      - neuropathy:
+          icd10_prefix: ["E11.4", "E10.4", "G63.2"]
+
+  macrovascular_composite:
+    description: "MACE in diabetes context"
+    components:
+      - cv_death:
+          description: "Death with I-code underlying cause"
+      - nonfatal_mi:
+          icd10_codes: ["I21", "I22"]
+      - nonfatal_stroke:
+          icd10_codes: ["I60", "I61", "I63", "I64"]

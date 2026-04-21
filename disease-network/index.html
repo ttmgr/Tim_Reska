@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Disease Network v3 · Klinischer Atlas fuer Medical Underwriting</title>
+  <meta
+    name="description"
+    content="Interaktiver klinischer Atlas fuer deutsche Medical-Underwriting-Szenarien mit Evidenzdrawer, Vergleichsszenarien und transparenter Risikomodellierung."
+  />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="app-backdrop" aria-hidden="true">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+    <div class="grid-glow"></div>
+  </div>
+
+  <div class="app-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Disease Network v3</p>
+        <h1>Klinischer Atlas fuer Medical Underwriting in Deutschland</h1>
+        <p class="hero-lead">
+          Ein evidenzverankertes, interaktives Simulations- und Explorationswerkzeug fuer
+          kardiorenale, metabolische und psychische Krankheitsnetzwerke. Alle Headline-Metriken
+          sind als edukative Modellwerte mit Unsicherheitsband gekennzeichnet.
+        </p>
+      </div>
+
+      <div class="hero-meta">
+        <div class="hero-chip-row">
+          <span class="hero-chip">Statische App</span>
+          <span class="hero-chip">Deutschland</span>
+          <span class="hero-chip">8 Krankheitsknoten</span>
+          <span class="hero-chip">Explizite Evidenzlinks</span>
+        </div>
+        <nav class="hero-nav" aria-label="Atlas Sektionen">
+          <a href="#summary">Summary</a>
+          <a href="#comparison">Vergleich</a>
+          <a href="#timeline">Verlauf</a>
+          <a href="#network">Netzwerk</a>
+          <a href="#trajectory">Simulation</a>
+          <a href="#sources">Quellen</a>
+        </nav>
+        <div class="hero-note" id="hero-note">
+          Educational simulation: nicht fuer Tarifkalkulation oder klinische Einzelentscheidungen.
+        </div>
+      </div>
+    </header>
+
+    <div class="atlas-layout">
+      <aside class="control-panel" aria-labelledby="profile-heading">
+        <div class="panel-header">
+          <p class="eyebrow">Patientenprofil</p>
+          <h2 id="profile-heading">Live gesteuerte Ausgangslage</h2>
+        </div>
+
+        <form id="patient-form" class="control-form"></form>
+
+        <section class="panel-block">
+          <div class="panel-block-head">
+            <div>
+              <p class="eyebrow">Diagnose-Fokus</p>
+              <h3>Primordiagnose und Stage</h3>
+            </div>
+            <button type="button" id="apply-suggested-stage" class="ghost-btn">Empfehlung uebernehmen</button>
+          </div>
+          <div class="field-grid compact" id="disease-fields"></div>
+          <div id="stage-insight" class="insight-card" role="status"></div>
+        </section>
+
+        <section class="panel-block">
+          <div class="panel-block-head">
+            <div>
+              <p class="eyebrow">Interventionen</p>
+              <h3>Baseline gegen optimiertes Szenario</h3>
+            </div>
+          </div>
+          <div id="intervention-list" class="intervention-list"></div>
+        </section>
+
+        <section class="panel-block">
+          <div class="panel-block-head">
+            <div>
+              <p class="eyebrow">Aktive Ansicht</p>
+              <h3>Welches Szenario treibt Timeline und Netzwerk?</h3>
+            </div>
+          </div>
+          <div class="scenario-toggle" id="scenario-toggle">
+            <button type="button" data-scenario="baseline" aria-pressed="true">Baseline</button>
+            <button type="button" data-scenario="intervention" aria-pressed="false">Intervention</button>
+          </div>
+          <div id="risk-drivers" class="driver-list"></div>
+        </section>
+      </aside>
+
+      <main class="atlas-main">
+        <section id="summary" class="atlas-section">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Summary</p>
+              <h2>Underwriting-Signal mit Evidenz- und Unsicherheitskontext</h2>
+            </div>
+            <div class="section-meta" id="confidence-banner"></div>
+          </div>
+
+          <div class="summary-grid">
+            <article class="hero-card baseline-card" id="baseline-summary"></article>
+            <article class="hero-card intervention-card" id="intervention-summary"></article>
+            <article class="hero-card delta-card" id="delta-summary"></article>
+          </div>
+        </section>
+
+        <section id="comparison" class="atlas-section">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Vergleich</p>
+              <h2>Biomarker, Modifikatoren und Nettoeffekt</h2>
+            </div>
+          </div>
+
+          <div class="comparison-grid">
+            <article class="surface-card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Szenariodelta</p>
+                  <h3>Was veraendert sich konkret?</h3>
+                </div>
+              </div>
+              <div id="comparison-table"></div>
+            </article>
+
+            <article class="surface-card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Risikotreiber</p>
+                  <h3>Warum verschiebt sich die Prognose?</h3>
+                </div>
+              </div>
+              <div id="comparison-explainer" class="copy-stack"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="timeline" class="atlas-section">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Krankheitsverlauf</p>
+              <h2>Stage-orientierte Timeline mit downstream Komorbiditaeten</h2>
+            </div>
+            <div class="section-meta" id="timeline-meta"></div>
+          </div>
+
+          <article class="surface-card">
+            <div id="timeline-lanes" class="timeline-lanes"></div>
+          </article>
+        </section>
+
+        <section id="network" class="atlas-section">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Komorbiditaetsnetzwerk</p>
+              <h2>Suche, Pinning, Pfadtracing und patientennahe Propagation</h2>
+            </div>
+          </div>
+
+          <article class="surface-card network-card">
+            <div class="network-toolbar">
+              <label class="search-field">
+                <span>Suche</span>
+                <input id="network-search" type="search" placeholder="Diagnose oder ICD suchen" />
+              </label>
+
+              <label class="filter-field">
+                <span>Cluster</span>
+                <select id="network-cluster"></select>
+              </label>
+
+              <label class="check-field">
+                <input id="network-modifiable" type="checkbox" />
+                <span>Nur modifizierbare Kanten</span>
+              </label>
+
+              <label class="check-field">
+                <input id="network-from-current" type="checkbox" checked />
+                <span>Nur ab aktueller Stage</span>
+              </label>
+
+              <label class="check-field">
+                <input id="network-animate" type="checkbox" checked />
+                <span>Propagation animieren</span>
+              </label>
+            </div>
+
+            <div class="network-layout">
+              <div class="network-canvas-wrap">
+                <svg id="network-svg" aria-label="Komorbiditaetsnetzwerk"></svg>
+              </div>
+              <aside class="network-sidecar">
+                <div class="mini-panel" id="network-legend"></div>
+                <div class="mini-panel" id="path-trace"></div>
+              </aside>
+            </div>
+          </article>
+        </section>
+
+        <section id="trajectory" class="atlas-section">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Simulation</p>
+              <h2>Diskrete Hazard-Simulation mit Unsicherheitsbaendern</h2>
+            </div>
+            <button type="button" id="rerun-simulation" class="ghost-btn">Simulation neu ziehen</button>
+          </div>
+
+          <div class="trajectory-grid">
+            <article class="surface-card chart-card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Ueberleben</p>
+                  <h3>Baseline gegen Intervention</h3>
+                </div>
+              </div>
+              <div class="chart-frame">
+                <canvas id="survival-chart"></canvas>
+              </div>
+            </article>
+
+            <article class="surface-card chart-card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Folgediagnosen</p>
+                  <h3>Top Risiken nach 10 Jahren</h3>
+                </div>
+              </div>
+              <div class="chart-frame">
+                <canvas id="incidence-chart"></canvas>
+              </div>
+            </article>
+
+            <article class="surface-card wide-card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Pfadsummary</p>
+                  <h3>Erwartete Krankheitslast und Kostenprofil</h3>
+                </div>
+              </div>
+              <div id="trajectory-summary"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="sources" class="atlas-section">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Quellen</p>
+              <h2>Quellenverzeichnis und Evidenztypen</h2>
+            </div>
+          </div>
+
+          <article class="surface-card">
+            <div id="sources-list" class="source-list"></div>
+          </article>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div id="tooltip" class="tooltip" role="tooltip" aria-hidden="true"></div>
+
+  <div id="drawer-scrim" class="drawer-scrim" hidden></div>
+  <aside id="evidence-drawer" class="evidence-drawer" aria-hidden="true" aria-labelledby="drawer-title">
+    <div class="drawer-head">
+      <div>
+        <p class="eyebrow" id="drawer-kicker">Evidenz</p>
+        <h2 id="drawer-title">Kein Element ausgewaehlt</h2>
+      </div>
+      <button type="button" id="close-drawer" class="icon-btn" aria-label="Evidenzdrawer schliessen">×</button>
+    </div>
+    <div id="drawer-body" class="drawer-body"></div>
+  </aside>
+
+  <script type="module" src="./assets/js/main.mjs"></script>
+</body>
+</html>

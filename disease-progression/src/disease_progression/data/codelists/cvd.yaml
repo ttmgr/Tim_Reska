@@ -1,0 +1,499 @@
+# Cardiovascular Disease (CVD) Code Lists
+# =========================================
+# Curated ICD-10-CM, ATC, and LOINC codes for cardiovascular disease
+# progression modeling.  Organised by clinical concept to support
+# phenotyping, outcome definition, and covariate extraction.
+#
+# Sources:
+#   - ICD-10-CM 2024 (CMS)
+#   - ATC/DDD Index 2024 (WHO Collaborating Centre)
+#   - LOINC 2.77 (Regenstrief Institute)
+
+metadata:
+  track: cardiovascular
+  version: "1.0.0"
+  last_updated: "2025-01-15"
+  description: >
+    Code lists for cardiovascular disease progression including coronary
+    heart disease, myocardial infarction, heart failure, stroke, atrial
+    fibrillation, and related laboratory / medication concepts.
+
+# ---------------------------------------------------------------
+# CONDITIONS (ICD-10-CM)
+# ---------------------------------------------------------------
+conditions:
+  coronary_heart_disease:
+    description: "Ischaemic / coronary heart disease (KHK)"
+    code_system: "ICD-10-CM"
+    codes:
+      - code: "I20"
+        display: "Angina pectoris"
+      - code: "I20.0"
+        display: "Unstable angina"
+      - code: "I20.1"
+        display: "Angina pectoris with documented spasm"
+      - code: "I20.8"
+        display: "Other forms of angina pectoris"
+      - code: "I20.9"
+        display: "Angina pectoris, unspecified"
+      - code: "I21"
+        display: "Acute myocardial infarction"
+      - code: "I21.0"
+        display: "Acute transmural MI of anterior wall"
+      - code: "I21.1"
+        display: "Acute transmural MI of inferior wall"
+      - code: "I21.2"
+        display: "Acute transmural MI of other sites"
+      - code: "I21.3"
+        display: "Acute transmural MI of unspecified site"
+      - code: "I21.4"
+        display: "Acute subendocardial MI"
+      - code: "I21.9"
+        display: "Acute myocardial infarction, unspecified"
+      - code: "I22"
+        display: "Subsequent ST elevation (STEMI) and non-ST elevation (NSTEMI) MI"
+      - code: "I22.0"
+        display: "Subsequent MI of anterior wall"
+      - code: "I22.1"
+        display: "Subsequent MI of inferior wall"
+      - code: "I22.8"
+        display: "Subsequent MI of other sites"
+      - code: "I22.9"
+        display: "Subsequent MI of unspecified site"
+      - code: "I23"
+        display: "Certain current complications following acute MI"
+      - code: "I24"
+        display: "Other acute ischaemic heart diseases"
+      - code: "I24.0"
+        display: "Acute coronary thrombosis not resulting in MI"
+      - code: "I25"
+        display: "Chronic ischaemic heart disease"
+      - code: "I25.1"
+        display: "Atherosclerotic heart disease of native coronary artery"
+      - code: "I25.10"
+        display: "Atherosclerotic heart disease of native coronary artery without angina"
+      - code: "I25.11"
+        display: "Atherosclerotic heart disease of native coronary artery with angina"
+      - code: "I25.2"
+        display: "Old myocardial infarction"
+      - code: "I25.5"
+        display: "Ischaemic cardiomyopathy"
+
+  myocardial_infarction:
+    description: "Acute and subsequent myocardial infarction"
+    code_system: "ICD-10-CM"
+    codes:
+      - code: "I21"
+        display: "Acute myocardial infarction"
+      - code: "I21.0"
+        display: "STEMI involving left main coronary artery"
+      - code: "I21.01"
+        display: "STEMI involving left anterior descending"
+      - code: "I21.09"
+        display: "STEMI involving other coronary artery of anterior wall"
+      - code: "I21.1"
+        display: "STEMI involving right coronary artery"
+      - code: "I21.11"
+        display: "STEMI involving right coronary artery"
+      - code: "I21.19"
+        display: "STEMI involving other coronary artery of inferior wall"
+      - code: "I21.2"
+        display: "STEMI involving other sites"
+      - code: "I21.21"
+        display: "STEMI involving left circumflex"
+      - code: "I21.3"
+        display: "STEMI of unspecified site"
+      - code: "I21.4"
+        display: "Non-ST elevation (NSTEMI) MI"
+      - code: "I21.9"
+        display: "Acute myocardial infarction, unspecified"
+      - code: "I22"
+        display: "Subsequent STEMI and NSTEMI MI"
+      - code: "I22.0"
+        display: "Subsequent STEMI of anterior wall"
+      - code: "I22.1"
+        display: "Subsequent STEMI of inferior wall"
+      - code: "I22.2"
+        display: "Subsequent NSTEMI"
+      - code: "I22.8"
+        display: "Subsequent STEMI of other sites"
+      - code: "I22.9"
+        display: "Subsequent STEMI of unspecified site"
+
+  heart_failure:
+    description: "Heart failure (HF) codes"
+    code_system: "ICD-10-CM"
+    codes:
+      - code: "I50"
+        display: "Heart failure"
+      - code: "I50.1"
+        display: "Left ventricular failure, unspecified"
+      - code: "I50.2"
+        display: "Systolic (congestive) heart failure"
+      - code: "I50.20"
+        display: "Unspecified systolic HF"
+      - code: "I50.21"
+        display: "Acute systolic HF"
+      - code: "I50.22"
+        display: "Chronic systolic HF"
+      - code: "I50.23"
+        display: "Acute on chronic systolic HF"
+      - code: "I50.3"
+        display: "Diastolic (congestive) heart failure"
+      - code: "I50.30"
+        display: "Unspecified diastolic HF"
+      - code: "I50.31"
+        display: "Acute diastolic HF"
+      - code: "I50.32"
+        display: "Chronic diastolic HF"
+      - code: "I50.33"
+        display: "Acute on chronic diastolic HF"
+      - code: "I50.4"
+        display: "Combined systolic and diastolic HF"
+      - code: "I50.40"
+        display: "Unspecified combined systolic and diastolic HF"
+      - code: "I50.41"
+        display: "Acute combined systolic and diastolic HF"
+      - code: "I50.42"
+        display: "Chronic combined systolic and diastolic HF"
+      - code: "I50.43"
+        display: "Acute on chronic combined systolic and diastolic HF"
+      - code: "I50.8"
+        display: "Other heart failure"
+      - code: "I50.81"
+        display: "Right heart failure"
+      - code: "I50.82"
+        display: "Biventricular heart failure"
+      - code: "I50.84"
+        display: "End-stage heart failure"
+      - code: "I50.89"
+        display: "Other heart failure"
+      - code: "I50.9"
+        display: "Heart failure, unspecified"
+
+  stroke:
+    description: "Cerebrovascular disease / stroke"
+    code_system: "ICD-10-CM"
+    codes:
+      - code: "I60"
+        display: "Nontraumatic subarachnoid hemorrhage"
+      - code: "I60.9"
+        display: "Nontraumatic subarachnoid hemorrhage, unspecified"
+      - code: "I61"
+        display: "Nontraumatic intracerebral hemorrhage"
+      - code: "I61.9"
+        display: "Nontraumatic intracerebral hemorrhage, unspecified"
+      - code: "I62"
+        display: "Other and unspecified nontraumatic intracranial hemorrhage"
+      - code: "I63"
+        display: "Cerebral infarction"
+      - code: "I63.0"
+        display: "Cerebral infarction due to thrombosis of precerebral arteries"
+      - code: "I63.1"
+        display: "Cerebral infarction due to embolism of precerebral arteries"
+      - code: "I63.3"
+        display: "Cerebral infarction due to thrombosis of cerebral arteries"
+      - code: "I63.4"
+        display: "Cerebral infarction due to embolism of cerebral arteries"
+      - code: "I63.5"
+        display: "Cerebral infarction due to unspecified occlusion of cerebral arteries"
+      - code: "I63.9"
+        display: "Cerebral infarction, unspecified"
+      - code: "I64"
+        display: "Stroke, not specified as hemorrhage or infarction"
+      - code: "I65"
+        display: "Occlusion and stenosis of precerebral arteries"
+      - code: "I66"
+        display: "Occlusion and stenosis of cerebral arteries"
+      - code: "I67"
+        display: "Other cerebrovascular diseases"
+      - code: "I67.1"
+        display: "Cerebral aneurysm, nonruptured"
+      - code: "I67.2"
+        display: "Cerebral atherosclerosis"
+      - code: "I67.8"
+        display: "Other specified cerebrovascular diseases"
+      - code: "I69"
+        display: "Sequelae of cerebrovascular disease"
+
+  atrial_fibrillation:
+    description: "Atrial fibrillation and flutter"
+    code_system: "ICD-10-CM"
+    codes:
+      - code: "I48"
+        display: "Atrial fibrillation and flutter"
+      - code: "I48.0"
+        display: "Paroxysmal atrial fibrillation"
+      - code: "I48.1"
+        display: "Persistent atrial fibrillation"
+      - code: "I48.11"
+        display: "Long-standing persistent atrial fibrillation"
+      - code: "I48.19"
+        display: "Other persistent atrial fibrillation"
+      - code: "I48.2"
+        display: "Chronic atrial fibrillation"
+      - code: "I48.20"
+        display: "Chronic atrial fibrillation, unspecified"
+      - code: "I48.21"
+        display: "Permanent atrial fibrillation"
+      - code: "I48.91"
+        display: "Unspecified atrial fibrillation"
+      - code: "I48.92"
+        display: "Unspecified atrial flutter"
+
+  hypertension:
+    description: "Essential hypertension and hypertensive disease"
+    code_system: "ICD-10-CM"
+    codes:
+      - code: "I10"
+        display: "Essential (primary) hypertension"
+      - code: "I11"
+        display: "Hypertensive heart disease"
+      - code: "I11.0"
+        display: "Hypertensive heart disease with heart failure"
+      - code: "I11.9"
+        display: "Hypertensive heart disease without heart failure"
+      - code: "I12"
+        display: "Hypertensive chronic kidney disease"
+      - code: "I13"
+        display: "Hypertensive heart and chronic kidney disease"
+      - code: "I15"
+        display: "Secondary hypertension"
+
+# ---------------------------------------------------------------
+# MEDICATIONS (ATC)
+# ---------------------------------------------------------------
+medications:
+  antihypertensives_beta_blockers:
+    description: "Beta-blocking agents (C07)"
+    code_system: "ATC"
+    codes:
+      - code: "C07AB02"
+        display: "Metoprolol"
+      - code: "C07AB03"
+        display: "Atenolol"
+      - code: "C07AB07"
+        display: "Bisoprolol"
+      - code: "C07AB12"
+        display: "Nebivolol"
+      - code: "C07AG02"
+        display: "Carvedilol"
+
+  antihypertensives_ace_arb:
+    description: "ACE inhibitors (C09A) and ARBs (C09C)"
+    code_system: "ATC"
+    codes:
+      - code: "C09AA01"
+        display: "Captopril"
+      - code: "C09AA02"
+        display: "Enalapril"
+      - code: "C09AA03"
+        display: "Lisinopril"
+      - code: "C09AA05"
+        display: "Ramipril"
+      - code: "C09AA09"
+        display: "Fosinopril"
+      - code: "C09CA01"
+        display: "Losartan"
+      - code: "C09CA03"
+        display: "Valsartan"
+      - code: "C09CA04"
+        display: "Irbesartan"
+      - code: "C09CA06"
+        display: "Candesartan"
+      - code: "C09CA07"
+        display: "Telmisartan"
+      - code: "C09DX04"
+        display: "Sacubitril/Valsartan (ARNI)"
+
+  lipid_lowering:
+    description: "Lipid-modifying agents (C10)"
+    code_system: "ATC"
+    codes:
+      - code: "C10AA01"
+        display: "Simvastatin"
+      - code: "C10AA03"
+        display: "Pravastatin"
+      - code: "C10AA05"
+        display: "Atorvastatin"
+      - code: "C10AA07"
+        display: "Rosuvastatin"
+      - code: "C10AX09"
+        display: "Ezetimibe"
+      - code: "C10AX13"
+        display: "Evolocumab (PCSK9 inhibitor)"
+      - code: "C10AX14"
+        display: "Alirocumab (PCSK9 inhibitor)"
+
+  antithrombotics:
+    description: "Antithrombotic agents (B01)"
+    code_system: "ATC"
+    codes:
+      - code: "B01AC06"
+        display: "Acetylsalicylic acid (aspirin)"
+      - code: "B01AC04"
+        display: "Clopidogrel"
+      - code: "B01AC24"
+        display: "Ticagrelor"
+      - code: "B01AC22"
+        display: "Prasugrel"
+      - code: "B01AA03"
+        display: "Warfarin"
+      - code: "B01AE07"
+        display: "Dabigatran"
+      - code: "B01AF01"
+        display: "Rivaroxaban"
+      - code: "B01AF02"
+        display: "Apixaban"
+      - code: "B01AF03"
+        display: "Edoxaban"
+
+  diuretics:
+    description: "Diuretics (C03) commonly used in heart failure"
+    code_system: "ATC"
+    codes:
+      - code: "C03CA01"
+        display: "Furosemide"
+      - code: "C03CA02"
+        display: "Bumetanide"
+      - code: "C03DA01"
+        display: "Spironolactone"
+      - code: "C03DA04"
+        display: "Eplerenone"
+      - code: "C03AA03"
+        display: "Hydrochlorothiazide"
+
+  sglt2_inhibitors:
+    description: "SGLT2 inhibitors with HF indication"
+    code_system: "ATC"
+    codes:
+      - code: "A10BK01"
+        display: "Dapagliflozin"
+      - code: "A10BK03"
+        display: "Empagliflozin"
+
+# ---------------------------------------------------------------
+# LABORATORY / OBSERVATIONS (LOINC)
+# ---------------------------------------------------------------
+observations:
+  cardiac_biomarkers:
+    description: "Cardiac biomarkers for HF and ACS risk stratification"
+    code_system: "LOINC"
+    codes:
+      - code: "33762-6"
+        display: "NT-proBNP [Mass/volume] in Serum or Plasma"
+        unit: "pg/mL"
+        critical_high: 300
+      - code: "30934-4"
+        display: "BNP [Mass/volume] in Serum or Plasma"
+        unit: "pg/mL"
+        critical_high: 100
+      - code: "6598-7"
+        display: "Troponin T, cardiac [Mass/volume] in Serum or Plasma"
+        unit: "ng/mL"
+        critical_high: 0.04
+      - code: "49563-0"
+        display: "Troponin I, cardiac, high sensitivity"
+        unit: "ng/L"
+        critical_high: 26
+      - code: "30522-7"
+        display: "CRP [Mass/volume] in Serum or Plasma (hs-CRP)"
+        unit: "mg/L"
+        critical_high: 3.0
+
+  lipid_panel:
+    description: "Standard lipid panel"
+    code_system: "LOINC"
+    codes:
+      - code: "2093-3"
+        display: "Total Cholesterol [Mass/volume] in Serum or Plasma"
+        unit: "mg/dL"
+      - code: "2085-9"
+        display: "HDL Cholesterol [Mass/volume] in Serum or Plasma"
+        unit: "mg/dL"
+      - code: "13457-7"
+        display: "LDL Cholesterol (calculated)"
+        unit: "mg/dL"
+      - code: "2571-8"
+        display: "Triglycerides [Mass/volume] in Serum or Plasma"
+        unit: "mg/dL"
+
+  renal_function:
+    description: "Renal function markers (relevant for CVD-CKD overlap)"
+    code_system: "LOINC"
+    codes:
+      - code: "2160-0"
+        display: "Creatinine [Mass/volume] in Serum or Plasma"
+        unit: "mg/dL"
+      - code: "48642-3"
+        display: "eGFR by CKD-EPI Creatinine"
+        unit: "mL/min/1.73m2"
+      - code: "3094-0"
+        display: "BUN [Mass/volume] in Serum or Plasma"
+        unit: "mg/dL"
+
+  metabolic:
+    description: "Metabolic labs relevant to CVD risk"
+    code_system: "LOINC"
+    codes:
+      - code: "4548-4"
+        display: "Hemoglobin A1c/Hemoglobin.total in Blood"
+        unit: "%"
+      - code: "2345-7"
+        display: "Glucose [Mass/volume] in Serum or Plasma"
+        unit: "mg/dL"
+      - code: "6768-6"
+        display: "Alkaline phosphatase [Enzymatic activity/volume] in Serum or Plasma"
+        unit: "U/L"
+
+  vitals:
+    description: "Vital signs relevant to CVD monitoring"
+    code_system: "LOINC"
+    codes:
+      - code: "8480-6"
+        display: "Systolic blood pressure"
+        unit: "mmHg"
+      - code: "8462-4"
+        display: "Diastolic blood pressure"
+        unit: "mmHg"
+      - code: "8867-4"
+        display: "Heart rate"
+        unit: "/min"
+      - code: "29463-7"
+        display: "Body weight"
+        unit: "kg"
+      - code: "39156-5"
+        display: "BMI [Ratio]"
+        unit: "kg/m2"
+
+# ---------------------------------------------------------------
+# OUTCOME DEFINITIONS (composite endpoints)
+# ---------------------------------------------------------------
+outcomes:
+  mace:
+    description: >
+      Major Adverse Cardiovascular Events (MACE): composite of
+      cardiovascular death, non-fatal MI, non-fatal stroke.
+    components:
+      - cardiovascular_death:
+          icd10_prefix: ["I"]
+          description: "Death with underlying CVD cause"
+      - nonfatal_mi:
+          icd10_codes: ["I21", "I22"]
+      - nonfatal_stroke:
+          icd10_codes: ["I60", "I61", "I63", "I64"]
+
+  heart_failure_hospitalization:
+    description: "Heart failure hospitalization (primary discharge diagnosis)"
+    icd10_codes: ["I50"]
+
+  mace_plus:
+    description: >
+      Extended MACE+: MACE plus heart failure hospitalization and
+      coronary revascularization.
+    components:
+      - mace: {}
+      - hf_hospitalization:
+          icd10_codes: ["I50"]
+      - revascularization:
+          description: "PCI or CABG (procedure codes)"

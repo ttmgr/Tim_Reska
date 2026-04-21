@@ -1,0 +1,1933 @@
+{
+  "meta": {
+    "version": "3.0.0",
+    "language": "de",
+    "title": "Disease Network v3",
+    "purpose": "Evidenzverankerter klinischer Atlas fuer Medical Underwriting in Deutschland",
+    "population": "GKV/PKV-versicherte Erwachsene in Deutschland",
+    "disclaimer": "Educational simulation. Modellwerte dienen der Exploration von Risikopfaden und ersetzen weder klinische Entscheidungen noch aktuarielles Pricing.",
+    "modeling": {
+      "approach": "Diskrete Jahres-Hazard-Simulation mit alters- und geschlechtsspezifischer Basismortalitaet, additiven Log-Hazard-Zuschlaegen aus Stage-Status, Biomarkern und evidenzbasierten Interventionseffekten.",
+      "assumptions": [
+        "Baseline-Mortalitaet wird ueber approximierte Destatis-Lookupwerte nach Alter und Geschlecht verankert.",
+        "Stage-Wechsel erfolgen nur vorwaerts; Interventionen bremsen Risiko und Progression, setzen aber die Diagnose im Modell nicht zurueck.",
+        "Komorbiditaetskanten nutzen explizite annualisierte Inzidenzannahmen statt OR-zu-p Umrechnungen.",
+        "Unsicherheitsbaender sind Modellintervalle aus Parameterbandbreiten und Monte-Carlo-Sampling."
+      ]
+    },
+    "clusters": {
+      "metabolic": {
+        "label": "Metabolisch",
+        "color": "#f97316"
+      },
+      "cardiorenal": {
+        "label": "Kardiorenal",
+        "color": "#2563eb"
+      },
+      "mental": {
+        "label": "Mental Health Bridge",
+        "color": "#14b8a6"
+      }
+    },
+    "input_schema": {
+      "age": {
+        "label": "Alter",
+        "kind": "range",
+        "min": 20,
+        "max": 90,
+        "step": 1,
+        "unit": "J"
+      },
+      "sex": {
+        "label": "Geschlecht",
+        "kind": "segmented",
+        "options": [
+          { "value": "male", "label": "Mann" },
+          { "value": "female", "label": "Frau" }
+        ]
+      },
+      "smoking_status": {
+        "label": "Rauchstatus",
+        "kind": "select",
+        "options": [
+          { "value": "never", "label": "Nie" },
+          { "value": "former", "label": "Ex" },
+          { "value": "active", "label": "Aktiv" }
+        ]
+      },
+      "bmi": {
+        "label": "BMI",
+        "kind": "range",
+        "min": 18,
+        "max": 45,
+        "step": 0.1,
+        "unit": "kg/m2"
+      },
+      "systolic_bp": {
+        "label": "SBP",
+        "kind": "range",
+        "min": 100,
+        "max": 220,
+        "step": 1,
+        "unit": "mmHg"
+      },
+      "hba1c": {
+        "label": "HbA1c",
+        "kind": "range",
+        "min": 4.8,
+        "max": 12,
+        "step": 0.1,
+        "unit": "%"
+      },
+      "egfr": {
+        "label": "eGFR",
+        "kind": "range",
+        "min": 10,
+        "max": 120,
+        "step": 1,
+        "unit": "mL/min/1.73m2"
+      },
+      "ldl": {
+        "label": "LDL",
+        "kind": "range",
+        "min": 40,
+        "max": 260,
+        "step": 1,
+        "unit": "mg/dL"
+      },
+      "albuminuria_acr": {
+        "label": "Albuminurie ACR",
+        "kind": "range",
+        "min": 5,
+        "max": 500,
+        "step": 1,
+        "unit": "mg/g"
+      },
+      "phq9": {
+        "label": "PHQ-9",
+        "kind": "range",
+        "min": 0,
+        "max": 27,
+        "step": 1,
+        "unit": "Score"
+      }
+    },
+    "default_patient": {
+      "age": 58,
+      "sex": "male",
+      "smoking_status": "active",
+      "bmi": 31.6,
+      "systolic_bp": 148,
+      "hba1c": 8.4,
+      "egfr": 62,
+      "ldl": 142,
+      "albuminuria_acr": 72,
+      "phq9": 11,
+      "primary_disease": "diabetes_t2",
+      "stage": "t2d_uncontrolled"
+    },
+    "interventions": [
+      {
+        "id": "smoking_cessation",
+        "label": "Rauchstopp",
+        "description": "Aktives Rauchen wird im Interventionsszenario als Ex-Rauchen modelliert.",
+        "patient_rules": [
+          { "field": "smoking_status", "mode": "set", "value": "former" }
+        ],
+        "citation_ids": ["esc_hypertension_2024", "esc_ccs_2024"],
+        "confidence": "high"
+      },
+      {
+        "id": "weight_management",
+        "label": "Gewichtsmanagement",
+        "description": "Moderate, nachhaltige Gewichtsreduktion mit metabolischem Nutzen.",
+        "patient_rules": [
+          { "field": "bmi", "mode": "delta", "value": -4.5, "floor": 22.0 }
+        ],
+        "citation_ids": ["ada_diabetes_2025", "esc_lipids_2025"],
+        "confidence": "moderate"
+      },
+      {
+        "id": "bp_control",
+        "label": "BP-Zielbereich",
+        "description": "SBP wird in einen intensiver kontrollierten Zielbereich ueberfuehrt.",
+        "patient_rules": [
+          { "field": "systolic_bp", "mode": "set_if_lower", "value": 128 }
+        ],
+        "citation_ids": ["esc_hypertension_2024", "esc_ccs_2024"],
+        "confidence": "high"
+      },
+      {
+        "id": "glucose_control",
+        "label": "Glykaemische Kontrolle",
+        "description": "HbA1c wird in einen stabileren Zielbereich abgesenkt.",
+        "patient_rules": [
+          { "field": "hba1c", "mode": "set_if_lower", "value": 6.8 }
+        ],
+        "citation_ids": ["ada_diabetes_2025"],
+        "confidence": "high"
+      },
+      {
+        "id": "renal_protection",
+        "label": "Renoprotektion",
+        "description": "Albuminurie sinkt und der eGFR-Abfall wird verlangsamt.",
+        "patient_rules": [
+          { "field": "albuminuria_acr", "mode": "scale", "value": 0.65, "floor": 10 },
+          { "field": "egfr", "mode": "delta", "value": 4, "ceiling": 95 }
+        ],
+        "citation_ids": ["kdigo_ckd_2024", "ada_diabetes_2025"],
+        "confidence": "moderate"
+      },
+      {
+        "id": "lipid_therapy",
+        "label": "LDL-Senkung",
+        "description": "LDL wird in einen sekundaerpraeventiven Bereich abgesenkt.",
+        "patient_rules": [
+          { "field": "ldl", "mode": "set_if_lower", "value": 70 }
+        ],
+        "citation_ids": ["esc_lipids_2025", "esc_ccs_2024"],
+        "confidence": "high"
+      },
+      {
+        "id": "mental_health_care",
+        "label": "Psychotherapie + Follow-up",
+        "description": "PHQ-9 und Non-Adherence-Risiko werden strukturiert reduziert.",
+        "patient_rules": [
+          { "field": "phq9", "mode": "delta", "value": -8, "floor": 2 }
+        ],
+        "citation_ids": ["esc_mental_cvd_2025"],
+        "confidence": "moderate"
+      }
+    ],
+    "baseline_mortality": {
+      "source_id": "destatis_2025",
+      "male": [
+        { "age": 20, "qx": 0.0006 },
+        { "age": 25, "qx": 0.0007 },
+        { "age": 30, "qx": 0.0008 },
+        { "age": 35, "qx": 0.0010 },
+        { "age": 40, "qx": 0.0014 },
+        { "age": 45, "qx": 0.0019 },
+        { "age": 50, "qx": 0.0028 },
+        { "age": 55, "qx": 0.0042 },
+        { "age": 60, "qx": 0.0064 },
+        { "age": 65, "qx": 0.0101 },
+        { "age": 70, "qx": 0.0160 },
+        { "age": 75, "qx": 0.0270 },
+        { "age": 80, "qx": 0.0470 },
+        { "age": 85, "qx": 0.0780 },
+        { "age": 90, "qx": 0.1280 }
+      ],
+      "female": [
+        { "age": 20, "qx": 0.0003 },
+        { "age": 25, "qx": 0.0004 },
+        { "age": 30, "qx": 0.0005 },
+        { "age": 35, "qx": 0.0007 },
+        { "age": 40, "qx": 0.0009 },
+        { "age": 45, "qx": 0.0013 },
+        { "age": 50, "qx": 0.0019 },
+        { "age": 55, "qx": 0.0028 },
+        { "age": 60, "qx": 0.0043 },
+        { "age": 65, "qx": 0.0068 },
+        { "age": 70, "qx": 0.0112 },
+        { "age": 75, "qx": 0.0195 },
+        { "age": 80, "qx": 0.0340 },
+        { "age": 85, "qx": 0.0600 },
+        { "age": 90, "qx": 0.1030 }
+      ]
+    }
+  },
+  "citations": [
+    {
+      "id": "destatis_2025",
+      "title": "Sterbetafeln und Lebenserwartung in Deutschland",
+      "publisher": "Destatis",
+      "year": 2025,
+      "url": "https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Bevoelkerung/Sterbefaelle-Lebenserwartung/_inhalt.html",
+      "evidence_type": "Life table / population mortality"
+    },
+    {
+      "id": "esc_hypertension_2024",
+      "title": "2024 ESC Hypertension Guideline and press materials",
+      "publisher": "European Society of Cardiology",
+      "year": 2024,
+      "url": "https://www.escardio.org/news/press/press-releases/New-ESC-Hypertension-Guidelines-recommend-intensified-BP-targets-and-introduce-a-novel-elevated-blood-pressure-category-to-better-identify-people-at-risk-for-heart-attack-and-stroke/",
+      "evidence_type": "Guideline"
+    },
+    {
+      "id": "kdigo_ckd_2024",
+      "title": "KDIGO 2024 Clinical Practice Guideline for CKD Evaluation and Management",
+      "publisher": "KDIGO",
+      "year": 2024,
+      "url": "https://kdigo.org/guidelines/ckd-evaluation-and-management/",
+      "evidence_type": "Guideline"
+    },
+    {
+      "id": "ada_diabetes_2025",
+      "title": "Standards of Care in Diabetes 2025",
+      "publisher": "American Diabetes Association",
+      "year": 2025,
+      "url": "https://diabetesjournals.org/care/issue/48/Supplement_1",
+      "evidence_type": "Guideline / consensus"
+    },
+    {
+      "id": "esc_ccs_2024",
+      "title": "2024 ESC Guidelines for Chronic Coronary Syndromes",
+      "publisher": "European Society of Cardiology",
+      "year": 2024,
+      "url": "https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Chronic-Coronary-Syndromes",
+      "evidence_type": "Guideline"
+    },
+    {
+      "id": "esc_hf_2021",
+      "title": "2021 ESC Guidelines for the diagnosis and treatment of acute and chronic heart failure",
+      "publisher": "European Society of Cardiology",
+      "year": 2021,
+      "url": "https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Acute-and-Chronic-Heart-Failure",
+      "evidence_type": "Guideline"
+    },
+    {
+      "id": "esc_hf_2023",
+      "title": "2023 Focused Update on Heart Failure Guidelines",
+      "publisher": "European Society of Cardiology",
+      "year": 2023,
+      "url": "https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Focused-Update-on-Heart-Failure-Guidelines",
+      "evidence_type": "Focused update"
+    },
+    {
+      "id": "esc_lipids_2025",
+      "title": "2025 ESC/EAS Focused Update on Dyslipidaemias",
+      "publisher": "European Society of Cardiology / European Atherosclerosis Society",
+      "year": 2025,
+      "url": "https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Focused-Update-on-Dyslipidaemias",
+      "evidence_type": "Focused update"
+    },
+    {
+      "id": "esc_mental_cvd_2025",
+      "title": "2025 ESC Guidance on Mental Health and Cardiovascular Disease",
+      "publisher": "European Society of Cardiology",
+      "year": 2025,
+      "url": "https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Mental-Health-and-CVD",
+      "evidence_type": "Consensus / guidance"
+    },
+    {
+      "id": "herzbericht_2024",
+      "title": "Herzbericht 2024",
+      "publisher": "Deutsche Herzstiftung / DGK",
+      "year": 2024,
+      "url": "https://www.herzstiftung.de",
+      "evidence_type": "National report"
+    }
+  ],
+  "diseases": [
+    {
+      "id": "hypertension",
+      "label": "Arterielle Hypertonie",
+      "short_label": "Hypertonie",
+      "icd10": "I10-I15",
+      "cluster": "cardiorenal",
+      "underwriting_role": "hub",
+      "prevalence_germany": 0.30,
+      "undiagnosed_fraction": 0.35,
+      "confidence": "high",
+      "clinical_basis": "ESC 2024 betont die fruehe Identifikation erhoehter Blutdruckmuster, strengere Zielbereiche und Endorganschaeden als Risikosprung.",
+      "citation_ids": ["esc_hypertension_2024", "destatis_2025"],
+      "supported_inputs": ["systolic_bp", "smoking_status", "bmi", "ldl", "albuminuria_acr"],
+      "stages": [
+        {
+          "id": "htn_elevated",
+          "label": "Erhoehter Blutdruck / fruehe Hypertonie",
+          "severity_rank": 1,
+          "stage_definition": "Persistierende Werte im erhoehten Bereich ohne dokumentierte Endorganschaeden.",
+          "years_in_stage_median": 4,
+          "mortality_hr": 1.08,
+          "annual_progression_prob": 0.08,
+          "cost_class": "low",
+          "reversible": true,
+          "clinical_basis": "Der ESC-2024-Rahmen fuehrt elevated BP frueher als kardio-vaskulaeres Signal und Anlass fuer intensivere Risikokontrolle.",
+          "biomarker_rules": [
+            { "marker": "systolic_bp", "label": "SBP", "operator": "range", "value": [120, 139], "unit": "mmHg", "note": "Persistierend erhoeht, noch ohne schwere HMOD." },
+            { "marker": "albuminuria_acr", "label": "ACR", "operator": "<", "value": 30, "unit": "mg/g", "note": "Keine manifeste Albuminurie als HMOD-Marker." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [1.03, 1.15],
+            "annual_progression_prob": [0.05, 0.11]
+          },
+          "confidence": "moderate",
+          "citation_ids": ["esc_hypertension_2024"],
+          "intervention_effects": [
+            { "intervention_id": "bp_control", "hazard_multiplier": 0.88, "progression_multiplier": 0.70, "note": "Fruehe BP-Kontrolle reduziert Progression und Gesamtgefahr." },
+            { "intervention_id": "smoking_cessation", "hazard_multiplier": 0.94, "progression_multiplier": 0.93, "note": "Tabakreduktion senkt vaskulaeren Zusatzstress." }
+          ]
+        },
+        {
+          "id": "htn_grade1_controlled",
+          "label": "Hypertonie Grad 1 - diagnostiziert / kontrolliert",
+          "severity_rank": 2,
+          "stage_definition": "Diagnostizierte Hypertonie mit Werten typischerweise 140-159 mmHg oder vergleichbarer Historie unter Therapie.",
+          "years_in_stage_median": 7,
+          "mortality_hr": 1.18,
+          "annual_progression_prob": 0.10,
+          "cost_class": "low",
+          "reversible": true,
+          "clinical_basis": "Kontrollierte Hypertonie bleibt ein Langzeitrisiko, ist aber im Vergleich zu persistierend unkontrollierten Werten deutlich besser steuerbar.",
+          "biomarker_rules": [
+            { "marker": "systolic_bp", "label": "SBP", "operator": "range", "value": [140, 159], "unit": "mmHg", "note": "Office-BP oder undertreated Bereich." },
+            { "marker": "albuminuria_acr", "label": "ACR", "operator": "<", "value": 30, "unit": "mg/g", "note": "Noch ohne manifeste renale Schadensmarker." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [1.10, 1.28],
+            "annual_progression_prob": [0.07, 0.14]
+          },
+          "confidence": "high",
+          "citation_ids": ["esc_hypertension_2024"],
+          "intervention_effects": [
+            { "intervention_id": "bp_control", "hazard_multiplier": 0.84, "progression_multiplier": 0.66, "note": "Zielbereich 120-129 mmHg verschiebt das Risiko merklich." },
+            { "intervention_id": "weight_management", "hazard_multiplier": 0.95, "progression_multiplier": 0.88, "note": "BMI-Senkung verbessert Blutdruckdynamik." }
+          ]
+        },
+        {
+          "id": "htn_grade2_uncontrolled",
+          "label": "Hypertonie Grad 2 - unkontrolliert",
+          "severity_rank": 3,
+          "stage_definition": "Persistierende Werte 160-179 mmHg oder rezidivierend unzureichende Kontrolle trotz Diagnose.",
+          "years_in_stage_median": 5,
+          "mortality_hr": 1.55,
+          "annual_progression_prob": 0.15,
+          "cost_class": "medium",
+          "reversible": false,
+          "clinical_basis": "Anhaltend unkontrollierter Blutdruck beschleunigt kardiale, renale und vaskulaere Schaedigung.",
+          "biomarker_rules": [
+            { "marker": "systolic_bp", "label": "SBP", "operator": "range", "value": [160, 179], "unit": "mmHg", "note": "Typische Grade-2-Spanne." },
+            { "marker": "albuminuria_acr", "label": "ACR", "operator": ">=", "value": 30, "unit": "mg/g", "note": "Fruehe Endorganschaeden koennen bereits mitlaufen." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [1.35, 1.78],
+            "annual_progression_prob": [0.11, 0.20]
+          },
+          "confidence": "high",
+          "citation_ids": ["esc_hypertension_2024", "kdigo_ckd_2024"],
+          "intervention_effects": [
+            { "intervention_id": "bp_control", "hazard_multiplier": 0.77, "progression_multiplier": 0.58, "note": "Intensivierte BP-Kontrolle adressiert den groessten Risikotreiber." },
+            { "intervention_id": "smoking_cessation", "hazard_multiplier": 0.92, "progression_multiplier": 0.90, "note": "Rauchstopp reduziert vaskulaere Kompensationseinbussen." }
+          ]
+        },
+        {
+          "id": "htn_hmod",
+          "label": "Hypertonie mit HMOD / Albuminurie",
+          "severity_rank": 4,
+          "stage_definition": "Hoher Blutdruck mit Endorganschaeden wie Albuminurie, LVH oder etablierter Gefaessschaedigung.",
+          "years_in_stage_median": 4,
+          "mortality_hr": 2.20,
+          "annual_progression_prob": 0.22,
+          "cost_class": "high",
+          "reversible": false,
+          "clinical_basis": "HMOD markiert den Uebergang in deutlich hoeheres kardiorenales Risiko und lenkt in nachgelagerte Ereignispfade.",
+          "biomarker_rules": [
+            { "marker": "systolic_bp", "label": "SBP", "operator": ">=", "value": 180, "unit": "mmHg", "note": "Schwere Hypertonie ist typisch, aber HMOD kann auch darunter vorliegen." },
+            { "marker": "albuminuria_acr", "label": "ACR", "operator": ">=", "value": 30, "unit": "mg/g", "note": "Albuminurie fungiert hier als renaler Endorganschaden." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [1.90, 2.55],
+            "annual_progression_prob": [0.16, 0.28]
+          },
+          "confidence": "moderate",
+          "citation_ids": ["esc_hypertension_2024", "kdigo_ckd_2024"],
+          "intervention_effects": [
+            { "intervention_id": "bp_control", "hazard_multiplier": 0.80, "progression_multiplier": 0.65, "note": "Auch in HMOD bleibt BP-Kontrolle zentral, wenn auch mit geringerem Reversibilitaetseffekt." },
+            { "intervention_id": "renal_protection", "hazard_multiplier": 0.88, "progression_multiplier": 0.74, "note": "Renoprotektion adressiert Albuminurie und CKD-Verschleppung." }
+          ]
+        },
+        {
+          "id": "htn_sink_cvd",
+          "label": "Hypertensive Herz-/Gefaesserkrankung",
+          "severity_rank": 5,
+          "stage_definition": "Downstream-Endpunkt mit manifester vaskulaerer oder hypertensiver Organerkrankung.",
+          "years_in_stage_median": 3,
+          "mortality_hr": 4.00,
+          "annual_progression_prob": 0.0,
+          "cost_class": "very_high",
+          "reversible": false,
+          "clinical_basis": "Der Sink-Stage repraesentiert das Uebergehen in etablierte kardio-vaskulaere Endpunkte.",
+          "biomarker_rules": [
+            { "marker": "systolic_bp", "label": "SBP", "operator": ">=", "value": 180, "unit": "mmHg", "note": "Haeufig weiterhin vorhanden, aber nicht mehr alleiniger Treiber." },
+            { "marker": "albuminuria_acr", "label": "ACR", "operator": ">=", "value": 300, "unit": "mg/g", "note": "Schweres Gefaess- und Endorgansignal." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [3.30, 4.80],
+            "annual_progression_prob": [0.0, 0.0]
+          },
+          "confidence": "moderate",
+          "citation_ids": ["esc_hypertension_2024", "esc_ccs_2024"],
+          "intervention_effects": []
+        }
+      ],
+      "outgoing_edges": [
+        {
+          "id": "hypertension_to_ckd",
+          "target": "ckd",
+          "stage_from": "htn_grade2_uncontrolled",
+          "annual_incidence_prob": 0.038,
+          "lag_years": 7,
+          "modifiable": true,
+          "bidirectional": false,
+          "clinical_basis": "Persistierende unkontrollierte Hypertonie beschleunigt Albuminurie und glomerulaeren Funktionsverlust.",
+          "biomarker_rules": [
+            { "marker": "systolic_bp", "label": "SBP", "operator": ">=", "value": 160, "unit": "mmHg", "note": "Langjaehrig unkontrollierte Werte sind Haupttreiber." },
+            { "marker": "albuminuria_acr", "label": "ACR", "operator": ">=", "value": 30, "unit": "mg/g", "note": "Fruehe renale Mitbetroffenheit." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.028, 0.050] },
+          "confidence": "moderate",
+          "citation_ids": ["esc_hypertension_2024", "kdigo_ckd_2024"],
+          "intervention_effects": [
+            { "intervention_id": "bp_control", "incidence_multiplier": 0.68, "note": "BP-Senkung bremst CKD-Inzidenz." },
+            { "intervention_id": "renal_protection", "incidence_multiplier": 0.80, "note": "Renoprotektion verbessert Albuminuriepfad." }
+          ]
+        },
+        {
+          "id": "hypertension_to_cvd_khk",
+          "target": "cvd_khk",
+          "stage_from": "htn_grade2_uncontrolled",
+          "annual_incidence_prob": 0.045,
+          "lag_years": 5,
+          "modifiable": true,
+          "bidirectional": false,
+          "clinical_basis": "Hoher Blutdruck erhoeht das Risiko fuer chronische Koronarsyndrome, ACS und zerebrovaskulaere Ereignisse.",
+          "biomarker_rules": [
+            { "marker": "systolic_bp", "label": "SBP", "operator": ">=", "value": 160, "unit": "mmHg", "note": "Persistierend hoher Druck wirkt als vaskulaerer Lasttreiber." },
+            { "marker": "ldl", "label": "LDL", "operator": ">=", "value": 130, "unit": "mg/dL", "note": "Dyslipidaemie verstaerkt den Pfad." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.034, 0.058] },
+          "confidence": "high",
+          "citation_ids": ["esc_hypertension_2024", "esc_ccs_2024"],
+          "intervention_effects": [
+            { "intervention_id": "bp_control", "incidence_multiplier": 0.70, "note": "Strengere BP-Ziele reduzieren ischaemische Downstream-Ereignisse." },
+            { "intervention_id": "lipid_therapy", "incidence_multiplier": 0.83, "note": "LDL-Senkung reduziert atherosklerotische Ereignisse." }
+          ]
+        },
+        {
+          "id": "hypertension_to_heart_failure",
+          "target": "heart_failure",
+          "stage_from": "htn_hmod",
+          "annual_incidence_prob": 0.022,
+          "lag_years": 8,
+          "modifiable": false,
+          "bidirectional": false,
+          "clinical_basis": "Langjaehrige Drucklast mit struktureller Herzanpassung fuehrt in HF-Pfade.",
+          "biomarker_rules": [
+            { "marker": "systolic_bp", "label": "SBP", "operator": ">=", "value": 170, "unit": "mmHg", "note": "Hohe Langzeitdrucklast." },
+            { "marker": "albuminuria_acr", "label": "ACR", "operator": ">=", "value": 30, "unit": "mg/g", "note": "Marker fuer parallele Endorganschaedigung." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.015, 0.030] },
+          "confidence": "moderate",
+          "citation_ids": ["esc_hypertension_2024", "esc_hf_2021"],
+          "intervention_effects": [
+            { "intervention_id": "bp_control", "incidence_multiplier": 0.79, "note": "Auch spaet bleibt die Progression teilmodifizierbar." }
+          ]
+        },
+        {
+          "id": "hypertension_to_dyslipidemia",
+          "target": "dyslipidemia",
+          "stage_from": "htn_grade1_controlled",
+          "annual_incidence_prob": 0.050,
+          "lag_years": 2,
+          "modifiable": true,
+          "bidirectional": false,
+          "clinical_basis": "Hypertonie und Dyslipidaemie treten haeufig als gemeinsames Risikoensemble auf.",
+          "biomarker_rules": [
+            { "marker": "ldl", "label": "LDL", "operator": ">=", "value": 100, "unit": "mg/dL", "note": "Frueh ueber dem Zielbereich." },
+            { "marker": "bmi", "label": "BMI", "operator": ">=", "value": 27, "unit": "kg/m2", "note": "Metabolischer Mitfahrer." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.038, 0.064] },
+          "confidence": "moderate",
+          "citation_ids": ["esc_hypertension_2024", "esc_lipids_2025"],
+          "intervention_effects": [
+            { "intervention_id": "weight_management", "incidence_multiplier": 0.85, "note": "Metabolische Entlastung bremst den gemeinsamen Pfad." },
+            { "intervention_id": "lipid_therapy", "incidence_multiplier": 0.74, "note": "Fruehe LDL-Kontrolle unterbricht die klinische Manifestation." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "obesity_metabolic",
+      "label": "Adipositas / Metabolisches Syndrom",
+      "short_label": "Adipositas",
+      "icd10": "E66",
+      "cluster": "metabolic",
+      "underwriting_role": "amplifier_hub",
+      "prevalence_germany": 0.25,
+      "undiagnosed_fraction": 0.10,
+      "confidence": "moderate",
+      "clinical_basis": "Adipositas fungiert als Verstarker fuer Blutdruck, Glukose, Lipide und psychosoziale Last und vergroessert die Krankheitskonnektivitaet.",
+      "citation_ids": ["ada_diabetes_2025", "esc_lipids_2025"],
+      "supported_inputs": ["bmi", "hba1c", "systolic_bp", "ldl", "phq9"],
+      "stages": [
+        {
+          "id": "obesity_overweight",
+          "label": "Uebergewicht mit metabolischem Risiko",
+          "severity_rank": 1,
+          "stage_definition": "BMI 25-29.9 kg/m2 mit ersten metabolischen Risikomustern.",
+          "years_in_stage_median": 6,
+          "mortality_hr": 1.08,
+          "annual_progression_prob": 0.07,
+          "cost_class": "low",
+          "reversible": true,
+          "clinical_basis": "Praeadipose Stadien markieren oft den Start gemeinsamer Blutdruck- und Glukosepfade.",
+          "biomarker_rules": [
+            { "marker": "bmi", "label": "BMI", "operator": "range", "value": [25, 29.9], "unit": "kg/m2", "note": "Praeadipositas." },
+            { "marker": "hba1c", "label": "HbA1c", "operator": ">=", "value": 5.7, "unit": "%", "note": "Insulinresistenz kann bereits sichtbar werden." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [1.02, 1.15],
+            "annual_progression_prob": [0.04, 0.10]
+          },
+          "confidence": "moderate",
+          "citation_ids": ["ada_diabetes_2025"],
+          "intervention_effects": [
+            { "intervention_id": "weight_management", "hazard_multiplier": 0.84, "progression_multiplier": 0.60, "note": "Gewichtsreduktion adressiert den Primartreiber direkt." }
+          ]
+        },
+        {
+          "id": "obesity_class1",
+          "label": "Adipositas Klasse I",
+          "severity_rank": 2,
+          "stage_definition": "BMI 30-34.9 kg/m2 mit zunehmend stabilen metabolischen Komorbiditaeten.",
+          "years_in_stage_median": 7,
+          "mortality_hr": 1.22,
+          "annual_progression_prob": 0.10,
+          "cost_class": "low",
+          "reversible": true,
+          "clinical_basis": "Ab BMI >=30 steigt das Risiko fuer T2D, Hypertonie und Dyslipidaemie deutlich an.",
+          "biomarker_rules": [
+            { "marker": "bmi", "label": "BMI", "operator": "range", "value": [30, 34.9], "unit": "kg/m2", "note": "Klassische Klasse-I-Zone." },
+            { "marker": "systolic_bp", "label": "SBP", "operator": ">=", "value": 130, "unit": "mmHg", "note": "Metabolischer Blutdruckanstieg haeufig." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [1.12, 1.34],
+            "annual_progression_prob": [0.07, 0.14]
+          },
+          "confidence": "high",
+          "citation_ids": ["ada_diabetes_2025", "esc_lipids_2025"],
+          "intervention_effects": [
+            { "intervention_id": "weight_management", "hazard_multiplier": 0.82, "progression_multiplier": 0.58, "note": "Nachhaltige Gewichtsreduktion kann die Klasse verlassen." }
+          ]
+        },
+        {
+          "id": "obesity_class2",
+          "label": "Adipositas Klasse II",
+          "severity_rank": 3,
+          "stage_definition": "BMI 35-39.9 kg/m2 mit hoher Wahrscheinlichkeit kombinierter metabolischer Erkrankungen.",
+          "years_in_stage_median": 5,
+          "mortality_hr": 1.65,
+          "annual_progression_prob": 0.16,
+          "cost_class": "medium",
+          "reversible": false,
+          "clinical_basis": "Klasse II markiert einen Umschlagpunkt fuer kardiorenale und funktionelle Folgen.",
+          "biomarker_rules": [
+            { "marker": "bmi", "label": "BMI", "operator": "range", "value": [35, 39.9], "unit": "kg/m2", "note": "Hoeheres adipositaetsbedingtes Lastniveau." },
+            { "marker": "hba1c", "label": "HbA1c", "operator": ">=", "value": 6.0, "unit": "%", "note": "Praediabetische oder diabetische Dynamik sehr haeufig." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [1.45, 1.90],
+            "annual_progression_prob": [0.12, 0.21]
+          },
+          "confidence": "moderate",
+          "citation_ids": ["ada_diabetes_2025"],
+          "intervention_effects": [
+            { "intervention_id": "weight_management", "hazard_multiplier": 0.85, "progression_multiplier": 0.70, "note": "Selbst partielle BMI-Senkung verschiebt die Last sichtbar." },
+            { "intervention_id": "glucose_control", "hazard_multiplier": 0.95, "progression_multiplier": 0.90, "note": "Glykaemische Kontrolle mindert den diabetischen Anteil." }
+          ]
+        },
+        {
+          "id": "obesity_class3",
+          "label": "Adipositas Klasse III",
+          "severity_rank": 4,
+          "stage_definition": "BMI >=40 kg/m2 oder funktionell schwer beeintraechtigende Adipositas.",
+          "years_in_stage_median": 4,
+          "mortality_hr": 2.60,
+          "annual_progression_prob": 0.24,
+          "cost_class": "high",
+          "reversible": false,
+          "clinical_basis": "Klinisch dominieren Multimorbiditaet, Schlaf-/Belastungslimitierung und hohe Downstream-Wahrscheinlichkeit.",
+          "biomarker_rules": [
+            { "marker": "bmi", "label": "BMI", "operator": ">=", "value": 40, "unit": "kg/m2", "note": "Klasse III / morbide Adipositas." },
+            { "marker": "phq9", "label": "PHQ-9", "operator": ">=", "value": 10, "unit": "Score", "note": "Psychische Last ist oft Teil des Gesamtbildes." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [2.20, 3.00],
+            "annual_progression_prob": [0.18, 0.30]
+          },
+          "confidence": "moderate",
+          "citation_ids": ["ada_diabetes_2025", "esc_mental_cvd_2025"],
+          "intervention_effects": [
+            { "intervention_id": "weight_management", "hazard_multiplier": 0.88, "progression_multiplier": 0.76, "note": "Progression bleibt nur teilweise modifizierbar." }
+          ]
+        },
+        {
+          "id": "obesity_sink_multimorbidity",
+          "label": "Metabolische Multimorbiditaet",
+          "severity_rank": 5,
+          "stage_definition": "Kombinierte Endpunkte aus T2D, CVD, CKD oder funktionellem Verlust.",
+          "years_in_stage_median": 3,
+          "mortality_hr": 4.80,
+          "annual_progression_prob": 0.0,
+          "cost_class": "very_high",
+          "reversible": false,
+          "clinical_basis": "Der Sink-Stage bildet das klinische Ergebnis einer laenger aufgebauten Systemlast ab.",
+          "biomarker_rules": [
+            { "marker": "bmi", "label": "BMI", "operator": ">=", "value": 40, "unit": "kg/m2", "note": "Persistierende schwere Adipositas haeufig." },
+            { "marker": "hba1c", "label": "HbA1c", "operator": ">=", "value": 7.0, "unit": "%", "note": "Glykaemische Begleitlast oft manifest." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [4.00, 5.60],
+            "annual_progression_prob": [0.0, 0.0]
+          },
+          "confidence": "low",
+          "citation_ids": ["ada_diabetes_2025", "esc_lipids_2025"],
+          "intervention_effects": []
+        }
+      ],
+      "outgoing_edges": [
+        {
+          "id": "obesity_to_diabetes_t2",
+          "target": "diabetes_t2",
+          "stage_from": "obesity_class1",
+          "annual_incidence_prob": 0.055,
+          "lag_years": 5,
+          "modifiable": true,
+          "bidirectional": false,
+          "clinical_basis": "Adipositas beschleunigt Insulinresistenz, Beta-Zell-Stress und damit die T2D-Inzidenz.",
+          "biomarker_rules": [
+            { "marker": "bmi", "label": "BMI", "operator": ">=", "value": 30, "unit": "kg/m2", "note": "Adipositas als Primartreiber." },
+            { "marker": "hba1c", "label": "HbA1c", "operator": ">=", "value": 5.7, "unit": "%", "note": "Praediabetischer Drift." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.042, 0.070] },
+          "confidence": "high",
+          "citation_ids": ["ada_diabetes_2025"],
+          "intervention_effects": [
+            { "intervention_id": "weight_management", "incidence_multiplier": 0.58, "note": "Gewichtsreduktion ist hier der dominierende Schutzfaktor." },
+            { "intervention_id": "glucose_control", "incidence_multiplier": 0.82, "note": "Verbesserte Glukosekontrolle bremst die Konversion." }
+          ]
+        },
+        {
+          "id": "obesity_to_hypertension",
+          "target": "hypertension",
+          "stage_from": "obesity_overweight",
+          "annual_incidence_prob": 0.060,
+          "lag_years": 3,
+          "modifiable": true,
+          "bidirectional": false,
+          "clinical_basis": "Gewichtszunahme erhoeht Sympathikotonus, Schlafapnoe-Last und Blutdruck.",
+          "biomarker_rules": [
+            { "marker": "bmi", "label": "BMI", "operator": ">=", "value": 27, "unit": "kg/m2", "note": "Metabolische Vorstufe." },
+            { "marker": "systolic_bp", "label": "SBP", "operator": ">=", "value": 125, "unit": "mmHg", "note": "Fruehe Druckverschiebung." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.046, 0.074] },
+          "confidence": "high",
+          "citation_ids": ["esc_hypertension_2024", "ada_diabetes_2025"],
+          "intervention_effects": [
+            { "intervention_id": "weight_management", "incidence_multiplier": 0.62, "note": "Gewichtsreduktion entlastet den Druckpfad frueh." },
+            { "intervention_id": "bp_control", "incidence_multiplier": 0.80, "note": "Fruehe BP-Optimierung bremst die Manifestation." }
+          ]
+        },
+        {
+          "id": "obesity_to_dyslipidemia",
+          "target": "dyslipidemia",
+          "stage_from": "obesity_overweight",
+          "annual_incidence_prob": 0.065,
+          "lag_years": 2,
+          "modifiable": true,
+          "bidirectional": false,
+          "clinical_basis": "Viszerale Adipositas verschiebt Triglyzeride, HDL und LDL in ein atherogenes Profil.",
+          "biomarker_rules": [
+            { "marker": "bmi", "label": "BMI", "operator": ">=", "value": 27, "unit": "kg/m2", "note": "Fettmasse treibt das Muster." },
+            { "marker": "ldl", "label": "LDL", "operator": ">=", "value": 100, "unit": "mg/dL", "note": "Frueher LDL-Anstieg." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.050, 0.080] },
+          "confidence": "moderate",
+          "citation_ids": ["esc_lipids_2025"],
+          "intervention_effects": [
+            { "intervention_id": "weight_management", "incidence_multiplier": 0.68, "note": "Gewichtssenkung verbessert das Lipidmuster." },
+            { "intervention_id": "lipid_therapy", "incidence_multiplier": 0.70, "note": "Fruehe LDL-Senkung unterbricht die klinische Manifestation." }
+          ]
+        },
+        {
+          "id": "obesity_to_cvd_khk",
+          "target": "cvd_khk",
+          "stage_from": "obesity_class2",
+          "annual_incidence_prob": 0.028,
+          "lag_years": 8,
+          "modifiable": true,
+          "bidirectional": false,
+          "clinical_basis": "Adipositas verstaerkt die atherosklerotische und inflammatorische Last ueber Jahre.",
+          "biomarker_rules": [
+            { "marker": "bmi", "label": "BMI", "operator": ">=", "value": 35, "unit": "kg/m2", "note": "Hoehere adipositaetsbedingte Entzuendung." },
+            { "marker": "ldl", "label": "LDL", "operator": ">=", "value": 130, "unit": "mg/dL", "note": "Atherogener Zusatztreiber." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.020, 0.037] },
+          "confidence": "moderate",
+          "citation_ids": ["esc_ccs_2024", "esc_lipids_2025"],
+          "intervention_effects": [
+            { "intervention_id": "weight_management", "incidence_multiplier": 0.78, "note": "Gewichtsreduktion reduziert die Gesamtlast." },
+            { "intervention_id": "lipid_therapy", "incidence_multiplier": 0.74, "note": "LDL-Kontrolle senkt ASCVD-Risiko." }
+          ]
+        },
+        {
+          "id": "obesity_to_heart_failure",
+          "target": "heart_failure",
+          "stage_from": "obesity_class2",
+          "annual_incidence_prob": 0.018,
+          "lag_years": 10,
+          "modifiable": false,
+          "bidirectional": false,
+          "clinical_basis": "Laenger bestehende Adipositas erhoeht Volumen- und Drucklast und beguenstigt HFpEF/HFrEF-Pfade.",
+          "biomarker_rules": [
+            { "marker": "bmi", "label": "BMI", "operator": ">=", "value": 35, "unit": "kg/m2", "note": "Hoehere haemodynamische Last." },
+            { "marker": "systolic_bp", "label": "SBP", "operator": ">=", "value": 140, "unit": "mmHg", "note": "Parallel laufende Druckbelastung." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.012, 0.025] },
+          "confidence": "low",
+          "citation_ids": ["esc_hf_2021"],
+          "intervention_effects": [
+            { "intervention_id": "weight_management", "incidence_multiplier": 0.82, "note": "Nicht voll modifizierbar, aber die Last sinkt." }
+          ]
+        },
+        {
+          "id": "obesity_to_depression",
+          "target": "depression",
+          "stage_from": "obesity_class1",
+          "annual_incidence_prob": 0.030,
+          "lag_years": 2,
+          "modifiable": true,
+          "bidirectional": true,
+          "clinical_basis": "Adipositas und depressive Symptome verstaerken sich ueber Belastung, Stigma und Aktivitaetsverlust gegenseitig.",
+          "biomarker_rules": [
+            { "marker": "bmi", "label": "BMI", "operator": ">=", "value": 30, "unit": "kg/m2", "note": "Koerperliche und psychosoziale Belastung." },
+            { "marker": "phq9", "label": "PHQ-9", "operator": ">=", "value": 8, "unit": "Score", "note": "Fruehe depressive Symptomatik kann bereits vorliegen." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.022, 0.040] },
+          "confidence": "moderate",
+          "citation_ids": ["esc_mental_cvd_2025"],
+          "intervention_effects": [
+            { "intervention_id": "weight_management", "incidence_multiplier": 0.88, "note": "Selbstwirksamkeit und Aktivitaet koennen helfen." },
+            { "intervention_id": "mental_health_care", "incidence_multiplier": 0.72, "note": "Psychische Versorgung bremst den bidirektionalen Pfad." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "diabetes_t2",
+      "label": "Diabetes mellitus Typ 2",
+      "short_label": "T2D",
+      "icd10": "E11",
+      "cluster": "metabolic",
+      "underwriting_role": "progression_engine",
+      "prevalence_germany": 0.086,
+      "undiagnosed_fraction": 0.25,
+      "confidence": "high",
+      "clinical_basis": "T2D ist der zentrale Treiber mikro- und makrovaskulaerer Downstream-Pfade und reagiert in aktueller Leitlinienlogik auf fruehe kardiorenale Praevention.",
+      "citation_ids": ["ada_diabetes_2025", "kdigo_ckd_2024"],
+      "supported_inputs": ["hba1c", "bmi", "systolic_bp", "egfr", "albuminuria_acr", "ldl"],
+      "stages": [
+        {
+          "id": "prediabetes",
+          "label": "Praediabetes / Insulinresistenz",
+          "severity_rank": 1,
+          "stage_definition": "HbA1c 5.7-6.4% oder klinisch vergleichbares Insulinresistenzprofil.",
+          "years_in_stage_median": 5,
+          "mortality_hr": 1.08,
+          "annual_progression_prob": 0.10,
+          "cost_class": "low",
+          "reversible": true,
+          "clinical_basis": "Praediabetes ist noch reversibel, aber bereits mit kardiometabolischer Zusatzlast verbunden.",
+          "biomarker_rules": [
+            { "marker": "hba1c", "label": "HbA1c", "operator": "range", "value": [5.7, 6.4], "unit": "%", "note": "Praediabetische Zone." },
+            { "marker": "bmi", "label": "BMI", "operator": ">=", "value": 27, "unit": "kg/m2", "note": "Insulinresistenz meist mitgetragen." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [1.03, 1.15],
+            "annual_progression_prob": [0.07, 0.13]
+          },
+          "confidence": "high",
+          "citation_ids": ["ada_diabetes_2025"],
+          "intervention_effects": [
+            { "intervention_id": "weight_management", "hazard_multiplier": 0.82, "progression_multiplier": 0.56, "note": "Gewichtsmanagement ist hier besonders wirksam." },
+            { "intervention_id": "glucose_control", "hazard_multiplier": 0.92, "progression_multiplier": 0.72, "note": "Fruehe Glukosekontrolle bremst die Konversion." }
+          ]
+        },
+        {
+          "id": "t2d_newly_diagnosed",
+          "label": "T2D - frueh diagnostiziert",
+          "severity_rank": 2,
+          "stage_definition": "Manifestes T2D mit HbA1c etwa 6.5-7.4% ohne Organkomplikation.",
+          "years_in_stage_median": 4,
+          "mortality_hr": 1.32,
+          "annual_progression_prob": 0.12,
+          "cost_class": "low",
+          "reversible": false,
+          "clinical_basis": "Die fruehe Phase ist der Punkt fuer kardiorenale Risikoreduktion und Therapiestratifizierung.",
+          "biomarker_rules": [
+            { "marker": "hba1c", "label": "HbA1c", "operator": "range", "value": [6.5, 7.4], "unit": "%", "note": "Frueh manifest." },
+            { "marker": "albuminuria_acr", "label": "ACR", "operator": "<", "value": 30, "unit": "mg/g", "note": "Noch keine manifeste Nephropathie." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [1.20, 1.46],
+            "annual_progression_prob": [0.09, 0.16]
+          },
+          "confidence": "high",
+          "citation_ids": ["ada_diabetes_2025"],
+          "intervention_effects": [
+            { "intervention_id": "glucose_control", "hazard_multiplier": 0.82, "progression_multiplier": 0.60, "note": "Gute fruehe Kontrolle senkt die spaetere Last." },
+            { "intervention_id": "weight_management", "hazard_multiplier": 0.92, "progression_multiplier": 0.80, "note": "Begleitende Gewichtsreduktion verbessert die Dynamik." }
+          ]
+        },
+        {
+          "id": "t2d_controlled",
+          "label": "T2D - etabliert, aber kontrolliert",
+          "severity_rank": 3,
+          "stage_definition": "Bekannter T2D mit HbA1c unter etwa 7.0% und ohne manifeste schwere Organschaeden.",
+          "years_in_stage_median": 6,
+          "mortality_hr": 1.44,
+          "annual_progression_prob": 0.10,
+          "cost_class": "medium",
+          "reversible": false,
+          "clinical_basis": "Kontrollierter T2D bleibt ein relevantes Grundrisiko, ist aber deutlich guenstiger als persistierende Hyperglykaemie.",
+          "biomarker_rules": [
+            { "marker": "hba1c", "label": "HbA1c", "operator": "<=", "value": 7.0, "unit": "%", "note": "Leitliniennaher Kontrollbereich." },
+            { "marker": "ldl", "label": "LDL", "operator": "<=", "value": 100, "unit": "mg/dL", "note": "Kardiovaskulaere Mitkontrolle wichtig." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [1.28, 1.60],
+            "annual_progression_prob": [0.07, 0.13]
+          },
+          "confidence": "high",
+          "citation_ids": ["ada_diabetes_2025"],
+          "intervention_effects": [
+            { "intervention_id": "glucose_control", "hazard_multiplier": 0.86, "progression_multiplier": 0.72, "note": "Stabile Kontrolle wirkt weiter protektiv." },
+            { "intervention_id": "renal_protection", "hazard_multiplier": 0.90, "progression_multiplier": 0.76, "note": "Kardiorenale Schutzmedikation entlastet das Profil." }
+          ]
+        },
+        {
+          "id": "t2d_uncontrolled",
+          "label": "T2D - unzureichend kontrolliert",
+          "severity_rank": 4,
+          "stage_definition": "HbA1c >=8% oder klinisch persistierende Hyperglykaemie trotz bekannter Erkrankung.",
+          "years_in_stage_median": 4,
+          "mortality_hr": 2.05,
+          "annual_progression_prob": 0.18,
+          "cost_class": "high",
+          "reversible": false,
+          "clinical_basis": "Persistierende Hyperglykaemie ist der sichtbarste Motor fuer Nephropathie, CVD und HF im Modell.",
+          "biomarker_rules": [
+            { "marker": "hba1c", "label": "HbA1c", "operator": ">=", "value": 8.0, "unit": "%", "note": "Unkontrollierter Bereich." },
+            { "marker": "albuminuria_acr", "label": "ACR", "operator": ">=", "value": 30, "unit": "mg/g", "note": "Erste Organmitbeteiligung haeufig." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [1.80, 2.34],
+            "annual_progression_prob": [0.14, 0.23]
+          },
+          "confidence": "high",
+          "citation_ids": ["ada_diabetes_2025", "kdigo_ckd_2024"],
+          "intervention_effects": [
+            { "intervention_id": "glucose_control", "hazard_multiplier": 0.72, "progression_multiplier": 0.54, "note": "Verbesserte HbA1c-Kontrolle ist hier der staerkste Hebel." },
+            { "intervention_id": "renal_protection", "hazard_multiplier": 0.86, "progression_multiplier": 0.70, "note": "Renale Mitprotektion bremst Komplikationen." }
+          ]
+        },
+        {
+          "id": "t2d_complications",
+          "label": "T2D mit kardiorenalen Komplikationen",
+          "severity_rank": 5,
+          "stage_definition": "Manifestes Endorgansignal wie Albuminurie, eGFR-Abfall, Neuropathie oder vaskulaere Komplikation.",
+          "years_in_stage_median": 4,
+          "mortality_hr": 2.75,
+          "annual_progression_prob": 0.22,
+          "cost_class": "high",
+          "reversible": false,
+          "clinical_basis": "Ab diesem Punkt bestimmen kardiorenale Ereignispfade die Langzeitprognose.",
+          "biomarker_rules": [
+            { "marker": "egfr", "label": "eGFR", "operator": "<", "value": 60, "unit": "mL/min/1.73m2", "note": "Renale Mitbeteiligung." },
+            { "marker": "albuminuria_acr", "label": "ACR", "operator": ">=", "value": 30, "unit": "mg/g", "note": "Albuminurie als Komplikationssignal." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [2.35, 3.15],
+            "annual_progression_prob": [0.17, 0.28]
+          },
+          "confidence": "moderate",
+          "citation_ids": ["ada_diabetes_2025", "kdigo_ckd_2024"],
+          "intervention_effects": [
+            { "intervention_id": "renal_protection", "hazard_multiplier": 0.82, "progression_multiplier": 0.68, "note": "Renale Protektion adressiert das dominante Komplikationssignal." },
+            { "intervention_id": "glucose_control", "hazard_multiplier": 0.85, "progression_multiplier": 0.76, "note": "Persistierende Hyperglykaemie darf nicht zusaetzlich treiben." }
+          ]
+        },
+        {
+          "id": "t2d_sink_cardiorenal",
+          "label": "ESRD / Herzinsuffizienz / Major Event",
+          "severity_rank": 6,
+          "stage_definition": "Terminaler kardiorenaler Endpunkt mit hoher Last.",
+          "years_in_stage_median": 3,
+          "mortality_hr": 5.60,
+          "annual_progression_prob": 0.0,
+          "cost_class": "very_high",
+          "reversible": false,
+          "clinical_basis": "Der Sink-Stage fasst schwere organische Endpunkte zusammen, die aus diabetischer Langzeitlast resultieren.",
+          "biomarker_rules": [
+            { "marker": "egfr", "label": "eGFR", "operator": "<", "value": 30, "unit": "mL/min/1.73m2", "note": "Schwere renale Mitbeteiligung." },
+            { "marker": "hba1c", "label": "HbA1c", "operator": ">=", "value": 8.0, "unit": "%", "note": "Oft langjaehrig im Vorlauf." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [4.70, 6.60],
+            "annual_progression_prob": [0.0, 0.0]
+          },
+          "confidence": "moderate",
+          "citation_ids": ["ada_diabetes_2025", "kdigo_ckd_2024"],
+          "intervention_effects": []
+        }
+      ],
+      "outgoing_edges": [
+        {
+          "id": "diabetes_t2_to_ckd",
+          "target": "ckd",
+          "stage_from": "t2d_uncontrolled",
+          "annual_incidence_prob": 0.050,
+          "lag_years": 7,
+          "modifiable": true,
+          "bidirectional": false,
+          "clinical_basis": "Hyperglykaemie und Albuminurie treiben die diabetische Nephropathie.",
+          "biomarker_rules": [
+            { "marker": "hba1c", "label": "HbA1c", "operator": ">=", "value": 8.0, "unit": "%", "note": "Schlechtere glykaemische Kontrolle erhoeht die CKD-Inzidenz." },
+            { "marker": "albuminuria_acr", "label": "ACR", "operator": ">=", "value": 30, "unit": "mg/g", "note": "Frueher renaler Marker." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.040, 0.062] },
+          "confidence": "high",
+          "citation_ids": ["ada_diabetes_2025", "kdigo_ckd_2024"],
+          "intervention_effects": [
+            { "intervention_id": "glucose_control", "incidence_multiplier": 0.66, "note": "Bessere Kontrolle senkt die DKD-Konversion." },
+            { "intervention_id": "renal_protection", "incidence_multiplier": 0.60, "note": "Renoprotektion ist hier zentral." }
+          ]
+        },
+        {
+          "id": "diabetes_t2_to_cvd_khk",
+          "target": "cvd_khk",
+          "stage_from": "t2d_controlled",
+          "annual_incidence_prob": 0.030,
+          "lag_years": 6,
+          "modifiable": true,
+          "bidirectional": false,
+          "clinical_basis": "Auch kontrollierter T2D bleibt eine ASCVD-Risikokonstellation, besonders mit LDL- und BP-Mitlast.",
+          "biomarker_rules": [
+            { "marker": "ldl", "label": "LDL", "operator": ">=", "value": 100, "unit": "mg/dL", "note": "Atherosklerotischer Mitfahrer." },
+            { "marker": "systolic_bp", "label": "SBP", "operator": ">=", "value": 130, "unit": "mmHg", "note": "Vaskulaere Zusatzbelastung." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.022, 0.039] },
+          "confidence": "high",
+          "citation_ids": ["ada_diabetes_2025", "esc_ccs_2024"],
+          "intervention_effects": [
+            { "intervention_id": "lipid_therapy", "incidence_multiplier": 0.70, "note": "LDL-Senkung ist fuer ASCVD besonders relevant." },
+            { "intervention_id": "bp_control", "incidence_multiplier": 0.83, "note": "BP-Kontrolle senkt additive vaskulaere Last." }
+          ]
+        },
+        {
+          "id": "diabetes_t2_to_heart_failure",
+          "target": "heart_failure",
+          "stage_from": "t2d_complications",
+          "annual_incidence_prob": 0.018,
+          "lag_years": 8,
+          "modifiable": false,
+          "bidirectional": false,
+          "clinical_basis": "Kardiorenale Diabetesschaeden fuehren langfristig in HF-Pfade.",
+          "biomarker_rules": [
+            { "marker": "egfr", "label": "eGFR", "operator": "<", "value": 60, "unit": "mL/min/1.73m2", "note": "Renale Beteiligung signalisiert hoehere HF-Last." },
+            { "marker": "albuminuria_acr", "label": "ACR", "operator": ">=", "value": 30, "unit": "mg/g", "note": "Mikrovaskulaere Belastung." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.012, 0.025] },
+          "confidence": "moderate",
+          "citation_ids": ["ada_diabetes_2025", "esc_hf_2021"],
+          "intervention_effects": [
+            { "intervention_id": "renal_protection", "incidence_multiplier": 0.78, "note": "Kardiorenaler Schutz bremst HF-Konvergenz." }
+          ]
+        },
+        {
+          "id": "diabetes_t2_to_depression",
+          "target": "depression",
+          "stage_from": "t2d_newly_diagnosed",
+          "annual_incidence_prob": 0.026,
+          "lag_years": 2,
+          "modifiable": true,
+          "bidirectional": true,
+          "clinical_basis": "T2D und depressive Symptome beeinflussen sich ueber Belastung, Adherence und Aktivitaet gegenseitig.",
+          "biomarker_rules": [
+            { "marker": "phq9", "label": "PHQ-9", "operator": ">=", "value": 8, "unit": "Score", "note": "Fruehe psychische Belastung beschleunigt die Spirale." },
+            { "marker": "hba1c", "label": "HbA1c", "operator": ">=", "value": 7.0, "unit": "%", "note": "Schlechtere Kontrolle und psychische Last greifen ineinander." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.019, 0.034] },
+          "confidence": "moderate",
+          "citation_ids": ["ada_diabetes_2025", "esc_mental_cvd_2025"],
+          "intervention_effects": [
+            { "intervention_id": "mental_health_care", "incidence_multiplier": 0.72, "note": "Psychische Versorgung stabilisiert Adherence und Belastung." },
+            { "intervention_id": "glucose_control", "incidence_multiplier": 0.88, "note": "Bessere Stoffwechselkontrolle reduziert die Alltagslast." }
+          ]
+        },
+        {
+          "id": "diabetes_t2_to_hypertension",
+          "target": "hypertension",
+          "stage_from": "t2d_newly_diagnosed",
+          "annual_incidence_prob": 0.045,
+          "lag_years": 1,
+          "modifiable": true,
+          "bidirectional": false,
+          "clinical_basis": "Glukosestoffwechselstoerung, Endotheldysfunktion und Gewichtsdynamik foerdern parallel Hypertonie.",
+          "biomarker_rules": [
+            { "marker": "bmi", "label": "BMI", "operator": ">=", "value": 28, "unit": "kg/m2", "note": "Metabolischer Zusatztreiber." },
+            { "marker": "systolic_bp", "label": "SBP", "operator": ">=", "value": 125, "unit": "mmHg", "note": "Frueh erhoehter Druck." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.034, 0.056] },
+          "confidence": "moderate",
+          "citation_ids": ["ada_diabetes_2025", "esc_hypertension_2024"],
+          "intervention_effects": [
+            { "intervention_id": "weight_management", "incidence_multiplier": 0.76, "note": "Gewichtsreduktion bremst den Doppelpfad." },
+            { "intervention_id": "bp_control", "incidence_multiplier": 0.72, "note": "Fruehe Druckoptimierung reduziert die Manifestation." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ckd",
+      "label": "Chronische Nierenerkrankung",
+      "short_label": "CKD",
+      "icd10": "N18",
+      "cluster": "cardiorenal",
+      "underwriting_role": "progression_sink_feeder",
+      "prevalence_germany": 0.10,
+      "undiagnosed_fraction": 0.50,
+      "confidence": "high",
+      "clinical_basis": "KDIGO 2024 betont die Kombination aus GFR- und Albuminurie-Kategorien sowie das kardiorenale Gesamtprofil.",
+      "citation_ids": ["kdigo_ckd_2024"],
+      "supported_inputs": ["egfr", "albuminuria_acr", "systolic_bp", "smoking_status"],
+      "stages": [
+        {
+          "id": "ckd_g1g2_a1a2",
+          "label": "CKD G1/G2 mit Albuminurie",
+          "severity_rank": 1,
+          "stage_definition": "Erhaltene oder leicht reduzierte Funktion mit fruehem strukturellem Nierenschaden.",
+          "years_in_stage_median": 7,
+          "mortality_hr": 1.18,
+          "annual_progression_prob": 0.05,
+          "cost_class": "low",
+          "reversible": true,
+          "clinical_basis": "Die fruehen KDIGO-Kategorien sind oft klinisch stumm, aber bereits prognostisch relevant.",
+          "biomarker_rules": [
+            { "marker": "egfr", "label": "eGFR", "operator": ">=", "value": 60, "unit": "mL/min/1.73m2", "note": "Noch erhaltene Filtration." },
+            { "marker": "albuminuria_acr", "label": "ACR", "operator": ">=", "value": 30, "unit": "mg/g", "note": "Albuminurie signalisiert strukturelle Schaeden." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [1.10, 1.27],
+            "annual_progression_prob": [0.03, 0.07]
+          },
+          "confidence": "high",
+          "citation_ids": ["kdigo_ckd_2024"],
+          "intervention_effects": [
+            { "intervention_id": "renal_protection", "hazard_multiplier": 0.84, "progression_multiplier": 0.58, "note": "Albuminurieorientierte Renoprotektion wirkt hier am besten." },
+            { "intervention_id": "bp_control", "hazard_multiplier": 0.90, "progression_multiplier": 0.75, "note": "BP-Kontrolle bleibt ein Kernhebel." }
+          ]
+        },
+        {
+          "id": "ckd_g3a",
+          "label": "CKD G3a",
+          "severity_rank": 2,
+          "stage_definition": "eGFR 45-59 mL/min/1.73m2 oder vergleichbares KDIGO-G3a-Risiko.",
+          "years_in_stage_median": 6,
+          "mortality_hr": 1.42,
+          "annual_progression_prob": 0.09,
+          "cost_class": "medium",
+          "reversible": false,
+          "clinical_basis": "G3a markiert den deutlicheren Uebergang in kardiorenales Mehrfachrisiko.",
+          "biomarker_rules": [
+            { "marker": "egfr", "label": "eGFR", "operator": "range", "value": [45, 59], "unit": "mL/min/1.73m2", "note": "KDIGO G3a." },
+            { "marker": "albuminuria_acr", "label": "ACR", "operator": ">=", "value": 30, "unit": "mg/g", "note": "A2/A3 verstaerkt das Profil." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [1.28, 1.57],
+            "annual_progression_prob": [0.06, 0.12]
+          },
+          "confidence": "high",
+          "citation_ids": ["kdigo_ckd_2024"],
+          "intervention_effects": [
+            { "intervention_id": "renal_protection", "hazard_multiplier": 0.82, "progression_multiplier": 0.62, "note": "KDIGO-konforme Renoprotektion reduziert das Fortschreiten." },
+            { "intervention_id": "bp_control", "hazard_multiplier": 0.92, "progression_multiplier": 0.78, "note": "Druckkontrolle bleibt additiv." }
+          ]
+        },
+        {
+          "id": "ckd_g3b",
+          "label": "CKD G3b",
+          "severity_rank": 3,
+          "stage_definition": "eGFR 30-44 mL/min/1.73m2 oder hohes A3-Profil.",
+          "years_in_stage_median": 4,
+          "mortality_hr": 2.00,
+          "annual_progression_prob": 0.15,
+          "cost_class": "medium",
+          "reversible": false,
+          "clinical_basis": "G3b ist das eigentliche Kipppunkt-Stadium fuer CVD- und HF-Konvergenz.",
+          "biomarker_rules": [
+            { "marker": "egfr", "label": "eGFR", "operator": "range", "value": [30, 44], "unit": "mL/min/1.73m2", "note": "KDIGO G3b." },
+            { "marker": "albuminuria_acr", "label": "ACR", "operator": ">=", "value": 300, "unit": "mg/g", "note": "A3 veraendert Prognose und Monitoring." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [1.78, 2.25],
+            "annual_progression_prob": [0.11, 0.19]
+          },
+          "confidence": "high",
+          "citation_ids": ["kdigo_ckd_2024"],
+          "intervention_effects": [
+            { "intervention_id": "renal_protection", "hazard_multiplier": 0.84, "progression_multiplier": 0.66, "note": "Auch hier noch relevant, aber weniger reversibel." }
+          ]
+        },
+        {
+          "id": "ckd_g4",
+          "label": "CKD G4",
+          "severity_rank": 4,
+          "stage_definition": "eGFR 15-29 mL/min/1.73m2 mit hoher ESRD- und CVD-Last.",
+          "years_in_stage_median": 3,
+          "mortality_hr": 3.10,
+          "annual_progression_prob": 0.24,
+          "cost_class": "high",
+          "reversible": false,
+          "clinical_basis": "G4 repraesentiert in der Regel ein hohes kort-, mittel- und langfristiges Ereignisrisiko.",
+          "biomarker_rules": [
+            { "marker": "egfr", "label": "eGFR", "operator": "range", "value": [15, 29], "unit": "mL/min/1.73m2", "note": "KDIGO G4." },
+            { "marker": "albuminuria_acr", "label": "ACR", "operator": ">=", "value": 300, "unit": "mg/g", "note": "Fast immer hohes Albuminurieniveau." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [2.70, 3.55],
+            "annual_progression_prob": [0.18, 0.30]
+          },
+          "confidence": "moderate",
+          "citation_ids": ["kdigo_ckd_2024"],
+          "intervention_effects": [
+            { "intervention_id": "renal_protection", "hazard_multiplier": 0.88, "progression_multiplier": 0.78, "note": "Schutz bleibt sinnvoll, aber der Effekt ist kleiner." }
+          ]
+        },
+        {
+          "id": "ckd_g5_rrt",
+          "label": "CKD G5 / RRT",
+          "severity_rank": 5,
+          "stage_definition": "Terminale CKD mit Dialyse, Transplantationspfad oder G5-nahem Zustand.",
+          "years_in_stage_median": 3,
+          "mortality_hr": 6.80,
+          "annual_progression_prob": 0.0,
+          "cost_class": "very_high",
+          "reversible": false,
+          "clinical_basis": "G5/RRT ist einer der kosten- und risikointensivsten Langzeitendpunkte im System.",
+          "biomarker_rules": [
+            { "marker": "egfr", "label": "eGFR", "operator": "<", "value": 15, "unit": "mL/min/1.73m2", "note": "KDIGO G5." },
+            { "marker": "albuminuria_acr", "label": "ACR", "operator": ">=", "value": 300, "unit": "mg/g", "note": "Persistierend schwere glomerulaere Schaeden." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [5.80, 7.90],
+            "annual_progression_prob": [0.0, 0.0]
+          },
+          "confidence": "moderate",
+          "citation_ids": ["kdigo_ckd_2024"],
+          "intervention_effects": []
+        }
+      ],
+      "outgoing_edges": [
+        {
+          "id": "ckd_to_cvd_khk",
+          "target": "cvd_khk",
+          "stage_from": "ckd_g3a",
+          "annual_incidence_prob": 0.040,
+          "lag_years": 3,
+          "modifiable": false,
+          "bidirectional": false,
+          "clinical_basis": "CKD beschleunigt vaskulaere Ereignisse ueber Entzuendung, Drucklast und Endotheldysfunktion.",
+          "biomarker_rules": [
+            { "marker": "egfr", "label": "eGFR", "operator": "<", "value": 60, "unit": "mL/min/1.73m2", "note": "Bereits G3a relevant." },
+            { "marker": "albuminuria_acr", "label": "ACR", "operator": ">=", "value": 30, "unit": "mg/g", "note": "Albuminurie verstaerkt das CVD-Signal." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.030, 0.052] },
+          "confidence": "high",
+          "citation_ids": ["kdigo_ckd_2024", "esc_ccs_2024"],
+          "intervention_effects": [
+            { "intervention_id": "renal_protection", "incidence_multiplier": 0.82, "note": "Renale Stabilisierung entlastet den vaskulaeren Pfad." },
+            { "intervention_id": "lipid_therapy", "incidence_multiplier": 0.86, "note": "Atherosklerotische Mitlast ist behandelbar." }
+          ]
+        },
+        {
+          "id": "ckd_to_heart_failure",
+          "target": "heart_failure",
+          "stage_from": "ckd_g3b",
+          "annual_incidence_prob": 0.033,
+          "lag_years": 4,
+          "modifiable": false,
+          "bidirectional": false,
+          "clinical_basis": "Das cardiorenal syndrome wird mit sinkender Nierenfunktion deutlich wahrscheinlicher.",
+          "biomarker_rules": [
+            { "marker": "egfr", "label": "eGFR", "operator": "<", "value": 45, "unit": "mL/min/1.73m2", "note": "Ab G3b zunehmend relevant." },
+            { "marker": "systolic_bp", "label": "SBP", "operator": ">=", "value": 140, "unit": "mmHg", "note": "Drucklast verstaerkt das HF-Risiko." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.024, 0.043] },
+          "confidence": "moderate",
+          "citation_ids": ["kdigo_ckd_2024", "esc_hf_2021"],
+          "intervention_effects": [
+            { "intervention_id": "renal_protection", "incidence_multiplier": 0.82, "note": "Cardiorenaler Schutz wirkt auf beide Organe." }
+          ]
+        },
+        {
+          "id": "ckd_to_hypertension",
+          "target": "hypertension",
+          "stage_from": "ckd_g1g2_a1a2",
+          "annual_incidence_prob": 0.048,
+          "lag_years": 1,
+          "modifiable": true,
+          "bidirectional": true,
+          "clinical_basis": "Albuminurie und Nierenparenchymschaeden verschieben Volumenstatus und BP-Regulation.",
+          "biomarker_rules": [
+            { "marker": "albuminuria_acr", "label": "ACR", "operator": ">=", "value": 30, "unit": "mg/g", "note": "Fruehes Signal einer zirkulaeren Belastung." },
+            { "marker": "systolic_bp", "label": "SBP", "operator": ">=", "value": 125, "unit": "mmHg", "note": "Frueh steigende Druckwerte." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.037, 0.060] },
+          "confidence": "moderate",
+          "citation_ids": ["kdigo_ckd_2024", "esc_hypertension_2024"],
+          "intervention_effects": [
+            { "intervention_id": "renal_protection", "incidence_multiplier": 0.74, "note": "Renale Stabilisierung unterbricht den Rueckkopplungspfad." },
+            { "intervention_id": "bp_control", "incidence_multiplier": 0.78, "note": "Fruehe BP-Steuerung verhindert die Selbstverstaerkung." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "depression",
+      "label": "Depression / Psychische Erkrankungen",
+      "short_label": "Depression",
+      "icd10": "F32-F33",
+      "cluster": "mental",
+      "underwriting_role": "bridge_node",
+      "prevalence_germany": 0.278,
+      "undiagnosed_fraction": 0.40,
+      "confidence": "moderate",
+      "clinical_basis": "Psychische Erkrankungen beeinflussen Adherence, Aktivitaet, Rauchen und Entzuendungsprofile und bilden damit eine echte Bruecke zwischen Clustern.",
+      "citation_ids": ["esc_mental_cvd_2025"],
+      "supported_inputs": ["phq9", "smoking_status", "bmi", "hba1c"],
+      "stages": [
+        {
+          "id": "depression_subclinical",
+          "label": "Subklinische Symptomatik",
+          "severity_rank": 1,
+          "stage_definition": "PHQ-9 etwa 5-9 oder klinisch aehnliche, noch nicht voll manifeste Symptomatik.",
+          "years_in_stage_median": 3,
+          "mortality_hr": 1.06,
+          "annual_progression_prob": 0.10,
+          "cost_class": "low",
+          "reversible": true,
+          "clinical_basis": "Schon moderate psychische Belastung kann Adherence und Lifestyle-Faktoren verschlechtern.",
+          "biomarker_rules": [
+            { "marker": "phq9", "label": "PHQ-9", "operator": "range", "value": [5, 9], "unit": "Score", "note": "Subklinische Zone." },
+            { "marker": "smoking_status", "label": "Rauchstatus", "operator": "in", "value": ["former", "active"], "unit": "", "note": "Verhaltensrisiken haeufiger." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [1.01, 1.12],
+            "annual_progression_prob": [0.07, 0.13]
+          },
+          "confidence": "moderate",
+          "citation_ids": ["esc_mental_cvd_2025"],
+          "intervention_effects": [
+            { "intervention_id": "mental_health_care", "hazard_multiplier": 0.86, "progression_multiplier": 0.60, "note": "Niederschwellige Versorgung kann die Eskalation bremsen." }
+          ]
+        },
+        {
+          "id": "depression_moderate",
+          "label": "Episode leicht bis moderat",
+          "severity_rank": 2,
+          "stage_definition": "PHQ-9 etwa 10-14 mit funktionell relevanter Symptomatik.",
+          "years_in_stage_median": 2,
+          "mortality_hr": 1.28,
+          "annual_progression_prob": 0.15,
+          "cost_class": "medium",
+          "reversible": true,
+          "clinical_basis": "Mittlere Auspraegungen erzeugen bereits deutliche Reibung in Selbstmanagement und Aktivitaet.",
+          "biomarker_rules": [
+            { "marker": "phq9", "label": "PHQ-9", "operator": "range", "value": [10, 14], "unit": "Score", "note": "Klinisch relevante Symptomatik." },
+            { "marker": "hba1c", "label": "HbA1c", "operator": ">=", "value": 7.0, "unit": "%", "note": "Stoffwechsel und Adherence leiden haeufig mit." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [1.16, 1.42],
+            "annual_progression_prob": [0.11, 0.20]
+          },
+          "confidence": "moderate",
+          "citation_ids": ["esc_mental_cvd_2025"],
+          "intervention_effects": [
+            { "intervention_id": "mental_health_care", "hazard_multiplier": 0.78, "progression_multiplier": 0.54, "note": "Strukturierte Therapie kann Verlauf und Adherence verbessern." }
+          ]
+        },
+        {
+          "id": "depression_severe_recurrent",
+          "label": "Schwere / rezidivierende Depression",
+          "severity_rank": 3,
+          "stage_definition": "PHQ-9 >=15 oder rezidivierender schwerer Verlauf mit deutlicher Funktionseinschraenkung.",
+          "years_in_stage_median": 4,
+          "mortality_hr": 1.78,
+          "annual_progression_prob": 0.20,
+          "cost_class": "high",
+          "reversible": false,
+          "clinical_basis": "Hier dominieren Nicht-Adherence, Inaktivitaet und psychosoziale Last als Multiplikatoren somatischer Risiken.",
+          "biomarker_rules": [
+            { "marker": "phq9", "label": "PHQ-9", "operator": ">=", "value": 15, "unit": "Score", "note": "Schwerer Symptombereich." },
+            { "marker": "smoking_status", "label": "Rauchstatus", "operator": "=", "value": "active", "unit": "", "note": "Aktives Rauchen verschlechtert den Brueckenpfad weiter." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [1.55, 2.02],
+            "annual_progression_prob": [0.15, 0.25]
+          },
+          "confidence": "moderate",
+          "citation_ids": ["esc_mental_cvd_2025"],
+          "intervention_effects": [
+            { "intervention_id": "mental_health_care", "hazard_multiplier": 0.80, "progression_multiplier": 0.62, "note": "Der Effekt bleibt wichtig, aber der Verlauf ist schwerer." },
+            { "intervention_id": "smoking_cessation", "hazard_multiplier": 0.94, "progression_multiplier": 0.92, "note": "Rauchstopp nimmt einen relevanten Verstaerker heraus." }
+          ]
+        },
+        {
+          "id": "depression_sink_chronic",
+          "label": "Chronische Depression mit Multimorbiditaet",
+          "severity_rank": 4,
+          "stage_definition": "Lang anhaltender, funktionell schwerer Verlauf mit somatischer Ko-Morbiditaet.",
+          "years_in_stage_median": 3,
+          "mortality_hr": 2.60,
+          "annual_progression_prob": 0.0,
+          "cost_class": "very_high",
+          "reversible": false,
+          "clinical_basis": "Der Sink-Stage repraesentiert die Kombination aus chronischer psychischer Erkrankung und somatischer Last.",
+          "biomarker_rules": [
+            { "marker": "phq9", "label": "PHQ-9", "operator": ">=", "value": 20, "unit": "Score", "note": "Schwerer chronischer Bereich." },
+            { "marker": "smoking_status", "label": "Rauchstatus", "operator": "=", "value": "active", "unit": "", "note": "Haeufiger begleitender Verstaerker." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [2.20, 3.00],
+            "annual_progression_prob": [0.0, 0.0]
+          },
+          "confidence": "low",
+          "citation_ids": ["esc_mental_cvd_2025"],
+          "intervention_effects": []
+        }
+      ],
+      "outgoing_edges": [
+        {
+          "id": "depression_to_diabetes_t2",
+          "target": "diabetes_t2",
+          "stage_from": "depression_moderate",
+          "annual_incidence_prob": 0.024,
+          "lag_years": 3,
+          "modifiable": true,
+          "bidirectional": true,
+          "clinical_basis": "Depressive Episoden verschlechtern Bewegung, Schlaf, Essverhalten und Diabetes-Selbstmanagement.",
+          "biomarker_rules": [
+            { "marker": "phq9", "label": "PHQ-9", "operator": ">=", "value": 10, "unit": "Score", "note": "Klinisch relevante Symptomatik." },
+            { "marker": "bmi", "label": "BMI", "operator": ">=", "value": 28, "unit": "kg/m2", "note": "Metabolischer Verstaerker." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.017, 0.032] },
+          "confidence": "moderate",
+          "citation_ids": ["esc_mental_cvd_2025", "ada_diabetes_2025"],
+          "intervention_effects": [
+            { "intervention_id": "mental_health_care", "incidence_multiplier": 0.70, "note": "Psychische Stabilisierung verbessert Verhalten und Adherence." },
+            { "intervention_id": "weight_management", "incidence_multiplier": 0.84, "note": "Metabolische Begleitintervention wirkt additiv." }
+          ]
+        },
+        {
+          "id": "depression_to_cvd_khk",
+          "target": "cvd_khk",
+          "stage_from": "depression_severe_recurrent",
+          "annual_incidence_prob": 0.018,
+          "lag_years": 5,
+          "modifiable": true,
+          "bidirectional": true,
+          "clinical_basis": "Psychische Belastung beeinflusst Sympathikotonus, Entzuendung und kardiovaskulaere Adherence.",
+          "biomarker_rules": [
+            { "marker": "phq9", "label": "PHQ-9", "operator": ">=", "value": 15, "unit": "Score", "note": "Schwererer Verlauf mit hoeherem CVD-Signal." },
+            { "marker": "smoking_status", "label": "Rauchstatus", "operator": "=", "value": "active", "unit": "", "note": "Hauefiger kovariierender Risikofaktor." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.012, 0.025] },
+          "confidence": "moderate",
+          "citation_ids": ["esc_mental_cvd_2025", "esc_ccs_2024"],
+          "intervention_effects": [
+            { "intervention_id": "mental_health_care", "incidence_multiplier": 0.76, "note": "Bessere psychische Stabilisierung reduziert den CVD-Brueckenpfad." },
+            { "intervention_id": "smoking_cessation", "incidence_multiplier": 0.84, "note": "Rauchstopp entfernt einen starken Co-Treiber." }
+          ]
+        },
+        {
+          "id": "depression_to_obesity_metabolic",
+          "target": "obesity_metabolic",
+          "stage_from": "depression_moderate",
+          "annual_incidence_prob": 0.025,
+          "lag_years": 2,
+          "modifiable": true,
+          "bidirectional": true,
+          "clinical_basis": "Depression erhoeht Gewichtsdynamik ueber Aktivitaetsverlust, Schlaf und Alltagsregulation.",
+          "biomarker_rules": [
+            { "marker": "phq9", "label": "PHQ-9", "operator": ">=", "value": 10, "unit": "Score", "note": "Klinisch relevante Symptomatik." },
+            { "marker": "bmi", "label": "BMI", "operator": ">=", "value": 27, "unit": "kg/m2", "note": "Fruehe Gewichtserhoehung." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.018, 0.034] },
+          "confidence": "moderate",
+          "citation_ids": ["esc_mental_cvd_2025"],
+          "intervention_effects": [
+            { "intervention_id": "mental_health_care", "incidence_multiplier": 0.72, "note": "Verbessert Aktivitaet und alltaegliche Stabilitaet." },
+            { "intervention_id": "weight_management", "incidence_multiplier": 0.80, "note": "Metabolische Gegenstrategie reduziert die Rueckkopplung." }
+          ]
+        },
+        {
+          "id": "depression_to_hypertension",
+          "target": "hypertension",
+          "stage_from": "depression_severe_recurrent",
+          "annual_incidence_prob": 0.020,
+          "lag_years": 3,
+          "modifiable": true,
+          "bidirectional": false,
+          "clinical_basis": "Schwere depressive Episoden koennen ueber Stressachsen, Inaktivitaet und Rauchen Blutdruckpfade verstaerken.",
+          "biomarker_rules": [
+            { "marker": "phq9", "label": "PHQ-9", "operator": ">=", "value": 15, "unit": "Score", "note": "Hoehere Belastung." },
+            { "marker": "smoking_status", "label": "Rauchstatus", "operator": "=", "value": "active", "unit": "", "note": "Zusatztreiber." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.014, 0.027] },
+          "confidence": "low",
+          "citation_ids": ["esc_mental_cvd_2025", "esc_hypertension_2024"],
+          "intervention_effects": [
+            { "intervention_id": "mental_health_care", "incidence_multiplier": 0.78, "note": "Stabilisierung reduziert Stress- und Adherence-Effekte." },
+            { "intervention_id": "smoking_cessation", "incidence_multiplier": 0.86, "note": "Entfernt einen haeufigen Mitfahrer." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dyslipidemia",
+      "label": "Dyslipidaemie",
+      "short_label": "Dyslipidaemie",
+      "icd10": "E78",
+      "cluster": "metabolic",
+      "underwriting_role": "intermediate_amplifier",
+      "prevalence_germany": 0.19,
+      "undiagnosed_fraction": 0.30,
+      "confidence": "high",
+      "clinical_basis": "Die Lipidachse ist im neuen ESC/EAS-Update staerker risikobasiert und eng mit ASCVD, Diabetes und Hypertonie verknuepft.",
+      "citation_ids": ["esc_lipids_2025", "esc_ccs_2024"],
+      "supported_inputs": ["ldl", "bmi", "smoking_status", "systolic_bp"],
+      "stages": [
+        {
+          "id": "lipids_above_goal",
+          "label": "LDL oberhalb des Zielbereichs",
+          "severity_rank": 1,
+          "stage_definition": "LDL im Bereich 100-129 mg/dL bei klinischer Risikorelevanz.",
+          "years_in_stage_median": 6,
+          "mortality_hr": 1.08,
+          "annual_progression_prob": 0.08,
+          "cost_class": "low",
+          "reversible": true,
+          "clinical_basis": "Schon leicht erhoehte LDL-Werte sind bei hohem Gesamtrisiko nicht neutral.",
+          "biomarker_rules": [
+            { "marker": "ldl", "label": "LDL", "operator": "range", "value": [100, 129], "unit": "mg/dL", "note": "Ueber Ziel fuer viele Risikoprofile." },
+            { "marker": "smoking_status", "label": "Rauchstatus", "operator": "=", "value": "active", "unit": "", "note": "Atherogenes Zusatzrisiko." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [1.02, 1.14],
+            "annual_progression_prob": [0.05, 0.11]
+          },
+          "confidence": "moderate",
+          "citation_ids": ["esc_lipids_2025"],
+          "intervention_effects": [
+            { "intervention_id": "lipid_therapy", "hazard_multiplier": 0.78, "progression_multiplier": 0.56, "note": "Fruehe LDL-Senkung ist hoch wirksam." }
+          ]
+        },
+        {
+          "id": "dyslipidemia_established",
+          "label": "Manifeste Dyslipidaemie",
+          "severity_rank": 2,
+          "stage_definition": "LDL 130-189 mg/dL oder klinisch etablierte atherogene Dyslipidaemie.",
+          "years_in_stage_median": 7,
+          "mortality_hr": 1.30,
+          "annual_progression_prob": 0.12,
+          "cost_class": "low",
+          "reversible": true,
+          "clinical_basis": "Jenseits des Zielbereichs verschiebt sich die Ereigniswahrscheinlichkeit deutlich.",
+          "biomarker_rules": [
+            { "marker": "ldl", "label": "LDL", "operator": "range", "value": [130, 189], "unit": "mg/dL", "note": "Manifest erhoeht." },
+            { "marker": "bmi", "label": "BMI", "operator": ">=", "value": 27, "unit": "kg/m2", "note": "Metabolische Verstarkung." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [1.18, 1.44],
+            "annual_progression_prob": [0.08, 0.16]
+          },
+          "confidence": "high",
+          "citation_ids": ["esc_lipids_2025"],
+          "intervention_effects": [
+            { "intervention_id": "lipid_therapy", "hazard_multiplier": 0.72, "progression_multiplier": 0.50, "note": "Leitliniennahe LDL-Senkung ist der Kernhebel." },
+            { "intervention_id": "weight_management", "hazard_multiplier": 0.93, "progression_multiplier": 0.88, "note": "Metabolische Begleitverbesserung hilft additiv." }
+          ]
+        },
+        {
+          "id": "dyslipidemia_severe",
+          "label": "Schwere Dyslipidaemie / familiere Hypercholesterinaemie",
+          "severity_rank": 3,
+          "stage_definition": "LDL >=190 mg/dL oder klinisch vergleichbares extremes atherogenes Profil.",
+          "years_in_stage_median": 5,
+          "mortality_hr": 1.90,
+          "annual_progression_prob": 0.20,
+          "cost_class": "medium",
+          "reversible": false,
+          "clinical_basis": "Sehr hohes LDL signalisiert ein deutlich hoeheres ASCVD-Risiko, auch unabhaengig vom Restprofil.",
+          "biomarker_rules": [
+            { "marker": "ldl", "label": "LDL", "operator": ">=", "value": 190, "unit": "mg/dL", "note": "Schwer erhoeht." },
+            { "marker": "smoking_status", "label": "Rauchstatus", "operator": "=", "value": "active", "unit": "", "note": "Verstaerkt den atherogenen Pfad." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [1.65, 2.18],
+            "annual_progression_prob": [0.15, 0.25]
+          },
+          "confidence": "high",
+          "citation_ids": ["esc_lipids_2025", "esc_ccs_2024"],
+          "intervention_effects": [
+            { "intervention_id": "lipid_therapy", "hazard_multiplier": 0.70, "progression_multiplier": 0.52, "note": "Aggressive LDL-Senkung ist fuer dieses Stadium zentral." }
+          ]
+        },
+        {
+          "id": "dyslipidemia_sink_atherosclerosis",
+          "label": "Atherosklerotische Endstrecke",
+          "severity_rank": 4,
+          "stage_definition": "Klinisch manifest atherosklerotischer Endpunkt oder unmittelbare Vorstufe.",
+          "years_in_stage_median": 3,
+          "mortality_hr": 3.90,
+          "annual_progression_prob": 0.0,
+          "cost_class": "very_high",
+          "reversible": false,
+          "clinical_basis": "Der Sink-Stage bildet die atherosklerotische Konsequenz der Lipidlast ab.",
+          "biomarker_rules": [
+            { "marker": "ldl", "label": "LDL", "operator": ">=", "value": 160, "unit": "mg/dL", "note": "Historisch meist deutlich erhoeht." },
+            { "marker": "smoking_status", "label": "Rauchstatus", "operator": "in", "value": ["former", "active"], "unit": "", "note": "Tabakanamnese haeufig mitbeteiligt." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [3.30, 4.60],
+            "annual_progression_prob": [0.0, 0.0]
+          },
+          "confidence": "moderate",
+          "citation_ids": ["esc_lipids_2025", "esc_ccs_2024"],
+          "intervention_effects": []
+        }
+      ],
+      "outgoing_edges": [
+        {
+          "id": "dyslipidemia_to_cvd_khk",
+          "target": "cvd_khk",
+          "stage_from": "dyslipidemia_established",
+          "annual_incidence_prob": 0.032,
+          "lag_years": 8,
+          "modifiable": true,
+          "bidirectional": false,
+          "clinical_basis": "Manifeste Dyslipidaemie ist ein direkter Treiber chronischer und akuter koronarer Ereignisse.",
+          "biomarker_rules": [
+            { "marker": "ldl", "label": "LDL", "operator": ">=", "value": 130, "unit": "mg/dL", "note": "Atherogenes Kernsignal." },
+            { "marker": "smoking_status", "label": "Rauchstatus", "operator": "=", "value": "active", "unit": "", "note": "Verstaerkt das Ereignisrisiko." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.024, 0.041] },
+          "confidence": "high",
+          "citation_ids": ["esc_lipids_2025", "esc_ccs_2024"],
+          "intervention_effects": [
+            { "intervention_id": "lipid_therapy", "incidence_multiplier": 0.60, "note": "LDL-Senkung ist hier der groesste Ereignishebel." },
+            { "intervention_id": "smoking_cessation", "incidence_multiplier": 0.86, "note": "Rauchstopp reduziert die atherothrombotische Zusatzlast." }
+          ]
+        },
+        {
+          "id": "dyslipidemia_to_hypertension",
+          "target": "hypertension",
+          "stage_from": "dyslipidemia_established",
+          "annual_incidence_prob": 0.018,
+          "lag_years": 3,
+          "modifiable": true,
+          "bidirectional": false,
+          "clinical_basis": "Dyslipidaemie teilt zahlreiche Treiber mit Hypertonie und begleitet Endotheldysfunktion.",
+          "biomarker_rules": [
+            { "marker": "ldl", "label": "LDL", "operator": ">=", "value": 130, "unit": "mg/dL", "note": "Metabolischer Clusterdriver." },
+            { "marker": "bmi", "label": "BMI", "operator": ">=", "value": 27, "unit": "kg/m2", "note": "Parallel verlaufende Gewichtslast." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.013, 0.025] },
+          "confidence": "low",
+          "citation_ids": ["esc_lipids_2025", "esc_hypertension_2024"],
+          "intervention_effects": [
+            { "intervention_id": "weight_management", "incidence_multiplier": 0.82, "note": "Metabolische Entlastung reduziert Clusterbildung." },
+            { "intervention_id": "lipid_therapy", "incidence_multiplier": 0.90, "note": "LDL-Senkung adressiert nur einen Teil des gemeinsamen Risikos." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cvd_khk",
+      "label": "KHK / ischaemische Gefaesserkrankung",
+      "short_label": "KHK / CVD",
+      "icd10": "I20-I25, I63",
+      "cluster": "cardiorenal",
+      "underwriting_role": "primary_sink",
+      "prevalence_germany": 0.09,
+      "undiagnosed_fraction": 0.15,
+      "confidence": "high",
+      "clinical_basis": "Die 2024er CCS-Leitlinie verankert chronische Koronarsyndrome als kontinuierlichen Risikozustand statt singulaeren Ereignisses.",
+      "citation_ids": ["esc_ccs_2024", "herzbericht_2024"],
+      "supported_inputs": ["ldl", "smoking_status", "systolic_bp", "egfr", "phq9"],
+      "stages": [
+        {
+          "id": "ccs_stable",
+          "label": "Chronisches Koronarsyndrom",
+          "severity_rank": 1,
+          "stage_definition": "Stabile ischaemische Erkrankung mit Symptomen oder Bildgebungsnachweis, aber ohne frisches Akutereignis.",
+          "years_in_stage_median": 6,
+          "mortality_hr": 1.95,
+          "annual_progression_prob": 0.10,
+          "cost_class": "medium",
+          "reversible": false,
+          "clinical_basis": "Auch stabile Koronarerkrankung bleibt ein dynamischer ASCVD-Zustand mit relevantem Langzeitrisiko.",
+          "biomarker_rules": [
+            { "marker": "ldl", "label": "LDL", "operator": ">=", "value": 70, "unit": "mg/dL", "note": "Sekundaerpraeventives Ziel wird verfehlt." },
+            { "marker": "systolic_bp", "label": "SBP", "operator": ">=", "value": 130, "unit": "mmHg", "note": "Vaskulaere Zusatzbelastung." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [1.70, 2.20],
+            "annual_progression_prob": [0.07, 0.13]
+          },
+          "confidence": "high",
+          "citation_ids": ["esc_ccs_2024"],
+          "intervention_effects": [
+            { "intervention_id": "lipid_therapy", "hazard_multiplier": 0.74, "progression_multiplier": 0.62, "note": "LDL-Senkung ist in der Sekundaerpraevention zentral." },
+            { "intervention_id": "bp_control", "hazard_multiplier": 0.88, "progression_multiplier": 0.82, "note": "BP-Kontrolle entlastet das vaskulaere Profil." }
+          ]
+        },
+        {
+          "id": "ccs_post_acs",
+          "label": "Post-ACS / post-MI",
+          "severity_rank": 2,
+          "stage_definition": "Zustand nach akutem Koronarsyndrom oder Myokardinfarkt mit Sekundaerpraeventionsbedarf.",
+          "years_in_stage_median": 5,
+          "mortality_hr": 2.90,
+          "annual_progression_prob": 0.16,
+          "cost_class": "high",
+          "reversible": false,
+          "clinical_basis": "Nach einem Ereignis bleiben Reinfarkte, HF und psychische Folgepfade ueberdurchschnittlich wahrscheinlich.",
+          "biomarker_rules": [
+            { "marker": "ldl", "label": "LDL", "operator": ">=", "value": 70, "unit": "mg/dL", "note": "Sekundaerpraeventives LDL-Ziel zentral." },
+            { "marker": "phq9", "label": "PHQ-9", "operator": ">=", "value": 10, "unit": "Score", "note": "Psychische Belastung verschlechtert Adherence und Prognose." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [2.45, 3.35],
+            "annual_progression_prob": [0.12, 0.20]
+          },
+          "confidence": "high",
+          "citation_ids": ["esc_ccs_2024", "esc_mental_cvd_2025"],
+          "intervention_effects": [
+            { "intervention_id": "lipid_therapy", "hazard_multiplier": 0.72, "progression_multiplier": 0.60, "note": "Intensive LDL-Senkung reduziert Re-Events." },
+            { "intervention_id": "mental_health_care", "hazard_multiplier": 0.92, "progression_multiplier": 0.84, "note": "Psychische Mitbehandlung verbessert Sekundaerpraevention." }
+          ]
+        },
+        {
+          "id": "ccs_recurrent_ischemia",
+          "label": "Rezidivierende Ischaemie / fortgeschrittene ASCVD",
+          "severity_rank": 3,
+          "stage_definition": "Recurrente Beschwerden, Mehrgefaesserkrankung oder fortgeschrittenes ischaemisches Profil.",
+          "years_in_stage_median": 4,
+          "mortality_hr": 4.20,
+          "annual_progression_prob": 0.22,
+          "cost_class": "high",
+          "reversible": false,
+          "clinical_basis": "Mit zunehmender Ereignisdichte steigt die HF- und Behinderungswahrscheinlichkeit stark an.",
+          "biomarker_rules": [
+            { "marker": "ldl", "label": "LDL", "operator": ">=", "value": 70, "unit": "mg/dL", "note": "Trotz Zielverletzung fortschreitende Krankheit." },
+            { "marker": "egfr", "label": "eGFR", "operator": "<", "value": 60, "unit": "mL/min/1.73m2", "note": "Cardiorenale Mitlast verstaerkt das Risiko." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [3.50, 4.95],
+            "annual_progression_prob": [0.17, 0.28]
+          },
+          "confidence": "moderate",
+          "citation_ids": ["esc_ccs_2024", "kdigo_ckd_2024"],
+          "intervention_effects": [
+            { "intervention_id": "lipid_therapy", "hazard_multiplier": 0.78, "progression_multiplier": 0.72, "note": "Weiterhin wichtig, aber weniger reversibel." },
+            { "intervention_id": "bp_control", "hazard_multiplier": 0.92, "progression_multiplier": 0.86, "note": "Druckentlastung bleibt additiv." }
+          ]
+        },
+        {
+          "id": "cvd_sink_terminal",
+          "label": "Terminale ischaemische Folgestrecke",
+          "severity_rank": 4,
+          "stage_definition": "Schwere residuale Behinderung, terminale HF oder rezidivierendes Major Event.",
+          "years_in_stage_median": 3,
+          "mortality_hr": 6.20,
+          "annual_progression_prob": 0.0,
+          "cost_class": "very_high",
+          "reversible": false,
+          "clinical_basis": "Der Sink-Stage markiert die schwere Endstrecke nach rezidivierenden Ereignissen.",
+          "biomarker_rules": [
+            { "marker": "egfr", "label": "eGFR", "operator": "<", "value": 45, "unit": "mL/min/1.73m2", "note": "Hohe cardiorenale Zusatzlast." },
+            { "marker": "phq9", "label": "PHQ-9", "operator": ">=", "value": 10, "unit": "Score", "note": "Psychische Komorbiditaet bleibt haeufig relevant." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [5.20, 7.20],
+            "annual_progression_prob": [0.0, 0.0]
+          },
+          "confidence": "moderate",
+          "citation_ids": ["esc_ccs_2024", "esc_hf_2021"],
+          "intervention_effects": []
+        }
+      ],
+      "outgoing_edges": [
+        {
+          "id": "cvd_khk_to_heart_failure",
+          "target": "heart_failure",
+          "stage_from": "ccs_post_acs",
+          "annual_incidence_prob": 0.060,
+          "lag_years": 3,
+          "modifiable": false,
+          "bidirectional": false,
+          "clinical_basis": "Myokardschaedigung nach ACS/MI ist ein direkter Treiber spaeter HF-Entwicklung.",
+          "biomarker_rules": [
+            { "marker": "egfr", "label": "eGFR", "operator": "<", "value": 60, "unit": "mL/min/1.73m2", "note": "Cardiorenale Zusatzlast verstaerkt das HF-Risiko." },
+            { "marker": "systolic_bp", "label": "SBP", "operator": ">=", "value": 130, "unit": "mmHg", "note": "Persistierende Drucklast foerdert den Uebergang." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.047, 0.074] },
+          "confidence": "high",
+          "citation_ids": ["esc_ccs_2024", "esc_hf_2021"],
+          "intervention_effects": [
+            { "intervention_id": "bp_control", "incidence_multiplier": 0.88, "note": "Nicht dominant, aber klinisch relevant." },
+            { "intervention_id": "lipid_therapy", "incidence_multiplier": 0.90, "note": "Weniger direkt, aber Teil der Sekundaerpraevention." }
+          ]
+        },
+        {
+          "id": "cvd_khk_to_depression",
+          "target": "depression",
+          "stage_from": "ccs_post_acs",
+          "annual_incidence_prob": 0.030,
+          "lag_years": 1,
+          "modifiable": true,
+          "bidirectional": true,
+          "clinical_basis": "Akute kardiovaskulaere Ereignisse erhoehen die psychische Last und beeintraechtigen Alltag und Selbstmanagement.",
+          "biomarker_rules": [
+            { "marker": "phq9", "label": "PHQ-9", "operator": ">=", "value": 8, "unit": "Score", "note": "Fruehe depressive Dynamik oft sichtbar." },
+            { "marker": "smoking_status", "label": "Rauchstatus", "operator": "in", "value": ["former", "active"], "unit": "", "note": "Tabakanamnese verschlechtert Gesamtrisiko." }
+          ],
+          "uncertainty_range": { "annual_incidence_prob": [0.022, 0.039] },
+          "confidence": "moderate",
+          "citation_ids": ["esc_ccs_2024", "esc_mental_cvd_2025"],
+          "intervention_effects": [
+            { "intervention_id": "mental_health_care", "incidence_multiplier": 0.66, "note": "Fruehe psychologische Betreuung reduziert die Folgepfad-Last." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "heart_failure",
+      "label": "Herzinsuffizienz",
+      "short_label": "HF",
+      "icd10": "I50",
+      "cluster": "cardiorenal",
+      "underwriting_role": "terminal_sink",
+      "prevalence_germany": 0.04,
+      "undiagnosed_fraction": 0.20,
+      "confidence": "high",
+      "clinical_basis": "ESC-HF 2021 plus Focused Update 2023 unterstreichen fruehe Therapieintensivierung und die Relevanz kardiorenaler Begleitpfade.",
+      "citation_ids": ["esc_hf_2021", "esc_hf_2023"],
+      "supported_inputs": ["egfr", "systolic_bp", "smoking_status", "bmi"],
+      "stages": [
+        {
+          "id": "hf_nyha1",
+          "label": "HF Stage C / NYHA I",
+          "severity_rank": 1,
+          "stage_definition": "Strukturelle Herzerkrankung mit HF-Konstellation, aber kaum Symptomen bei Alltagsbelastung.",
+          "years_in_stage_median": 5,
+          "mortality_hr": 1.75,
+          "annual_progression_prob": 0.12,
+          "cost_class": "medium",
+          "reversible": false,
+          "clinical_basis": "Fruehe HF bleibt bereits prognostisch relevant, auch wenn die Symptomlast noch moderat ist.",
+          "biomarker_rules": [
+            { "marker": "systolic_bp", "label": "SBP", "operator": ">=", "value": 120, "unit": "mmHg", "note": "Persistierende Nachlast kann relevant bleiben." },
+            { "marker": "egfr", "label": "eGFR", "operator": "<", "value": 60, "unit": "mL/min/1.73m2", "note": "Cardiorenale Mitbeteiligung haeufig." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [1.55, 1.98],
+            "annual_progression_prob": [0.09, 0.15]
+          },
+          "confidence": "high",
+          "citation_ids": ["esc_hf_2021", "esc_hf_2023"],
+          "intervention_effects": [
+            { "intervention_id": "bp_control", "hazard_multiplier": 0.90, "progression_multiplier": 0.82, "note": "Nachlastkontrolle bleibt wichtig." },
+            { "intervention_id": "renal_protection", "hazard_multiplier": 0.90, "progression_multiplier": 0.80, "note": "Cardiorenaler Schutz adressiert die Begleitlast." }
+          ]
+        },
+        {
+          "id": "hf_nyha2",
+          "label": "HF NYHA II",
+          "severity_rank": 2,
+          "stage_definition": "Belastungsdyspnoe bei alltaeglicher Aktivitaet, aber stabile ambulante Situation.",
+          "years_in_stage_median": 4,
+          "mortality_hr": 2.45,
+          "annual_progression_prob": 0.18,
+          "cost_class": "medium",
+          "reversible": false,
+          "clinical_basis": "Mit NYHA II steigen Hospitalisations- und Progressionsrisiko deutlich.",
+          "biomarker_rules": [
+            { "marker": "egfr", "label": "eGFR", "operator": "<", "value": 60, "unit": "mL/min/1.73m2", "note": "Cardiorenale Belastung." },
+            { "marker": "bmi", "label": "BMI", "operator": ">=", "value": 30, "unit": "kg/m2", "note": "Adipositaetsbedingte Mehrlast moeglich." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [2.15, 2.78],
+            "annual_progression_prob": [0.14, 0.22]
+          },
+          "confidence": "high",
+          "citation_ids": ["esc_hf_2021", "esc_hf_2023"],
+          "intervention_effects": [
+            { "intervention_id": "renal_protection", "hazard_multiplier": 0.90, "progression_multiplier": 0.84, "note": "Renale Stabilisierung reduziert klinische Volatilitaet." }
+          ]
+        },
+        {
+          "id": "hf_nyha3",
+          "label": "HF NYHA III",
+          "severity_rank": 3,
+          "stage_definition": "Ausgepraegte Symptomatik schon bei geringer Belastung, hohes Hospitalisationsrisiko.",
+          "years_in_stage_median": 3,
+          "mortality_hr": 3.95,
+          "annual_progression_prob": 0.26,
+          "cost_class": "high",
+          "reversible": false,
+          "clinical_basis": "Fortgeschrittene HF konvergiert auf terminale Ereignisse und hohe stationaere Last.",
+          "biomarker_rules": [
+            { "marker": "egfr", "label": "eGFR", "operator": "<", "value": 45, "unit": "mL/min/1.73m2", "note": "Cardiorenale Begleitlast sehr haeufig." },
+            { "marker": "systolic_bp", "label": "SBP", "operator": "<=", "value": 110, "unit": "mmHg", "note": "Fortgeschrittene HF kann auch mit niedrigerem SBP einhergehen." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [3.35, 4.60],
+            "annual_progression_prob": [0.20, 0.32]
+          },
+          "confidence": "high",
+          "citation_ids": ["esc_hf_2021", "esc_hf_2023"],
+          "intervention_effects": []
+        },
+        {
+          "id": "hf_nyha4_sink",
+          "label": "HF NYHA IV / terminale HF",
+          "severity_rank": 4,
+          "stage_definition": "Symptome in Ruhe oder minimale Belastung, terminale oder advanced HF-Konstellation.",
+          "years_in_stage_median": 2,
+          "mortality_hr": 7.40,
+          "annual_progression_prob": 0.0,
+          "cost_class": "very_high",
+          "reversible": false,
+          "clinical_basis": "Terminale HF stellt den zentralen Endpunkt vieler kardiorenaler Pfade dar.",
+          "biomarker_rules": [
+            { "marker": "egfr", "label": "eGFR", "operator": "<", "value": 30, "unit": "mL/min/1.73m2", "note": "Haefig schwere cardiorenale Mitbeteiligung." },
+            { "marker": "systolic_bp", "label": "SBP", "operator": "<=", "value": 100, "unit": "mmHg", "note": "Fortgeschrittene HF-Dynamik." }
+          ],
+          "uncertainty_range": {
+            "mortality_hr": [6.20, 8.70],
+            "annual_progression_prob": [0.0, 0.0]
+          },
+          "confidence": "high",
+          "citation_ids": ["esc_hf_2021", "esc_hf_2023"],
+          "intervention_effects": []
+        }
+      ],
+      "outgoing_edges": []
+    }
+  ]
+}
