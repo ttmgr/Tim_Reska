@@ -324,11 +324,22 @@ llm-eval/
 
 ```bash
 pip install -r requirements.txt
-python scripts/aggregate_scores.py       # Per-pipeline markdown summaries
-python scripts/generate_heatmap.py       # Per-pipeline scoring heatmaps
-python scripts/generate_radar.py         # Per-pipeline radar/timeline/difficulty charts
+python scripts/aggregate_scores.py         # Per-pipeline markdown summaries
+python scripts/generate_heatmap.py         # Per-pipeline scoring heatmaps
+python scripts/generate_radar.py           # Per-pipeline radar / timeline / difficulty charts
 python scripts/generate_cross_pipeline.py  # Cross-pipeline comparison (requires both pipelines scored)
+python scripts/generate_stats.py           # Statistical tests (KW, LMM, flagship comparison)
 ```
+
+## Statistical analysis
+
+Beyond per-step scoring, the matrix is analysed with three complementary tests, all reproducible from `scripts/generate_stats.py`:
+
+- **Kruskal-Wallis** across model families ([`results/tables/statistical_tests_kw.csv`](results/tables/statistical_tests_kw.csv)) — non-parametric test for between-family score differences per pipeline step.
+- **Linear mixed model** ([`results/tables/statistical_tests_lmm.csv`](results/tables/statistical_tests_lmm.csv)) — accounts for repeated measures across the 17 pipeline steps within each evaluated entry.
+- **Flagship comparison** ([`results/tables/statistical_tests_flagship.csv`](results/tables/statistical_tests_flagship.csv) and [`results/figures/flagship_comparison.png`](results/figures/flagship_comparison.png)) — head-to-head between GPT-5, Opus 4.6 / Sonnet 4.6, and Gemini 3 Pro / 3.1 Pro.
+
+Headline finding from the statistical layer: flagship models across OpenAI, Anthropic, and Google are **statistically indistinguishable on aerobiome** but the effect sizes are large. The current bottleneck is benchmark statistical power, not family advantage. See [`evaluations/statistical_tests.md`](evaluations/statistical_tests.md) for the full narrative.
 
 ## Limitations
 

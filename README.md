@@ -36,7 +36,7 @@ If you need to decide across the wider group collection rather than the curated 
 | [`disease-progression/`](./disease-progression/) | Disease progression modeling framework | Survival analysis, competing risks, and transformer architectures on longitudinal EHR data for risk quantification |
 | [`disease-network/`](./disease-network/) | Interactive clinical atlas | D3.js dashboard for exploring disease state transitions and underwriting scenarios |
 | [`pkv-ml-explorer/`](./pkv-ml-explorer/) | PKV ML framework reference explorer | Interactive catalog of ML and actuarial methods (logistic regression, random forest, LSTM, autoencoder, Z-score/Mahalanobis, life tables, survival analysis, agentic AI) for private health insurance workflows |
-| [`medrisk-adh/`](./medrisk-adh/) | AI underwriting with failure mode detection | Streamlit platform demonstrating plausible-but-wrong detection via data quality–confidence mismatch |
+| [`medrisk-adh/`](./medrisk-adh/) | AI underwriting with failure mode detection | 7-page Streamlit platform with PBW detection, conformal validation, German Krankentagegeld module, and 8 real-world data adapters (NHANES / UK Biobank / CDC PLACES / …) |
 
 Within the group collection, my main contributions are in environmental metagenomics and food safety: [Air Metagenomics](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics), [Wetland Health](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health), and [Listeria Adaptive Sampling](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Food_Safety/Listeria-Adaptive-Sampling).
 
@@ -44,9 +44,11 @@ Within the group collection, my main contributions are in environmental metageno
 
 ### Against Plausibility: LLM Evaluation
 
-A structured LLM evaluation benchmark of 28 evaluated entries and 196 scored step-results across seven nanopore metagenomics workflow stages. The study uses the validated air metagenomics pipeline as ground truth and scores tool choice, parameter accuracy, output compatibility, scientific validity, and executability under sequential workflow construction.
+A structured LLM evaluation benchmark of 28 evaluated entries and **476 scored step-results across two independent ground-truth pipelines** — a 7-step linear aerobiome pipeline (Reska et al. 2024, *ISME Communications*) and a 10-step, 4-track multi-omics wetland surveillance pipeline (Perlas\*, Reska\* et al. 2025, *Applied and Environmental Microbiology*). Each model response is scored on tool choice, parameter accuracy, output compatibility, scientific validity, and executability under sequential workflow construction.
 
-This benchmark is designed to expose a failure mode that matters in real technical deployments: outputs that are plausible at the single-step level but unstable, incompatible, or analytically wrong once chained into a full workflow.
+A separate statistical layer applies Kruskal-Wallis across model families, linear mixed models for repeated measures across pipeline steps, and a flagship comparison between the strongest entries from each family — finding flagship models statistically indistinguishable on aerobiome but with large effect sizes, indicating benchmark statistical power as the current bottleneck rather than family advantage.
+
+This benchmark is designed to expose a failure mode that matters in real technical deployments: outputs that are plausible at the single-step level but unstable, incompatible, or analytically wrong once chained into a full workflow. **No model in any family produces a fully correct 10-step wetland pipeline**, and three of those steps have zero fully-correct answers across all 28 evaluated entries.
 
 Links: [Pipeline overview](./llm-eval/) | [Evaluation framework](./llm-eval/methodology/evaluation_framework.md) | [Curated findings](./llm-eval/evaluations/summary.md) | [Reference pipeline](./pipelines/aerobiome/)
 
@@ -60,7 +62,7 @@ Links: [Pipeline overview](./pipelines/aerobiome/) | [Study repository and metad
 
 Shared first-author workflow integrating DNA shotgun metagenomics, RNA viromics, avian influenza whole-genome sequencing, and vertebrate eDNA metabarcoding across 12 wetlands in Germany, France, and Spain along the East Atlantic Flyway. The local overview emphasizes analytical design; the group repository retains sample mapping, accession references, and workflow-specific operational context.
 
-Links: [Pipeline overview](./pipelines/wetland-surveillance/) | [Study repository and metadata](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health) | [Preprint](https://doi.org/10.1101/2025.09.05.674394)
+Links: [Pipeline overview](./pipelines/wetland-surveillance/) | [Study repository and metadata](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health) | [bioRxiv DOI](https://doi.org/10.1101/2025.09.05.674394) (AEM 2025)
 
 ### Listeria adaptive sampling
 
@@ -102,11 +104,13 @@ Links: [`pkv-ml-explorer/`](./pkv-ml-explorer/)
 
 ### MedRisk-ADH — AI underwriting with failure mode detection
 
-A Streamlit multi-page application demonstrating a validation layer for automated underwriting. The core idea: automated underwriting AI fails most dangerously not when it is obviously wrong, but when it is **confidently wrong on low-quality data** (the plausible-but-wrong failure mode). The platform computes a Data Quality Score (DQS) for each patient before inference and flags cases where model confidence exceeds what the input data can actually support.
+A 7-page Streamlit application demonstrating a validation layer for automated underwriting. The core idea: automated underwriting AI fails most dangerously not when it is obviously wrong, but when it is **confidently wrong on low-quality data** (the plausible-but-wrong failure mode). The platform computes a Data Quality Score (DQS) for each patient before inference and flags cases where model confidence exceeds what the input data can actually support.
 
-Three risk models (XGBoost binary classifier, Cox PH survival model, CTMC multistate Markov chain) feed a validation layer that checks Calibration-Confidence Mismatch (CCM) and Epistemic Prediction Uncertainty (EPU). A GDPR-safe multi-market synthetic cohort generator with controlled data degradation across four market profiles (DE / FR / ES / INT) enables reproducible failure mode experiments.
+The risk-model suite covers XGBoost classification, Cox PH survival, CTMC multistate progression, an actuarial rating engine, and a German Krankentagegeld (sickness-absence) module — routed by a model selector to the appropriate case type. The validation layer pairs DQS with Calibration-Confidence Mismatch, Epistemic Prediction Uncertainty, conformal prediction intervals, distribution-shift detection, and a per-prediction reliability head. An underwriting layer turns model output into Standard / Substandard / Decline decisions with clinical-rule checks and temporal constraints, while a governance layer maintains an append-only audit log and human-override workflow.
 
-Stack: Python 3.11+, Streamlit, XGBoost, lifelines, PyTorch, Plotly, reportlab, python-pptx.
+A GDPR-safe multi-market synthetic cohort generator (DE / FR / ES / INT profiles with controlled degradation) drives reproducible failure-mode experiments, and 8 real-world adapters (NHANES, UK Biobank, BioLinCC, Zenodo, CDC PLACES, data.gov, Glucose-ML, Granada T1D) enable validation against public clinical datasets. 231 tests across 37 files keep the library reproducible.
+
+Stack: Python 3.11+, Streamlit, XGBoost, lifelines, PyTorch, SHAP, conformal-prediction tooling, Plotly, reportlab, python-pptx.
 
 Links: [`medrisk-adh/`](./medrisk-adh/)
 
@@ -115,7 +119,7 @@ Links: [`medrisk-adh/`](./medrisk-adh/)
 ## Selected publications
 
 - Reska T, Pozdniakova S, Urban L. [Air monitoring by nanopore sequencing](https://doi.org/10.1093/ismeco/ycae058). *ISME Communications* (2024).
-- Perlas A, Reska T, Sanchez-Cano A, et al. [Real-time genomic pathogen, resistance, and host range characterization from passive water sampling of wetland ecosystems](https://doi.org/10.1101/2025.09.05.674394). *bioRxiv* preprint (2025, shared first authorship).
+- Perlas A, Reska T, Sanchez-Cano A, et al. [Real-time genomic pathogen, resistance, and host range characterization from passive water sampling of wetland ecosystems](https://doi.org/10.1101/2025.09.05.674394). *Applied and Environmental Microbiology* (2025, shared first authorship).
 - Urban L, Perlas A, Francino O, et al. [Real-time genomics for One Health](https://doi.org/10.15252/msb.202311686). *Molecular Systems Biology* (2023).
 - Sauerborn E, Corredor NC, Reska T, et al. [Detection of hidden antibiotic resistance through real-time genomics](https://www.nature.com/articles/s41467-024-49851-4). *Nature Communications* (2024).
 - Varzanadi AR, Reska T, et al. Environmental screening detects *Batrachochytrium dendrobatidis*. *Global Ecology and Conservation* (2025, contributing author).

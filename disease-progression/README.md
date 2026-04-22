@@ -113,15 +113,14 @@ stateDiagram-v2
 
 ## Notebooks
 
-Each notebook is a self-contained analytical story on the 5,000-patient synthetic cohort.
+Four self-contained notebooks, executable end-to-end on the synthetic cohort.
 
 | # | Notebook | What it demonstrates |
 |---|----------|----------------------|
-| 01 | `01_data_exploration.ipynb` | Synthea → OMOP-lite ETL, cohort characterization, missingness profile across CVD and T2D tracks |
-| 02 | `02_feature_engineering.ipynb` | Static, temporal, and tokenized feature construction from longitudinal records |
-| 03 | `03_survival_models.ipynb` | Cox PH, DeepSurv, DeepHit, and SurvTRACE trained head-to-head with C-index and integrated Brier score |
-| 04 | `04_multistate_markov.ipynb` | Continuous-time Markov chain fit for CVD and T2D with transition intensities and sojourn times |
-| 05 | `05_fairness_and_governance.ipynb` | Subgroup fairness audit, model cards, and EU AI Act risk-register artifacts |
+| 00 | [`00_data_quality.ipynb`](notebooks/00_data_quality.ipynb) | Synthea → OMOP-lite ETL, cohort characterization, missingness profile across CVD and T2D tracks |
+| 01 | [`01_cvd_progression.ipynb`](notebooks/01_cvd_progression.ipynb) | CVD multistate model end-to-end: Cox PH, DeepSurv, DeepHit, SurvTRACE benchmarked on the cardiovascular track |
+| 02 | [`02_diabetes_progression.ipynb`](notebooks/02_diabetes_progression.ipynb) | T2D progression from prediabetes through micro/macrovascular complications to ESRD |
+| 03 | [`03_business_view.ipynb`](notebooks/03_business_view.ipynb) | Translation layer: model outputs → underwriting scenarios, fairness audit, model card and risk-register artifacts |
 
 ---
 

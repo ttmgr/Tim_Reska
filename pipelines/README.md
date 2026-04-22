@@ -35,7 +35,7 @@ Links: [Pipeline overview](./aerobiome/) | [Study repository and metadata](https
 
 ### [`wetland-surveillance/`](wetland-surveillance/) — Multi-Omics Wetland Surveillance
 
-**Publication:** Perlas A\*, Reska T\*, et al. — *Preprint* (2025) · [DOI](https://doi.org/10.1101/2025.09.05.674394)
+**Publication:** Perlas A\*, Reska T\*, et al. — *Applied and Environmental Microbiology* (2025) · [bioRxiv DOI](https://doi.org/10.1101/2025.09.05.674394)
 
 Integrated One Health monitoring from passive water samplers using dual DNA/RNA extraction and four parallel analysis tracks: shotgun metagenomics, RNA viromics, vertebrate eDNA metabarcoding, and avian influenza whole-genome sequencing.
 
@@ -48,7 +48,7 @@ Integrated One Health monitoring from passive water samplers using dual DNA/RNA 
 
 *\*Shared first authorship*
 
-Links: [Pipeline overview](./wetland-surveillance/) | [Study repository and metadata](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health) | [Preprint](https://doi.org/10.1101/2025.09.05.674394)
+Links: [Pipeline overview](./wetland-surveillance/) | [Study repository and metadata](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health) | [bioRxiv DOI](https://doi.org/10.1101/2025.09.05.674394) (AEM 2025)
 
 ---
 
@@ -79,5 +79,5 @@ Use the personal repository for concise, study-linked pipeline overviews. Use [G
 If you use or adapt these workflows, cite the corresponding study or project status:
 
 - Reska T, Pozdniakova S, Urban L. *Air monitoring by nanopore sequencing*. *ISME Communications* (2024). DOI: [10.1093/ismeco/ycae058](https://doi.org/10.1093/ismeco/ycae058)
-- Perlas A\*, Reska T\*, Sanchez-Cano A, et al. *Real-time genomic pathogen, resistance, and host range characterization from passive water sampling of wetland ecosystems*. *bioRxiv* preprint (2025). DOI: [10.1101/2025.09.05.674394](https://doi.org/10.1101/2025.09.05.674394)
+- Perlas A\*, Reska T\*, Sanchez-Cano A, et al. *Real-time genomic pathogen, resistance, and host range characterization from passive water sampling of wetland ecosystems*. *Applied and Environmental Microbiology* (2025). bioRxiv DOI: [10.1101/2025.09.05.674394](https://doi.org/10.1101/2025.09.05.674394)
 - Listeria adaptive sampling project: manuscript in preparation
