@@ -1,10 +1,14 @@
 # Tim Reska
 
-PhD researcher in genomics and bioinformatics working on One Health genomic surveillance, long-read metagenomics, food-safety sequencing, and large language model evaluation for scientific workflow construction.
+**Research Scientist · LLM Evaluation · Genomics & AI Infrastructure**
 
-Affiliation: Helmholtz Munich and the Technical University of Munich, Munich, Germany. I also contribute to the broader [GenomicsForOneHealth](https://github.com/ttmgr/GenomicsForOneHealth) collection developed by the One Health group under the supervision of [Lara Urban](https://sites.google.com/view/urban-lab/home). As described in that repository, the group is based at the University of Zurich and its Food Safety and One Health Institutes, with affiliations to Helmholtz AI.
+3 years evaluating LLMs. 22 models across GPT, Claude, and Gemini families, validated against my own peer-reviewed bioinformatics pipeline. I know where AI works, where it fails, and how to help teams trust the difference.
 
-Links: [Email](mailto:timreska@gmail.com) | [LinkedIn](https://linkedin.com/in/timreska)
+PhD candidate at Helmholtz Munich and the Technical University of Munich (expected Jun 2026), working on One Health genomic surveillance, long-read metagenomics, and large language model evaluation for scientific workflow construction. Founding member of an international AI research group; 4+ years building laboratory and computational infrastructure from scratch across 7 international sites; published in *ISME Communications*, *Nature Communications*, and *Molecular Systems Biology*.
+
+Within the broader [GenomicsForOneHealth](https://github.com/ttmgr/GenomicsForOneHealth) collection (One Health group at the University of Zurich, supervised by [Lara Urban](https://sites.google.com/view/urban-lab/home)), my main contributions are in environmental metagenomics and food safety.
+
+Links: [Email](mailto:timreska@gmail.com) · [LinkedIn](https://linkedin.com/in/tim-r-ai) · [ORCID](https://orcid.org/0009-0001-9700-5128)
 
 ## Research focus
 
@@ -114,8 +118,9 @@ Links: [`medrisk-adh/`](./medrisk-adh/)
 - Perlas A, Reska T, Sanchez-Cano A, et al. [Real-time genomic pathogen, resistance, and host range characterization from passive water sampling of wetland ecosystems](https://doi.org/10.1101/2025.09.05.674394). *bioRxiv* preprint (2025, shared first authorship).
 - Urban L, Perlas A, Francino O, et al. [Real-time genomics for One Health](https://doi.org/10.15252/msb.202311686). *Molecular Systems Biology* (2023).
 - Sauerborn E, Corredor NC, Reska T, et al. [Detection of hidden antibiotic resistance through real-time genomics](https://www.nature.com/articles/s41467-024-49851-4). *Nature Communications* (2024).
+- Varzanadi AR, Reska T, et al. Environmental screening detects *Batrachochytrium dendrobatidis*. *Global Ecology and Conservation* (2025, contributing author).
 
-A fuller publication record is available on [LinkedIn](https://linkedin.com/in/timreska).
+A fuller publication record is available on [LinkedIn](https://linkedin.com/in/tim-r-ai).
 
 ## Methods and technical areas
 

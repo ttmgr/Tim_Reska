@@ -1,5 +1,9 @@
 # MedRisk-ADH
 
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../LICENSE)
+[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
+
 AI-driven medical underwriting with confidence-calibrated failure mode detection.
 
 ## The Problem
@@ -59,9 +63,10 @@ Requires Python 3.11+.
 ## Usage
 
 ```bash
-make test        # 231 tests, ~10 seconds
-make lint        # ruff
-make notebooks   # execute all 5 notebooks
+streamlit run src/medrisk/app.py   # launch the interactive demo
+make test                          # 231 tests, ~10 seconds
+make lint                          # ruff
+make notebooks                     # execute all 5 notebooks
 ```
 
 ## Notebooks
@@ -93,4 +98,4 @@ All results are on synthetic data. DQS thresholds are heuristic. This is a mecha
 
 ## Author
 
-the author — PhD candidate, Genomics & Bioinformatics, Helmholtz Munich.
+Built by [Tim Reska](https://linkedin.com/in/tim-r-ai) — PhD candidate, Genomics & Bioinformatics, Helmholtz Munich & TUM (expected Jun 2026).

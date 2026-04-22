@@ -1,6 +1,11 @@
 # Against Plausibility: LLM Evaluation
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](../LICENSE)
+[![Models: 28](https://img.shields.io/badge/models-28-blueviolet.svg)](#models-evaluated)
+[![Steps scored: 476](https://img.shields.io/badge/steps%20scored-476-informational.svg)](#dataset-scope)
+[![Ground truths: 2](https://img.shields.io/badge/ground%20truths-2-success.svg)](#experimental-design)
+
+> **Headline result.** GPT-5, Opus 4.5, and Gemini 3 Pro are the first models in their families to fully complete the 7-step aerobiome pipeline. **No model — in any family — produces a fully correct 10-step wetland pipeline**; three steps (pathogen identification, RNA virome, eDNA metabarcoding) have zero fully-correct answers across all 28 evaluated entries. Flagship models across OpenAI, Anthropic, and Google are statistically indistinguishable on aerobiome but show large effect sizes — benchmark power, not family advantage, is the current bottleneck.
 
 ## Purpose
 

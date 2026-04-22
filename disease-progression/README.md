@@ -111,6 +111,20 @@ stateDiagram-v2
 
 ---
 
+## Notebooks
+
+Each notebook is a self-contained analytical story on the 5,000-patient synthetic cohort.
+
+| # | Notebook | What it demonstrates |
+|---|----------|----------------------|
+| 01 | `01_data_exploration.ipynb` | Synthea → OMOP-lite ETL, cohort characterization, missingness profile across CVD and T2D tracks |
+| 02 | `02_feature_engineering.ipynb` | Static, temporal, and tokenized feature construction from longitudinal records |
+| 03 | `03_survival_models.ipynb` | Cox PH, DeepSurv, DeepHit, and SurvTRACE trained head-to-head with C-index and integrated Brier score |
+| 04 | `04_multistate_markov.ipynb` | Continuous-time Markov chain fit for CVD and T2D with transition intensities and sojourn times |
+| 05 | `05_fairness_and_governance.ipynb` | Subgroup fairness audit, model cards, and EU AI Act risk-register artifacts |
+
+---
+
 ## Quick Start
 
 ### Prerequisites
