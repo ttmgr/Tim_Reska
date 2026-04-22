@@ -18,14 +18,53 @@ This does not improve model accuracy. It identifies when the model's predictions
 
 ## Architecture
 
-```
-Patient Record → [DQS Assessment] → [Risk Models] → [Validation Layer] → Decision
-                       ↓                   ↓                ↓
-                  Completeness        XGBoost           CCM check
-                  Consistency         Cox PH            EPU check
-                  Recency             CTMC              PBW flag
-                                                           ↓
-                                              accept | review | reject
+```mermaid
+flowchart LR
+    P([Patient<br/>record]) --> DQS[DQS<br/>Assessment]
+    DQS --> Router{Model<br/>Router}
+
+    subgraph Models["Risk Models"]
+        direction TB
+        XGB[XGBoost]
+        Cox[Cox PH]
+        CTMC[CTMC<br/>multistate]
+        Act[Actuarial<br/>rating]
+        KTG[KTG sickness<br/>absence]
+    end
+
+    Router --> Models
+
+    subgraph Val["Validation Layer"]
+        direction TB
+        CCM[CCM<br/>calibration]
+        EPU[EPU<br/>ensemble]
+        Conf[Conformal<br/>intervals]
+        Shift[Shift<br/>detection]
+        Rel[Reliability<br/>head]
+        PBW[(PBW<br/>flag)]
+    end
+
+    Models --> Val
+    Val --> UW[Underwriting<br/>decision engine]
+
+    UW --> Decision{Decision}
+    Decision -->|"clean + confident"| Accept([Accept])
+    Decision -->|"flagged or borderline"| Review([Human review])
+    Decision -->|"hard decline rules"| Reject([Reject])
+
+    UW --> Audit[(Append-only<br/>audit log)]
+    Review --> Override[Human<br/>override workflow]
+
+    classDef in fill:#e8f4fd,stroke:#1a73e8,color:#0b1b2b
+    classDef model fill:#fef7e0,stroke:#f9ab00,color:#2b1b00
+    classDef val fill:#fce8e6,stroke:#ea4335,color:#3a0f0a
+    classDef decide fill:#e8f5e9,stroke:#34a853,color:#0b1f10
+    classDef gov fill:#f3e8fd,stroke:#7c3aed,color:#1a0b35
+    class P,DQS in
+    class XGB,Cox,CTMC,Act,KTG model
+    class CCM,EPU,Conf,Shift,Rel,PBW val
+    class UW,Accept,Review,Reject decide
+    class Audit,Override gov
 ```
 
 **Risk models** (`src/medrisk/models/`):

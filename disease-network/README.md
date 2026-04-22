@@ -19,6 +19,39 @@ No build step, no dependencies to install. Works offline once the page is loaded
 
 Eight nodes were selected because they dominate the European underwriting risk picture and form a tightly coupled network (each node feeds and is fed by at least two others):
 
+```mermaid
+flowchart LR
+    OBE[Adipositas /<br/>MetS] --> HTN[Arterielle<br/>Hypertonie]
+    OBE --> T2D[Diabetes<br/>Typ 2]
+    OBE --> DYS[Dyslipidämie]
+
+    HTN --> CKD[Chronische<br/>Nierenerkrankung]
+    HTN --> CVD[KHK / ischämische<br/>Gefäßerkrankung]
+
+    T2D --> CKD
+    T2D --> CVD
+
+    DYS --> CVD
+
+    CVD --> HF[Herz-<br/>insuffizienz]
+    CKD --> HF
+
+    DEP([Depression /<br/>psychische Erkrankungen]):::mod -.modifies.-> HTN
+    DEP -.modifies.-> T2D
+    DEP -.modifies.-> CVD
+
+    classDef metabolic fill:#fef7e0,stroke:#f9ab00,color:#2b1b00
+    classDef cardio fill:#fce8e6,stroke:#ea4335,color:#3a0f0a
+    classDef renal fill:#e8f4fd,stroke:#1a73e8,color:#0b1b2b
+    classDef endpt fill:#e8f5e9,stroke:#34a853,color:#0b1f10
+    classDef mod fill:#f3e8fd,stroke:#7c3aed,color:#1a0b35
+
+    class OBE,T2D,DYS metabolic
+    class HTN,CVD cardio
+    class CKD renal
+    class HF endpt
+```
+
 | Node | Network role |
 |:-----|:-------------|
 | Arterielle Hypertonie | Metabolic / cardiorenal gateway |

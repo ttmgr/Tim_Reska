@@ -10,13 +10,60 @@ Within the broader [GenomicsForOneHealth](https://github.com/ttmgr/GenomicsForOn
 
 Links: [Email](mailto:timreska@gmail.com) · [LinkedIn](https://linkedin.com/in/tim-r-ai) · [ORCID](https://orcid.org/0009-0001-9700-5128)
 
+## Portfolio at a glance
+
+```mermaid
+flowchart TB
+    subgraph H["Helmholtz Munich · One Health Genomics"]
+        direction LR
+        A["Aerobiome<br/><i>ISME Communications</i> 2024"]
+        W["Wetland multi-omics<br/><i>AEM</i> 2025"]
+        L["Listeria adaptive sampling<br/>in preparation"]
+    end
+
+    subgraph I["Independent · LLM Evaluation"]
+        E["<b>Against Plausibility</b><br/>22 models · 476 step-results<br/>KW + LMM + flagship comparison"]
+    end
+
+    subgraph T["Applied ML · Healthcare & Underwriting"]
+        direction LR
+        DP["disease-progression<br/>survival + multistate"]
+        DN["disease-network<br/>D3.js clinical atlas"]
+        MR["<b>MedRisk-ADH</b><br/>7-page underwriting platform<br/>with PBW detection"]
+        PKV["pkv-ml-explorer<br/>PKV methods catalog"]
+    end
+
+    A -. ground truth .-> E
+    W -. ground truth .-> E
+    E == PBW thesis ==> MR
+
+    DP --> MR
+    DN --> MR
+    PKV -.- MR
+
+    classDef helm fill:#e8f4fd,stroke:#1a73e8,color:#0b1b2b
+    classDef ind fill:#fef7e0,stroke:#f9ab00,color:#2b1b00
+    classDef appl fill:#e8f5e9,stroke:#34a853,color:#0b1f10
+    class A,W,L helm
+    class E ind
+    class DP,DN,MR,PKV appl
+```
+
+The peer-reviewed bioinformatics pipelines on the left double as ground truth for the independent LLM evaluation in the centre. The same "plausible but wrong" failure mode that emerged from that evaluation is then operationalized in the applied-ML portfolio on the right — most explicitly in MedRisk-ADH.
+
 ## Research focus
 
 My work combines sampling strategy, nanopore sequencing, and reproducible bioinformatics for pathogen surveillance across air, water, food, and clinical settings. A second line of work examines whether large language models can produce bioinformatics workflows that remain scientifically valid beyond superficial code correctness.
 
 ## Featured benchmark
 
-[`Against Plausibility: LLM Evaluation`](./llm-eval/) is a side project, but it is also the clearest benchmark in this repository for testing whether modern LLMs can build a real scientific workflow rather than just produce locally plausible code. It evaluates 28 entries across 196 scored step-results using a validated nanopore metagenomics pipeline as ground truth.
+[`Against Plausibility: LLM Evaluation`](./llm-eval/) is the clearest benchmark in this repository for testing whether modern LLMs can build a real scientific workflow rather than just produce locally plausible code. It evaluates 28 entries across **476 scored step-results** using two validated nanopore pipelines as ground truth (a 7-step aerobiome workflow and a 10-step multi-omics wetland workflow).
+
+![Wetland pipeline scoring heatmap — 28 models × 10 steps](./llm-eval/results/figures/wetland_scoring_heatmap.png)
+*Wetland pipeline (10 steps × 28 evaluated entries). The light columns on the right (Step 7 RNA virome, Step 8 eDNA metabarcoding) are where every model in every family fails.*
+
+![Flagship model statistical comparison](./llm-eval/results/figures/flagship_comparison.png)
+*Flagship comparison: GPT-5 vs Opus 4.6 / Sonnet 4.6 vs Gemini 3 Pro / 3.1 Pro. Differences are not statistically significant on aerobiome despite large effect sizes — the bottleneck is benchmark statistical power, not family advantage.*
 
 The benchmark is designed around sequential failure: wrong tools, wrong parameters, broken output chaining, and analytically indefensible choices that look competent at first glance. That makes it relevant not only to bioinformatics, but also to AI labs, agent teams, and technical consultancies interested in workflow reliability rather than demo-level code generation.
 

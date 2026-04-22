@@ -9,6 +9,42 @@ Project-linked nanopore and metagenomics workflows spanning environmental survei
 
 The validated air pipeline in this directory is also the ground truth used in [`Against Plausibility: LLM Evaluation`](../llm-eval/), a scored benchmark for sequential scientific workflow generation by large language models.
 
+## Overview
+
+```mermaid
+flowchart TB
+    subgraph Air["Aerobiome · ISME Communications 2024"]
+        direction LR
+        A1[Liquid impingement<br/>air sampling] --> A2[ONT R10.4.1<br/>RBK114.24]
+        A2 --> A3[7-step linear pipeline<br/>QC → taxonomy → assembly →<br/>binning → annotation]
+        A3 --> A4[Microbial community<br/>+ AMR profile]
+    end
+
+    subgraph Wet["Wetland · Applied and Environmental Microbiology 2025"]
+        direction LR
+        W1[Passive water<br/>samplers] --> W2[Dual DNA / RNA<br/>extraction]
+        W2 --> W3{4 parallel<br/>tracks}
+        W3 --> W4[Shotgun<br/>metagenomics]
+        W3 --> W5[RNA<br/>virome]
+        W3 --> W6[eDNA 12S<br/>metabarcoding]
+        W3 --> W7[AIV WGS<br/>+ phylogenetics]
+    end
+
+    subgraph List["Listeria adaptive sampling · in preparation"]
+        direction LR
+        L1[Complex food<br/>microbiome] --> L2[ONT adaptive<br/>sampling]
+        L2 --> L3[Enriched vs<br/>native runs]
+        L3 --> L4[L. monocytogenes<br/>recovery + AMR]
+    end
+
+    classDef air fill:#e8f4fd,stroke:#1a73e8,color:#0b1b2b
+    classDef wet fill:#e8f5e9,stroke:#34a853,color:#0b1f10
+    classDef list fill:#fef7e0,stroke:#f9ab00,color:#2b1b00
+    class A1,A2,A3,A4 air
+    class W1,W2,W3,W4,W5,W6,W7 wet
+    class L1,L2,L3,L4 list
+```
+
 ---
 
 ## Pipelines
