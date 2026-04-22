@@ -8,6 +8,7 @@ authors:
     affiliation: "Helmholtz Munich & Technical University of Munich"
     orcid: "https://orcid.org/0009-0001-9700-5128"
 date-released: "2026-04-22"
+version: "1.1.0"
 url: "https://github.com/ttmgr/Tim_Reska"
 repository-code: "https://github.com/ttmgr/Tim_Reska"
 license: MIT
