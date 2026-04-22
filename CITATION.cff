@@ -7,7 +7,7 @@ authors:
     given-names: "Tim"
     affiliation: "Helmholtz Munich & Technical University of Munich"
     orcid: "https://orcid.org/0009-0001-9700-5128"
-date-released: "2025-01-01"
+date-released: "2026-04-22"
 url: "https://github.com/ttmgr/Tim_Reska"
 repository-code: "https://github.com/ttmgr/Tim_Reska"
 license: MIT
@@ -37,3 +37,36 @@ references:
     journal: "ISME Communications"
     year: 2024
     doi: "10.1093/ismeco/ycae058"
+  - type: article
+    title: "Real-time genomic pathogen, resistance, and host range characterization from passive water sampling of wetland ecosystems"
+    authors:
+      - family-names: "Perlas"
+        given-names: "Albert"
+      - family-names: "Reska"
+        given-names: "Tim"
+    journal: "bioRxiv"
+    year: 2025
+    doi: "10.1101/2025.09.05.674394"
+    notes: "Shared first authorship"
+  - type: article
+    title: "Detection of hidden antibiotic resistance through real-time genomics"
+    authors:
+      - family-names: "Sauerborn"
+        given-names: "Elisa"
+      - family-names: "Corredor"
+        given-names: "Nancy C."
+      - family-names: "Reska"
+        given-names: "Tim"
+    journal: "Nature Communications"
+    year: 2024
+    doi: "10.1038/s41467-024-49851-4"
+  - type: article
+    title: "Real-time genomics for One Health"
+    authors:
+      - family-names: "Urban"
+        given-names: "Lara"
+      - family-names: "Perlas"
+        given-names: "Albert"
+    journal: "Molecular Systems Biology"
+    year: 2023
+    doi: "10.15252/msb.202311686"

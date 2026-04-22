@@ -1,5 +1,10 @@
 # Bioinformatics Pipelines
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../LICENSE)
+[![Nanopore](https://img.shields.io/badge/platform-Oxford%20Nanopore-00a1e0.svg)](https://nanoporetech.com/)
+[![Snakemake](https://img.shields.io/badge/workflow-Snakemake-039475.svg)](https://snakemake.readthedocs.io/)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
+
 Project-linked nanopore and metagenomics workflows spanning environmental surveillance and food safety. This directory provides polished overview documentation for the main study pipelines in the personal repository; detailed accession context, helper scripts, and project-specific execution scaffolding remain linked from [GenomicsForOneHealth](https://github.com/ttmgr/GenomicsForOneHealth).
 
 The validated air pipeline in this directory is also the ground truth used in [`Against Plausibility: LLM Evaluation`](../llm-eval/), a scored benchmark for sequential scientific workflow generation by large language models.
