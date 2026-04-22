@@ -44,10 +44,10 @@ references:
         given-names: "Albert"
       - family-names: "Reska"
         given-names: "Tim"
-    journal: "bioRxiv"
+    journal: "Applied and Environmental Microbiology"
     year: 2025
     doi: "10.1101/2025.09.05.674394"
-    notes: "Shared first authorship"
+    notes: "Shared first authorship. DOI shown is the bioRxiv preprint; update with AEM DOI when available."
   - type: article
     title: "Detection of hidden antibiotic resistance through real-time genomics"
     authors:
