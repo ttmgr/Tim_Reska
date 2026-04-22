@@ -31,6 +31,7 @@ If you need to decide across the wider group collection rather than the curated 
 | [GenomicsForOneHealth](https://github.com/ttmgr/GenomicsForOneHealth) | Group-wide One Health pipeline collection | Environmental metagenomics, food safety, clinical, veterinary, eDNA, viability, and collaborative project infrastructure |
 | [`disease-progression/`](./disease-progression/) | Disease progression modeling framework | Survival analysis, competing risks, and transformer architectures on longitudinal EHR data for risk quantification |
 | [`disease-network/`](./disease-network/) | Interactive clinical atlas | D3.js dashboard for exploring disease state transitions and underwriting scenarios |
+| [`pkv-ml-explorer/`](./pkv-ml-explorer/) | PKV ML framework reference explorer | Interactive catalog of ML and actuarial methods (logistic regression, random forest, LSTM, autoencoder, Z-score/Mahalanobis, life tables, survival analysis, agentic AI) for private health insurance workflows |
 | [`medrisk-adh/`](./medrisk-adh/) | AI underwriting with failure mode detection | Streamlit platform demonstrating plausible-but-wrong detection via data quality–confidence mismatch |
 
 Within the group collection, my main contributions are in environmental metagenomics and food safety: [Air Metagenomics](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics), [Wetland Health](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health), and [Listeria Adaptive Sampling](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Food_Safety/Listeria-Adaptive-Sampling).
@@ -82,6 +83,16 @@ A standalone browser dashboard built in vanilla JavaScript (D3.js, Chart.js) for
 Stack: ES6 modules, D3.js, Chart.js, HTML5, CSS3.
 
 Links: [`disease-network/`](./disease-network/)
+
+---
+
+### PKV ML framework explorer
+
+A self-contained browser dashboard cataloguing the machine-learning and actuarial methods relevant to German private health insurance (PKV) underwriting and portfolio management. Covers logistic regression, random forest, LSTM, autoencoder, Z-score and Mahalanobis outlier detection, actuarial life tables, moving average and exponential smoothing, survival analysis, and an agentic AI orchestration layer — each with problem framing, worked example, and trade-offs. Written in German; single HTML entry point with no build step.
+
+Stack: vanilla HTML5, CSS3, JavaScript (no framework dependencies).
+
+Links: [`pkv-ml-explorer/`](./pkv-ml-explorer/)
 
 ---
 
