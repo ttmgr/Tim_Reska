@@ -1,24 +1,14 @@
 # Tim Reska
 
-**Research Scientist · LLM Evaluation · AI Deployment Strategy · Genomics & AI Infrastructure**
+**Research Scientist · LLM Evaluation · AI Deployment Strategy · Production ML for Regulated Industries**
 
-PhD candidate at Helmholtz Munich and the Technical University of Munich (defense July 2026), working on One Health genomic surveillance, long-read metagenomics, and large language model evaluation for scientific workflow construction. Co-Founder & CTO at [Askera GbR](https://askera.ai) — AI Deployment Consulting (Munich). 8 peer-reviewed publications including *Nature Communications*, *ISME Communications*, and *Molecular Systems Biology*.
+PhD candidate at Helmholtz Munich and the Technical University of Munich (defense July 2026). 3 years evaluating LLMs across 22+ models and three major families. Builder of production AI systems for medical underwriting with EU AI Act governance. 8 peer-reviewed publications including *Nature Communications*.
 
-3 years evaluating LLMs. 22+ models across GPT, Claude, and Gemini families, validated against my own peer-reviewed bioinformatics pipelines. I know where AI works, where it fails, and how to help organisations trust the difference — both as a researcher and as a consultant helping companies deploy AI in production.
+I know where AI works, where it fails, and how to help organisations deploy it.
 
 Within the broader [GenomicsForOneHealth](https://github.com/ttmgr/GenomicsForOneHealth) collection (One Health group at the University of Zurich, supervised by [Lara Urban](https://sites.google.com/view/urban-lab/home)), my main contributions are in environmental metagenomics and food safety.
 
-Links: [Email](mailto:timreska@gmail.com) · [LinkedIn](https://linkedin.com/in/tim-r-ai) · [ORCID](https://orcid.org/0009-0001-9700-5128) · [Askera](https://askera.ai)
-
-## Standalone repositories
-
-| Repository | What it does |
-|---|---|
-| [llm-metagenomics-eval](https://github.com/ttmgr/llm-metagenomics-eval) | Systematic 22-model LLM benchmark for scientific pipeline generation — 2-year longitudinal dataset |
-| [medrisk](https://github.com/ttmgr/medrisk) | Medical underwriting AI with confidence-calibrated failure detection, SHAP explainability, and EU AI Act governance (442 tests) |
-| [STI](https://github.com/ttmgr/STI) | Bayesian STI prevalence estimation pipeline — PyMC, automated surveillance crawlers (UZH / Helmholtz, SNSF-funded) |
-| [ai-deployment-readiness](https://github.com/ttmgr/ai-deployment-readiness) | Open-source AI maturity self-assessment tool for organisations evaluating AI deployment |
-| [llm-cost-calculator](https://github.com/ttmgr/llm-cost-calculator) | LLM deployment cost modeling with Monte Carlo sensitivity analysis and ROI calculation |
+Links: [Email](mailto:timreska@gmail.com) · [LinkedIn](https://linkedin.com/in/tim-r-ai) · [ORCID](https://orcid.org/0009-0001-9700-5128)
 
 ## Portfolio at a glance
 
@@ -39,8 +29,14 @@ flowchart TB
         direction LR
         DP["disease-progression<br/>survival + multistate"]
         DN["disease-network<br/>D3.js clinical atlas"]
-        MR["<b>MedRisk-ADH</b><br/>7-page underwriting platform<br/>with PBW detection"]
+        MR["<b>MedRisk</b><br/>underwriting platform<br/>with PBW detection"]
         PKV["pkv-ml-explorer<br/>PKV methods catalog"]
+    end
+
+    subgraph D["AI Deployment Strategy"]
+        direction LR
+        ADR["ai-deployment-readiness<br/>maturity self-assessment"]
+        LCC["llm-cost-calculator<br/>cost modeling + ROI"]
     end
 
     A -. ground truth .-> E
@@ -51,127 +47,146 @@ flowchart TB
     DN --> MR
     PKV -.- MR
 
+    E -. deployment lessons .-> ADR
+    E -. pricing analysis .-> LCC
+    MR -. regulated deployment .-> ADR
+
     classDef helm fill:#e8f4fd,stroke:#1a73e8,color:#0b1b2b
     classDef ind fill:#fef7e0,stroke:#f9ab00,color:#2b1b00
     classDef appl fill:#e8f5e9,stroke:#34a853,color:#0b1f10
+    classDef depl fill:#fce8e6,stroke:#ea4335,color:#2b0b0b
     class A,W,L helm
     class E ind
     class DP,DN,MR,PKV appl
+    class ADR,LCC depl
 ```
 
-The peer-reviewed bioinformatics pipelines on the left double as ground truth for the independent LLM evaluation in the centre. The same "plausible but wrong" failure mode that emerged from that evaluation is then operationalized in the applied-ML portfolio on the right — most explicitly in MedRisk-ADH.
+The peer-reviewed bioinformatics pipelines on the left double as ground truth for the LLM evaluation in the centre. The "plausible but wrong" failure mode that emerged from that evaluation is operationalized in the applied-ML portfolio on the right, and the deployment lessons feed into the AI strategy tools at the bottom.
 
-## Research focus
+---
 
-My work combines sampling strategy, nanopore sequencing, and reproducible bioinformatics for pathogen surveillance across air, water, food, and clinical settings. A second line of work examines whether large language models can produce bioinformatics workflows that remain scientifically valid beyond superficial code correctness.
+## Research · One Health Genomics
 
-## Featured benchmark
+My scientific work develops nanopore sequencing workflows for pathogen surveillance across air, water, food, and clinical settings. These pipelines serve as the validated ground truth for the LLM evaluation below.
 
-[`Against Plausibility: LLM Evaluation`](./llm-eval/) is the clearest benchmark in this repository for testing whether modern LLMs can build a real scientific workflow rather than just produce locally plausible code. It evaluates 28 entries across **476 scored step-results** using two validated nanopore pipelines as ground truth (a 7-step aerobiome workflow and a 10-step multi-omics wetland workflow).
+| Project | Status | Repository |
+|---|---|---|
+| Air monitoring by nanopore sequencing | Published · *ISME Communications* 2024 | [GenomicsForOneHealth/Air_Metagenomics](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics) · [Pipeline overview](./pipelines/aerobiome/) |
+| Wetland multi-omics surveillance | Published · *AEM* 2025 (shared first author) | [GenomicsForOneHealth/Wetland_Health](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health) · [Pipeline overview](./pipelines/wetland-surveillance/) |
+| Listeria adaptive sampling | In preparation | [GenomicsForOneHealth/Listeria-Adaptive-Sampling](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Food_Safety/Listeria-Adaptive-Sampling) · [Pipeline overview](./pipelines/listeria-adaptive-sampling/) |
 
-![Wetland pipeline scoring heatmap — 28 models × 10 steps](./llm-eval/results/figures/wetland_scoring_heatmap.png)
-*Wetland pipeline (10 steps × 28 evaluated entries). The light columns on the right (Step 7 RNA virome, Step 8 eDNA metabarcoding) are where every model in every family fails.*
+---
+
+## LLM Evaluation · Against Plausibility
+
+A structured benchmark of **22+ models across 476 scored step-results** testing whether LLMs can build real scientific workflows — not just produce locally plausible code. Two validated nanopore pipelines serve as ground truth: a 7-step aerobiome workflow and a 10-step multi-omics wetland workflow.
+
+The dominant failure mode: **"plausible but wrong"** — generated code that runs, looks reasonable, and would pass a surface-level review, but makes domain-specific choices that an expert would immediately reject. These failures are invisible to automated benchmarks and dangerous in regulated environments.
+
+**No model in any family produces a fully correct 10-step wetland pipeline.** Three of those steps have zero fully-correct answers across all 28 evaluated entries.
+
+![Wetland pipeline scoring heatmap — 28 models x 10 steps](./llm-eval/results/figures/wetland_scoring_heatmap.png)
+*Wetland pipeline (10 steps x 28 evaluated entries). The light columns on the right are where every model in every family fails.*
 
 ![Flagship model statistical comparison](./llm-eval/results/figures/flagship_comparison.png)
-*Flagship comparison: GPT-5 vs Opus 4.6 / Sonnet 4.6 vs Gemini 3 Pro / 3.1 Pro. Differences are not statistically significant on aerobiome despite large effect sizes — the bottleneck is benchmark statistical power, not family advantage.*
+*Flagship comparison: GPT-5 vs Opus 4.6 vs Gemini 3 Pro. Differences are not statistically significant on aerobiome — the bottleneck is benchmark statistical power, not family advantage.*
 
-The benchmark is designed around sequential failure: wrong tools, wrong parameters, broken output chaining, and analytically indefensible choices that look competent at first glance. That makes it relevant not only to bioinformatics, but also to AI labs, agent teams, and technical consultancies interested in workflow reliability rather than demo-level code generation.
+### Lessons for enterprise AI deployment
 
-## Repository context
+Models that achieve 95%+ on isolated coding tasks can still fail 40–60% of the time on sequential pipeline tasks. Surface-level benchmarks are insufficient for deployment decisions in regulated environments. Any organisation deploying AI for multi-step analytical workflows needs domain-expert evaluation, not just code-correctness metrics.
 
-This repository is the polished personal counterpart to the broader [GenomicsForOneHealth](https://github.com/ttmgr/GenomicsForOneHealth) collection. The material here emphasizes project overviews, study-linked pipeline documentation, and benchmark interpretation, while the group repository retains collaborative project metadata, accession context, helper scripts, and wider One Health coverage.
+The scoring framework (tool selection, parameter accuracy, output compatibility, scientific validity, executability) generalises to any domain where AI-generated workflows must be validated against expert ground truth — legal document drafting, financial model construction, clinical decision support, or any multi-step analytical pipeline.
 
-If you need to decide across the wider group collection rather than the curated subset here, use the canonical [GenomicsForOneHealth Pipeline Selector](https://ttmgr.github.io/GenomicsForOneHealth/).
+Links: [Full evaluation](./llm-eval/) · [Evaluation framework](./llm-eval/methodology/evaluation_framework.md) · [Curated findings](./llm-eval/evaluations/summary.md) · [Scoring criteria](./llm-eval/methodology/scoring_criteria.md)
 
-| Section | Scope | Connection |
-|:---|:---|:---|
-| [`llm-eval/`](./llm-eval/) | `Against Plausibility: LLM Evaluation` | Structured LLM benchmark for sequential scientific workflow construction |
-| [`pipelines/aerobiome/`](./pipelines/aerobiome/) | Air metagenomics pipeline overview | First-author workflow paired with the group repository's [Air Metagenomics](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics) study materials |
-| [`pipelines/wetland-surveillance/`](./pipelines/wetland-surveillance/) | Wetland multi-omics surveillance workflow | Shared first-author workflow paired with the group repository's [Wetland Health](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health) study materials |
-| [`pipelines/listeria-adaptive-sampling/`](./pipelines/listeria-adaptive-sampling/) | Food-safety adaptive sampling workflow overview | First-author project overview paired with the group repository's [Listeria Adaptive Sampling](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Food_Safety/Listeria-Adaptive-Sampling) pipeline scaffold |
-| [GenomicsForOneHealth](https://github.com/ttmgr/GenomicsForOneHealth) | Group-wide One Health pipeline collection | Environmental metagenomics, food safety, clinical, veterinary, eDNA, viability, and collaborative project infrastructure |
-| [`disease-progression/`](./disease-progression/) | Disease progression modeling framework | Survival analysis, competing risks, and transformer architectures on longitudinal EHR data for risk quantification |
-| [`disease-network/`](./disease-network/) | Interactive clinical atlas | D3.js dashboard for exploring disease state transitions and underwriting scenarios |
-| [`pkv-ml-explorer/`](./pkv-ml-explorer/) | PKV ML framework reference explorer | Interactive catalog of ML and actuarial methods (logistic regression, random forest, LSTM, autoencoder, Z-score/Mahalanobis, life tables, survival analysis, agentic AI) for private health insurance workflows |
-| [`medrisk-adh/`](./medrisk-adh/) | AI underwriting with failure mode detection | 7-page Streamlit platform with PBW detection, conformal validation, German Krankentagegeld module, and 8 real-world data adapters (NHANES / UK Biobank / CDC PLACES / …) |
+---
 
-Within the group collection, my main contributions are in environmental metagenomics and food safety: [Air Metagenomics](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics), [Wetland Health](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health), and [Listeria Adaptive Sampling](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Food_Safety/Listeria-Adaptive-Sampling).
+## Production AI · Healthcare & Underwriting
 
-## Selected projects
+### MedRisk — AI underwriting with failure mode detection
 
-### Against Plausibility: LLM Evaluation
+Automated underwriting AI fails most dangerously not when it is obviously wrong — but when it is **confidently wrong on low-quality data**. MedRisk computes a Data Quality Score for each patient before inference, then flags cases where model confidence exceeds what the input data can support.
 
-A structured LLM evaluation benchmark of 28 evaluated entries and **476 scored step-results across two independent ground-truth pipelines** — a 7-step linear aerobiome pipeline (Reska et al. 2024, *ISME Communications*) and a 10-step, 4-track multi-omics wetland surveillance pipeline (Perlas\*, Reska\* et al. 2025, *Applied and Environmental Microbiology*). Each model response is scored on tool choice, parameter accuracy, output compatibility, scientific validity, and executability under sequential workflow construction.
+Three risk models (XGBoost + Platt calibration, Cox PH survival, continuous-time Markov chain disease progression), a validation layer (DQS, calibration-confidence mismatch, epistemic uncertainty, PBW detection, conformal prediction), an underwriting decision engine with clinical-rule checks, and a governance layer with audit logging and human-override workflow.
 
-A separate statistical layer applies Kruskal-Wallis across model families, linear mixed models for repeated measures across pipeline steps, and a flagship comparison between the strongest entries from each family — finding flagship models statistically indistinguishable on aerobiome but with large effect sizes, indicating benchmark statistical power as the current bottleneck rather than family advantage.
+GDPR-safe multi-market synthetic cohort generator (DE/FR/ES/INT profiles). 9 external cohort adapters (NHANES, UK Biobank, BioLinCC, CDC PLACES, Zenodo). SHAP explainability. EU AI Act article mapping. **442 tests.**
 
-This benchmark is designed to expose a failure mode that matters in real technical deployments: outputs that are plausible at the single-step level but unstable, incompatible, or analytically wrong once chained into a full workflow. **No model in any family produces a fully correct 10-step wetland pipeline**, and three of those steps have zero fully-correct answers across all 28 evaluated entries.
+Stack: Python 3.11+, XGBoost, lifelines, SHAP, Streamlit, reportlab.
 
-Links: [Pipeline overview](./llm-eval/) | [Evaluation framework](./llm-eval/methodology/evaluation_framework.md) | [Curated findings](./llm-eval/evaluations/summary.md) | [Reference pipeline](./pipelines/aerobiome/)
-
-### Air monitoring by nanopore sequencing
-
-First-author workflow for long-read metagenomic characterization of bioaerosol communities collected by liquid impingement. The personal repository documents the validated pipeline structure, while the paired group repository retains accession context, preprocessing notes, helper scripts, and execution details tied to the published study.
-
-Links: [Pipeline overview](./pipelines/aerobiome/) | [Study repository and metadata](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics) | [Publication](https://doi.org/10.1093/ismeco/ycae058)
-
-### Real-time genomic pathogen, resistance, and host range characterization from passive water sampling of wetland ecosystems
-
-Shared first-author workflow integrating DNA shotgun metagenomics, RNA viromics, avian influenza whole-genome sequencing, and vertebrate eDNA metabarcoding across 12 wetlands in Germany, France, and Spain along the East Atlantic Flyway. The local overview emphasizes analytical design; the group repository retains sample mapping, accession references, and workflow-specific operational context.
-
-Links: [Pipeline overview](./pipelines/wetland-surveillance/) | [Study repository and metadata](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health) | [bioRxiv DOI](https://doi.org/10.1101/2025.09.05.674394) (AEM 2025)
-
-### Listeria adaptive sampling
-
-First-author food-safety workflow for Oxford Nanopore adaptive sampling of *Listeria monocytogenes* from complex microbiome samples. The personal repository provides a project-level analytical overview, while the group repository retains the full script scaffold, installation notes, execution guide, and adaptation details for matched adaptive-sampling versus native-run comparisons.
-
-Status: manuscript in preparation.
-
-Links: [Pipeline overview](./pipelines/listeria-adaptive-sampling/) | [Study repository and metadata](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Food_Safety/Listeria-Adaptive-Sampling)
+Links: [`medrisk-adh/`](./medrisk-adh/)
 
 ### Disease progression modeling
 
-A reproducible Python framework for predicting patient trajectories through discrete disease states using survival analysis and deep learning. Ingests synthetic FHIR bundles via Synthea, transforms them to an OMOP-lite schema, and benchmarks Cox PH, multistate Markov chains, DeepSurv, DeepHit, and SurvTRACE (transformer-based competing-risks survival) against two clinical tracks: cardiovascular disease and Type 2 diabetes. Includes fairness auditing, model cards, a GDPR/EU AI Act regulatory context document, and a full pytest suite.
-
-Stack: Python 3.10+, PyTorch, lifelines, pycox, scikit-survival, hmmlearn, FHIR.resources.
+Survival analysis and transformer-based architectures on synthetic FHIR/OMOP longitudinal records. Two clinical tracks (cardiovascular disease, Type 2 diabetes). Cox PH, multistate Markov, DeepSurv, DeepHit, SurvTRACE. Fairness auditing, model cards, GDPR/EU AI Act regulatory context.
 
 Links: [`disease-progression/`](./disease-progression/)
 
----
-
 ### Interactive clinical atlas
 
-A standalone browser dashboard built in vanilla JavaScript (D3.js, Chart.js) for visualising disease state transitions and comparing intervention scenarios in a German medical underwriting context. Eight disease nodes with evidence-linked uncertainty bands, patient profile controls, and timeline/network/trajectory views. No framework dependencies — the entire application ships as a single HTML entry point.
-
-Stack: ES6 modules, D3.js, Chart.js, HTML5, CSS3.
+D3.js browser dashboard for visualising disease state transitions and comparing intervention scenarios in a medical underwriting context. Eight disease nodes, evidence-linked uncertainty bands, patient profile controls. No framework dependencies.
 
 Links: [`disease-network/`](./disease-network/)
 
----
-
 ### PKV ML framework explorer
 
-A self-contained browser dashboard cataloguing the machine-learning and actuarial methods relevant to German private health insurance (PKV) underwriting and portfolio management. Covers logistic regression, random forest, LSTM, autoencoder, Z-score and Mahalanobis outlier detection, actuarial life tables, moving average and exponential smoothing, survival analysis, and an agentic AI orchestration layer — each with problem framing, worked example, and trade-offs. Written in German; single HTML entry point with no build step.
-
-Stack: vanilla HTML5, CSS3, JavaScript (no framework dependencies).
+Self-contained browser catalog of ML and actuarial methods for German private health insurance. Covers logistic regression, random forest, LSTM, autoencoder, survival analysis, and agentic AI orchestration.
 
 Links: [`pkv-ml-explorer/`](./pkv-ml-explorer/)
 
 ---
 
-### MedRisk-ADH — AI underwriting with failure mode detection
+## AI Deployment Strategy · Tools
 
-A 7-page Streamlit application demonstrating a validation layer for automated underwriting. The core idea: automated underwriting AI fails most dangerously not when it is obviously wrong, but when it is **confidently wrong on low-quality data** (the plausible-but-wrong failure mode). The platform computes a Data Quality Score (DQS) for each patient before inference and flags cases where model confidence exceeds what the input data can actually support.
+### AI Deployment Readiness Assessment
 
-The risk-model suite covers XGBoost classification, Cox PH survival, CTMC multistate progression, an actuarial rating engine, and a German Krankentagegeld (sickness-absence) module — routed by a model selector to the appropriate case type. The validation layer pairs DQS with Calibration-Confidence Mismatch, Epistemic Prediction Uncertainty, conformal prediction intervals, distribution-shift detection, and a per-prediction reliability head. An underwriting layer turns model output into Standard / Substandard / Decline decisions with clinical-rule checks and temporal constraints, while a governance layer maintains an append-only audit log and human-override workflow.
+Open-source CLI tool for organisations evaluating AI deployment. 25 questions across five dimensions (data infrastructure, process maturity, governance, talent, executive sponsorship), weighted scoring, maturity tier assignment (Exploring / Piloting / Scaling / Optimizing), sector benchmarks, and prioritised recommendations.
 
-A GDPR-safe multi-market synthetic cohort generator (DE / FR / ES / INT profiles with controlled degradation) drives reproducible failure-mode experiments, and 8 real-world adapters (NHANES, UK Biobank, BioLinCC, Zenodo, CDC PLACES, data.gov, Glucose-ML, Granada T1D) enable validation against public clinical datasets. 231 tests across 37 files keep the library reproducible.
+Built on published AI maturity frameworks (Gartner, Stanford HAI, McKinsey). 34 tests.
 
-Stack: Python 3.11+, Streamlit, XGBoost, lifelines, PyTorch, SHAP, conformal-prediction tooling, Plotly, reportlab, python-pptx.
+```bash
+cd ai-deployment-readiness && python -m src.questionnaire --demo
+```
 
-Links: [`medrisk-adh/`](./medrisk-adh/)
+Links: [`ai-deployment-readiness/`](./ai-deployment-readiness/)
+
+### LLM Cost Calculator
+
+Cost modeling for LLM deployment decisions. Pricing database for 13 models across Mistral, OpenAI, Anthropic, Google, and self-hosted options. Monte Carlo sensitivity analysis (volume, token length, price variation → P10/P50/P90 projections). ROI calculator comparing manual process cost vs LLM-augmented workflow with human review layer. 23 tests.
+
+```bash
+cd llm-cost-calculator && python -m src.calculator --compare mistral-large-latest,gpt-4o,claude-sonnet-4 --input-tokens 500 --output-tokens 200 --requests-per-day 1000
+```
+
+Links: [`llm-cost-calculator/`](./llm-cost-calculator/)
 
 ---
+
+## Repository structure
+
+```
+Tim_Reska/
+├── llm-eval/                  LLM benchmark: 22 models, 2 pipelines, 476 step-results
+│   ├── methodology/           evaluation framework, scoring rubrics, pipeline references
+│   ├── prompts/               standardised prompts per pipeline step
+│   ├── evaluations/           scored evaluations by step and by model
+│   ├── results/               figures, tables, scoring matrix
+│   └── scripts/               heatmap, radar, statistical analysis generators
+├── medrisk-adh/               medical underwriting AI platform
+│   ├── src/medrisk/           67 Python modules across 10 subpackages
+│   ├── tests/                 442 tests
+│   ├── configs/               insurance market configs, underwriting profiles
+│   ├── notebooks/             5 Jupyter notebooks
+│   └── app/                   Streamlit application
+├── disease-progression/       survival + transformer models on FHIR/OMOP data
+├── disease-network/           D3.js interactive clinical atlas
+├── pkv-ml-explorer/           PKV ML methods reference catalog
+├── pipelines/                 pipeline overviews (→ GenomicsForOneHealth)
+│   ├── aerobiome/
+│   ├── wetland-surveillance/
+│   └── listeria-adaptive-sampling/
+├── ai-deployment-readiness/   AI maturity self-assessment (25 questions, 5 dimensions)
+└── llm-cost-calculator/       LLM deployment cost + ROI modeling (13 models)
+```
 
 ## Selected publications
 
@@ -179,16 +194,17 @@ Links: [`medrisk-adh/`](./medrisk-adh/)
 - Perlas A, Reska T, Sanchez-Cano A, et al. [Real-time genomic pathogen, resistance, and host range characterization from passive water sampling of wetland ecosystems](https://doi.org/10.1101/2025.09.05.674394). *Applied and Environmental Microbiology* (2025, shared first authorship).
 - Urban L, Perlas A, Francino O, et al. [Real-time genomics for One Health](https://doi.org/10.15252/msb.202311686). *Molecular Systems Biology* (2023).
 - Sauerborn E, Corredor NC, Reska T, et al. [Detection of hidden antibiotic resistance through real-time genomics](https://www.nature.com/articles/s41467-024-49851-4). *Nature Communications* (2024).
-- Varzanadi AR, Reska T, et al. Environmental screening detects *Batrachochytrium dendrobatidis*. *Global Ecology and Conservation* (2025, contributing author).
+- Varzanadi AR, Reska T, et al. Environmental screening detects *Batrachochytrium dendrobatidis*. *Global Ecology and Conservation* (2025).
 
 A fuller publication record is available on [LinkedIn](https://linkedin.com/in/tim-r-ai).
 
 ## Methods and technical areas
 
-- Long-read sequencing workflows for environmental, food-safety, and clinical surveillance
-- Bioinformatics pipeline development in Snakemake, Python, and Bash
-- Taxonomic classification, de novo assembly, adaptive sampling, AMR detection, virome analysis, and eDNA metabarcoding
-- Benchmark design and failure analysis for LLM-generated scientific workflows and agentic pipeline construction
+- Long-read sequencing: Nanopore, PacBio Kinnex, adaptive sampling, AMR detection
+- ML/AI: XGBoost, Cox PH, CTMC, transformers (SurvTRACE), SHAP, conformal prediction
+- LLM evaluation: multi-vendor benchmarking, sequential pipeline testing, domain-expert scoring
+- AI deployment: maturity assessment, cost modeling, ROI analysis, EU AI Act governance
+- Infrastructure: Python, PyTorch, scikit-learn, lifelines, Streamlit, D3.js, Snakemake
 
 ## Contact
 

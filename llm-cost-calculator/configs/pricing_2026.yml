@@ -1,0 +1,91 @@
+# LLM Pricing Database — May 2026
+# Sources: provider public API pricing pages
+# All prices in USD per 1 million tokens unless noted otherwise.
+
+providers:
+  mistral:
+    display_name: Mistral AI
+    models:
+      mistral-small-latest:
+        display_name: Mistral Small
+        input_per_1m: 0.1
+        output_per_1m: 0.3
+        type: api
+      mistral-medium-latest:
+        display_name: Mistral Medium
+        input_per_1m: 2.7
+        output_per_1m: 8.1
+        type: api
+      mistral-large-latest:
+        display_name: Mistral Large
+        input_per_1m: 2.0
+        output_per_1m: 6.0
+        type: api
+      codestral:
+        display_name: Codestral
+        input_per_1m: 0.3
+        output_per_1m: 0.9
+        type: api
+
+  openai:
+    display_name: OpenAI
+    models:
+      gpt-4o:
+        display_name: GPT-4o
+        input_per_1m: 2.50
+        output_per_1m: 10.0
+        type: api
+      gpt-4o-mini:
+        display_name: GPT-4o Mini
+        input_per_1m: 0.15
+        output_per_1m: 0.60
+        type: api
+      o3:
+        display_name: o3
+        input_per_1m: 10.0
+        output_per_1m: 40.0
+        type: api
+
+  anthropic:
+    display_name: Anthropic
+    models:
+      claude-sonnet-4:
+        display_name: Claude Sonnet 4
+        input_per_1m: 3.0
+        output_per_1m: 15.0
+        type: api
+      claude-haiku-3.5:
+        display_name: Claude Haiku 3.5
+        input_per_1m: 0.80
+        output_per_1m: 4.0
+        type: api
+
+  google:
+    display_name: Google
+    models:
+      gemini-2.5-pro:
+        display_name: Gemini 2.5 Pro
+        input_per_1m: 1.25
+        output_per_1m: 10.0
+        type: api
+      gemini-2.5-flash:
+        display_name: Gemini 2.5 Flash
+        input_per_1m: 0.15
+        output_per_1m: 0.60
+        type: api
+
+  self-hosted:
+    display_name: Self-Hosted
+    models:
+      llama-3.1-70b-a100:
+        display_name: Llama 3.1 70B (A100)
+        type: self_hosted
+        gpu_cost_per_hour: 2.0
+        tokens_per_second: 500
+        overhead_fraction: 0.20
+      mistral-7b-a10g:
+        display_name: Mistral 7B (A10G)
+        type: self_hosted
+        gpu_cost_per_hour: 1.0
+        tokens_per_second: 800
+        overhead_fraction: 0.20
