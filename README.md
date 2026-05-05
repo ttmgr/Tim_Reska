@@ -18,7 +18,7 @@ flowchart TB
         direction LR
         A["Aerobiome<br/><i>ISME Communications</i> 2024"]
         W["Wetland multi-omics<br/><i>AEM</i> 2025"]
-        L["Listeria adaptive sampling<br/>in preparation"]
+        L["<i>Listeria</i> metagenomics<br/><i>bioRxiv</i> preprint 2026"]
     end
 
     subgraph I["Independent · LLM Evaluation"]
@@ -73,7 +73,15 @@ My scientific work develops nanopore sequencing workflows for pathogen surveilla
 |---|---|---|
 | Air monitoring by nanopore sequencing | Published · *ISME Communications* 2024 | [GenomicsForOneHealth/Air_Metagenomics](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics) · [Pipeline overview](./pipelines/aerobiome/) |
 | Wetland multi-omics surveillance | Published · *AEM* 2025 (shared first author) | [GenomicsForOneHealth/Wetland_Health](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Wetland_Health) · [Pipeline overview](./pipelines/wetland-surveillance/) |
-| Listeria adaptive sampling | In preparation | [GenomicsForOneHealth/Listeria-Adaptive-Sampling](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Food_Safety/Listeria-Adaptive-Sampling) · [Pipeline overview](./pipelines/listeria-adaptive-sampling/) |
+| *Listeria* metagenomic surveillance | Preprint · *bioRxiv* 2026 | [GenomicsForOneHealth/Listeria-Adaptive-Sampling](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Food_Safety/Listeria-Adaptive-Sampling) · [Pipeline overview](./pipelines/listeria-adaptive-sampling/) |
+
+### Publications (first, second, or third author)
+
+1. **Reska T**, Pozdniakova S, Urban L. [Air monitoring by nanopore sequencing](https://doi.org/10.1093/ismeco/ycae058). *ISME Communications* (2024).
+2. Perlas A\*, **Reska T**\*, Sanchez-Cano A, et al. [Real-time genomic pathogen, resistance, and host range characterization from passive water sampling of wetland ecosystems](https://doi.org/10.1101/2025.09.05.674394). *Applied and Environmental Microbiology* (2025). Shared first authorship.
+3. Sauerborn E, Corredor NC, **Reska T**, et al. [Detection of hidden antibiotic resistance through real-time genomics](https://www.nature.com/articles/s41467-024-49851-4). *Nature Communications* (2024).
+4. Muchaamba F, **Reska T**, Biggel M, Locken KM, Weilguny L, Corti S, Kelbert L, Stephan R, Urban L. [A metagenomic framework for rapid *Listeria monocytogenes* surveillance in food production environments](https://www.biorxiv.org/content/10.64898/2026.04.23.720354v1). *bioRxiv* preprint (2026).
+5. Varzanadi AR, **Reska T**, et al. Environmental screening detects *Batrachochytrium dendrobatidis*. *Global Ecology and Conservation* (2025).
 
 ---
 
@@ -190,11 +198,12 @@ Tim_Reska/
 
 ## Selected publications
 
-- Reska T, Pozdniakova S, Urban L. [Air monitoring by nanopore sequencing](https://doi.org/10.1093/ismeco/ycae058). *ISME Communications* (2024).
-- Perlas A, Reska T, Sanchez-Cano A, et al. [Real-time genomic pathogen, resistance, and host range characterization from passive water sampling of wetland ecosystems](https://doi.org/10.1101/2025.09.05.674394). *Applied and Environmental Microbiology* (2025, shared first authorship).
+- **Reska T**, Pozdniakova S, Urban L. [Air monitoring by nanopore sequencing](https://doi.org/10.1093/ismeco/ycae058). *ISME Communications* (2024).
+- Perlas A\*, **Reska T**\*, Sanchez-Cano A, et al. [Real-time genomic pathogen, resistance, and host range characterization from passive water sampling of wetland ecosystems](https://doi.org/10.1101/2025.09.05.674394). *Applied and Environmental Microbiology* (2025). Shared first authorship.
+- Sauerborn E, Corredor NC, **Reska T**, et al. [Detection of hidden antibiotic resistance through real-time genomics](https://www.nature.com/articles/s41467-024-49851-4). *Nature Communications* (2024).
+- Muchaamba F, **Reska T**, Biggel M, et al. [A metagenomic framework for rapid *Listeria monocytogenes* surveillance in food production environments](https://www.biorxiv.org/content/10.64898/2026.04.23.720354v1). *bioRxiv* preprint (2026).
+- Varzanadi AR, **Reska T**, et al. Environmental screening detects *Batrachochytrium dendrobatidis*. *Global Ecology and Conservation* (2025).
 - Urban L, Perlas A, Francino O, et al. [Real-time genomics for One Health](https://doi.org/10.15252/msb.202311686). *Molecular Systems Biology* (2023).
-- Sauerborn E, Corredor NC, Reska T, et al. [Detection of hidden antibiotic resistance through real-time genomics](https://www.nature.com/articles/s41467-024-49851-4). *Nature Communications* (2024).
-- Varzanadi AR, Reska T, et al. Environmental screening detects *Batrachochytrium dendrobatidis*. *Global Ecology and Conservation* (2025).
 
 A fuller publication record is available on [LinkedIn](https://linkedin.com/in/tim-r-ai).
 
