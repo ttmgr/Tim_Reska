@@ -1,14 +1,24 @@
 # Tim Reska
 
-**Research Scientist · LLM Evaluation · Genomics & AI Infrastructure**
+**Research Scientist · LLM Evaluation · AI Deployment Strategy · Genomics & AI Infrastructure**
 
-3 years evaluating LLMs. 22 models across GPT, Claude, and Gemini families, validated against my own peer-reviewed bioinformatics pipeline. I know where AI works, where it fails, and how to help teams trust the difference.
+PhD candidate at Helmholtz Munich and the Technical University of Munich (defense July 2026), working on One Health genomic surveillance, long-read metagenomics, and large language model evaluation for scientific workflow construction. Co-Founder & CTO at [Askera GbR](https://askera.ai) — AI Deployment Consulting (Munich). 8 peer-reviewed publications including *Nature Communications*, *ISME Communications*, and *Molecular Systems Biology*.
 
-PhD candidate at Helmholtz Munich and the Technical University of Munich (expected Jun 2026), working on One Health genomic surveillance, long-read metagenomics, and large language model evaluation for scientific workflow construction. Founding member of an international AI research group; 4+ years building laboratory and computational infrastructure from scratch across 7 international sites; published in *ISME Communications*, *Nature Communications*, and *Molecular Systems Biology*.
+3 years evaluating LLMs. 22+ models across GPT, Claude, and Gemini families, validated against my own peer-reviewed bioinformatics pipelines. I know where AI works, where it fails, and how to help organisations trust the difference — both as a researcher and as a consultant helping companies deploy AI in production.
 
 Within the broader [GenomicsForOneHealth](https://github.com/ttmgr/GenomicsForOneHealth) collection (One Health group at the University of Zurich, supervised by [Lara Urban](https://sites.google.com/view/urban-lab/home)), my main contributions are in environmental metagenomics and food safety.
 
-Links: [Email](mailto:timreska@gmail.com) · [LinkedIn](https://linkedin.com/in/tim-r-ai) · [ORCID](https://orcid.org/0009-0001-9700-5128)
+Links: [Email](mailto:timreska@gmail.com) · [LinkedIn](https://linkedin.com/in/tim-r-ai) · [ORCID](https://orcid.org/0009-0001-9700-5128) · [Askera](https://askera.ai)
+
+## Standalone repositories
+
+| Repository | What it does |
+|---|---|
+| [llm-metagenomics-eval](https://github.com/ttmgr/llm-metagenomics-eval) | Systematic 22-model LLM benchmark for scientific pipeline generation — 2-year longitudinal dataset |
+| [medrisk](https://github.com/ttmgr/medrisk) | Medical underwriting AI with confidence-calibrated failure detection, SHAP explainability, and EU AI Act governance (442 tests) |
+| [STI](https://github.com/ttmgr/STI) | Bayesian STI prevalence estimation pipeline — PyMC, automated surveillance crawlers (UZH / Helmholtz, SNSF-funded) |
+| [ai-deployment-readiness](https://github.com/ttmgr/ai-deployment-readiness) | Open-source AI maturity self-assessment tool for organisations evaluating AI deployment |
+| [llm-cost-calculator](https://github.com/ttmgr/llm-cost-calculator) | LLM deployment cost modeling with Monte Carlo sensitivity analysis and ROI calculation |
 
 ## Portfolio at a glance
 
