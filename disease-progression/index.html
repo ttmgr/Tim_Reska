@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Disease Progression Explorer &middot; Tim Reska</title>
+  <meta name="description" content="Interactive educational visualization of survival analysis and disease progression models for medical underwriting. Simulated data only." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Design tokens ── */
+    :root {
+      --bg: #FAF9F7;
+      --surface: #FFFFFF;
+      --text: #1A1A2E;
+      --text-secondary: #6B6A73;
+      --accent: #C4794A;
+      --accent-hover: #A8603A;
+      --border: #E8E6E1;
+      --tag-bg: #F0EDEA;
+      --tag-text: #5A584F;
+      --radius: 12px;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-heading: 'Source Serif 4', Georgia, serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --max-w: 1080px;
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Layout ── */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+    section { padding: 64px 0; }
+    section + section { border-top: 1px solid var(--border); }
+
+    /* ── Typography ── */
+    h1, h2, h3 { font-family: var(--font-heading); font-weight: 600; color: var(--text); line-height: 1.25; }
+    h1 { font-size: clamp(28px, 4vw, 40px); }
+    h2 { font-size: clamp(22px, 3vw, 28px); margin-bottom: 12px; }
+    h3 { font-size: 18px; margin-bottom: 8px; }
+    p { color: var(--text-secondary); }
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: box-shadow 0.2s;
+    }
+    .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    .card-grid {
+      display: grid;
+      gap: 20px;
+    }
+    .card-grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .card-grid-3 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+
+    /* ── Tags ── */
+    .tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 10px;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      border-radius: 6px;
+      margin-right: 6px;
+      margin-bottom: 4px;
+    }
+    .tag--accent { background: var(--accent); color: #fff; }
+
+    /* ── Buttons ── */
+    .btn {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn--primary { background: var(--accent); color: #fff; }
+    .btn--primary:hover { background: var(--accent-hover); }
+    .btn--ghost {
+      background: transparent;
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+    }
+    .btn--ghost:hover { background: var(--accent); color: #fff; }
+    .btn--active { background: var(--accent); color: #fff; }
+
+    /* ── Disclaimer ── */
+    .disclaimer {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+      background: var(--tag-bg);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-top: 16px;
+      line-height: 1.5;
+    }
+
+    /* ── Portfolio nav ── */
+    .portfolio-nav a:hover { color: var(--accent) !important; }
+
+    /* ── Hero ── */
+    #hero { padding-top: 48px; border-top: none; }
+    #hero h1 { margin-bottom: 12px; }
+    .hero-desc { font-size: 16px; max-width: 680px; margin-bottom: 28px; line-height: 1.7; }
+    .track-cards { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 8px; }
+    .track-card {
+      flex: 1 1 200px;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: left;
+    }
+    .track-card:hover { border-color: var(--accent); }
+    .track-card.active { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(196,121,74,0.15); }
+    .track-card h3 { font-size: 16px; margin-bottom: 4px; }
+    .track-card p { font-size: 13px; margin: 0; }
+    .track-card .track-icon { font-size: 28px; margin-bottom: 8px; display: block; }
+
+    /* ── Pipeline ── */
+    .pipeline-row {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      overflow-x: auto;
+      padding: 8px 0;
+      -webkit-overflow-scrolling: touch;
+    }
+    .pipeline-step {
+      flex: 1 1 0;
+      min-width: 100px;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+      padding: 16px 12px;
+      border-radius: var(--radius);
+      transition: all 0.2s;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+    }
+    .pipeline-step:hover, .pipeline-step.active {
+      border-color: var(--accent);
+      box-shadow: 0 2px 12px rgba(196,121,74,0.12);
+    }
+    .pipeline-step.active { background: rgba(196,121,74,0.06); }
+    .pipeline-step .step-icon { font-size: 22px; display: block; margin-bottom: 6px; }
+    .pipeline-step .step-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .pipeline-arrow {
+      display: flex;
+      align-items: center;
+      padding: 0 4px;
+      color: var(--border);
+      font-size: 20px;
+      flex-shrink: 0;
+      user-select: none;
+    }
+    .pipeline-detail {
+      margin-top: 20px;
+      padding: 20px 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: none;
+    }
+    .pipeline-detail.visible { display: block; }
+    .pipeline-detail h3 { font-size: 16px; margin-bottom: 8px; }
+    .pipeline-detail p { font-size: 14px; line-height: 1.65; }
+    .pipeline-detail .tag { margin-top: 8px; }
+
+    /* ── Model comparison ── */
+    .model-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .model-tab {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 7px 16px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+      transition: all 0.15s;
+      color: var(--text);
+    }
+    .model-tab:hover { border-color: var(--accent); color: var(--accent); }
+    .model-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .model-detail {
+      display: none;
+      gap: 24px;
+    }
+    .model-detail.visible {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .metric-bar-wrap { margin-top: 20px; }
+    .metric-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .metric-bar-label span:last-child {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      color: var(--accent);
+    }
+    .metric-bar {
+      height: 8px;
+      background: var(--tag-bg);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .metric-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+    .model-props ul {
+      list-style: none;
+      padding: 0;
+    }
+    .model-props li {
+      font-size: 13px;
+      color: var(--text-secondary);
+      padding: 3px 0;
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .model-props li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+    .strengths li::before { background: #5a9a68; }
+    .limitations li::before { background: #c75a3a; }
+    .model-props h4 {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+      margin-top: 14px;
+      color: var(--text);
+    }
+
+    /* ── Survival curve canvas ── */
+    .curve-container {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 24px 16px 24px;
+    }
+    #survivalCanvas { display: block; width: 100%; cursor: crosshair; }
+    .curve-legend {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .curve-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+    .curve-legend-swatch {
+      width: 24px;
+      height: 3px;
+      border-radius: 2px;
+    }
+    .curve-tooltip {
+      position: absolute;
+      pointer-events: none;
+      background: var(--text);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      opacity: 0;
+      transition: opacity 0.15s;
+      white-space: nowrap;
+      z-index: 10;
+    }
+
+    /* ── Governance ── */
+    .gov-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 12px;
+      background: var(--tag-bg);
+    }
+    .gov-card p { font-size: 13px; line-height: 1.6; }
+    .gov-mapping {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      margin-top: 10px;
+      display: block;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 700px) {
+      .model-detail.visible { grid-template-columns: 1fr; }
+      .pipeline-step .step-label { font-size: 11px; }
+      section { padding: 40px 0; }
+      .card { padding: 18px; }
+    }
+    @media (max-width: 500px) {
+      .track-cards { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Portfolio Nav ── -->
+<div class="portfolio-nav" style="position:sticky;top:0;z-index:9999;background:rgba(250,249,247,0.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid #E8E6E1;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;">
+  <div style="max-width:1080px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:48px;">
+    <a href="../" style="font-family:'Source Serif 4',Georgia,serif;font-size:16px;font-weight:600;color:#1A1A2E;text-decoration:none;">&larr; Tim Reska</a>
+    <span style="font-size:13px;color:#6B6A73;font-weight:500;">Disease Progression Modeling</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     1. HERO
+     ══════════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="container">
+    <p class="eyebrow">Disease Progression Explorer</p>
+    <h1>Survival Analysis &amp; Disease Progression Models</h1>
+    <p class="hero-desc">
+      An interactive educational walkthrough of a framework that ingests synthetic FHIR bundles,
+      engineers longitudinal features, and benchmarks six model classes for predicting patient
+      trajectories through discrete disease states. Select a clinical track to explore.
+    </p>
+
+    <div class="track-cards">
+      <div class="track-card active" data-track="cvd" onclick="selectTrack('cvd')">
+        <span class="track-icon" aria-hidden="true">&#9829;</span>
+        <h3>Cardiovascular Disease</h3>
+        <p>From modifiable risk factors through acute coronary events to heart failure staging</p>
+      </div>
+      <div class="track-card" data-track="t2d" onclick="selectTrack('t2d')">
+        <span class="track-icon" aria-hidden="true">&#9672;</span>
+        <h3>Type 2 Diabetes</h3>
+        <p>From prediabetes through micro/macrovascular complications to end-stage renal disease</p>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      All metrics, curves, and values shown are <strong>simulated / educational</strong>.
+      This visualization does not run real ML models and is not intended for clinical or actuarial decisions.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     2. PIPELINE
+     ══════════════════════════════════════════════════ -->
+<section id="pipeline">
+  <div class="container">
+    <p class="eyebrow">End-to-End Pipeline</p>
+    <h2>From Synthetic Patient Data to Governance</h2>
+    <p style="margin-bottom:24px;">Click any step to learn more about that stage of the pipeline.</p>
+
+    <div class="pipeline-row" id="pipelineRow"></div>
+
+    <div class="pipeline-detail" id="pipelineDetail">
+      <h3 id="pdTitle"></h3>
+      <p id="pdDesc"></p>
+      <div id="pdTags"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     3. MODEL COMPARISON
+     ══════════════════════════════════════════════════ -->
+<section id="models">
+  <div class="container">
+    <p class="eyebrow">Model Comparison</p>
+    <h2>Six Model Classes Benchmarked</h2>
+    <p style="margin-bottom:20px;" id="modelsSubtitle">Simulated performance on the <strong>CVD</strong> track. Metrics are illustrative.</p>
+
+    <div class="model-tabs" id="modelTabs"></div>
+    <div id="modelDetails"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     4. SURVIVAL CURVES
+     ══════════════════════════════════════════════════ -->
+<section id="curves">
+  <div class="container">
+    <p class="eyebrow">Survival Curves</p>
+    <h2>Kaplan-Meier-Style Visualization</h2>
+    <p style="margin-bottom:20px;" id="curvesSubtitle">Simulated survival probabilities for three risk strata in the <strong>CVD</strong> track. Hover for exact values.</p>
+
+    <div class="curve-container">
+      <canvas id="survivalCanvas" height="380"></canvas>
+      <div class="curve-tooltip" id="curveTooltip"></div>
+      <div class="curve-legend" id="curveLegend"></div>
+    </div>
+
+    <div class="disclaimer" style="margin-top:16px;">
+      Curves are drawn from synthetic step-function data and do not represent real patient outcomes.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     5. GOVERNANCE
+     ══════════════════════════════════════════════════ -->
+<section id="governance">
+  <div class="container">
+    <p class="eyebrow">Governance &amp; Compliance</p>
+    <h2>Responsible AI Documentation</h2>
+    <p style="margin-bottom:24px;">Each artifact addresses specific requirements of the EU AI Act and responsible ML practice.</p>
+
+    <div class="card-grid card-grid-2">
+      <div class="card gov-card">
+        <div class="gov-icon">&#128196;</div>
+        <h3>Model Card</h3>
+        <p>Structured documentation of each model's intended use, training data, performance metrics, ethical considerations, and known limitations. Covers all six architectures with per-track breakdowns.</p>
+        <span class="gov-mapping">EU AI Act Art. 13 &mdash; Transparency &amp; information</span>
+      </div>
+      <div class="card gov-card">
+        <div class="gov-icon">&#9888;</div>
+        <h3>Risk Register</h3>
+        <p>Systematic catalog of identified risks: data drift, label leakage, subgroup bias, concept shift over time. Each entry includes likelihood, impact severity, and mitigations.</p>
+        <span class="gov-mapping">EU AI Act Art. 9 &mdash; Risk management system</span>
+      </div>
+      <div class="card gov-card">
+        <div class="gov-icon">&#128202;</div>
+        <h3>Dataset Data Sheet</h3>
+        <p>Provenance and characteristics of the synthetic FHIR data: generation parameters, demographic distributions, known biases in Synthea generators, and scope limitations.</p>
+        <span class="gov-mapping">EU AI Act Art. 10 &mdash; Data and data governance</span>
+      </div>
+      <div class="card gov-card">
+        <div class="gov-icon">&#9878;</div>
+        <h3>Fairness Audit</h3>
+        <p>Subgroup analysis across age, sex, and ethnicity. Equalized odds, calibration parity, and demographic parity evaluated at clinically meaningful thresholds.</p>
+        <span class="gov-mapping">EU AI Act Art. 10(2f) &mdash; Bias examination &amp; Art. 15 &mdash; Accuracy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer style="padding:32px 0;text-align:center;border-top:1px solid var(--border);">
+  <div class="container">
+    <p style="font-size:13px;color:var(--text-secondary);">
+      Disease Progression Explorer &middot; Educational visualization &middot; All data simulated
+    </p>
+    <p style="font-size:12px;color:var(--text-secondary);margin-top:4px;">
+      &copy; 2025 Tim Reska &middot; <a href="https://github.com/timreska" style="color:var(--accent);text-decoration:none;">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   DATA
+   ═══════════════════════════════════════════════════════ */
+
+const TRACKS = {
+  cvd: {
+    label: 'CVD',
+    full: 'Cardiovascular Disease',
+    models: {
+      'Cox PH':           { ci: 0.72, brier: 0.18 },
+      'DeepSurv':         { ci: 0.75, brier: 0.16 },
+      'DeepHit':          { ci: 0.77, brier: 0.15 },
+      'Dynamic-DeepHit':  { ci: 0.79, brier: 0.14 },
+      'Multistate Markov': { ci: 0.70, brier: 0.20 },
+      'SurvTRACE':        { ci: 0.81, brier: 0.13 }
+    },
+    curves: {
+      'Low-risk':  [1,.98,.97,.96,.95,.93,.92,.90,.89,.87,.86,.85,.84,.83,.82,.81,.80,.79,.78,.77,.76],
+      'Baseline':  [1,.96,.93,.90,.87,.84,.81,.78,.75,.72,.70,.67,.65,.63,.61,.59,.57,.55,.53,.51,.50],
+      'High-risk': [1,.91,.84,.77,.71,.65,.59,.54,.49,.44,.40,.37,.34,.31,.28,.26,.24,.22,.20,.18,.17]
+    }
+  },
+  t2d: {
+    label: 'T2D',
+    full: 'Type 2 Diabetes',
+    models: {
+      'Cox PH':           { ci: 0.69, brier: 0.20 },
+      'DeepSurv':         { ci: 0.72, brier: 0.18 },
+      'DeepHit':          { ci: 0.74, brier: 0.16 },
+      'Dynamic-DeepHit':  { ci: 0.77, brier: 0.14 },
+      'Multistate Markov': { ci: 0.68, brier: 0.21 },
+      'SurvTRACE':        { ci: 0.79, brier: 0.14 }
+    },
+    curves: {
+      'Low-risk':  [1,.99,.98,.97,.96,.95,.94,.93,.92,.91,.90,.89,.88,.87,.86,.85,.84,.83,.82,.81,.80],
+      'Baseline':  [1,.97,.94,.91,.88,.85,.82,.80,.77,.74,.72,.69,.67,.65,.63,.61,.59,.57,.55,.54,.52],
+      'High-risk': [1,.93,.87,.80,.74,.68,.63,.58,.53,.49,.45,.42,.39,.36,.33,.31,.29,.27,.25,.23,.22]
+    }
+  }
+};
+
+const MODEL_META = {
+  'Cox PH': {
+    type: 'Classical',
+    idea: 'Proportional hazards assumption: covariates multiply a shared baseline hazard.',
+    strengths: [
+      'Highly interpretable hazard ratios',
+      'Well-understood statistical theory',
+      'Efficient with small datasets'
+    ],
+    limitations: [
+      'Assumes proportional hazards (often violated)',
+      'Cannot model time-varying covariate effects natively',
+      'Linear predictor limits expressiveness'
+    ]
+  },
+  'DeepSurv': {
+    type: 'Deep Learning',
+    idea: 'Neural network replaces Cox linear predictor; learns nonlinear risk scores.',
+    strengths: [
+      'Captures complex nonlinear interactions',
+      'Retains partial likelihood framework',
+      'Can leverage feature embeddings'
+    ],
+    limitations: [
+      'Still assumes proportional hazards',
+      'Requires careful regularization',
+      'Less interpretable than Cox PH'
+    ]
+  },
+  'DeepHit': {
+    type: 'Deep Learning',
+    idea: 'Directly estimates the probability mass function over discrete time intervals.',
+    strengths: [
+      'No proportional hazards assumption',
+      'Handles competing risks natively',
+      'Flexible discrete-time output'
+    ],
+    limitations: [
+      'Requires discrete time binning',
+      'Sensitive to bin width choice',
+      'Higher data requirements'
+    ]
+  },
+  'Dynamic-DeepHit': {
+    type: 'Deep Learning',
+    idea: 'Extends DeepHit with an RNN encoder for longitudinal input sequences.',
+    strengths: [
+      'Models temporal trajectories directly',
+      'Handles irregular visit schedules',
+      'Competing risks with sequence awareness'
+    ],
+    limitations: [
+      'Complex architecture, harder to tune',
+      'Needs substantial longitudinal data',
+      'Longer training times'
+    ]
+  },
+  'Multistate Markov': {
+    type: 'Classical',
+    idea: 'Patients transition between discrete health states governed by transition intensities.',
+    strengths: [
+      'Explicit disease stage modeling',
+      'Natural fit for clinical staging systems',
+      'Transition probabilities are directly interpretable'
+    ],
+    limitations: [
+      'Markov assumption: future depends only on current state',
+      'Number of states must be pre-defined',
+      'Difficult to scale to many states'
+    ]
+  },
+  'SurvTRACE': {
+    type: 'Transformer',
+    idea: 'Transformer architecture attends over patient event sequences to predict survival.',
+    strengths: [
+      'Self-attention captures long-range dependencies',
+      'Handles variable-length sequences naturally',
+      'State-of-the-art discrimination on large datasets'
+    ],
+    limitations: [
+      'Highest computational cost',
+      'Requires large training cohorts',
+      'Interpretability requires post-hoc methods'
+    ]
+  }
+};
+
+const PIPELINE_STEPS = [
+  {
+    icon: '&#128209;', label: 'FHIR',
+    title: 'Synthetic FHIR Bundles',
+    desc: 'Patient records generated by Synthea in HL7 FHIR R4 format. Each bundle contains conditions, observations, medications, procedures, and encounters for a synthetic patient lifetime.',
+    tags: ['Synthea', 'FHIR R4', 'JSON']
+  },
+  {
+    icon: '&#8644;', label: 'ETL',
+    title: 'Extract-Transform-Load',
+    desc: 'Custom ETL pipeline parses FHIR bundles, resolves references, normalizes timestamps, maps terminology (SNOMED CT, LOINC, RxNorm), and loads into a relational analytic schema.',
+    tags: ['Python', 'SNOMED CT', 'LOINC']
+  },
+  {
+    icon: '&#128451;', label: 'OMOP',
+    title: 'OMOP-lite Schema',
+    desc: 'An OMOP CDM-inspired schema with person, condition_occurrence, measurement, drug_exposure, and observation_period tables. "Lite" because it omits provider/cost tables not needed for modeling.',
+    tags: ['OMOP CDM', 'DuckDB', 'Parquet']
+  },
+  {
+    icon: '&#9881;', label: 'Features',
+    title: 'Feature Engineering',
+    desc: 'Three feature families: (1) Static: demographics, baseline labs, comorbidity indices. (2) Temporal: rolling windows over lab trajectories, medication changes. (3) Tokenized: event sequences encoded as token IDs for transformer inputs.',
+    tags: ['Static', 'Temporal', 'Tokenized']
+  },
+  {
+    icon: '&#129504;', label: 'Models',
+    title: 'Model Suite',
+    desc: 'Six model classes benchmarked on identical train/val/test splits: Cox PH, DeepSurv, DeepHit, Dynamic-DeepHit, Multistate Markov, and SurvTRACE. Each trained with 5-fold cross-validation.',
+    tags: ['Cox', 'DeepHit', 'Transformer', 'Markov']
+  },
+  {
+    icon: '&#128200;', label: 'Evaluation',
+    title: 'Discrimination & Calibration',
+    desc: 'Performance evaluated via time-dependent C-index, integrated Brier score, calibration slopes, and D-calibration. Subgroup analyses across age, sex, and ethnicity for fairness assessment.',
+    tags: ['C-index', 'Brier', 'Calibration', 'Fairness']
+  },
+  {
+    icon: '&#128737;', label: 'Governance',
+    title: 'Governance & Documentation',
+    desc: 'Model cards, dataset data sheets, risk registers, and fairness audit reports. Mapped to EU AI Act requirements (Articles 9, 10, 13, 15) for high-risk health AI systems.',
+    tags: ['Model Cards', 'EU AI Act', 'Risk Register']
+  }
+];
+
+const CURVE_COLORS = {
+  'Low-risk':  '#5a9a68',
+  'Baseline':  '#C4794A',
+  'High-risk': '#c75a3a'
+};
+
+/* ═══════════════════════════════════════════════════════
+   STATE
+   ═══════════════════════════════════════════════════════ */
+let currentTrack = 'cvd';
+let activeModel = 'Cox PH';
+let activePipelineStep = null;
+
+/* ═══════════════════════════════════════════════════════
+   TRACK SELECTION
+   ═══════════════════════════════════════════════════════ */
+function selectTrack(track) {
+  currentTrack = track;
+  document.querySelectorAll('.track-card').forEach(c => {
+    c.classList.toggle('active', c.dataset.track === track);
+  });
+  const t = TRACKS[track];
+  document.getElementById('modelsSubtitle').innerHTML =
+    'Simulated performance on the <strong>' + t.label + '</strong> track. Metrics are illustrative.';
+  document.getElementById('curvesSubtitle').innerHTML =
+    'Simulated survival probabilities for three risk strata in the <strong>' + t.label + '</strong> track. Hover for exact values.';
+  renderModelTabs();
+  renderModelDetail();
+  drawSurvivalCurves();
+}
+
+/* ═══════════════════════════════════════════════════════
+   PIPELINE
+   ═══════════════════════════════════════════════════════ */
+function renderPipeline() {
+  const row = document.getElementById('pipelineRow');
+  row.innerHTML = '';
+  PIPELINE_STEPS.forEach((s, i) => {
+    if (i > 0) {
+      const arrow = document.createElement('div');
+      arrow.className = 'pipeline-arrow';
+      arrow.innerHTML = '&#10140;';
+      row.appendChild(arrow);
+    }
+    const step = document.createElement('div');
+    step.className = 'pipeline-step';
+    step.dataset.index = i;
+    step.innerHTML = '<span class="step-icon">' + s.icon + '</span><span class="step-label">' + s.label + '</span>';
+    step.addEventListener('click', () => togglePipelineDetail(i));
+    row.appendChild(step);
+  });
+}
+
+function togglePipelineDetail(idx) {
+  const detail = document.getElementById('pipelineDetail');
+  const steps = document.querySelectorAll('.pipeline-step');
+  if (activePipelineStep === idx) {
+    activePipelineStep = null;
+    detail.classList.remove('visible');
+    steps.forEach(s => s.classList.remove('active'));
+    return;
+  }
+  activePipelineStep = idx;
+  steps.forEach(s => s.classList.toggle('active', parseInt(s.dataset.index) === idx));
+  const s = PIPELINE_STEPS[idx];
+  document.getElementById('pdTitle').textContent = s.title;
+  document.getElementById('pdDesc').textContent = s.desc;
+  document.getElementById('pdTags').innerHTML = s.tags.map(t => '<span class="tag">' + t + '</span>').join('');
+  detail.classList.add('visible');
+}
+
+/* ═══════════════════════════════════════════════════════
+   MODEL COMPARISON
+   ═══════════════════════════════════════════════════════ */
+function renderModelTabs() {
+  const container = document.getElementById('modelTabs');
+  const names = Object.keys(TRACKS[currentTrack].models);
+  container.innerHTML = names.map(n =>
+    '<button class="model-tab' + (n === activeModel ? ' active' : '') + '" data-model="' + n + '">' + n + '</button>'
+  ).join('');
+  container.querySelectorAll('.model-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeModel = btn.dataset.model;
+      renderModelTabs();
+      renderModelDetail();
+    });
+  });
+}
+
+function renderModelDetail() {
+  const container = document.getElementById('modelDetails');
+  const perf = TRACKS[currentTrack].models[activeModel];
+  const meta = MODEL_META[activeModel];
+  if (!meta) { container.innerHTML = ''; return; }
+
+  // Normalize bars: C-index mapped 0.5-1.0 → 0-100%, Brier 0-0.25 → 100-0%
+  const ciPct = Math.round(((perf.ci - 0.5) / 0.5) * 100);
+  const brierPct = Math.round((1 - perf.brier / 0.25) * 100);
+
+  container.innerHTML = '<div class="model-detail visible">' +
+    '<div class="card">' +
+      '<div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">' +
+        '<h3 style="margin:0;">' + activeModel + '</h3>' +
+        '<span class="tag' + (meta.type === 'Transformer' ? ' tag--accent' : '') + '">' + meta.type + '</span>' +
+      '</div>' +
+      '<p style="font-size:14px;line-height:1.6;margin-bottom:4px;">' + meta.idea + '</p>' +
+      '<div class="metric-bar-wrap">' +
+        '<div class="metric-bar-label"><span>C-index (discrimination)</span><span>' + perf.ci.toFixed(2) + '</span></div>' +
+        '<div class="metric-bar"><div class="metric-bar-fill" style="width:' + ciPct + '%;"></div></div>' +
+        '<div class="metric-bar-label"><span>Brier score (calibration, lower is better)</span><span>' + perf.brier.toFixed(2) + '</span></div>' +
+        '<div class="metric-bar"><div class="metric-bar-fill" style="width:' + brierPct + '%;"></div></div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="card model-props">' +
+      '<h4 class="strengths-label">Strengths</h4>' +
+      '<ul class="strengths">' + meta.strengths.map(s => '<li>' + s + '</li>').join('') + '</ul>' +
+      '<h4 style="margin-top:18px;">Limitations</h4>' +
+      '<ul class="limitations">' + meta.limitations.map(l => '<li>' + l + '</li>').join('') + '</ul>' +
+    '</div>' +
+  '</div>';
+}
+
+/* ═══════════════════════════════════════════════════════
+   SURVIVAL CURVES — Canvas, no libraries
+   ═══════════════════════════════════════════════════════ */
+function drawSurvivalCurves() {
+  const canvas = document.getElementById('survivalCanvas');
+  const container = canvas.parentElement;
+  const dpr = window.devicePixelRatio || 1;
+
+  // Size canvas to container
+  const rect = container.getBoundingClientRect();
+  const W = rect.width - 48; // account for padding
+  const H = 380;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const pad = { top: 24, right: 24, bottom: 52, left: 56 };
+  const plotW = W - pad.left - pad.right;
+  const plotH = H - pad.top - pad.bottom;
+
+  const curves = TRACKS[currentTrack].curves;
+  const maxTime = 20; // years
+  const names = Object.keys(curves);
+
+  // Clear
+  ctx.clearRect(0, 0, W, H);
+
+  // Grid
+  ctx.strokeStyle = '#E8E6E1';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 5; i++) {
+    const y = pad.top + plotH * (1 - i / 5);
+    ctx.beginPath();
+    ctx.moveTo(pad.left, y);
+    ctx.lineTo(pad.left + plotW, y);
+    ctx.stroke();
+  }
+  for (let i = 0; i <= 4; i++) {
+    const x = pad.left + plotW * i / 4;
+    ctx.beginPath();
+    ctx.moveTo(x, pad.top);
+    ctx.lineTo(x, pad.top + plotH);
+    ctx.stroke();
+  }
+
+  // Axes
+  ctx.strokeStyle = var_text();
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(pad.left, pad.top);
+  ctx.lineTo(pad.left, pad.top + plotH);
+  ctx.lineTo(pad.left + plotW, pad.top + plotH);
+  ctx.stroke();
+
+  // Y-axis labels
+  ctx.fillStyle = '#6B6A73';
+  ctx.font = '11px JetBrains Mono, monospace';
+  ctx.textAlign = 'right';
+  ctx.textBaseline = 'middle';
+  for (let i = 0; i <= 5; i++) {
+    const val = (i * 0.2).toFixed(1);
+    const y = pad.top + plotH * (1 - i / 5);
+    ctx.fillText(val, pad.left - 8, y);
+  }
+
+  // X-axis labels
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
+  for (let i = 0; i <= 4; i++) {
+    const yr = (maxTime * i / 4);
+    const x = pad.left + plotW * i / 4;
+    ctx.fillText(yr + ' yr', x, pad.top + plotH + 10);
+  }
+
+  // Axis titles
+  ctx.fillStyle = '#1A1A2E';
+  ctx.font = '12px Inter, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Time (years)', pad.left + plotW / 2, pad.top + plotH + 34);
+
+  ctx.save();
+  ctx.translate(14, pad.top + plotH / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.textAlign = 'center';
+  ctx.fillText('Survival probability', 0, 0);
+  ctx.restore();
+
+  // Draw step curves
+  names.forEach(name => {
+    const data = curves[name];
+    const color = CURVE_COLORS[name];
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    for (let i = 0; i < data.length; i++) {
+      const x1 = pad.left + (i / maxTime) * plotW;
+      const x2 = pad.left + ((i + 1) / maxTime) * plotW;
+      const y = pad.top + plotH * (1 - data[i]);
+      if (i === 0) {
+        ctx.moveTo(x1, y);
+      } else {
+        ctx.lineTo(x1, y);
+      }
+      if (i < data.length - 1) {
+        ctx.lineTo(x2, y);
+      }
+    }
+    ctx.stroke();
+  });
+
+  // Legend
+  const legend = document.getElementById('curveLegend');
+  legend.innerHTML = names.map(n =>
+    '<div class="curve-legend-item">' +
+      '<div class="curve-legend-swatch" style="background:' + CURVE_COLORS[n] + ';"></div>' +
+      n +
+    '</div>'
+  ).join('');
+
+  // Tooltip interactivity
+  const tooltip = document.getElementById('curveTooltip');
+  canvas.onmousemove = function(e) {
+    const cRect = canvas.getBoundingClientRect();
+    const mx = e.clientX - cRect.left;
+    const my = e.clientY - cRect.top;
+    const plotX = mx - pad.left;
+    const plotY = my - pad.top;
+
+    if (plotX < 0 || plotX > plotW || plotY < 0 || plotY > plotH) {
+      tooltip.style.opacity = '0';
+      return;
+    }
+
+    const timeYr = (plotX / plotW) * maxTime;
+    const timeIdx = Math.min(Math.floor(timeYr), maxTime - 1);
+    const frac = timeYr - timeIdx;
+
+    let lines = '<div style="margin-bottom:2px;">Year ' + timeYr.toFixed(1) + '</div>';
+    names.forEach(name => {
+      const data = curves[name];
+      const v0 = data[timeIdx];
+      const v1 = timeIdx + 1 < data.length ? data[timeIdx + 1] : v0;
+      // Step function: use v0 until next step
+      const val = v0;
+      lines += '<div style="color:' + CURVE_COLORS[name] + ';">' + name + ': ' + (val * 100).toFixed(1) + '%</div>';
+    });
+
+    tooltip.innerHTML = lines;
+    tooltip.style.opacity = '1';
+
+    // Position
+    let tx = mx + 14;
+    let ty = my - 10;
+    if (tx + 160 > W) tx = mx - 160;
+    if (ty < 0) ty = 10;
+    tooltip.style.left = tx + 'px';
+    tooltip.style.top = ty + 'px';
+  };
+
+  canvas.onmouseleave = function() {
+    tooltip.style.opacity = '0';
+  };
+}
+
+function var_text() { return '#1A1A2E'; }
+
+/* ═══════════════════════════════════════════════════════
+   INIT
+   ═══════════════════════════════════════════════════════ */
+renderPipeline();
+renderModelTabs();
+renderModelDetail();
+drawSurvivalCurves();
+
+// Redraw curves on resize
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(drawSurvivalCurves, 150);
+});
+</script>
+</body>
+</html>
