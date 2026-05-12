@@ -296,9 +296,9 @@
         }
         .venture-inner { max-width: 560px; }
         .venture-text h3 {
-            font-family: 'Source Serif 4', Georgia, serif;
-            font-size: 28px; font-weight: 600; margin-bottom: 16px;
-            color: #fff;
+            font-family: 'Inter', -apple-system, sans-serif;
+            font-size: 32px; font-weight: 800; margin-bottom: 16px;
+            color: #fff; letter-spacing: 0.12em;
         }
         .venture-text p {
             font-size: 16px; line-height: 1.75; color: rgba(255,255,255,0.75);
@@ -357,10 +357,11 @@
                 <span></span><span></span><span></span>
             </button>
             <ul>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#llm-eval">LLM Eval</a></li>
+                <li><a href="#side-projects">Projects</a></li>
                 <li><a href="#publications">Publications</a></li>
-                <li><a href="#venture">Askera</a></li>
+                <li><a href="#venture">ASKERA</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -369,10 +370,10 @@
     <header class="hero">
         <div class="container">
             <div class="hero-content fade-in">
-                <h1>Research scientist building <span>AI systems that know when they're wrong</span></h1>
-                <p>PhD candidate at Helmholtz Munich &amp; TU Munich. I evaluate frontier LLMs, build production ML for regulated industries, and develop genomics pipelines published in Nature Communications.</p>
+                <h1>Genomics researcher turning <span>sequencing data into pathogen surveillance</span></h1>
+                <p>PhD candidate at Helmholtz Munich &amp; TU Munich. I build nanopore metagenomics pipelines for One Health, evaluate frontier LLMs against those pipelines, and run side projects in production ML and AI deployment strategy.</p>
                 <div class="hero-links">
-                    <a href="#projects" class="primary">View projects &darr;</a>
+                    <a href="#research" class="primary">View research &darr;</a>
                     <a href="https://github.com/ttmgr/Tim_Reska" class="secondary" target="_blank" rel="noopener">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
                         GitHub
@@ -386,16 +387,70 @@
         </div>
     </header>
 
-    <section id="projects">
+    <section id="research">
         <div class="container">
             <div class="fade-in">
-                <div class="section-label">Portfolio</div>
-                <h2 class="section-title">Projects</h2>
-                <p class="section-desc">From a 28-model LLM benchmark to production underwriting AI, genomics pipelines, and deployment strategy tools.</p>
+                <div class="section-label">PhD Research &mdash; Helmholtz Munich &amp; TU Munich</div>
+                <h2 class="section-title">Genomics &amp; One Health</h2>
+                <p class="section-desc">Nanopore sequencing workflows for pathogen surveillance across air, water, food, and clinical settings. Founding member of an international research group spanning 7 sites. These peer-reviewed pipelines also serve as the validated ground truth for the LLM evaluation below.</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card fade-in">
+                    <div class="card-tag">First Author &mdash; Published</div>
+                    <h3>Air Metagenomics</h3>
+                    <p>Long-read metagenomic characterization of bioaerosols. Published in <em>ISME Communications</em> (2024). Complete Snakemake pipeline for Oxford Nanopore data.</p>
+                    <div class="card-meta">
+                        <span>Snakemake</span>
+                        <span>Nanopore</span>
+                    </div>
+                    <div class="card-links">
+                        <a href="./pipelines/aerobiome/">Overview &rarr;</a>
+                        <a href="https://doi.org/10.1093/ismeco/ycae058" target="_blank" rel="noopener">Paper</a>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="card-tag">Shared First Author &mdash; Published</div>
+                    <h3>Wetland Multi-Omics</h3>
+                    <p>Multi-site surveillance integrating DNA metagenomics, RNA viromics, AIV whole-genome sequencing, and eDNA metabarcoding across 12 wetlands in 3 countries. Published in <em>AEM</em> (2025).</p>
+                    <div class="card-meta">
+                        <span>Snakemake</span>
+                        <span>Multi-omics</span>
+                        <span>3 countries</span>
+                    </div>
+                    <div class="card-links">
+                        <a href="./pipelines/wetland-surveillance/">Overview &rarr;</a>
+                        <a href="https://doi.org/10.1101/2025.09.05.674394" target="_blank" rel="noopener">Paper</a>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="card-tag">First Author &mdash; Preprint</div>
+                    <h3><em>Listeria</em> Adaptive Sampling</h3>
+                    <p>Real-time metagenomic framework for <em>Listeria monocytogenes</em> surveillance in food production environments using Oxford Nanopore adaptive sampling.</p>
+                    <div class="card-meta">
+                        <span>Nanopore</span>
+                        <span>Adaptive sampling</span>
+                    </div>
+                    <div class="card-links">
+                        <a href="./pipelines/listeria-adaptive-sampling/">Overview &rarr;</a>
+                        <a href="https://www.biorxiv.org/content/10.64898/2026.04.23.720354v1" target="_blank" rel="noopener">Preprint</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="llm-eval">
+        <div class="container">
+            <div class="fade-in">
+                <div class="section-label">From pipelines to benchmarks</div>
+                <h2 class="section-title">LLM Evaluation &mdash; Against Plausibility</h2>
+                <p class="section-desc">The genomics pipelines above became ground truth for a question: can frontier LLMs actually build scientific workflows, or do they just produce code that <em>looks</em> right?</p>
             </div>
 
             <div class="featured-card fade-in">
-                <div class="card-tag">Featured &mdash; LLM Evaluation</div>
+                <div class="card-tag">28 Models &middot; 476 Scored Step-Results &middot; 3 Families</div>
                 <h3>Against Plausibility</h3>
                 <p>A structured benchmark testing whether frontier LLMs can build real scientific workflows &mdash; not just produce locally plausible code. The dominant failure mode: code that runs, looks reasonable, and would pass surface-level review, but makes domain-specific choices an expert would immediately reject.</p>
                 <div class="featured-stats">
@@ -429,6 +484,16 @@
                     <a href="./llm-eval/methodology/evaluation_framework.md">Methodology</a>
                     <a href="./llm-eval/evaluations/summary.md">Findings</a>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="side-projects">
+        <div class="container">
+            <div class="fade-in">
+                <div class="section-label">Side Quests</div>
+                <h2 class="section-title">Independent Projects</h2>
+                <p class="section-desc">Production ML for medical underwriting, interactive clinical tools, and AI deployment strategy &mdash; built alongside the PhD.</p>
             </div>
 
             <div class="projects-grid">
@@ -514,60 +579,6 @@
                     </div>
                     <div class="card-links">
                         <a href="./llm-cost-calculator/">Repository &rarr;</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="research">
-        <div class="container">
-            <div class="fade-in">
-                <div class="section-label">Research</div>
-                <h2 class="section-title">Genomics &amp; One Health</h2>
-                <p class="section-desc">Nanopore sequencing workflows for pathogen surveillance across air, water, food, and clinical settings. These pipelines serve as validated ground truth for the LLM evaluation.</p>
-            </div>
-            <div class="projects-grid">
-                <div class="project-card fade-in">
-                    <div class="card-tag">First Author &mdash; Published</div>
-                    <h3>Air Metagenomics</h3>
-                    <p>Long-read metagenomic characterization of bioaerosols. Published in <em>ISME Communications</em> (2024). Complete Snakemake pipeline for Oxford Nanopore data.</p>
-                    <div class="card-meta">
-                        <span>Snakemake</span>
-                        <span>Nanopore</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="./pipelines/aerobiome/">Overview &rarr;</a>
-                        <a href="https://doi.org/10.1093/ismeco/ycae058" target="_blank" rel="noopener">Paper</a>
-                    </div>
-                </div>
-
-                <div class="project-card fade-in">
-                    <div class="card-tag">Shared First Author &mdash; Published</div>
-                    <h3>Wetland Multi-Omics</h3>
-                    <p>Multi-site surveillance integrating DNA metagenomics, RNA viromics, AIV whole-genome sequencing, and eDNA metabarcoding across 12 wetlands in 3 countries. Published in <em>AEM</em> (2025).</p>
-                    <div class="card-meta">
-                        <span>Snakemake</span>
-                        <span>Multi-omics</span>
-                        <span>3 countries</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="./pipelines/wetland-surveillance/">Overview &rarr;</a>
-                        <a href="https://doi.org/10.1101/2025.09.05.674394" target="_blank" rel="noopener">Paper</a>
-                    </div>
-                </div>
-
-                <div class="project-card fade-in">
-                    <div class="card-tag">First Author &mdash; Preprint</div>
-                    <h3><em>Listeria</em> Adaptive Sampling</h3>
-                    <p>Real-time metagenomic framework for <em>Listeria monocytogenes</em> surveillance in food production environments using Oxford Nanopore adaptive sampling.</p>
-                    <div class="card-meta">
-                        <span>Nanopore</span>
-                        <span>Adaptive sampling</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="./pipelines/listeria-adaptive-sampling/">Overview &rarr;</a>
-                        <a href="https://www.biorxiv.org/content/10.64898/2026.04.23.720354v1" target="_blank" rel="noopener">Preprint</a>
                     </div>
                 </div>
             </div>
@@ -708,7 +719,7 @@
             <div class="venture-card fade-in">
                 <div class="venture-inner">
                     <div class="venture-text">
-                        <h3>Askera</h3>
+                        <h3><strong>ASKERA</strong></h3>
                         <p>AI Deployment Due Diligence &amp; AI Academy for knowledge-intensive organisations. Vendor-neutral. EU AI Act-aligned. Munich.</p>
                         <p class="venture-sub">Launching late 2026. If your organisation is evaluating where AI fits &mdash; and where it doesn't &mdash; I'd like to hear from you.</p>
                         <a href="mailto:timreska@gmail.com" class="venture-cta">Get in touch &rarr;</a>
