@@ -423,7 +423,7 @@
                 <h2 class="section-title">Genomics &amp; One Health</h2>
                 <p class="section-desc">Nanopore sequencing workflows for pathogen surveillance across air, water, food, and clinical settings. Founding member of an international research group spanning 7 sites. These peer-reviewed pipelines also serve as the validated ground truth for the LLM evaluation below.</p>
             </div>
-            <div class="projects-grid">
+            <div class="projects-grid" style="grid-template-columns: repeat(4, 1fr);">
                 <div class="project-card fade-in">
                     <div class="card-tag">First Author &mdash; Published</div>
                     <h3>Air Metagenomics</h3>
@@ -464,20 +464,6 @@
                     </div>
                     <div class="card-links">
                         <a href="https://academic.oup.com/ve/article/11/1/veaf010/8020575" target="_blank" rel="noopener">Paper</a>
-                    </div>
-                </div>
-
-                <div class="project-card fade-in">
-                    <div class="card-tag">Second Author &mdash; Published</div>
-                    <h3>Amphibian Pathogen Screening</h3>
-                    <p>Environmental screening detects <em>Batrachochytrium dendrobatidis</em> using nanopore-based metagenomic surveillance. Published in <em>Global Ecology and Conservation</em> (2025).</p>
-                    <div class="card-meta">
-                        <span>Nanopore</span>
-                        <span>eDNA</span>
-                        <span>Conservation</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="#">Paper</a>
                     </div>
                 </div>
 
@@ -630,55 +616,35 @@
         </div>
     </section>
 
-    <section id="skills">
+    <section id="skills" style="padding: 48px 0;">
         <div class="container">
             <div class="fade-in">
                 <div class="section-label">Expertise</div>
-                <h2 class="section-title">Skills &amp; Tools</h2>
+                <h2 class="section-title" style="margin-bottom: 20px;">Skills &amp; Tools</h2>
             </div>
-            <div class="skills-grid">
-                <div class="skill-group fade-in">
-                    <h3>Bioinformatics &amp; Genomics</h3>
-                    <div class="skill-tags">
-                        <span>Nanopore</span>
-                        <span>PacBio</span>
-                        <span>Snakemake</span>
-                        <span>Nextflow</span>
-                        <span>Metagenomics</span>
-                        <span>AMR profiling</span>
-                        <span>Adaptive sampling</span>
-                        <span>FHIR / OMOP</span>
-                    </div>
-                </div>
-                <div class="skill-group fade-in">
-                    <h3>Machine Learning &amp; LLMs</h3>
-                    <div class="skill-tags">
-                        <span>PyTorch</span>
-                        <span>XGBoost</span>
-                        <span>scikit-learn</span>
-                        <span>Transformers</span>
-                        <span>Survival analysis</span>
-                        <span>SHAP</span>
-                        <span>Conformal prediction</span>
-                        <span>LLM benchmarking</span>
-                        <span>PBW detection</span>
-                    </div>
-                </div>
-                <div class="skill-group fade-in">
-                    <h3>Engineering &amp; Governance</h3>
-                    <div class="skill-tags">
-                        <span>Python</span>
-                        <span>JavaScript</span>
-                        <span>SQL</span>
-                        <span>Bash</span>
-                        <span>Docker</span>
-                        <span>Streamlit</span>
-                        <span>D3.js</span>
-                        <span>EU AI Act</span>
-                        <span>GDPR</span>
-                        <span>Fairness auditing</span>
-                    </div>
-                </div>
+            <div class="fade-in" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <span style="font-size:13px;font-weight:600;color:var(--text);padding:5px 14px;background:var(--surface);border:1px solid var(--border);border-radius:20px;">Python</span>
+                <span style="font-size:13px;font-weight:600;color:var(--text);padding:5px 14px;background:var(--surface);border:1px solid var(--border);border-radius:20px;">PyTorch</span>
+                <span style="font-size:13px;font-weight:600;color:var(--text);padding:5px 14px;background:var(--surface);border:1px solid var(--border);border-radius:20px;">Nanopore</span>
+                <span style="font-size:13px;font-weight:600;color:var(--text);padding:5px 14px;background:var(--surface);border:1px solid var(--border);border-radius:20px;">Snakemake</span>
+                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">XGBoost</span>
+                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">scikit-learn</span>
+                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Transformers</span>
+                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Survival analysis</span>
+                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">SHAP</span>
+                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Conformal prediction</span>
+                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">LLM benchmarking</span>
+                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Nextflow</span>
+                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Metagenomics</span>
+                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">AMR profiling</span>
+                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Adaptive sampling</span>
+                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">JavaScript</span>
+                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">D3.js</span>
+                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Docker</span>
+                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">SQL</span>
+                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">EU AI Act</span>
+                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">GDPR</span>
+                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">FHIR / OMOP</span>
             </div>
         </div>
     </section>
@@ -701,6 +667,12 @@
                     <div class="pub-title"><a href="https://doi.org/10.1101/2025.09.05.674394" target="_blank" rel="noopener">Real-time genomic pathogen, resistance, and host range characterization from passive water sampling</a></div>
                     <div class="pub-authors">Perlas A*, <strong>Reska T</strong>*, et al.</div>
                     <div class="pub-note">First author</div>
+                </li>
+                <li>
+                    <div class="pub-journal">Virus Evolution &middot; 2025</div>
+                    <div class="pub-title"><a href="https://academic.oup.com/ve/article/11/1/veaf010/8020575" target="_blank" rel="noopener">Improvements in RNA and DNA nanopore sequencing allow for rapid genetic characterization of avian influenza</a></div>
+                    <div class="pub-authors">Perlas A, <strong>Reska T</strong>, Croville G, et al.</div>
+                    <div class="pub-note">Second author</div>
                 </li>
                 <li>
                     <div class="pub-journal">Nature Communications &middot; 2024</div>
