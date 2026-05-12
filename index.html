@@ -10,7 +10,7 @@
     <meta property="og:type" content="website">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -80,49 +80,90 @@
         }
 
         /* --- HERO --- */
-        .hero {
-            padding: 140px 0 64px;
-            display: flex; align-items: center;
-            text-align: center;
+        .hero { padding: 140px 0 48px; position: relative; overflow: hidden; }
+        .hero .container {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
         }
-        .hero-content { max-width: 740px; margin: 0 auto; }
+        .hero-text { position: relative; z-index: 2; }
         .hero h1 {
             font-family: 'Source Serif 4', Georgia, serif;
-            font-size: clamp(38px, 5vw, 56px);
-            font-weight: 600; line-height: 1.12; margin-bottom: 20px;
+            font-size: clamp(36px, 4.5vw, 52px);
+            font-weight: 600; line-height: 1.1; margin-bottom: 20px;
             color: var(--text);
         }
         .hero h1 span { color: var(--accent); }
         .hero p {
-            font-size: 18px; line-height: 1.8; color: var(--text-secondary);
-            margin-bottom: 20px; max-width: 580px; margin-left: auto; margin-right: auto;
+            font-size: 17px; line-height: 1.8; color: var(--text-secondary);
+            margin-bottom: 20px; max-width: 520px;
         }
         .hero-subtitle {
             font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
-            color: var(--text-secondary); margin-bottom: 36px;
+            color: var(--text-secondary); margin-bottom: 32px;
         }
-        .hero-subtitle span {
-            display: inline-block; padding: 0 2px;
-        }
-        .hero-subtitle span::after {
-            content: ' · '; color: var(--border);
-        }
+        .hero-subtitle span { display: inline-block; padding: 0 2px; }
+        .hero-subtitle span::after { content: ' · '; color: var(--border); }
         .hero-subtitle span:last-child::after { content: ''; }
-        .hero-links { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+        .hero-links { display: flex; gap: 12px; flex-wrap: wrap; }
         .hero-links a {
             display: inline-flex; align-items: center; gap: 8px;
             padding: 11px 22px; border-radius: 8px; font-size: 14px; font-weight: 500;
             transition: all 0.2s;
         }
-        .hero-links a.primary {
-            background: var(--text); color: #fff;
-        }
+        .hero-links a.primary { background: var(--text); color: #fff; }
         .hero-links a.primary:hover { background: #2d2d42; color: #fff; }
-        .hero-links a.secondary {
-            background: var(--surface); color: var(--text);
-            border: 1px solid var(--border);
-        }
+        .hero-links a.secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
         .hero-links a.secondary:hover { border-color: var(--text-secondary); }
+
+        /* --- HERO VISUAL (terminal + DNA) --- */
+        .hero-visual {
+            position: relative; display: flex; align-items: center; justify-content: center;
+            min-height: 420px;
+        }
+        .dna-svg { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); opacity: 0.1; }
+        .terminal {
+            position: relative; z-index: 3;
+            background: var(--text); border-radius: 12px; overflow: hidden;
+            width: 100%; max-width: 520px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+        .terminal-bar { background: #2d2d42; padding: 10px 16px; display: flex; gap: 8px; align-items: center; }
+        .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .terminal-dot.r { background: #fb7185; }
+        .terminal-dot.y { background: #fbbf24; }
+        .terminal-dot.g { background: #34d399; }
+        .terminal-title { font-size: 11px; color: #6B6A73; margin-left: 12px; font-family: 'JetBrains Mono', monospace; }
+        .terminal-body {
+            padding: 18px 20px; font-family: 'JetBrains Mono', monospace; font-size: 13px;
+            line-height: 1.9; color: #94a3b8;
+        }
+        .terminal-body .prompt { color: var(--accent); }
+        .terminal-body .cmd { color: #f8fafc; }
+        .terminal-body .flag { color: #60a5fa; }
+        .terminal-body .output { color: #64748b; }
+        .cursor {
+            display: inline-block; width: 7px; height: 14px; background: var(--accent);
+            animation: blink 1s step-end infinite; vertical-align: middle; margin-left: 2px;
+        }
+        @keyframes blink { 0%,50%{opacity:1} 51%,100%{opacity:0} }
+        .term-line { opacity: 0; transition: opacity 0.4s; }
+        .term-line.show { opacity: 1; }
+
+        /* --- STATS RIBBON --- */
+        .ribbon {
+            background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+            padding: 36px 24px;
+        }
+        .ribbon-inner {
+            max-width: var(--max-width); margin: 0 auto;
+            display: flex; justify-content: center; gap: 56px; flex-wrap: wrap;
+        }
+        .ribbon-stat { text-align: center; }
+        .ribbon-val {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 36px; font-weight: 600; color: var(--text); line-height: 1;
+        }
+        .ribbon-label { font-size: 13px; color: var(--text-secondary); margin-top: 6px; }
+        .ribbon-divider { width: 1px; background: var(--border); align-self: stretch; }
 
         /* --- SECTIONS --- */
         section { padding: 72px 0; }
@@ -342,6 +383,15 @@
             .projects-grid { grid-template-columns: repeat(2, 1fr); }
             .skills-grid { grid-template-columns: repeat(2, 1fr); }
         }
+        @media (max-width: 900px) {
+            .hero .container { grid-template-columns: 1fr; text-align: center; }
+            .hero-links { justify-content: center; }
+            .hero p { margin-left: auto; margin-right: auto; }
+            .hero-visual { min-height: 320px; margin-top: 16px; }
+            .terminal { margin: 0 auto; }
+            .dna-svg { display: none; }
+            .ribbon-inner { gap: 32px; }
+        }
         @media (max-width: 768px) {
             .hero { padding: 110px 0 48px; }
             section { padding: 48px 0; }
@@ -389,7 +439,7 @@
 
     <header class="hero">
         <div class="container">
-            <div class="hero-content fade-in">
+            <div class="hero-text fade-in">
                 <h1>Bioinformatician who builds <span>AI systems that know when they're wrong</span></h1>
                 <p>I build production ML for regulated industries, evaluate frontier LLMs across 28 models, and develop genomics pipelines published in Nature Communications. PhD from Helmholtz AI &amp; TU Munich.</p>
                 <div class="hero-subtitle">
@@ -411,8 +461,63 @@
                     </a>
                 </div>
             </div>
+            <div class="hero-visual fade-in">
+                <svg class="dna-svg" width="320" height="640" viewBox="0 0 320 640" fill="none">
+                    <path d="M100 0 C100 32,220 32,220 64 C220 96,100 96,100 128 C100 160,220 160,220 192 C220 224,100 224,100 256 C100 288,220 288,220 320 C220 352,100 352,100 384 C100 416,220 416,220 448 C220 480,100 480,100 512 C100 544,220 544,220 576 C220 608,100 608,100 640" stroke="#C4794A" stroke-width="2.5" fill="none"/>
+                    <path d="M220 0 C220 32,100 32,100 64 C100 96,220 96,220 128 C220 160,100 160,100 192 C100 224,220 224,220 256 C220 288,100 288,100 320 C100 352,220 352,220 384 C220 416,100 416,100 448 C100 480,220 480,220 512 C220 544,100 544,100 576 C100 608,220 608,220 640" stroke="#1A1A2E" stroke-width="2.5" fill="none"/>
+                    <line x1="120" y1="16" x2="200" y2="16" stroke="#E8E6E1" stroke-width="1.5"/>
+                    <line x1="120" y1="80" x2="200" y2="80" stroke="#E8E6E1" stroke-width="1.5"/>
+                    <line x1="120" y1="144" x2="200" y2="144" stroke="#E8E6E1" stroke-width="1.5"/>
+                    <line x1="120" y1="208" x2="200" y2="208" stroke="#E8E6E1" stroke-width="1.5"/>
+                    <line x1="120" y1="272" x2="200" y2="272" stroke="#E8E6E1" stroke-width="1.5"/>
+                    <line x1="120" y1="336" x2="200" y2="336" stroke="#E8E6E1" stroke-width="1.5"/>
+                    <line x1="120" y1="400" x2="200" y2="400" stroke="#E8E6E1" stroke-width="1.5"/>
+                    <line x1="120" y1="464" x2="200" y2="464" stroke="#E8E6E1" stroke-width="1.5"/>
+                    <line x1="120" y1="528" x2="200" y2="528" stroke="#E8E6E1" stroke-width="1.5"/>
+                    <line x1="120" y1="592" x2="200" y2="592" stroke="#E8E6E1" stroke-width="1.5"/>
+                    <circle cx="120" cy="16" r="4" fill="#C4794A" opacity="0.4"/><circle cx="200" cy="16" r="4" fill="#1A1A2E" opacity="0.25"/>
+                    <circle cx="120" cy="80" r="4" fill="#C4794A" opacity="0.4"/><circle cx="200" cy="80" r="4" fill="#1A1A2E" opacity="0.25"/>
+                    <circle cx="120" cy="144" r="4" fill="#C4794A" opacity="0.4"/><circle cx="200" cy="144" r="4" fill="#1A1A2E" opacity="0.25"/>
+                    <circle cx="120" cy="208" r="4" fill="#C4794A" opacity="0.4"/><circle cx="200" cy="208" r="4" fill="#1A1A2E" opacity="0.25"/>
+                    <circle cx="120" cy="272" r="4" fill="#C4794A" opacity="0.4"/><circle cx="200" cy="272" r="4" fill="#1A1A2E" opacity="0.25"/>
+                    <circle cx="120" cy="336" r="4" fill="#C4794A" opacity="0.4"/><circle cx="200" cy="336" r="4" fill="#1A1A2E" opacity="0.25"/>
+                    <circle cx="120" cy="400" r="4" fill="#C4794A" opacity="0.4"/><circle cx="200" cy="400" r="4" fill="#1A1A2E" opacity="0.25"/>
+                    <circle cx="120" cy="464" r="4" fill="#C4794A" opacity="0.4"/><circle cx="200" cy="464" r="4" fill="#1A1A2E" opacity="0.25"/>
+                    <circle cx="120" cy="528" r="4" fill="#C4794A" opacity="0.4"/><circle cx="200" cy="528" r="4" fill="#1A1A2E" opacity="0.25"/>
+                    <circle cx="120" cy="592" r="4" fill="#C4794A" opacity="0.4"/><circle cx="200" cy="592" r="4" fill="#1A1A2E" opacity="0.25"/>
+                </svg>
+                <div class="terminal">
+                    <div class="terminal-bar">
+                        <div class="terminal-dot r"></div>
+                        <div class="terminal-dot y"></div>
+                        <div class="terminal-dot g"></div>
+                        <div class="terminal-title">aerobiome-pipeline</div>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="term-line"><span class="prompt">$</span> <span class="cmd">snakemake</span> <span class="flag">--cores 16 --use-conda</span></div>
+                        <div class="term-line"><span class="output">Building DAG of jobs...</span></div>
+                        <div class="term-line"><span class="output">Using 3,847 Nanopore reads (avg 8.2 kbp)</span></div>
+                        <div class="term-line"><span class="prompt">$</span> <span class="cmd">dorado</span> <span class="cmd">basecaller</span> <span class="flag">sup</span> <span class="cmd">pod5/</span> <span class="flag">--emit-fastq</span></div>
+                        <div class="term-line"><span class="output">Basecalling 3,847 reads (R10.4.1, 400 bps)</span></div>
+                        <div class="term-line"><span class="output">Mean qscore 18.4 · 98.2% pass rate</span></div>
+                        <div class="term-line"><span class="prompt">$</span> <span class="cursor"></span></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
+
+    <div class="ribbon">
+        <div class="ribbon-inner">
+            <div class="ribbon-stat"><div class="ribbon-val">28</div><div class="ribbon-label">LLMs evaluated</div></div>
+            <div class="ribbon-divider"></div>
+            <div class="ribbon-stat"><div class="ribbon-val">6</div><div class="ribbon-label">Publications</div></div>
+            <div class="ribbon-divider"></div>
+            <div class="ribbon-stat"><div class="ribbon-val">5</div><div class="ribbon-label">Live demos</div></div>
+            <div class="ribbon-divider"></div>
+            <div class="ribbon-stat"><div class="ribbon-val">7</div><div class="ribbon-label">International sites</div></div>
+        </div>
+    </div>
 
     <main>
 
@@ -766,6 +871,11 @@
         }
         window.addEventListener('scroll', updateActiveNav, { passive: true });
         updateActiveNav();
+
+        // Terminal line animation
+        document.querySelectorAll('.term-line').forEach((line, i) => {
+            setTimeout(() => line.classList.add('show'), 500 + i * 650);
+        });
 
         // Collapsible heatmap
         function toggleHeatmap() {
