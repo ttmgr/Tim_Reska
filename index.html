@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tim Reska — Bioinformatician</title>
-    <meta name="description" content="Tim Reska — Bioinformatician. PhD candidate at Helmholtz Munich & TU Munich. Nanopore metagenomics, LLM evaluation, production ML.">
+    <meta name="description" content="Tim Reska — Bioinformatician. PhD from Helmholtz AI & TU Munich. Nanopore metagenomics, LLM evaluation, production ML for regulated industries.">
+    <meta property="og:title" content="Tim Reska — Bioinformatician">
+    <meta property="og:description" content="Bioinformatician who builds AI systems that know when they're wrong. LLM evaluation, genomics pipelines, production ML.">
+    <meta property="og:type" content="website">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -21,7 +24,7 @@
             --border: #E8E6E1;
             --tag-bg: #F0EDEA;
             --tag-text: #5A584F;
-            --max-width: 1080px;
+            --max-width: 1140px;
             --radius: 12px;
         }
 
@@ -38,6 +41,8 @@
 
         a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
         a:hover { color: var(--accent-hover); }
+
+        *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
 
         .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
 
@@ -57,12 +62,14 @@
             font-family: 'Source Serif 4', Georgia, serif;
             font-size: 18px; font-weight: 600; color: var(--text);
         }
-        nav ul { list-style: none; display: flex; gap: 24px; }
+        nav ul { list-style: none; display: flex; gap: 28px; }
         nav ul li a {
             color: var(--text-secondary); font-size: 14px; font-weight: 500;
             letter-spacing: 0.01em; transition: color 0.2s;
+            padding-bottom: 4px; border-bottom: 2px solid transparent;
         }
         nav ul li a:hover { color: var(--text); }
+        nav ul li a.active { color: var(--text); border-bottom-color: var(--accent); }
 
         .hamburger {
             display: none; background: none; border: none; cursor: pointer; padding: 8px;
@@ -74,27 +81,37 @@
 
         /* --- HERO --- */
         .hero {
-            padding: 160px 0 80px;
-            min-height: 70vh;
+            padding: 140px 0 64px;
             display: flex; align-items: center;
             text-align: center;
         }
-        .hero-content { max-width: 720px; margin: 0 auto; }
+        .hero-content { max-width: 740px; margin: 0 auto; }
         .hero h1 {
             font-family: 'Source Serif 4', Georgia, serif;
-            font-size: clamp(36px, 5vw, 52px);
-            font-weight: 600; line-height: 1.15; margin-bottom: 24px;
+            font-size: clamp(38px, 5vw, 56px);
+            font-weight: 600; line-height: 1.12; margin-bottom: 20px;
             color: var(--text);
         }
         .hero h1 span { color: var(--accent); }
         .hero p {
             font-size: 18px; line-height: 1.8; color: var(--text-secondary);
-            margin-bottom: 40px; max-width: 560px; margin-left: auto; margin-right: auto;
+            margin-bottom: 20px; max-width: 580px; margin-left: auto; margin-right: auto;
         }
+        .hero-subtitle {
+            font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
+            color: var(--text-secondary); margin-bottom: 36px;
+        }
+        .hero-subtitle span {
+            display: inline-block; padding: 0 2px;
+        }
+        .hero-subtitle span::after {
+            content: ' · '; color: var(--border);
+        }
+        .hero-subtitle span:last-child::after { content: ''; }
         .hero-links { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
         .hero-links a {
             display: inline-flex; align-items: center; gap: 8px;
-            padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 500;
+            padding: 11px 22px; border-radius: 8px; font-size: 14px; font-weight: 500;
             transition: all 0.2s;
         }
         .hero-links a.primary {
@@ -108,7 +125,7 @@
         .hero-links a.secondary:hover { border-color: var(--text-secondary); }
 
         /* --- SECTIONS --- */
-        section { padding: 80px 0; }
+        section { padding: 72px 0; }
         section + section { border-top: 1px solid var(--border); }
 
         .section-label {
@@ -122,13 +139,13 @@
         }
         .section-desc {
             font-size: 17px; color: var(--text-secondary); max-width: 640px;
-            margin-bottom: 48px; line-height: 1.75;
+            margin-bottom: 40px; line-height: 1.75;
         }
 
         /* --- PROJECT CARDS --- */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
         }
         .project-card {
@@ -136,7 +153,7 @@
             border: 1px solid var(--border);
             border-radius: var(--radius);
             padding: 28px;
-            transition: all 0.25s;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
             display: flex; flex-direction: column;
         }
         .project-card:hover {
@@ -154,7 +171,7 @@
             font-size: 20px; font-weight: 600; margin-bottom: 10px; line-height: 1.3;
         }
         .project-card p {
-            font-size: 14px; color: var(--text-secondary); line-height: 1.7;
+            font-size: 15px; color: var(--text-secondary); line-height: 1.7;
             margin-bottom: 16px; flex-grow: 1;
         }
         .project-card .card-meta {
@@ -166,6 +183,7 @@
         }
         .project-card .card-links {
             display: flex; gap: 16px; padding-top: 16px; border-top: 1px solid var(--border);
+            margin-top: auto;
         }
         .project-card .card-links a {
             font-size: 13px; font-weight: 500;
@@ -176,7 +194,6 @@
         .featured-card {
             background: var(--surface); border: 1px solid var(--border);
             border-radius: var(--radius); padding: 40px;
-            margin-bottom: 20px;
         }
         .featured-card .card-tag {
             display: inline-block; font-size: 11px; font-weight: 600;
@@ -202,23 +219,37 @@
         .featured-stats .stat-label {
             font-size: 13px; color: var(--text-secondary); margin-top: 2px;
         }
+        .key-finding {
+            font-size: 15px; font-weight: 600; color: var(--text);
+            padding: 16px 20px; background: var(--tag-bg); border-radius: 8px;
+            margin-bottom: 16px; line-height: 1.6;
+        }
+        .toggle-btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 500;
+            background: var(--surface); color: var(--text-secondary);
+            border: 1px solid var(--border); cursor: pointer; transition: all 0.2s;
+            font-family: inherit; margin-bottom: 20px;
+        }
+        .toggle-btn:hover { border-color: var(--text-secondary); color: var(--text); }
         .featured-figure {
-            margin: 24px 0; border-radius: 8px; overflow: hidden;
+            margin: 0 0 20px; border-radius: 8px; overflow: hidden;
             border: 1px solid var(--border);
         }
         .featured-figure img {
-            width: 100%; display: block;
-            background: #fff;
+            width: 100%; display: block; background: #fff;
         }
         .featured-figure figcaption {
             font-size: 13px; color: var(--text-secondary); padding: 12px 16px;
             border-top: 1px solid var(--border); background: var(--bg);
         }
+        .heatmap-wrap { overflow-x: auto; }
+        .heatmap-wrap img { min-width: 700px; }
 
         /* --- SKILLS --- */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
         }
         .skill-group {
@@ -226,30 +257,30 @@
             border-radius: var(--radius); padding: 24px;
         }
         .skill-group h3 {
-            font-size: 14px; font-weight: 600; margin-bottom: 12px;
+            font-size: 14px; font-weight: 600; margin-bottom: 14px;
             color: var(--text);
         }
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 7px; }
         .skill-tags span {
-            font-size: 13px; background: var(--tag-bg); color: var(--tag-text);
-            padding: 4px 12px; border-radius: 20px;
+            font-size: 14px; background: var(--tag-bg); color: var(--tag-text);
+            padding: 5px 14px; border-radius: 20px;
         }
 
         /* --- PUBLICATIONS --- */
         .pub-list { list-style: none; }
         .pub-list li {
-            padding: 20px 0; border-bottom: 1px solid var(--border);
+            padding: 16px 0; border-bottom: 1px solid var(--border);
         }
         .pub-list li:last-child { border-bottom: none; }
         .pub-journal {
-            font-size: 13px; font-weight: 600; color: var(--accent);
+            font-size: 12px; font-weight: 600; color: var(--accent);
             text-transform: uppercase; letter-spacing: 0.04em;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
         .pub-title {
             font-family: 'Source Serif 4', Georgia, serif;
-            font-size: 17px; font-weight: 600; line-height: 1.4;
-            margin-bottom: 4px;
+            font-size: 16px; font-weight: 600; line-height: 1.4;
+            margin-bottom: 2px;
         }
         .pub-title a { color: var(--text); }
         .pub-title a:hover { color: var(--accent); }
@@ -259,33 +290,10 @@
         .pub-authors strong { color: var(--text); font-weight: 600; }
         .pub-note {
             font-size: 12px; color: var(--accent); font-weight: 500;
-            margin-top: 4px;
+            margin-top: 2px; display: inline-block;
         }
-
-        /* --- CONTACT --- */
-        .contact-grid {
-            display: flex; gap: 16px; flex-wrap: wrap;
-        }
-        .contact-card {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 20px 28px;
-            transition: all 0.2s; display: flex; align-items: center; gap: 12px;
-        }
-        .contact-card:hover {
-            border-color: var(--accent); transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-        }
-        .contact-card .contact-icon {
-            width: 40px; height: 40px; border-radius: 10px;
-            background: var(--tag-bg); display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0;
-        }
-        .contact-card .contact-icon svg { width: 20px; height: 20px; color: var(--text-secondary); }
-        .contact-card .contact-label {
-            font-size: 12px; color: var(--text-secondary); font-weight: 500;
-        }
-        .contact-card .contact-value {
-            font-size: 15px; font-weight: 500; color: var(--text);
+        .pub-more {
+            display: inline-block; margin-top: 16px; font-size: 14px; font-weight: 500;
         }
 
         /* --- VENTURE --- */
@@ -315,20 +323,33 @@
 
         /* --- FOOTER --- */
         footer {
-            padding: 40px 0; border-top: 1px solid var(--border);
+            padding: 48px 0; border-top: 1px solid var(--border);
             text-align: center;
         }
-        footer p { font-size: 13px; color: var(--text-secondary); }
+        footer p { font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; }
+        .footer-links {
+            display: flex; gap: 20px; justify-content: center; align-items: center;
+        }
+        .footer-links a {
+            color: var(--text-secondary); transition: color 0.2s;
+            display: flex; align-items: center;
+        }
+        .footer-links a:hover { color: var(--accent); }
+        .footer-links svg { width: 20px; height: 20px; }
 
         /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .projects-grid { grid-template-columns: repeat(2, 1fr); }
+            .skills-grid { grid-template-columns: repeat(2, 1fr); }
+        }
         @media (max-width: 768px) {
-            .hero { padding: 120px 0 60px; min-height: auto; }
-            section { padding: 60px 0; }
+            .hero { padding: 110px 0 48px; }
+            section { padding: 48px 0; }
             .projects-grid { grid-template-columns: 1fr; }
             .skills-grid { grid-template-columns: 1fr; }
             .featured-card { padding: 24px; }
-            .featured-stats { gap: 24px; }
-            .contact-grid { flex-direction: column; }
+            .featured-stats { gap: 20px; }
+            .featured-stats .stat { min-width: 45%; }
 
             nav ul { display: none; }
             nav ul.open {
@@ -359,11 +380,9 @@
             </button>
             <ul>
                 <li><a href="#research">Research</a></li>
-                <li><a href="#llm-eval">LLM Eval</a></li>
+                <li><a href="#llm-eval">Evaluation</a></li>
                 <li><a href="#side-projects">Projects</a></li>
-                <li><a href="#publications">Publications</a></li>
                 <li><a href="#venture">ASKERA</a></li>
-                <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -372,26 +391,35 @@
         <div class="container">
             <div class="hero-content fade-in">
                 <h1>Bioinformatician who builds <span>AI systems that know when they're wrong</span></h1>
-                <p>I build production ML for regulated industries, evaluate frontier LLMs across 28 models, and develop genomics pipelines published in Nature Communications. PhD from Helmholtz Munich &amp; TU Munich.</p>
+                <p>I build production ML for regulated industries, evaluate frontier LLMs across 28 models, and develop genomics pipelines published in Nature Communications. PhD from Helmholtz AI &amp; TU Munich.</p>
+                <div class="hero-subtitle">
+                    <span>Bioinformatics</span>
+                    <span>Uncertainty-aware AI</span>
+                    <span>LLM evaluation</span>
+                    <span>Genomics</span>
+                    <span>One Health</span>
+                </div>
                 <div class="hero-links">
-                    <a href="#research" class="primary">View research &darr;</a>
+                    <a href="#research" class="primary">View work &darr;</a>
+                    <a href="mailto:timreska@gmail.com" class="secondary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        Email
+                    </a>
                     <a href="https://github.com/ttmgr/Tim_Reska" class="secondary" target="_blank" rel="noopener">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
                         GitHub
-                    </a>
-                    <a href="https://linkedin.com/in/tim-r-ai" class="secondary" target="_blank" rel="noopener">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M13.6 0H2.4C1.07 0 0 1.07 0 2.4v11.2C0 14.93 1.07 16 2.4 16h11.2c1.33 0 2.4-1.07 2.4-2.4V2.4C16 1.07 14.93 0 13.6 0zM4.75 13.6H2.4V6h2.35v7.6zM3.58 5.03c-.75 0-1.36-.62-1.36-1.37s.61-1.37 1.36-1.37 1.36.62 1.36 1.37-.61 1.37-1.36 1.37zM13.6 13.6h-2.35V9.92c0-.88-.02-2.01-1.22-2.01-1.23 0-1.41.96-1.41 1.95v3.74H6.27V6h2.26v1.04h.03c.31-.6 1.08-1.23 2.22-1.23 2.38 0 2.82 1.56 2.82 3.6v4.19z"/></svg>
-                        LinkedIn
                     </a>
                 </div>
             </div>
         </div>
     </header>
 
+    <main>
+
     <section id="research">
         <div class="container">
             <div class="fade-in">
-                <div class="section-label">PhD Research &mdash; Helmholtz Munich &amp; TU Munich</div>
+                <div class="section-label">PhD Research &mdash; Helmholtz AI &amp; TU Munich</div>
                 <h2 class="section-title">Genomics &amp; One Health</h2>
                 <p class="section-desc">Nanopore sequencing workflows for pathogen surveillance across air, water, food, and clinical settings. Founding member of an international research group spanning 7 sites. These peer-reviewed pipelines also serve as the validated ground truth for the LLM evaluation below.</p>
             </div>
@@ -472,14 +500,16 @@
                         <div class="stat-label">Models with perfect 10-step score</div>
                     </div>
                 </div>
-                <figure class="featured-figure">
-                    <img src="./llm-eval/results/figures/wetland_scoring_heatmap.png" alt="Wetland pipeline scoring heatmap showing 28 models across 10 steps" loading="lazy">
-                    <figcaption>Wetland pipeline (10 steps &times; 28 entries). Light columns on the right: every model in every family fails.</figcaption>
-                </figure>
-                <figure class="featured-figure">
-                    <img src="./llm-eval/results/figures/flagship_comparison.png" alt="Flagship model statistical comparison" loading="lazy">
-                    <figcaption>Flagship comparison: GPT-5 vs Opus 4.6 vs Gemini 3 Pro. Differences not statistically significant on aerobiome &mdash; the bottleneck is benchmark power, not family advantage.</figcaption>
-                </figure>
+                <div class="key-finding">No model in any family produces a fully correct 10-step wetland pipeline. Three of those steps have zero fully-correct answers across all 28 evaluated entries.</div>
+                <button class="toggle-btn" id="heatmap-toggle" onclick="toggleHeatmap()">Show full heatmap &darr;</button>
+                <div id="heatmap-container" style="display:none;">
+                    <figure class="featured-figure">
+                        <div class="heatmap-wrap">
+                            <img src="./llm-eval/results/figures/wetland_scoring_heatmap.png" alt="Wetland pipeline scoring heatmap showing 28 models across 10 steps. Light columns on the right indicate steps where every model fails." loading="lazy">
+                        </div>
+                        <figcaption>Wetland pipeline (10 steps &times; 28 entries). Light columns on the right: every model in every family fails.</figcaption>
+                    </figure>
+                </div>
                 <div class="card-links" style="padding-top:20px; border-top:1px solid var(--border);">
                     <a href="./llm-eval/">Repository &rarr;</a>
                     <a href="./llm-eval/methodology/evaluation_framework.md">Methodology</a>
@@ -516,7 +546,7 @@
                 <div class="project-card fade-in">
                     <div class="card-tag">Interactive &mdash; Live Demo</div>
                     <h3>Clinical Atlas</h3>
-                    <p>D3.js browser dashboard for disease-state transitions and intervention scenarios. Eight interconnected disease nodes, evidence-linked uncertainty bands, patient profile controls. Zero build step.</p>
+                    <p>D3.js browser dashboard for disease-state transitions and intervention scenarios. Eight interconnected disease nodes, evidence-linked uncertainty bands, patient profile controls.</p>
                     <div class="card-meta">
                         <span>D3.js</span>
                         <span>Chart.js</span>
@@ -544,7 +574,7 @@
                 <div class="project-card fade-in">
                     <div class="card-tag">Interactive &mdash; Live Demo</div>
                     <h3>AI Deployment Readiness</h3>
-                    <p>25-question self-assessment across five dimensions. Weighted scoring, maturity tier assignment, sector benchmarks, and prioritised recommendations. Based on Gartner, Stanford HAI, and McKinsey frameworks.</p>
+                    <p>25-question self-assessment across five dimensions. Weighted scoring, maturity tier assignment, sector benchmarks, and prioritised recommendations.</p>
                     <div class="card-meta">
                         <span>25 questions</span>
                         <span>5 dimensions</span>
@@ -558,7 +588,7 @@
                 <div class="project-card fade-in">
                     <div class="card-tag">Interactive &mdash; Live Demo</div>
                     <h3>LLM Cost Calculator</h3>
-                    <p>Cost modeling for LLM deployment decisions. Pricing database for 13 models across 5 providers, ROI calculator comparing manual vs LLM-augmented workflows with human review layer.</p>
+                    <p>Cost modeling for LLM deployment decisions. Pricing database for 13 models across 5 providers, ROI calculator comparing manual vs LLM-augmented workflows.</p>
                     <div class="card-meta">
                         <span>13 models</span>
                         <span>5 providers</span>
@@ -580,30 +610,7 @@
             </div>
             <div class="skills-grid">
                 <div class="skill-group fade-in">
-                    <h3>AI &amp; Machine Learning</h3>
-                    <div class="skill-tags">
-                        <span>PyTorch</span>
-                        <span>XGBoost</span>
-                        <span>scikit-learn</span>
-                        <span>Transformers</span>
-                        <span>Survival analysis</span>
-                        <span>SHAP</span>
-                        <span>Conformal prediction</span>
-                        <span>Calibration</span>
-                    </div>
-                </div>
-                <div class="skill-group fade-in">
-                    <h3>LLM Evaluation &amp; Deployment</h3>
-                    <div class="skill-tags">
-                        <span>Multi-vendor benchmarking</span>
-                        <span>Prompt engineering</span>
-                        <span>Cost modeling</span>
-                        <span>Agent evaluation</span>
-                        <span>PBW detection</span>
-                    </div>
-                </div>
-                <div class="skill-group fade-in">
-                    <h3>Bioinformatics</h3>
+                    <h3>Bioinformatics &amp; Genomics</h3>
                     <div class="skill-tags">
                         <span>Nanopore</span>
                         <span>PacBio</span>
@@ -612,21 +619,25 @@
                         <span>Metagenomics</span>
                         <span>AMR profiling</span>
                         <span>Adaptive sampling</span>
+                        <span>FHIR / OMOP</span>
                     </div>
                 </div>
                 <div class="skill-group fade-in">
-                    <h3>Governance &amp; Regulation</h3>
+                    <h3>Machine Learning &amp; LLMs</h3>
                     <div class="skill-tags">
-                        <span>EU AI Act</span>
-                        <span>GDPR</span>
-                        <span>Model cards</span>
-                        <span>Risk registers</span>
-                        <span>Fairness auditing</span>
-                        <span>DPIA</span>
+                        <span>PyTorch</span>
+                        <span>XGBoost</span>
+                        <span>scikit-learn</span>
+                        <span>Transformers</span>
+                        <span>Survival analysis</span>
+                        <span>SHAP</span>
+                        <span>Conformal prediction</span>
+                        <span>LLM benchmarking</span>
+                        <span>PBW detection</span>
                     </div>
                 </div>
                 <div class="skill-group fade-in">
-                    <h3>Infrastructure</h3>
+                    <h3>Engineering &amp; Governance</h3>
                     <div class="skill-tags">
                         <span>Python</span>
                         <span>JavaScript</span>
@@ -635,18 +646,9 @@
                         <span>Docker</span>
                         <span>Streamlit</span>
                         <span>D3.js</span>
-                        <span>FHIR / OMOP</span>
-                    </div>
-                </div>
-                <div class="skill-group fade-in">
-                    <h3>Data Sources</h3>
-                    <div class="skill-tags">
-                        <span>NHANES</span>
-                        <span>UK Biobank</span>
-                        <span>BioLinCC</span>
-                        <span>CDC PLACES</span>
-                        <span>Zenodo</span>
-                        <span>Synthea</span>
+                        <span>EU AI Act</span>
+                        <span>GDPR</span>
+                        <span>Fairness auditing</span>
                     </div>
                 </div>
             </div>
@@ -668,8 +670,8 @@
                 </li>
                 <li>
                     <div class="pub-journal">Applied and Environmental Microbiology &middot; 2025</div>
-                    <div class="pub-title"><a href="https://doi.org/10.1101/2025.09.05.674394" target="_blank" rel="noopener">Real-time genomic pathogen, resistance, and host range characterization from passive water sampling of wetland ecosystems</a></div>
-                    <div class="pub-authors">Perlas A*, <strong>Reska T</strong>*, Sanchez-Cano A, et al.</div>
+                    <div class="pub-title"><a href="https://doi.org/10.1101/2025.09.05.674394" target="_blank" rel="noopener">Real-time genomic pathogen, resistance, and host range characterization from passive water sampling</a></div>
+                    <div class="pub-authors">Perlas A*, <strong>Reska T</strong>*, et al.</div>
                     <div class="pub-note">Shared first author</div>
                 </li>
                 <li>
@@ -679,21 +681,12 @@
                 </li>
                 <li>
                     <div class="pub-journal">bioRxiv Preprint &middot; 2026</div>
-                    <div class="pub-title"><a href="https://www.biorxiv.org/content/10.64898/2026.04.23.720354v1" target="_blank" rel="noopener">A metagenomic framework for rapid <em>Listeria monocytogenes</em> surveillance in food production environments</a></div>
+                    <div class="pub-title"><a href="https://www.biorxiv.org/content/10.64898/2026.04.23.720354v1" target="_blank" rel="noopener">A metagenomic framework for rapid <em>Listeria monocytogenes</em> surveillance</a></div>
                     <div class="pub-authors">Muchaamba F, <strong>Reska T</strong>, Biggel M, et al.</div>
                     <div class="pub-note">First author</div>
                 </li>
-                <li>
-                    <div class="pub-journal">Molecular Systems Biology &middot; 2023</div>
-                    <div class="pub-title"><a href="https://doi.org/10.15252/msb.202311686" target="_blank" rel="noopener">Real-time genomics for One Health</a></div>
-                    <div class="pub-authors">Urban L, Perlas A, Francino O, et al.</div>
-                </li>
-                <li>
-                    <div class="pub-journal">Global Ecology and Conservation &middot; 2025</div>
-                    <div class="pub-title">Environmental screening detects <em>Batrachochytrium dendrobatidis</em></div>
-                    <div class="pub-authors">Varzanadi AR, <strong>Reska T</strong>, et al.</div>
-                </li>
             </ul>
+            <a href="https://linkedin.com/in/tim-r-ai" class="pub-more" target="_blank" rel="noopener">View all publications &rarr;</a>
         </div>
     </section>
 
@@ -716,61 +709,30 @@
         </div>
     </section>
 
-    <section id="contact">
-        <div class="container">
-            <div class="fade-in">
-                <div class="section-label">Get in touch</div>
-                <h2 class="section-title">Contact</h2>
-                <p class="section-desc">I am open to collaborations in LLM evaluation, AI governance for regulated industries, and metagenomics.</p>
-            </div>
-            <div class="contact-grid fade-in">
-                <a href="mailto:timreska@gmail.com" class="contact-card">
-                    <div class="contact-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                    </div>
-                    <div>
-                        <div class="contact-label">Email</div>
-                        <div class="contact-value">timreska@gmail.com</div>
-                    </div>
-                </a>
-                <a href="https://linkedin.com/in/tim-r-ai" target="_blank" rel="noopener" class="contact-card">
-                    <div class="contact-icon">
-                        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.6 0H2.4C1.07 0 0 1.07 0 2.4v11.2C0 14.93 1.07 16 2.4 16h11.2c1.33 0 2.4-1.07 2.4-2.4V2.4C16 1.07 14.93 0 13.6 0zM4.75 13.6H2.4V6h2.35v7.6zM3.58 5.03c-.75 0-1.36-.62-1.36-1.37s.61-1.37 1.36-1.37 1.36.62 1.36 1.37-.61 1.37-1.36 1.37zM13.6 13.6h-2.35V9.92c0-.88-.02-2.01-1.22-2.01-1.23 0-1.41.96-1.41 1.95v3.74H6.27V6h2.26v1.04h.03c.31-.6 1.08-1.23 2.22-1.23 2.38 0 2.82 1.56 2.82 3.6v4.19z"/></svg>
-                    </div>
-                    <div>
-                        <div class="contact-label">LinkedIn</div>
-                        <div class="contact-value">tim-r-ai</div>
-                    </div>
-                </a>
-                <a href="https://github.com/ttmgr/Tim_Reska" target="_blank" rel="noopener" class="contact-card">
-                    <div class="contact-icon">
-                        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-                    </div>
-                    <div>
-                        <div class="contact-label">GitHub</div>
-                        <div class="contact-value">ttmgr/Tim_Reska</div>
-                    </div>
-                </a>
-                <a href="https://orcid.org/0009-0001-9700-5128" target="_blank" rel="noopener" class="contact-card">
-                    <div class="contact-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 0 1-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.025-5.325 5.025h-3.919V7.416zm1.444 1.303v7.444h2.297c3.272 0 4.022-2.484 4.022-3.722 0-1.444-.881-3.722-3.916-3.722h-2.403z"/></svg>
-                    </div>
-                    <div>
-                        <div class="contact-label">ORCID</div>
-                        <div class="contact-value">0009-0001-9700-5128</div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
+    </main>
 
     <footer>
         <div class="container">
-            <p>Tim Reska &middot; Helmholtz Munich &amp; TU Munich &middot; 2024&ndash;2026</p>
+            <p>Tim Reska &middot; Helmholtz AI &amp; TU Munich &middot; 2022&ndash;2026</p>
+            <div class="footer-links">
+                <a href="mailto:timreska@gmail.com" aria-label="Email">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </a>
+                <a href="https://linkedin.com/in/tim-r-ai" target="_blank" rel="noopener" aria-label="LinkedIn">
+                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.6 0H2.4C1.07 0 0 1.07 0 2.4v11.2C0 14.93 1.07 16 2.4 16h11.2c1.33 0 2.4-1.07 2.4-2.4V2.4C16 1.07 14.93 0 13.6 0zM4.75 13.6H2.4V6h2.35v7.6zM3.58 5.03c-.75 0-1.36-.62-1.36-1.37s.61-1.37 1.36-1.37 1.36.62 1.36 1.37-.61 1.37-1.36 1.37zM13.6 13.6h-2.35V9.92c0-.88-.02-2.01-1.22-2.01-1.23 0-1.41.96-1.41 1.95v3.74H6.27V6h2.26v1.04h.03c.31-.6 1.08-1.23 2.22-1.23 2.38 0 2.82 1.56 2.82 3.6v4.19z"/></svg>
+                </a>
+                <a href="https://github.com/ttmgr/Tim_Reska" target="_blank" rel="noopener" aria-label="GitHub">
+                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                </a>
+                <a href="https://orcid.org/0009-0001-9700-5128" target="_blank" rel="noopener" aria-label="ORCID">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 0 1-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.025-5.325 5.025h-3.919V7.416zm1.444 1.303v7.444h2.297c3.272 0 4.022-2.484 4.022-3.722 0-1.444-.881-3.722-3.916-3.722h-2.403z"/></svg>
+                </a>
+            </div>
         </div>
     </footer>
 
     <script>
+        // Scroll-based fade-in
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -779,14 +741,44 @@
                 }
             });
         }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
+        // Mobile nav close on link click
         document.querySelectorAll('nav a[href^="#"]').forEach(link => {
             link.addEventListener('click', () => {
                 document.querySelector('nav ul').classList.remove('open');
             });
         });
+
+        // Active nav highlight on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('nav ul li a');
+        function updateActiveNav() {
+            let current = '';
+            sections.forEach(section => {
+                const top = section.offsetTop - 120;
+                if (window.scrollY >= top) current = section.getAttribute('id');
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+            });
+        }
+        window.addEventListener('scroll', updateActiveNav, { passive: true });
+        updateActiveNav();
+
+        // Collapsible heatmap
+        function toggleHeatmap() {
+            const container = document.getElementById('heatmap-container');
+            const btn = document.getElementById('heatmap-toggle');
+            if (container.style.display === 'none') {
+                container.style.display = 'block';
+                btn.textContent = 'Hide heatmap ↑';
+            } else {
+                container.style.display = 'none';
+                btn.textContent = 'Show full heatmap ↓';
+            }
+        }
     </script>
 </body>
 </html>
