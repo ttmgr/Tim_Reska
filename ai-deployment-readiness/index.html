@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Deployment Readiness Assessment</title>
+<meta name="description" content="25-question self-assessment across 5 dimensions. Weighted scoring, maturity tiers, sector benchmarks, and prioritised recommendations.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#FAF9F7;--surface:#FFFFFF;--text:#1A1A2E;--text-secondary:#6B6A73;
+  --accent:#C4794A;--accent-hover:#A8603A;--border:#E8E6E1;
+  --tag-bg:#F0EDEA;--tag-text:#5A584F;--radius:12px;
+  --green:#1a7a42;--amber:#b5750d;--red:#b5334d;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:16px;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+
+.portfolio-nav{position:sticky;top:0;z-index:9999;background:rgba(250,249,247,0.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.portfolio-nav .inner{max-width:1080px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:48px}
+.portfolio-nav .logo{font-family:'Source Serif 4',Georgia,serif;font-size:16px;font-weight:600;color:var(--text);text-decoration:none}
+.portfolio-nav .label{font-size:13px;color:var(--text-secondary);font-weight:500}
+
+.container{max-width:720px;margin:0 auto;padding:0 24px}
+
+.screen{display:none;padding:60px 0 80px}
+.screen.active{display:block}
+
+h1{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(28px,4vw,36px);font-weight:600;line-height:1.25;margin-bottom:16px}
+h2{font-family:'Source Serif 4',Georgia,serif;font-size:22px;font-weight:600;margin-bottom:12px}
+h3{font-size:14px;font-weight:600;margin-bottom:8px;color:var(--text)}
+
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+
+.intro-text{font-size:17px;color:var(--text-secondary);line-height:1.75;margin-bottom:32px;max-width:560px}
+.intro-stats{display:flex;gap:32px;margin-bottom:40px;flex-wrap:wrap}
+.intro-stat .val{font-family:'Source Serif 4',Georgia,serif;font-size:28px;font-weight:600}
+.intro-stat .lbl{font-size:13px;color:var(--text-secondary)}
+
+.sector-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:24px}
+.sector-btn{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;cursor:pointer;font:inherit;font-size:14px;font-weight:500;text-align:left;transition:all 0.2s}
+.sector-btn:hover{border-color:var(--accent);transform:translateY(-1px)}
+.sector-btn.selected{border-color:var(--accent);background:rgba(196,121,74,0.06)}
+.sector-btn .sector-name{color:var(--text)}
+.sector-btn .sector-avg{font-size:12px;color:var(--text-secondary)}
+
+.skip-link{font-size:14px;color:var(--text-secondary);cursor:pointer;border:none;background:none;font:inherit;font-weight:500;margin-top:8px}
+.skip-link:hover{color:var(--text)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:all 0.2s}
+.btn-primary{background:var(--text);color:#fff}
+.btn-primary:hover{background:#2d2d42}
+.btn-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--text-secondary)}
+
+/* Question */
+.progress-bar{height:3px;background:var(--border);border-radius:2px;margin-bottom:40px;overflow:hidden}
+.progress-fill{height:100%;background:var(--accent);transition:width 0.4s ease}
+
+.question-dim{font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.question-num{font-size:13px;color:var(--text-secondary);margin-bottom:16px}
+.question-text{font-family:'Source Serif 4',Georgia,serif;font-size:20px;font-weight:600;line-height:1.4;margin-bottom:28px}
+
+.likert{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.likert-option{display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:all 0.2s}
+.likert-option:hover{border-color:#d0cec8;background:#fefefe}
+.likert-option.selected{border-color:var(--accent);background:rgba(196,121,74,0.05)}
+.likert-circle{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.likert-option.selected .likert-circle{border-color:var(--accent);background:var(--accent)}
+.likert-option.selected .likert-circle::after{content:'';width:8px;height:8px;border-radius:50%;background:#fff}
+.likert-num{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;color:var(--text-secondary);width:16px;text-align:center}
+.likert-label{font-size:14px;color:var(--text);flex:1}
+
+.anchors{display:flex;justify-content:space-between;margin-bottom:32px;font-size:12px;color:var(--text-secondary)}
+
+.q-nav{display:flex;gap:12px}
+
+/* Results */
+.result-header{text-align:center;margin-bottom:48px}
+.result-header .tier-label{display:inline-block;padding:6px 16px;border-radius:20px;font-size:13px;font-weight:600;letter-spacing:0.04em;margin-bottom:12px}
+.tier-exploring{background:#fef2f2;color:var(--red)}
+.tier-piloting{background:#fef7e0;color:var(--amber)}
+.tier-scaling{background:#e8f5e9;color:var(--green)}
+.tier-optimizing{background:#e8f5e9;color:var(--green)}
+.overall-score{font-family:'Source Serif 4',Georgia,serif;font-size:48px;font-weight:600}
+.overall-sub{font-size:15px;color:var(--text-secondary)}
+
+.dim-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-bottom:12px}
+.dim-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.dim-name{font-size:14px;font-weight:600}
+.dim-score{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500}
+.dim-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.dim-fill{height:100%;border-radius:3px;transition:width 0.6s ease}
+.dim-benchmark{display:flex;justify-content:space-between;margin-top:8px;font-size:12px;color:var(--text-secondary)}
+
+.rec-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-bottom:12px}
+.rec-dim{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+.rec-text{font-size:14px;color:var(--text-secondary);line-height:1.6}
+
+.tier-defs{margin-top:32px}
+.tier-def{display:flex;gap:16px;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px}
+.tier-def:last-child{border-bottom:none}
+.tier-range{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-secondary);width:60px;flex-shrink:0}
+.tier-name{font-weight:600;width:80px;flex-shrink:0}
+.tier-desc{color:var(--text-secondary)}
+
+.result-actions{display:flex;gap:12px;justify-content:center;margin-top:40px}
+
+.attribution{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);font-size:12px;color:var(--text-secondary);line-height:1.7}
+
+@media(max-width:600px){
+  .intro-stats{gap:20px}
+  .sector-grid{grid-template-columns:1fr}
+  .likert-option{padding:12px 14px}
+  .q-nav{flex-direction:column}
+  .q-nav .btn{width:100%;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<div class="portfolio-nav">
+  <div class="inner">
+    <a href="../" class="logo">&larr; Tim Reska</a>
+    <span class="label">AI Deployment Readiness Assessment</span>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div id="screen-intro" class="screen active">
+  <div class="container">
+    <div class="eyebrow">Self-Assessment</div>
+    <h1>AI Deployment Readiness</h1>
+    <p class="intro-text">A structured diagnostic for organisations evaluating where AI fits — and where it doesn't. Based on published maturity frameworks from Gartner, Stanford HAI, and McKinsey.</p>
+    <div class="intro-stats">
+      <div class="intro-stat"><div class="val">25</div><div class="lbl">Questions</div></div>
+      <div class="intro-stat"><div class="val">5</div><div class="lbl">Dimensions</div></div>
+      <div class="intro-stat"><div class="val">~8</div><div class="lbl">Minutes</div></div>
+    </div>
+    <h2>Select your sector</h2>
+    <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">Optional — enables benchmark comparison against sector averages.</p>
+    <div class="sector-grid" id="sector-grid"></div>
+    <button class="skip-link" onclick="startAssessment(null)">Skip sector &rarr;</button>
+    <div style="margin-top:32px">
+      <button class="btn btn-primary" id="start-btn" onclick="startFromSector()">Start assessment &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUESTION -->
+<div id="screen-question" class="screen">
+  <div class="container">
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="question-dim" id="q-dim"></div>
+    <div class="question-num" id="q-num"></div>
+    <div class="question-text" id="q-text"></div>
+    <div class="anchors"><span id="anchor-low"></span><span id="anchor-high"></span></div>
+    <div class="likert" id="likert"></div>
+    <div class="q-nav">
+      <button class="btn btn-secondary" id="prev-btn" onclick="prevQuestion()">&larr; Back</button>
+      <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()" disabled>Next &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div id="screen-results" class="screen">
+  <div class="container">
+    <div class="result-header">
+      <div class="tier-label" id="tier-label"></div>
+      <div class="overall-score" id="overall-score"></div>
+      <div class="overall-sub">out of 5.00</div>
+    </div>
+
+    <div class="eyebrow">Dimension Scores</div>
+    <div id="dim-scores"></div>
+
+    <div style="margin-top:32px">
+      <div class="eyebrow">Prioritised Recommendations</div>
+      <div id="recs"></div>
+    </div>
+
+    <div class="tier-defs">
+      <div class="eyebrow">Maturity Tiers</div>
+      <div class="tier-def"><span class="tier-range">1.0–2.0</span><span class="tier-name">Exploring</span><span class="tier-desc">AI interest exists but no structured capability.</span></div>
+      <div class="tier-def"><span class="tier-range">2.0–3.0</span><span class="tier-name">Piloting</span><span class="tier-desc">Isolated experiments; not yet embedded in operations.</span></div>
+      <div class="tier-def"><span class="tier-range">3.0–4.0</span><span class="tier-name">Scaling</span><span class="tier-desc">AI in production for select use cases; governance emerging.</span></div>
+      <div class="tier-def"><span class="tier-range">4.0–5.0</span><span class="tier-name">Optimizing</span><span class="tier-desc">AI integrated across the organisation with mature governance.</span></div>
+    </div>
+
+    <div class="result-actions">
+      <button class="btn btn-secondary" onclick="resetAssessment()">&larr; Retake</button>
+      <button class="btn btn-primary" onclick="downloadResults()">Download results</button>
+    </div>
+
+    <div class="attribution">
+      Assessment framework based on publicly available maturity models: Gartner AI Maturity Model (2023), Stanford HAI AI Index Report (2024), McKinsey "The State of AI" (2023). Sector benchmarks are synthetic approximations reflecting relative ordering reported in these sources.
+    </div>
+  </div>
+</div>
+
+<script>
+const DIMENSIONS = [
+  "Data Infrastructure & Quality",
+  "Process Maturity & Documentation",
+  "Governance & Compliance Readiness",
+  "AI Talent & Skills",
+  "Executive Sponsorship & Change Management"
+];
+
+const WEIGHTS = {
+  "Data Infrastructure & Quality": [0.25,0.25,0.20,0.15,0.15],
+  "Process Maturity & Documentation": [0.25,0.20,0.20,0.15,0.20],
+  "Governance & Compliance Readiness": [0.20,0.25,0.20,0.20,0.15],
+  "AI Talent & Skills": [0.25,0.20,0.20,0.20,0.15],
+  "Executive Sponsorship & Change Management": [0.25,0.25,0.15,0.20,0.15]
+};
+
+const QUESTIONS = [
+  {dim:0,text:"Do you maintain a documented data dictionary covering >80% of your production datasets?",anchors:["No dictionary exists","Comprehensive, auto-updated dictionary"]},
+  {dim:0,text:"Are your core analytical datasets available through a central data platform (warehouse, lake, or lakehouse) with governed access?",anchors:["Siloed spreadsheets/local DBs","Unified platform with RBAC"]},
+  {dim:0,text:"Do you run automated data-quality checks (completeness, freshness, schema drift) on ingestion pipelines?",anchors:["No automated checks","Full pipeline observability"]},
+  {dim:0,text:"Can analysts self-serve access to cleaned, documented datasets without filing IT tickets?",anchors:["All access requires IT","Fully self-service with audit trail"]},
+  {dim:0,text:"Do you have version control or lineage tracking for datasets used in analytical or ML workflows?",anchors:["No versioning","Full lineage from source to model"]},
+  {dim:1,text:"Are your core business processes (top 10 by headcount) documented in a format accessible to non-experts?",anchors:["Tribal knowledge only","Documented with process maps"]},
+  {dim:1,text:"Do you measure cycle time and error rates for the processes most likely to be augmented by AI?",anchors:["No process metrics","KPIs tracked and reviewed monthly"]},
+  {dim:1,text:"Is there a structured intake process for evaluating new technology or automation proposals?",anchors:["Ad-hoc requests","Stage-gated evaluation with criteria"]},
+  {dim:1,text:"Do process owners have the authority and budget to implement approved changes within their domain?",anchors:["All changes require C-suite","Delegated authority with guardrails"]},
+  {dim:1,text:"Have you identified which tasks within key processes are repetitive, rule-based, and high-volume (automation candidates)?",anchors:["No task-level analysis","Task taxonomy with volume estimates"]},
+  {dim:2,text:"Does your organization have a written AI-use policy that covers acceptable use, prohibited use, and escalation paths?",anchors:["No AI policy","Board-approved policy, reviewed annually"]},
+  {dim:2,text:"Is there a defined process for reviewing AI outputs for bias, fairness, and accuracy before deployment?",anchors:["No review process","Formal pre-deployment audit checklist"]},
+  {dim:2,text:"Do you track which AI models are in production, who owns them, and when they were last validated?",anchors:["No model inventory","Live registry with ownership and refresh dates"]},
+  {dim:2,text:"Have you assessed regulatory requirements (e.g., EU AI Act risk tiers, GDPR Art. 22) that apply to your planned AI use cases?",anchors:["No regulatory mapping","Use-case-level risk classification done"]},
+  {dim:2,text:"Is there a clear incident-response procedure if an AI system produces harmful or incorrect outputs in production?",anchors:["No procedure","Documented runbook with escalation and rollback"]},
+  {dim:3,text:"Do you have at least one team member with hands-on experience deploying ML/AI models to production (not just prototyping)?",anchors:["No in-house ML experience","Dedicated MLOps/ML engineering team"]},
+  {dim:3,text:"Have non-technical staff (e.g., operations, finance, HR) received structured training on what AI can and cannot do?",anchors:["No AI literacy training","Role-specific AI fluency programme"]},
+  {dim:3,text:"Can your IT/engineering team integrate third-party APIs and manage model serving infrastructure (containers, endpoints)?",anchors:["No API/infra skills","Production-grade serving experience"]},
+  {dim:3,text:"Do you have access to domain experts who can define success criteria and validate AI outputs in their area?",anchors:["No domain-expert involvement","Embedded domain experts in AI projects"]},
+  {dim:3,text:"Is there a retention or upskilling plan for employees whose roles will be significantly changed by AI adoption?",anchors:["No plan","Formal reskilling roadmap with timelines"]},
+  {dim:4,text:"Is there a named executive sponsor (C-level or VP) accountable for AI strategy and its business outcomes?",anchors:["No sponsor","Named sponsor with OKRs tied to AI outcomes"]},
+  {dim:4,text:"Has the leadership team allocated a ring-fenced budget for AI experimentation and deployment (not just IT capex)?",anchors:["No dedicated budget","Multi-year ring-fenced AI budget"]},
+  {dim:4,text:"Do you have a communication plan that explains to employees why AI is being introduced and how it affects their work?",anchors:["No communication","Structured change-comms with feedback loops"]},
+  {dim:4,text:"Has the organization run at least one end-to-end AI pilot with measured business impact (not just a proof of concept)?",anchors:["No pilots","Multiple pilots with documented ROI"]},
+  {dim:4,text:"Are AI initiative results (successes and failures) shared transparently across the organization?",anchors:["Results stay in project team","Regular cross-functional AI reviews"]}
+];
+
+const BENCHMARKS = {
+  "Financial Services":{scores:[3.6,3.4,3.8,3.2,3.5],overall:3.5},
+  "Healthcare":{scores:[2.8,2.6,3.2,2.4,2.5],overall:2.7},
+  "Manufacturing":{scores:[2.5,3.0,2.3,2.1,2.6],overall:2.5},
+  "Public Sector":{scores:[2.2,2.8,2.9,1.9,2.3],overall:2.4},
+  "Technology":{scores:[3.9,3.2,3.0,4.0,3.6],overall:3.5}
+};
+
+const RECS = {
+  "Data Infrastructure & Quality":["Establish a governed data catalogue covering your top-20 production datasets, with ownership, freshness SLAs, and automated quality checks.","Invest in a self-service data platform so analysts can access clean datasets without IT bottlenecks."],
+  "Process Maturity & Documentation":["Document your 10 highest-headcount processes with swim-lane diagrams and baseline cycle-time and error-rate metrics before automating.","Introduce a lightweight intake process (scoring rubric + business case template) for evaluating AI/automation proposals."],
+  "Governance & Compliance Readiness":["Draft and ratify an AI-use policy covering acceptable use, prohibited applications, and an escalation path for edge cases.","Build a model registry that tracks every production model, its owner, validation date, and regulatory risk classification."],
+  "AI Talent & Skills":["Run a structured AI literacy programme for non-technical staff, focusing on realistic capabilities, limitations, and responsible use.","Hire or upskill at least one ML engineer with production deployment experience (containers, endpoints, monitoring)."],
+  "Executive Sponsorship & Change Management":["Appoint a named executive sponsor with board-level accountability and OKRs tied to measurable AI outcomes.","Communicate AI strategy to all employees with a clear explanation of why, what changes, and what support is available."]
+};
+
+let answers = new Array(25).fill(null);
+let currentQ = 0;
+let selectedSector = null;
+
+function initSectors(){
+  const grid = document.getElementById('sector-grid');
+  Object.entries(BENCHMARKS).forEach(([name,bm])=>{
+    const btn = document.createElement('button');
+    btn.className = 'sector-btn';
+    btn.innerHTML = `<div class="sector-name">${name}</div><div class="sector-avg">Avg: ${bm.overall.toFixed(1)} / 5.0</div>`;
+    btn.onclick = ()=>{
+      document.querySelectorAll('.sector-btn').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedSector = name;
+    };
+    grid.appendChild(btn);
+  });
+}
+
+function startFromSector(){startAssessment(selectedSector)}
+
+function startAssessment(sector){
+  selectedSector = sector;
+  currentQ = 0;
+  showScreen('screen-question');
+  renderQuestion();
+}
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function renderQuestion(){
+  const q = QUESTIONS[currentQ];
+  document.getElementById('progress-fill').style.width = ((currentQ+1)/25*100)+'%';
+  document.getElementById('q-dim').textContent = DIMENSIONS[q.dim];
+  document.getElementById('q-num').textContent = `Question ${currentQ+1} of 25`;
+  document.getElementById('q-text').textContent = q.text;
+  document.getElementById('anchor-low').textContent = '1 = '+q.anchors[0];
+  document.getElementById('anchor-high').textContent = '5 = '+q.anchors[1];
+
+  const likert = document.getElementById('likert');
+  likert.innerHTML = '';
+  for(let i=1;i<=5;i++){
+    const opt = document.createElement('div');
+    opt.className = 'likert-option'+(answers[currentQ]===i?' selected':'');
+    const labels = [q.anchors[0],'','','',q.anchors[1]];
+    opt.innerHTML = `<div class="likert-circle"></div><span class="likert-num">${i}</span><span class="likert-label">${i===1?q.anchors[0]:i===5?q.anchors[1]:''}</span>`;
+    opt.onclick = ()=>selectAnswer(i);
+    likert.appendChild(opt);
+  }
+
+  document.getElementById('prev-btn').style.visibility = currentQ===0?'hidden':'visible';
+  const nextBtn = document.getElementById('next-btn');
+  nextBtn.disabled = answers[currentQ]===null;
+  nextBtn.textContent = currentQ===24?'See results →':'Next →';
+}
+
+function selectAnswer(val){
+  answers[currentQ] = val;
+  document.querySelectorAll('.likert-option').forEach((opt,i)=>{
+    opt.classList.toggle('selected',i+1===val);
+  });
+  document.getElementById('next-btn').disabled = false;
+}
+
+function nextQuestion(){
+  if(answers[currentQ]===null) return;
+  if(currentQ===24){showResults();return}
+  currentQ++;
+  renderQuestion();
+  window.scrollTo(0,0);
+}
+
+function prevQuestion(){
+  if(currentQ>0){currentQ--;renderQuestion();window.scrollTo(0,0)}
+}
+
+function computeScores(){
+  const dimScores = DIMENSIONS.map((dim,di)=>{
+    const qs = answers.slice(di*5,di*5+5);
+    const w = WEIGHTS[dim];
+    const score = qs.reduce((s,a,i)=>s+a*w[i],0);
+    return {name:dim,score:Math.round(score*100)/100,raw:qs};
+  });
+  const overall = dimScores.reduce((s,d)=>s+d.score,0)/dimScores.length;
+  let tier = 'Exploring';
+  if(overall>=4) tier='Optimizing';
+  else if(overall>=3) tier='Scaling';
+  else if(overall>=2) tier='Piloting';
+  return {dimScores,overall:Math.round(overall*100)/100,tier};
+}
+
+function scoreColor(score){
+  if(score>=3.5) return 'var(--green)';
+  if(score>=2.5) return 'var(--amber)';
+  return 'var(--red)';
+}
+
+function showResults(){
+  const {dimScores,overall,tier} = computeScores();
+  showScreen('screen-results');
+
+  const tierEl = document.getElementById('tier-label');
+  tierEl.textContent = tier;
+  tierEl.className = 'tier-label tier-'+tier.toLowerCase();
+  document.getElementById('overall-score').textContent = overall.toFixed(2);
+
+  const bm = selectedSector?BENCHMARKS[selectedSector]:null;
+
+  const dimHTML = dimScores.map((d,i)=>{
+    const pct = (d.score/5*100).toFixed(1);
+    const col = scoreColor(d.score);
+    let bmLine = '';
+    if(bm){
+      const bmS = bm.scores[i];
+      const delta = d.score-bmS;
+      const sign = delta>=0?'+':'';
+      bmLine = `<div class="dim-benchmark"><span>${selectedSector} avg: ${bmS.toFixed(2)}</span><span>${sign}${delta.toFixed(2)}</span></div>`;
+    }
+    return `<div class="dim-card"><div class="dim-head"><span class="dim-name">${d.name}</span><span class="dim-score" style="color:${col}">${d.score.toFixed(2)}</span></div><div class="dim-bar"><div class="dim-fill" style="width:${pct}%;background:${col}"></div></div>${bmLine}</div>`;
+  }).join('');
+  document.getElementById('dim-scores').innerHTML = dimHTML;
+
+  const sorted = [...dimScores].sort((a,b)=>a.score-b.score);
+  let recs = [];
+  for(const d of sorted){
+    for(const r of (RECS[d.name]||[])){
+      if(recs.length>=3) break;
+      recs.push({dim:d.name,text:r});
+    }
+    if(recs.length>=3) break;
+  }
+  document.getElementById('recs').innerHTML = recs.map(r=>
+    `<div class="rec-card"><div class="rec-dim">${r.dim}</div><div class="rec-text">${r.text}</div></div>`
+  ).join('');
+}
+
+function resetAssessment(){
+  answers = new Array(25).fill(null);
+  currentQ = 0;
+  selectedSector = null;
+  document.querySelectorAll('.sector-btn').forEach(b=>b.classList.remove('selected'));
+  showScreen('screen-intro');
+}
+
+function downloadResults(){
+  const {dimScores,overall,tier} = computeScores();
+  const bm = selectedSector?BENCHMARKS[selectedSector]:null;
+  let text = `AI Deployment Readiness Report\n${'='.repeat(40)}\n\nOverall Score: ${overall.toFixed(2)} / 5.00\nMaturity Tier: ${tier}\n`;
+  if(selectedSector) text += `Sector: ${selectedSector}\n`;
+  text += `\nDimension Scores\n${'-'.repeat(40)}\n`;
+  dimScores.forEach((d,i)=>{
+    text += `  ${d.name.padEnd(45)} ${d.score.toFixed(2)}/5.00`;
+    if(bm) text += `  (sector: ${bm.scores[i].toFixed(2)})`;
+    text += '\n';
+  });
+
+  const sorted = [...dimScores].sort((a,b)=>a.score-b.score);
+  let recs = [];
+  for(const d of sorted){for(const r of(RECS[d.name]||[])){if(recs.length>=3)break;recs.push({dim:d.name,text:r})}if(recs.length>=3)break}
+  text += `\nPrioritised Recommendations\n${'-'.repeat(40)}\n`;
+  recs.forEach((r,i)=>text+=`  ${i+1}. [${r.dim}] ${r.text}\n`);
+
+  text += `\n${'='.repeat(40)}\nFramework: Gartner AI Maturity Model (2023), Stanford HAI (2024), McKinsey (2023).\n`;
+
+  const blob = new Blob([text],{type:'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'ai-readiness-report.txt';
+  a.click();
+}
+
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('screen-question').classList.contains('active')) return;
+  if(e.key>='1'&&e.key<='5'){selectAnswer(parseInt(e.key))}
+  if(e.key==='Enter'&&answers[currentQ]!==null) nextQuestion();
+  if(e.key==='Backspace'||e.key==='ArrowLeft') prevQuestion();
+});
+
+initSectors();
+</script>
+</body>
+</html>
