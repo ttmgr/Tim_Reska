@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MedRisk-ADH v2 | Interactive Demo</title>
+<title>MedRisk v2 | Interactive Demo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -405,7 +405,7 @@
 <div class="header">
   <div class="header-inner">
     <div>
-      <h1>MedRisk-ADH<span>|&nbsp; Interactive Demo</span></h1>
+      <h1>MedRisk<span>|&nbsp; Interactive Demo</span></h1>
       <p>AI-Augmented Medical Underwriting with Confidence-Calibrated Failure Mode Detection</p>
     </div>
     <div class="header-badge">Proof of Concept</div>
@@ -730,7 +730,7 @@ function renderComparison() {
     ${d.n_diagnoses} diagnoses, ${d.n_labs} labs, ${d.n_medications} medications \u2014 while the INT patient
     has ${f.n_diagnoses} diagnoses, ${f.n_labs} labs, ${f.n_medications} medications.
     The Reliability Head estimates P(wrong)&nbsp;=&nbsp;${(d.p_wrong*100).toFixed(0)}% for DE
-    vs&nbsp;${(f.p_wrong*100).toFixed(0)}% for INT. Without MedRisk-ADH, both would be treated identically.</p>
+    vs&nbsp;${(f.p_wrong*100).toFixed(0)}% for INT. Without MedRisk, both would be treated identically.</p>
   `;
 }
 
