@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Askeras AI Academy — Tim Reska</title>
+<meta name="description" content="Four-tier AI competence programme from 4-week literacy sprint to 12-month enterprise deployment. Provider-neutral. EU AI Act Article 4-aligned.">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<script src="../assets/js/nav.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#FAF9F7;--surface:#FFFFFF;--text:#1A1A2E;--text-secondary:#6B6A73;
+  --accent:#C4794A;--accent-hover:#A8603A;--border:#E8E6E1;
+  --tag-bg:#F0EDEA;--tag-text:#5A584F;--radius:12px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:16px;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none;transition:color 0.2s}
+a:hover{color:var(--accent-hover)}
+
+.container{max-width:860px;margin:0 auto;padding:0 24px}
+section{padding:56px 0}
+section+section{border-top:1px solid var(--border)}
+
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+h1{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(28px,4vw,40px);font-weight:600;line-height:1.2;margin-bottom:16px}
+h2{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(22px,3vw,28px);font-weight:600;margin-bottom:16px;line-height:1.3}
+h3{font-family:'Source Serif 4',Georgia,serif;font-size:18px;font-weight:600;margin-bottom:8px;line-height:1.3}
+.lead{font-size:17px;color:var(--text-secondary);line-height:1.75;margin-bottom:32px;max-width:640px}
+
+.stats-row{display:flex;gap:32px;flex-wrap:wrap;margin-bottom:40px}
+.stat{text-align:left}
+.stat-value{font-family:'Source Serif 4',Georgia,serif;font-size:28px;font-weight:600;color:var(--text);line-height:1}
+.stat-label{font-size:13px;color:var(--text-secondary);margin-top:2px}
+
+.tier-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:16px}
+.tier-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;display:flex;flex-direction:column;transition:transform 0.2s,box-shadow 0.2s}
+.tier-card:hover{box-shadow:0 4px 20px rgba(0,0,0,0.04);transform:translateY(-1px)}
+.tier-card .card-tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.tier-card h3{margin-bottom:8px}
+.tier-card p{font-size:14px;color:var(--text-secondary);line-height:1.7;flex-grow:1;margin-bottom:12px}
+.tier-meta{display:flex;flex-wrap:wrap;gap:6px}
+.tier-meta span{font-size:12px;background:var(--tag-bg);color:var(--tag-text);padding:3px 10px;border-radius:20px}
+.badge{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--text-secondary);margin-top:12px;letter-spacing:0.02em}
+
+.sample-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.sample-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;display:flex;flex-direction:column;transition:transform 0.2s,box-shadow 0.2s}
+.sample-card:hover{border-color:#d0cec8;box-shadow:0 4px 20px rgba(0,0,0,0.04);transform:translateY(-2px)}
+.sample-card .card-tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.sample-card h3{font-size:17px;margin-bottom:8px}
+.sample-card p{font-size:14px;color:var(--text-secondary);line-height:1.7;flex-grow:1;margin-bottom:16px}
+.sample-card .card-link{font-size:13px;font-weight:500;display:inline-flex;align-items:center;gap:4px;padding-top:12px;border-top:1px solid var(--border);margin-top:auto}
+
+.key-finding{font-size:15px;font-weight:600;color:var(--text);padding:16px 20px;background:var(--tag-bg);border-radius:8px;margin-bottom:24px;line-height:1.6}
+
+.cta-section{text-align:center;padding:48px 0;border-top:1px solid var(--border)}
+.cta-section h2{margin-bottom:12px}
+.cta-section p{color:var(--text-secondary);margin-bottom:20px;max-width:480px;margin-left:auto;margin-right:auto}
+.cta-link{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:600;background:var(--text);color:#fff;transition:background 0.2s}
+.cta-link:hover{background:#2d2d42;color:#fff}
+
+@media(max-width:768px){
+  section{padding:40px 0}
+  .tier-grid{grid-template-columns:1fr}
+  .sample-grid{grid-template-columns:1fr}
+  .stats-row{gap:20px}
+  .stats-row .stat{min-width:45%}
+}
+</style>
+</head>
+<body>
+
+<section style="padding-top:72px;">
+  <div class="container">
+    <p class="eyebrow">Askeras AI Academy</p>
+    <h1>AI Competence Programme</h1>
+    <p class="lead">Four tiers from first-contact AI literacy to enterprise deployment with train-the-trainer. Provider-neutral. EU AI Act Article 4-aligned. Six sector variants.</p>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-value">4</div><div class="stat-label">Tiers</div></div>
+      <div class="stat"><div class="stat-value">21</div><div class="stat-label">Modules</div></div>
+      <div class="stat"><div class="stat-value">6</div><div class="stat-label">Sector variants</div></div>
+      <div class="stat"><div class="stat-value">Art. 4</div><div class="stat-label">EU AI Act aligned</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Curriculum</h2>
+    <p class="lead">Each tier builds on the previous. Tier 1 is the entry point for any organisation. Tier 4 produces internal AI trainers who can run the programme without Askeras.</p>
+    <div class="tier-grid">
+      <div class="tier-card">
+        <div class="card-tag">Tier 1 &mdash; 4 Weeks</div>
+        <h3>AI Literacy Sprint</h3>
+        <p>From first principles to safe everyday AI use. Mental models for how LLMs work and fail, structured prompting, source verification, workflow mapping, and a team AI policy draft.</p>
+        <div class="tier-meta">
+          <span>8 sessions</span>
+          <span>4 weeks</span>
+          <span>All roles</span>
+        </div>
+        <div class="badge">Badge: AI-Literate Consultant</div>
+      </div>
+      <div class="tier-card">
+        <div class="card-tag">Tier 2 &mdash; 3 Months</div>
+        <h3>AI Workflow Accelerator</h3>
+        <p>From useful AI use to deployable workflows. Business economics of AI, use-case selection, architecture choices for decision-makers, evaluation methods, and governance frameworks.</p>
+        <div class="tier-meta">
+          <span>6 modules</span>
+          <span>3 months</span>
+          <span>Team leads</span>
+        </div>
+        <div class="badge">Badge: AI Workflow Designer</div>
+      </div>
+      <div class="tier-card">
+        <div class="card-tag">Tier 3 &mdash; 6 Months</div>
+        <h3>Sector Delivery Lab</h3>
+        <p>From classroom workflow design to production practice. Live sector audits, architecture and security deep-dives, pilot planning, execution monitoring, evaluation, and steering committee presentations.</p>
+        <div class="tier-meta">
+          <span>6 modules</span>
+          <span>6 months</span>
+          <span>Delivery leads</span>
+        </div>
+        <div class="badge">Badge: Sector AI Delivery Practitioner</div>
+      </div>
+      <div class="tier-card">
+        <div class="card-tag">Tier 4 &mdash; 12 Months</div>
+        <h3>Train-the-Trainer</h3>
+        <p>Produces internal AI trainers who can run the full programme independently. Capstone includes teaching a Tier 1 cohort under observation, building sector-specific case material, and standing up an internal AI governance function.</p>
+        <div class="tier-meta">
+          <span>1 capstone</span>
+          <span>12 months</span>
+          <span>AI champions</span>
+        </div>
+        <div class="badge">Badge: Certified AI Trainer</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Free Sample Materials</h2>
+    <p class="lead">Three guides from the Tier 1 curriculum. These are the actual materials participants receive &mdash; read them to judge the teaching quality for yourself.</p>
+    <div class="sample-grid">
+      <div class="sample-card">
+        <div class="card-tag">Supplementary Guide</div>
+        <h3>What Are Large Language Models?</h3>
+        <p>A non-technical guide to how AI language models work, why they fail, and what that means for you. Covers training, tokens, attention, hallucination, and key limitations.</p>
+        <a href="./what-are-llms.html" class="card-link">Read guide &rarr;</a>
+      </div>
+      <div class="sample-card">
+        <div class="card-tag">Student Toolkit</div>
+        <h3>Prompting Patterns</h3>
+        <p>Reusable structures for clearer instructions, better context, and easier review. Four provider-neutral patterns: Transform, Compare, Tutor, Reviewer.</p>
+        <a href="./prompting-patterns.html" class="card-link">Read guide &rarr;</a>
+      </div>
+      <div class="sample-card">
+        <div class="card-tag">Student Toolkit</div>
+        <h3>Verification Checklist</h3>
+        <p>How to catch confident errors before they become your errors. Three-layer verification, claim triage by risk level, fast source habits and red flags.</p>
+        <a href="./verification-checklist.html" class="card-link">Read guide &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-section">
+  <div class="container">
+    <h2>Full programme enquiry</h2>
+    <p>If your organisation is evaluating AI competence training &mdash; or needs Article 4 compliance evidence &mdash; get in touch for a programme brief.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="mailto:timreska@gmail.com" class="cta-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        Get in touch
+      </a>
+      <a href="../multi_agent_dd/" class="cta-link" style="background:var(--surface);color:var(--text);border:1px solid var(--border);">Multi-Agent DD &rarr;</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

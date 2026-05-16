@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multi-Agent Due Diligence — Tim Reska</title>
+<meta name="description" content="A 6-phase multi-agent pipeline for investment-grade AI deployment assessments. Parallel subagents, blind validation, forced critique honour.">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<script src="../assets/js/nav.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#FAF9F7;--surface:#FFFFFF;--text:#1A1A2E;--text-secondary:#6B6A73;
+  --accent:#C4794A;--accent-hover:#A8603A;--border:#E8E6E1;
+  --tag-bg:#F0EDEA;--tag-text:#5A584F;--radius:12px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:16px;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none;transition:color 0.2s}
+a:hover{color:var(--accent-hover)}
+
+.container{max-width:860px;margin:0 auto;padding:0 24px}
+section{padding:56px 0}
+section+section{border-top:1px solid var(--border)}
+
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+h1{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(28px,4vw,40px);font-weight:600;line-height:1.2;margin-bottom:16px}
+h2{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(22px,3vw,28px);font-weight:600;margin-bottom:16px;line-height:1.3}
+h3{font-family:'Source Serif 4',Georgia,serif;font-size:18px;font-weight:600;margin-bottom:8px;line-height:1.3}
+.lead{font-size:17px;color:var(--text-secondary);line-height:1.75;margin-bottom:24px;max-width:640px}
+.priority{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent);font-weight:500;margin-bottom:32px}
+
+.stats-row{display:flex;gap:32px;flex-wrap:wrap;margin-bottom:40px}
+.stat{text-align:left}
+.stat-value{font-family:'Source Serif 4',Georgia,serif;font-size:28px;font-weight:600;color:var(--text);line-height:1}
+.stat-label{font-size:13px;color:var(--text-secondary);margin-top:2px}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:transform 0.2s,box-shadow 0.2s}
+.card:hover{box-shadow:0 4px 20px rgba(0,0,0,0.04);transform:translateY(-1px)}
+.card-tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.card p{font-size:15px;color:var(--text-secondary);line-height:1.7}
+.card-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.card-meta span{font-size:12px;background:var(--tag-bg);color:var(--tag-text);padding:3px 10px;border-radius:20px}
+
+.diff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}
+
+/* Architecture */
+.arch-flow{position:relative;padding-left:28px}
+.arch-flow::before{content:'';position:absolute;left:7px;top:12px;bottom:12px;width:2px;background:var(--border)}
+.arch-step{position:relative;margin-bottom:20px}
+.arch-step:last-child{margin-bottom:0}
+.arch-step::before{content:'';position:absolute;left:-25px;top:12px;width:10px;height:10px;border-radius:50%;background:var(--border);border:2px solid var(--bg)}
+.arch-step.active::before{background:var(--accent)}
+.arch-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.arch-card .model{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-secondary);margin-top:6px}
+.phase-label{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:var(--accent);letter-spacing:0.04em;margin-bottom:4px}
+.parallel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.parallel-label{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);text-align:center;margin-bottom:8px}
+.arch-card.blind{border-color:var(--accent);border-width:2px}
+.arch-card.blind::after{content:'BLIND';position:absolute;top:-8px;right:16px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.08em;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px}
+.arch-card.blind{position:relative}
+
+/* Validator findings */
+.findings-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px}
+.finding-stat{text-align:center;padding:16px 8px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
+.finding-stat .stat-value{font-size:24px}
+.finding-stat .stat-label{font-size:12px}
+
+.toggle-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:500;background:var(--surface);color:var(--text-secondary);border:1px solid var(--border);cursor:pointer;transition:all 0.2s;font-family:inherit;margin-bottom:20px}
+.toggle-btn:hover{border-color:var(--text-secondary);color:var(--text)}
+
+.finding-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;margin-bottom:12px}
+.finding-id{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.06em;background:var(--tag-bg);color:var(--tag-text);padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:8px}
+.finding-card h4{font-size:15px;font-weight:600;margin-bottom:6px}
+.finding-card p{font-size:14px;color:var(--text-secondary);line-height:1.6}
+
+/* Verdict */
+.verdict-box{font-family:'Source Serif 4',Georgia,serif;font-size:20px;font-weight:600;color:var(--text);padding:24px 28px;background:var(--tag-bg);border-radius:var(--radius);margin-bottom:16px;line-height:1.5;border-left:4px solid var(--accent)}
+.escalation{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-secondary);margin-bottom:24px;line-height:1.8}
+.disclaimer{font-size:14px;color:var(--text-secondary);line-height:1.7;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:24px}
+
+.minto-list{list-style:none;margin-bottom:24px}
+.minto-list li{padding:12px 0;border-bottom:1px solid var(--border);font-size:15px;line-height:1.6}
+.minto-list li:last-child{border-bottom:none}
+.minto-list strong{color:var(--text);display:block;font-size:15px;margin-bottom:2px}
+.minto-list span{color:var(--text-secondary);font-size:14px}
+
+.key-finding{font-size:15px;font-weight:600;color:var(--text);padding:16px 20px;background:var(--tag-bg);border-radius:8px;margin-bottom:16px;line-height:1.6}
+
+.cta-section{text-align:center;padding:48px 0}
+.cta-section h2{margin-bottom:12px}
+.cta-section p{color:var(--text-secondary);margin-bottom:20px;max-width:480px;margin-left:auto;margin-right:auto}
+.cta-link{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:600;background:var(--text);color:#fff;transition:background 0.2s}
+.cta-link:hover{background:#2d2d42;color:#fff}
+
+.attr{text-align:center;font-size:13px;color:var(--text-secondary);padding:24px 0;border-top:1px solid var(--border)}
+
+@media(max-width:1024px){
+  .diff-grid{grid-template-columns:repeat(2,1fr)}
+  .parallel-grid{grid-template-columns:repeat(2,1fr)}
+  .findings-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:768px){
+  section{padding:40px 0}
+  .diff-grid{grid-template-columns:1fr}
+  .parallel-grid{grid-template-columns:1fr}
+  .findings-grid{grid-template-columns:repeat(2,1fr)}
+  .stats-row{gap:20px}
+  .stats-row .stat{min-width:45%}
+}
+@media(max-width:480px){
+  .findings-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<section style="padding-top:72px;">
+  <div class="container">
+    <p class="eyebrow">Askeras &mdash; Productized AI Deployment Methodology</p>
+    <h1>Multi-Agent Due Diligence</h1>
+    <p class="lead">A 6-phase pipeline that produces investment-grade AI deployment assessments. Three parallel agents in isolated contexts, a blind validator that cannot rationalise prior conclusions, and synthesis forced to honour every critique.</p>
+    <p class="priority">Architecture first demonstrated April 2025.</p>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-value">6</div><div class="stat-label">Phases</div></div>
+      <div class="stat"><div class="stat-value">3</div><div class="stat-label">Parallel agents</div></div>
+      <div class="stat"><div class="stat-value">1</div><div class="stat-label">Blind validator</div></div>
+      <div class="stat"><div class="stat-value">44</div><div class="stat-label">Validator findings</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Why This Is Not a ChatGPT Prompt</h2>
+    <p class="lead">Single-context role-play ("pretend you are Agent A, now pretend you are Agent B") produces consensus mush. The agents anchor each other, the validator rationalises its own prior reasoning, and critique gets papered over. This architecture prevents all three failure modes.</p>
+    <div class="diff-grid">
+      <div class="card">
+        <div class="card-tag">Structural Guarantee 1</div>
+        <h3>Parallel Isolated Contexts</h3>
+        <p>Phases 1a, 1b, and 1c run simultaneously in separate agent contexts. Agent A cannot see Agent B's reasoning while it works. The first agent's framing cannot anchor the other two.</p>
+        <div class="card-meta"><span>3 subagents</span><span>Isolated</span></div>
+      </div>
+      <div class="card">
+        <div class="card-tag">Structural Guarantee 2</div>
+        <h3>Blind Validation</h3>
+        <p>The Phase 3 validator sees only the bundle of specialist and synthesis outputs. It never sees the orchestrator's reasoning. It cannot rationalise prior conclusions because it never had access to them.</p>
+        <div class="card-meta"><span>Blind context</span><span>Independent</span></div>
+      </div>
+      <div class="card">
+        <div class="card-tag">Structural Guarantee 3</div>
+        <h3>Forced Critique Honour</h3>
+        <p>Phase 4 synthesis is required to incorporate every validator revision. On a live demonstration run, this changed the base-case IRR label from "evidence-led" to "cohort-led with entity-specific uncertainty" and the combined-stress scenario from 6.5% to 4&ndash;6%.</p>
+        <div class="card-meta"><span>Mandatory</span><span>Auditable</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Architecture</h2>
+    <p class="lead">Every phase has one owner, one context, one model, and a well-defined input/output contract. Contradictions surface in Phase 2 and are reconciled there, not papered over in Phase 1.</p>
+
+    <div class="arch-flow">
+
+      <div class="arch-step active">
+        <div class="arch-card">
+          <div class="phase-label">Phase 0</div>
+          <h3>Orchestrator</h3>
+          <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;">Sets scope, funnel stage, sponsor lens, hypothesis register. Defines the engagement brief and selects which optional Phase-1.5 specialists to activate.</p>
+          <div class="model">claude-opus-4-7 + extended thinking</div>
+        </div>
+      </div>
+
+      <div class="arch-step">
+        <div class="arch-card">
+          <div class="phase-label">Phase 0.5</div>
+          <h3>Ingestion</h3>
+          <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;">Reads uploaded materials from an input folder or runs open-source reconnaissance (capped at 25 web searches). Produces a structured knowledge base, entity map, and source registry.</p>
+          <div class="model">claude-sonnet-4-6</div>
+        </div>
+      </div>
+
+      <div class="arch-step active">
+        <div class="parallel-label">Phase 1 &mdash; Three agents launch in parallel</div>
+        <div class="parallel-grid">
+          <div class="arch-card">
+            <div class="phase-label">1a &mdash; Agent A</div>
+            <h3>Business Model &amp; Job Architecture</h3>
+            <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Revenue map, top job functions, workflow inventory with leverage scores.</p>
+            <div class="model">claude-sonnet-4-6</div>
+          </div>
+          <div class="arch-card">
+            <div class="phase-label">1b &mdash; Agent B</div>
+            <h3>Tech Stack &amp; AI-Readiness</h3>
+            <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Tech stack matrix, data sensitivity register, AI-readiness scorecard (5&ndash;7 dimensions &times; 1&ndash;5), regulatory exposure.</p>
+            <div class="model">claude-sonnet-4-6</div>
+          </div>
+          <div class="arch-card">
+            <div class="phase-label">1c &mdash; Agent C</div>
+            <h3>Competitive AI Baseline</h3>
+            <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Peer AI announcement timeline, partnership map, AI-maturity rank, deployment case studies.</p>
+            <div class="model">claude-sonnet-4-6</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-step active">
+        <div class="parallel-grid" style="grid-template-columns:repeat(2,1fr);">
+          <div class="arch-card">
+            <div class="phase-label">Phase 2a &mdash; Agent D</div>
+            <h3>Workflow &times; Substrate Fit Matrix</h3>
+            <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Workflow &times; product fit matrix with no-AI baseline delta per cell, blocking constraints, contradiction reconciliation across Phase 1 outputs.</p>
+            <div class="model">claude-opus-4-7 + extended thinking</div>
+          </div>
+          <div class="arch-card">
+            <div class="phase-label">Phase 2b &mdash; Agent E</div>
+            <h3>Wave Plan &amp; Decision-Flip Register</h3>
+            <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;">3-horizon wave plan with testable decision-flip triggers per wave. Risk register. Stress-tests.</p>
+            <div class="model">claude-opus-4-7 + extended thinking</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-step active">
+        <div class="arch-card blind">
+          <div class="phase-label">Phase 3</div>
+          <h3>Validation &amp; Challenge</h3>
+          <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;">Independent blind subagent. Sees only the Phase 1 + 2 output bundle. Critiques unsupported claims, weak assumptions, product-capability fabrication. Issues confidence adjustments and a ship/no-ship verdict. Extended thinking specifically chosen here as the last guard against overconfidence.</p>
+          <div class="model">claude-opus-4-7 + extended thinking &mdash; blind isolated context</div>
+        </div>
+      </div>
+
+      <div class="arch-step">
+        <div class="parallel-grid" style="grid-template-columns:repeat(2,1fr);">
+          <div class="arch-card">
+            <div class="phase-label">Phase 4</div>
+            <h3>Final Synthesis</h3>
+            <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;">7-section DD report incorporating all validator revisions. Deploy / Conditional / Hold verdict framed as DD outcome.</p>
+            <div class="model">claude-opus-4-7 + extended thinking</div>
+          </div>
+          <div class="arch-card">
+            <div class="phase-label">Phase 5</div>
+            <h3>Deliverables</h3>
+            <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Inline Python generates bound PDF dossier, editable DOCX, and optional PPTX steering brief.</p>
+            <div class="model">claude-sonnet-4-6</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>What the Blind Validator Caught</h2>
+    <p class="lead">The system is in active use under NDA. The stats below are from a public-sources-only run where the Phase 3 validator reviewed all specialist and synthesis outputs without access to the orchestrator's reasoning.</p>
+
+    <div class="findings-grid">
+      <div class="finding-stat"><div class="stat-value">8</div><div class="stat-label">Unsupported claims</div></div>
+      <div class="finding-stat"><div class="stat-value">10</div><div class="stat-label">Weak assumptions</div></div>
+      <div class="finding-stat"><div class="stat-value">6</div><div class="stat-label">Cross-module contradictions</div></div>
+      <div class="finding-stat"><div class="stat-value">11</div><div class="stat-label">Confidence downgrades</div></div>
+      <div class="finding-stat"><div class="stat-value">9</div><div class="stat-label">Required revisions</div></div>
+    </div>
+
+    <button class="toggle-btn" id="findings-toggle" onclick="toggleFindings()">Show example findings &darr;</button>
+    <div id="findings-container" style="display:none;">
+      <div class="finding-card">
+        <span class="finding-id">U-1</span>
+        <h4>Unsourced performance figure</h4>
+        <p>A single press reference with no source URL or access date, used as a stress denominator in Phase 2b. The validator flagged this as an unsupported claim and required the synthesis to treat it as a data-point-of-record, not an analytical anchor.</p>
+      </div>
+      <div class="finding-card">
+        <span class="finding-id">W-7</span>
+        <h4>Combined stress treated as independent</h4>
+        <p>The "severe" combined stress scenario treated three correlated shocks as independent. The validator identified that the underlying drivers are positively correlated and required a correlation-adjusted recomputation.</p>
+      </div>
+      <div class="finding-card">
+        <span class="finding-id">CC-2</span>
+        <h4>Commitment size discrepancy</h4>
+        <p>Total commitments reported at two different figures depending on the source (firm-disclosed vs press-reported). Phase 1a silently adopted the higher figure. The validator flagged the discrepancy and required explicit acknowledgment in the synthesis.</p>
+      </div>
+      <div class="finding-card">
+        <span class="finding-id">R-3</span>
+        <h4>Correlation-adjusted combined stress</h4>
+        <p>Required revision: recompute the combined deal-economics stress with correlation adjustment. Changed the outcome from a single-point estimate to a range reflecting correlated downside. The final synthesis reflects the corrected range.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>What a Run Produces</h2>
+
+    <div class="disclaimer">This system is in active use by consulting firms and institutional investors under NDA. The example referenced here is from a public-sources-only run &mdash; no PPM, DDQ, LP advisory materials, or client data. The only inputs were a firm name, an investment framing, and the public internet.</div>
+
+    <div class="verdict-box">Conditionally Attractive at a reduced ticket, subject to seven blocking conditions with a staged escalation path tied to DDQ clearance.</div>
+
+    <p class="escalation">Currently deployed under NDA. Client identities and full dossiers are confidential.</p>
+
+    <h3 style="margin-bottom:16px;">What the output looks like</h3>
+    <ol class="minto-list">
+      <li>
+        <strong>Minto-structured governing recommendation</strong>
+        <span>Three supporting arguments, each backed by evidence from the specialist agents. Every claim sourced, every assumption labelled, every confidence rating justified.</span>
+      </li>
+      <li>
+        <strong>Staged escalation with testable conditions</strong>
+        <span>Ticket-size escalation tied to specific DDQ items the buyer can verify. Not a binary yes/no &mdash; a decision ladder with clear gates.</span>
+      </li>
+      <li>
+        <strong>Correlation-adjusted stress scenarios</strong>
+        <span>Combined downside scenarios with correlated drivers, not independent additive shocks. The validator enforces this &mdash; single-context approaches never catch the correlation error.</span>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<div class="cta-section">
+  <div class="container">
+    <h2>Interested?</h2>
+    <p>If your organisation needs AI deployment due diligence &mdash; or if you're evaluating a fund, a company, or a market with the same rigour &mdash; get in touch.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="mailto:timreska@gmail.com" class="cta-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        Get in touch
+      </a>
+      <a href="../academy/" class="cta-link" style="background:var(--surface);color:var(--text);border:1px solid var(--border);">AI Academy &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<div class="attr">
+  <div class="container">Built by Tim Reska. Architecture first demonstrated April 2025.</div>
+</div>
+
+<script>
+function toggleFindings(){
+  var c=document.getElementById('findings-container');
+  var b=document.getElementById('findings-toggle');
+  if(c.style.display==='none'){c.style.display='block';b.textContent='Hide findings ↑';}
+  else{c.style.display='none';b.textContent='Show example findings ↓';}
+}
+</script>
+</body>
+</html>

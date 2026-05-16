@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Are Large Language Models? — Askeras AI Academy</title>
+<meta name="description" content="A non-technical guide to how AI language models work, why they fail, and what that means for you.">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<script src="../assets/js/nav.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#FAF9F7;--surface:#FFFFFF;--text:#1A1A2E;--text-secondary:#6B6A73;
+  --accent:#C4794A;--accent-hover:#A8603A;--border:#E8E6E1;
+  --tag-bg:#F0EDEA;--tag-text:#5A584F;--radius:12px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:16px;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none;transition:color 0.2s}
+a:hover{color:var(--accent-hover)}
+
+.container{max-width:720px;margin:0 auto;padding:0 24px}
+
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+h1{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(28px,4vw,36px);font-weight:600;line-height:1.2;margin-bottom:12px}
+h2{font-family:'Source Serif 4',Georgia,serif;font-size:20px;font-weight:600;margin-bottom:12px;line-height:1.35}
+.subtitle{font-size:17px;color:var(--text-secondary);line-height:1.75;margin-bottom:32px}
+
+.hero{padding:72px 0 48px;border-bottom:1px solid var(--border)}
+.content-section{padding:32px 0;border-bottom:1px solid var(--border)}
+.content-section:last-of-type{border-bottom:none}
+.content-section p{font-size:15px;color:var(--text-secondary);line-height:1.75;margin-bottom:12px}
+.content-section p:last-child{margin-bottom:0}
+
+.code-block{font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.8;background:var(--tag-bg);border-radius:var(--radius);padding:16px 20px;margin:16px 0;overflow-x:auto;border-left:3px solid var(--border)}
+
+.callout{font-size:15px;font-weight:600;color:var(--text);padding:16px 20px;background:var(--tag-bg);border-radius:8px;margin:20px 0;line-height:1.6;border-left:3px solid var(--accent)}
+
+.limitations{list-style:none;margin:16px 0}
+.limitations li{padding:8px 0;padding-left:20px;position:relative;font-size:15px;color:var(--text-secondary);line-height:1.6}
+.limitations li::before{content:'';position:absolute;left:0;top:16px;width:8px;height:8px;border-radius:50%;background:var(--border)}
+
+.guide-nav{display:flex;justify-content:space-between;align-items:center;padding:32px 0;border-top:1px solid var(--border);margin-top:16px}
+.guide-nav a{font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:4px}
+.guide-footer{text-align:center;padding:24px 0;font-size:13px;color:var(--text-secondary)}
+
+@media(max-width:768px){
+  .hero{padding:60px 0 36px}
+  .code-block{font-size:12px;padding:12px 16px}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="container">
+    <p class="eyebrow">Askeras Academy &mdash; Supplementary Guide</p>
+    <h1>What Are Large Language Models?</h1>
+    <p class="subtitle">A non-technical guide to how AI language models work, why they fail, and what that means for you.</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="content-section">
+    <h2>Training: From Text to Patterns</h2>
+    <p>A Large Language Model (LLM) is trained on enormous amounts of text &mdash; books, websites, articles, code, conversations. During training, the model learns statistical patterns: which words tend to follow which other words, in which contexts. The result is a massive mathematical function (billions of parameters) that can predict what text should come next, given some input text. The model does not 'understand' language &mdash; it recognises and reproduces patterns.</p>
+  </div>
+
+  <div class="content-section">
+    <h2>Tokens: How AI Reads Text</h2>
+    <p>LLMs do not process whole words. They break text into tokens &mdash; sub-word pieces that balance vocabulary size with coverage. Common words are one token; rare or long words are split into multiple tokens.</p>
+    <div class="code-block">English: "The consultant reviewed the proposal" &rarr; 6 tokens<br>German: "Der Berater pr&uuml;fte den Vorschlag" &rarr; 8 tokens (compound words split)<br>Code: "def calculate_roi(revenue, cost):" &rarr; 11 tokens</div>
+  </div>
+
+  <div class="content-section">
+    <h2>The Prediction Mechanism: What Comes Next?</h2>
+    <p>At its core, an LLM does one thing: given a sequence of tokens, predict the probability distribution over what the next token should be. It then picks a token (weighted by probability), appends it, and repeats. This is why LLMs can generate fluent text &mdash; they are extremely good at predicting plausible continuations. It is also why they hallucinate &mdash; plausible is not the same as true.</p>
+  </div>
+
+  <div class="content-section">
+    <h2>Attention: What Matters for This Word?</h2>
+    <p>The key innovation in modern LLMs is the attention mechanism. When predicting the next token, the model weighs how much each previous token matters. In the sentence 'The bank by the river flooded', the model pays attention to 'river' when processing 'flooded' &mdash; which helps it understand that 'bank' means riverbank, not a financial institution. This context-sensitivity is what makes LLMs useful for nuanced language tasks.</p>
+  </div>
+
+  <div class="content-section">
+    <h2>Context Window: The Model's Working Memory</h2>
+    <p>The context window is the total number of tokens the model can process at once &mdash; your prompt, any documents you include, and the model's own response. Everything must fit within this window. Larger windows allow longer documents and more complex conversations, but cost more and can be slower. Current models range from 128K tokens (~200 pages) to 1M tokens (~1,500 pages).</p>
+  </div>
+
+  <div class="content-section">
+    <h2>Temperature: Why the Same Prompt Gives Different Answers</h2>
+    <p>Temperature controls randomness in token selection. At temperature 0, the model always picks the highest-probability token (deterministic, repetitive). At temperature 1, it samples from the full distribution (creative, variable). Most business applications use low temperature (0.0&ndash;0.3) for consistency. Creative tasks use higher temperature (0.7&ndash;1.0) for variety.</p>
+  </div>
+
+  <div class="content-section">
+    <h2>Why LLMs Hallucinate</h2>
+    <p>Hallucination is not a bug &mdash; it is a structural consequence of the architecture. LLMs are trained to produce plausible text, not true text. When asked a question, the model generates what a correct answer would look like, based on patterns in its training data. If the training data doesn't contain the answer (or contains conflicting information), the model fills the gap with a plausible fabrication &mdash; and presents it with the same confidence as a verified fact.</p>
+    <div class="callout">This is the core risk: AI-generated text that is wrong looks exactly like AI-generated text that is right. There is no visual or stylistic difference. This is why verification is mandatory, not optional.</div>
+  </div>
+
+  <div class="content-section">
+    <h2>Training Data Cutoff</h2>
+    <p>LLMs are trained on data up to a specific date (the 'cutoff'). They have no knowledge of events after this date unless connected to external search tools. When you ask about recent events and the model answers confidently, it may be generating a plausible response based on patterns &mdash; not reporting current facts. Always check the model's training cutoff before relying on time-sensitive information.</p>
+  </div>
+
+  <div class="content-section">
+    <h2>Fine-Tuning vs. Prompting vs. RAG</h2>
+    <p>Prompting is what you do every day: writing instructions that guide the model's output. No technical setup required. Fine-tuning is retraining the model on your specific data (e.g., your company's writing style or domain vocabulary). Requires technical expertise and data preparation. RAG (Retrieval-Augmented Generation) connects the model to an external knowledge base &mdash; the model searches your documents before generating a response. Reduces hallucination for domain-specific questions.</p>
+  </div>
+
+  <div class="content-section">
+    <h2>Key Limitations</h2>
+    <ul class="limitations">
+      <li>No real-time knowledge: the model knows nothing after its training cutoff without external tools</li>
+      <li>No genuine reasoning: what looks like reasoning is sophisticated pattern-matching &mdash; it breaks on novel problems</li>
+      <li>No memory between sessions: each conversation starts fresh (unless you use tools that persist context)</li>
+      <li>Optimised for plausibility: the model will always produce a confident answer &mdash; even when it should say 'I don't know'</li>
+      <li>Sensitive to prompt wording: small changes in how you phrase a question can produce very different outputs</li>
+    </ul>
+    <div class="callout">Key takeaway: LLMs are powerful pattern-matching systems that generate plausible text. They are not knowledge databases, not reasoning engines, and not reliable fact-checkers. Understanding this architecture helps you use them effectively and verify their output critically.</div>
+  </div>
+
+  <div class="guide-nav">
+    <a href="./">&larr; Academy overview</a>
+    <a href="./prompting-patterns.html">Next: Prompting Patterns &rarr;</a>
+  </div>
+
+  <div class="guide-footer">
+    Askeras AI Academy v2.0 &mdash; Free sample material. <a href="./">Curriculum overview</a> &middot; <a href="../multi_agent_dd/">Multi-Agent DD</a>
+  </div>
+
+</div>
+
+</body>
+</html>

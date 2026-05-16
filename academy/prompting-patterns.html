@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompting Patterns — Askeras AI Academy</title>
+<meta name="description" content="Reusable structures for clearer instructions, better context, and easier review. Four provider-neutral prompt patterns.">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<script src="../assets/js/nav.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#FAF9F7;--surface:#FFFFFF;--text:#1A1A2E;--text-secondary:#6B6A73;
+  --accent:#C4794A;--accent-hover:#A8603A;--border:#E8E6E1;
+  --tag-bg:#F0EDEA;--tag-text:#5A584F;--radius:12px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:16px;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none;transition:color 0.2s}
+a:hover{color:var(--accent-hover)}
+
+.container{max-width:720px;margin:0 auto;padding:0 24px}
+
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+h1{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(28px,4vw,36px);font-weight:600;line-height:1.2;margin-bottom:12px}
+h2{font-family:'Source Serif 4',Georgia,serif;font-size:20px;font-weight:600;margin-bottom:12px;line-height:1.35}
+h3{font-size:14px;font-weight:600;margin-bottom:10px;color:var(--text)}
+.subtitle{font-size:17px;color:var(--text-secondary);line-height:1.75;margin-bottom:32px}
+
+.hero{padding:72px 0 48px;border-bottom:1px solid var(--border)}
+
+.quad-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:32px 0}
+.quad-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.quad-card h3{font-size:13px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.quad-card ul{list-style:none}
+.quad-card li{font-size:14px;color:var(--text-secondary);line-height:1.6;padding:4px 0;padding-left:16px;position:relative}
+.quad-card li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--border)}
+
+.pattern-table{width:100%;border-collapse:collapse;margin:32px 0;font-size:14px}
+.pattern-table th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:var(--text-secondary);padding:12px 16px;background:var(--tag-bg);border-bottom:2px solid var(--border)}
+.pattern-table th:first-child{border-radius:var(--radius) 0 0 0}
+.pattern-table th:last-child{border-radius:0 var(--radius) 0 0}
+.pattern-table td{padding:14px 16px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.6}
+.pattern-table td:first-child{font-weight:600;color:var(--text);white-space:nowrap}
+.pattern-table td:nth-child(2){color:var(--text-secondary)}
+.pattern-table td:last-child{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-secondary)}
+.pattern-table tr:last-child td{border-bottom:none}
+.pattern-table tbody{background:var(--surface);border:1px solid var(--border);border-top:none}
+.table-label{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:12px;margin-top:32px}
+
+.guide-nav{display:flex;justify-content:space-between;align-items:center;padding:32px 0;border-top:1px solid var(--border);margin-top:32px}
+.guide-nav a{font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:4px}
+.guide-footer{text-align:center;padding:24px 0;font-size:13px;color:var(--text-secondary)}
+
+@media(max-width:768px){
+  .hero{padding:60px 0 36px}
+  .quad-grid{grid-template-columns:1fr}
+  .pattern-table{font-size:13px}
+  .pattern-table td,.pattern-table th{padding:10px 12px}
+  .pattern-table td:last-child{font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="container">
+    <p class="eyebrow">Askeras Academy &mdash; Student Toolkit &mdash; Guide 02</p>
+    <h1>Prompting Patterns</h1>
+    <p class="subtitle">Reusable structures for clearer instructions, better context, and easier review.</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="quad-grid">
+    <div class="quad-card">
+      <h3>The Core Template</h3>
+      <ul>
+        <li>Goal: what outcome do I need?</li>
+        <li>Audience: who will read or use it?</li>
+        <li>Inputs: what material should the model rely on?</li>
+        <li>Constraints: length, tone, exclusions, risk boundaries.</li>
+        <li>Output: exact structure to return.</li>
+      </ul>
+    </div>
+    <div class="quad-card">
+      <h3>Ask for Useful Friction</h3>
+      <ul>
+        <li>List assumptions before answering.</li>
+        <li>Ask clarifying questions only if needed.</li>
+        <li>Flag uncertainty and missing data.</li>
+        <li>Separate facts from interpretation.</li>
+        <li>Give a verification checklist with the answer.</li>
+      </ul>
+    </div>
+    <div class="quad-card">
+      <h3>Context Pack</h3>
+      <ul>
+        <li>Task background: one paragraph.</li>
+        <li>Source material: paste only what is allowed and relevant.</li>
+        <li>Definitions: terms, abbreviations, audience knowledge.</li>
+        <li>Examples: one good example beats five vague instructions.</li>
+        <li>Rubric: what a strong answer must include.</li>
+      </ul>
+    </div>
+    <div class="quad-card">
+      <h3>When Output Is Weak</h3>
+      <ul>
+        <li>Do not just say 'make it better'. Name what is wrong.</li>
+        <li>Ask for three alternatives when you are exploring.</li>
+        <li>Ask for a revision against your rubric.</li>
+        <li>Use short iterations. Fix one problem at a time.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="table-label">Four Provider-Neutral Prompt Patterns</p>
+  <table class="pattern-table">
+    <thead>
+      <tr>
+        <th>Pattern</th>
+        <th>Use When</th>
+        <th>Starter</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Transform</td>
+        <td>You have material and need a new form.</td>
+        <td>Rewrite the text below for [audience] as [format]. Keep [constraints].</td>
+      </tr>
+      <tr>
+        <td>Compare</td>
+        <td>You need differences, risks, or options.</td>
+        <td>Compare A and B on [criteria]. Return a table and a recommendation.</td>
+      </tr>
+      <tr>
+        <td>Tutor</td>
+        <td>You want to learn without outsourcing thinking.</td>
+        <td>Teach me [topic]. Ask me 3 questions, then explain gaps.</td>
+      </tr>
+      <tr>
+        <td>Reviewer</td>
+        <td>You have a draft and need critique.</td>
+        <td>Review this against [rubric]. Flag unclear, unsupported, risky parts.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="guide-nav">
+    <a href="./what-are-llms.html">&larr; What Are LLMs?</a>
+    <a href="./verification-checklist.html">Next: Verification Checklist &rarr;</a>
+  </div>
+
+  <div class="guide-footer">
+    Askeras AI Academy v2.0 &mdash; Provider-neutral student material. <a href="./">Curriculum overview</a> &middot; <a href="../multi_agent_dd/">Multi-Agent DD</a>
+  </div>
+
+</div>
+
+</body>
+</html>
