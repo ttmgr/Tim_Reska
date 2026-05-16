@@ -8,6 +8,11 @@
     <meta property="og:title" content="Tim Reska — Bioinformatician">
     <meta property="og:description" content="Bioinformatician who builds AI systems that know when they're wrong. LLM evaluation, genomics pipelines, production ML.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ttmgr.github.io/Tim_Reska/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Tim Reska — Bioinformatician">
+    <meta name="twitter:description" content="Bioinformatician who builds AI systems that know when they're wrong. LLM evaluation, genomics pipelines, production ML.">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -421,6 +426,62 @@
             .hamburger { display: block; }
         }
 
+        /* --- TIMELINE --- */
+        .timeline-track {
+            position: relative;
+            padding-left: 32px;
+        }
+        .timeline-track::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: var(--border);
+        }
+        .tl-entry {
+            position: relative;
+            padding-bottom: 32px;
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 20px;
+        }
+        .tl-entry:last-child { padding-bottom: 0; }
+        .tl-entry::before {
+            content: '';
+            position: absolute;
+            left: -29px;
+            top: 8px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 2px solid var(--bg);
+        }
+        .tl-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent);
+            padding-top: 2px;
+        }
+        .tl-content h3 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            line-height: 1.35;
+        }
+        .tl-content p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+        @media (max-width: 768px) {
+            .tl-entry { grid-template-columns: 1fr; gap: 4px; }
+        }
+
         /* --- ANIMATIONS --- */
         .fade-in {
             opacity: 0; transform: translateY(20px);
@@ -440,6 +501,7 @@
                 <li><a href="#research">Research</a></li>
                 <li><a href="#llm-eval">Evaluation</a></li>
                 <li><a href="#side-projects">Projects</a></li>
+                <li><a href="#timeline">Timeline</a></li>
                 <li><a href="#venture">ASKERA</a></li>
             </ul>
         </div>
@@ -466,6 +528,10 @@
                     <a href="https://github.com/ttmgr/Tim_Reska" class="secondary" target="_blank" rel="noopener">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
                         GitHub
+                    </a>
+                    <a href="https://linkedin.com/in/tim-r-ai" class="secondary" target="_blank" rel="noopener">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M13.6 0H2.4C1.07 0 0 1.07 0 2.4v11.2C0 14.93 1.07 16 2.4 16h11.2c1.33 0 2.4-1.07 2.4-2.4V2.4C16 1.07 14.93 0 13.6 0zM4.75 13.6H2.4V6h2.35v7.6zM3.58 5.03c-.75 0-1.36-.62-1.36-1.37s.61-1.37 1.36-1.37 1.36.62 1.36 1.37-.61 1.37-1.36 1.37zM13.6 13.6h-2.35V9.92c0-.88-.02-2.01-1.22-2.01-1.23 0-1.41.96-1.41 1.95v3.74H6.27V6h2.26v1.04h.03c.31-.6 1.08-1.23 2.22-1.23 2.38 0 2.82 1.56 2.82 3.6v4.19z"/></svg>
+                        LinkedIn
                     </a>
                 </div>
             </div>
@@ -657,49 +723,6 @@
             <div class="projects-grid">
                 <div class="project-card fade-in">
                     <div class="card-tag">Interactive &mdash; Live Demo</div>
-                    <h3>Disease Progression</h3>
-                    <p>Survival analysis and transformer-based patient trajectory prediction on synthetic FHIR/OMOP records. Cox PH, DeepSurv, DeepHit, Dynamic-DeepHit, SurvTRACE. Two clinical tracks: CVD and Type 2 diabetes.</p>
-                    <div class="card-meta">
-                        <span>PyTorch</span>
-                        <span>lifelines</span>
-                        <span>SurvTRACE</span>
-                        <span>FHIR</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="./disease-progression/">Live demo &rarr;</a>
-                    </div>
-                </div>
-
-                <div class="project-card fade-in">
-                    <div class="card-tag">Interactive &mdash; Live Demo</div>
-                    <h3>Clinical Atlas</h3>
-                    <p>D3.js browser dashboard for disease-state transitions and intervention scenarios. Eight interconnected disease nodes, evidence-linked uncertainty bands, patient profile controls.</p>
-                    <div class="card-meta">
-                        <span>D3.js</span>
-                        <span>Chart.js</span>
-                        <span>ES6</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="./disease-network/">Live demo &rarr;</a>
-                    </div>
-                </div>
-
-                <div class="project-card fade-in">
-                    <div class="card-tag">Interactive &mdash; Live Demo</div>
-                    <h3>PKV ML Explorer</h3>
-                    <p>Browser-based catalogue of ML and actuarial methods for German private health insurance. Includes an agentic AI orchestration layer for multi-step underwriting workflows.</p>
-                    <div class="card-meta">
-                        <span>Vanilla JS</span>
-                        <span>Agentic AI</span>
-                        <span>Actuarial</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="./pkv-ml-explorer/">Live demo &rarr;</a>
-                    </div>
-                </div>
-
-                <div class="project-card fade-in">
-                    <div class="card-tag">Interactive &mdash; Live Demo</div>
                     <h3>AI Deployment Readiness</h3>
                     <p>25-question self-assessment across five dimensions. Weighted scoring, maturity tier assignment, sector benchmarks, and prioritised recommendations.</p>
                     <div class="card-meta">
@@ -723,6 +746,64 @@
                     </div>
                     <div class="card-links">
                         <a href="./llm-cost-calculator/">Live demo &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="card-tag">Interactive &mdash; Live Demo</div>
+                    <h3>PKV ML Explorer</h3>
+                    <p>Browser-based catalogue of ML and actuarial methods for German private health insurance. Includes an agentic AI orchestration layer for multi-step underwriting workflows.</p>
+                    <div class="card-meta">
+                        <span>Vanilla JS</span>
+                        <span>Agentic AI</span>
+                        <span>Actuarial</span>
+                    </div>
+                    <div class="card-links">
+                        <a href="./pkv-ml-explorer/">Live demo &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="card-tag">Production ML &mdash; 231 Tests</div>
+                    <h3>MedRisk</h3>
+                    <p>AI underwriting platform with failure-mode detection. XGBoost, Cox PH, CTMC multistate models with conformal validation, Data Quality Scoring, and Plausible-But-Wrong flagging. 8 real-world data adapters, EU AI Act governance.</p>
+                    <div class="card-meta">
+                        <span>XGBoost</span>
+                        <span>Streamlit</span>
+                        <span>SHAP</span>
+                        <span>Conformal</span>
+                    </div>
+                    <div class="card-links">
+                        <a href="./medrisk/">Overview &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="card-tag">Interactive &mdash; Live Demo</div>
+                    <h3>Clinical Atlas</h3>
+                    <p>D3.js browser dashboard for disease-state transitions and intervention scenarios. Eight interconnected disease nodes, evidence-linked uncertainty bands, patient profile controls.</p>
+                    <div class="card-meta">
+                        <span>D3.js</span>
+                        <span>Chart.js</span>
+                        <span>ES6</span>
+                    </div>
+                    <div class="card-links">
+                        <a href="./disease-network/">Live demo &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="card-tag">Interactive &mdash; Live Demo</div>
+                    <h3>Disease Progression</h3>
+                    <p>Survival analysis and transformer-based patient trajectory prediction on synthetic FHIR/OMOP records. Cox PH, DeepSurv, DeepHit, Dynamic-DeepHit, SurvTRACE. Two clinical tracks: CVD and Type 2 diabetes.</p>
+                    <div class="card-meta">
+                        <span>PyTorch</span>
+                        <span>lifelines</span>
+                        <span>SurvTRACE</span>
+                        <span>FHIR</span>
+                    </div>
+                    <div class="card-links">
+                        <a href="./disease-progression/">Live demo &rarr;</a>
                     </div>
                 </div>
             </div>
@@ -800,6 +881,59 @@
                 </li>
             </ul>
             <a href="https://linkedin.com/in/tim-r-ai" class="pub-more" target="_blank" rel="noopener">View all publications &rarr;</a>
+        </div>
+    </section>
+
+    <section id="timeline">
+        <div class="container">
+            <div class="fade-in">
+                <div class="section-label">Journey</div>
+                <h2 class="section-title">Research Timeline</h2>
+            </div>
+            <div class="timeline-track fade-in">
+                <div class="tl-entry">
+                    <div class="tl-date">Jul 2022</div>
+                    <div class="tl-content">
+                        <h3>PhD begins &mdash; Helmholtz Munich &amp; TUM</h3>
+                        <p>Founding member of an international AI research group. Laboratory and computational infrastructure built from scratch across 7 sites.</p>
+                    </div>
+                </div>
+                <div class="tl-entry">
+                    <div class="tl-date">2023</div>
+                    <div class="tl-content">
+                        <h3>Molecular Systems Biology</h3>
+                        <p>Real-time genomics for One Health &mdash; collaborative review laying the framework for environmental surveillance genomics.</p>
+                    </div>
+                </div>
+                <div class="tl-entry">
+                    <div class="tl-date">2024</div>
+                    <div class="tl-content">
+                        <h3>ISME Communications + Nature Communications</h3>
+                        <p>First-author aerobiome pipeline published. Contributing author on detection of hidden antibiotic resistance through real-time genomics.</p>
+                    </div>
+                </div>
+                <div class="tl-entry">
+                    <div class="tl-date">2024&ndash;2026</div>
+                    <div class="tl-content">
+                        <h3>Against Plausibility</h3>
+                        <p>28-model LLM benchmark across GPT, Claude, and Gemini families. 476 scored step-results with statistical analysis (Kruskal-Wallis, LMM, flagship comparison).</p>
+                    </div>
+                </div>
+                <div class="tl-entry">
+                    <div class="tl-date">2025</div>
+                    <div class="tl-content">
+                        <h3>AEM + Virus Evolution</h3>
+                        <p>Shared first-author wetland multi-omics surveillance across 12 sites in 3 countries. Second author on avian influenza nanopore sequencing methodology.</p>
+                    </div>
+                </div>
+                <div class="tl-entry">
+                    <div class="tl-date">Jun 2026</div>
+                    <div class="tl-content">
+                        <h3>PhD completion (expected)</h3>
+                        <p>From Detection to Attribution: Real-Time Genomic Surveillance of Environmental Pathogens. ASKERA launch.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
