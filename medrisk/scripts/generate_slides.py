@@ -833,7 +833,7 @@ def slide_10_ask(pdf: SlidePDF) -> None:
     pdf.set_font("Helvetica", "B", 11)
     pdf.set_text_color(*C_WHITE)
     pdf.cell(CONTENT_W, 10,
-             safe("  the author  |  Helmholtz Munich  |  tim.reska@helmholtz-munich.de"),
+             safe("  Tim Reska  |  timreska@gmail.com"),
              fill=True, align="C")
     pdf.set_text_color(*C_BODY)
     pdf.source_line("Proof of Concept | All data is synthetic | March 2026")

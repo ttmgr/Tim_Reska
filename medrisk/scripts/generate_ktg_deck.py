@@ -544,7 +544,7 @@ def slide_07_summary(pdf: SlidePDF) -> None:
     pdf.set_font("Helvetica", "B", 9)
     pdf.set_text_color(*C_ACCENT)
     pdf.cell(CONTENT_W - 10, 8,
-             safe("the author  |  Helmholtz Munich  |  tim.reska@helmholtz-munich.de"),
+             safe("Tim Reska  |  timreska@gmail.com"),
              align="L")
     pdf.set_text_color(*C_BODY)
 
