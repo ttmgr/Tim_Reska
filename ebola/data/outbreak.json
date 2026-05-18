@@ -107,6 +107,22 @@
       "description": "Second Uganda case. Traveler from DRC, no apparent epi link to case 11. One death.",
       "outcome": "Deceased",
       "hcw": false
+    },
+    {
+      "id": 13,
+      "date": "2026-05-17",
+      "region": "Goma, North Kivu",
+      "description": "Wife of a man who died of Ebola in Bunia. Traveled from Ituri to Goma (1M+ population, M23-controlled). Most alarming geographic escalation.",
+      "outcome": "Under treatment",
+      "hcw": false
+    },
+    {
+      "id": 14,
+      "date": "2026-05-17",
+      "region": "Kinshasa",
+      "description": "Confirmed case in the DRC capital, ~1,000 km from Ituri epicenter. Long-distance importation.",
+      "outcome": "Under treatment",
+      "hcw": false
     }
   ],
   "response_timeline": [
@@ -122,8 +138,14 @@
     { "date": "2026-05-16", "event": "Second Uganda case confirmed; one death", "severity": "death" },
     { "date": "2026-05-16", "event": "Africa CDC convenes high-level meeting (130+ participants)", "severity": "response" },
     { "date": "2026-05-17", "event": "WHO declares PHEIC", "severity": "pheic" },
-    { "date": "2026-05-17", "event": "Confirmed case reported in Goma (North Kivu)", "severity": "alert" },
-    { "date": "2026-05-17", "event": "Reports of exposed Americans in DRC", "severity": "alert" }
+    { "date": "2026-05-17", "event": "Confirmed case reported in Goma (North Kivu, 1M+ pop.)", "severity": "alert" },
+    { "date": "2026-05-17", "event": "Confirmed case in Kinshasa (~1,000 km from epicenter)", "severity": "alert" },
+    { "date": "2026-05-17", "event": "6 Americans exposed in DRC, 1 symptomatic", "severity": "alert" },
+    { "date": "2026-05-17", "event": "US Embassy Juba issues health alert for South Sudan", "severity": "response" },
+    { "date": "2026-05-18", "event": "Rwanda closes Rubavu-Goma border indefinitely", "severity": "alert" },
+    { "date": "2026-05-18", "event": "US enhanced screening at ports of entry", "severity": "response" },
+    { "date": "2026-05-18", "event": "Field hospitals established in Bunia (facilities overwhelmed)", "severity": "response" },
+    { "date": "2026-05-18", "event": "US Embassy Kampala issues health alert for Uganda", "severity": "response" }
   ],
   "key_metrics": {
     "hcw_deaths": 4,

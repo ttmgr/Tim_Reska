@@ -4,10 +4,10 @@
   "flag": "Netherlands",
   "departure": "2026-04-01",
   "departure_port": "Ushuaia, Argentina",
-  "current_status": "Evacuation complete, all repatriated. Disembarkation at Granadilla port, Tenerife concluded May 11 — all 147 passengers and crew repatriated via ~10 non-commercial flights. Spain and WHO declared the operation 'a success.' Two new confirmed cases detected post-evacuation: French female passenger (ICU in France, deteriorating) and Spanish male passenger (asymptomatic, Gómez Ulla hospital Madrid). WHO DON601 (May 13): 11 cases (8 confirmed, 1 inconclusive, 2 probable), 3 deaths. Former passengers now hospitalised or quarantined in 12 countries: Australia, Canada, France, Germany, Netherlands, Saint Helena, Singapore, South Africa, Spain, Switzerland, Turkey, United States. Key country statuses: US — 41 monitored (16 Nebraska NQU, 2 Emory Atlanta), no positives, quarantine voluntary; UK — 22 completed 72-hour Arrowe Park quarantine, self-isolating 42 days at home; Canada — 36 connected, 4 passengers self-isolating in Victoria BC, flight ban in effect; Spain — 14 evacuees at Gómez Ulla (1 confirmed, 13 negative); France — 26 contacts tracked, all negative. Dr. Kornfeld (US, Oregon oncologist) inconclusive test confirmed negative May 13, released from biocontainment to general quarantine. Emory Atlanta symptomatic patient tested negative. ECDC risk assessment update May 14: risk to EU/EEA very low. CDC press briefing May 14: no US cases, 41 monitored. Illinois investigating unrelated domestic case (Winnebago County, rodent exposure, North American strain). WHO warns more cases possible through early June given 45-day incubation window.",
+  "current_status": "Ship docked at Rotterdam May 18 with 25 crew + 2 medical staff for quarantine and decontamination. All 147 passengers previously repatriated from Tenerife May 10-11. ECDC updated May 17: 12 ship-linked cases (9 confirmed, 2 probable, 1 inconclusive), 3 deaths. New case: Canadian Yukon resident confirmed May 17 by PHAC National Microbiology Lab. US inconclusive case (Dr. Kornfeld) retested negative — zero US cases. French patient critically ill on ECMO in Paris. UK 22 returnees in 42-day home isolation. Crew quarantine at Rotterdam until June 18. Oceanwide Expeditions assessing whether May 29 Iceland departure proceeds. WHO global risk: LOW. Next WHO event: 'Hantavirus in Focus I' webinar May 20.",
   "virus": "Andes virus (ANDV)",
-  "total_cases": 11,
-  "case_classification": { "confirmed": 8, "inconclusive": 1, "probable": 2 },
+  "total_cases": 12,
+  "case_classification": { "confirmed": 9, "inconclusive": 1, "probable": 2 },
   "total_deaths": 3,
   "passengers_aboard": 147,
   "countries_represented": 23,
@@ -127,6 +127,16 @@
       "description": "Spanish male, MV Hondius passenger. Asymptomatic; detected upon arrival at Gómez Ulla Hospital UATAN isolation unit in Madrid during routine post-evacuation screening. One of 14 Spanish nationals admitted — the other 13 tested negative.",
       "outcome": "Asymptomatic, quarantined, Gómez Ulla Hospital Madrid",
       "nationality": "Spain"
+    },
+    {
+      "id": 12,
+      "date": "2026-05-17",
+      "onset_date": null,
+      "exposure_date": null,
+      "linked_to": null,
+      "description": "Canadian Yukon resident, MV Hondius passenger. Presumptive positive announced May 16 by BC Provincial Health Officer; confirmed May 17 by PHAC National Microbiology Lab in Winnipeg. Hospitalized in isolation in British Columbia with spouse (spouse had minor symptoms).",
+      "outcome": "Hospitalized, British Columbia",
+      "nationality": "Canada"
     }
   ],
   "evacuations": [
@@ -217,6 +227,7 @@
     { "date": "2026-05-01", "lat": 14.93, "lon": -23.51, "label": "Praia, Cape Verde (quarantined)" },
     { "date": "2026-05-08", "lat": 28.47, "lon": -16.25, "label": "En route to Tenerife" },
     { "date": "2026-05-10", "lat": 28.09, "lon": -16.43, "label": "Tenerife, Canary Islands (arrived May 10)" },
-    { "date": "2026-05-11", "lat": 28.09, "lon": -16.43, "label": "Tenerife (evacuation complete May 11 — all 147 repatriated)" }
+    { "date": "2026-05-11", "lat": 28.09, "lon": -16.43, "label": "Tenerife (evacuation complete May 11 — all 147 repatriated)" },
+    { "date": "2026-05-18", "lat": 51.91, "lon": 4.48, "label": "Rotterdam, Netherlands (crew quarantine + decontamination)" }
   ]
 }

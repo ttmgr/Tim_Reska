@@ -1,13 +1,13 @@
 {
   "last_updated": "2026-05-18",
   "summary": {
-    "total_confirmed": 12,
-    "total_suspected": 336,
+    "total_confirmed": 14,
+    "total_suspected": 395,
     "deaths_confirmed": 5,
-    "deaths_suspected": 84,
-    "total_deaths_all": 89,
+    "deaths_suspected": 95,
+    "total_deaths_all": 100,
     "countries_affected": 2,
-    "health_zones_affected": 3,
+    "health_zones_affected": 9,
     "who_risk_global": "MODERATE",
     "who_risk_national": "VERY HIGH",
     "who_risk_regional": "HIGH",
@@ -16,7 +16,7 @@
     "pheic_date": "2026-05-17",
     "vaccine_available": false,
     "virus": "Bundibugyo ebolavirus",
-    "weekly_delta": { "confirmed": 4, "suspected": 90, "deaths": 12 }
+    "weekly_delta": { "confirmed": 6, "suspected": 149, "deaths": 23 }
   },
   "regions": [
     {
@@ -92,7 +92,22 @@
       "deaths_suspected": 1,
       "health_areas": null,
       "role": "Cross-border importation",
-      "notes": "Two lab-confirmed cases among travelers from DRC. One death. No apparent epi link between the two cases."
+      "notes": "Two lab-confirmed cases among travelers from DRC. One death. No apparent epi link between the two cases. Fort Portal (western Uganda) has symptomatic individuals under observation from a burial-linked cluster."
+    },
+    {
+      "name": "Kinshasa",
+      "province": "Kinshasa",
+      "country": "DRC",
+      "iso": "CD",
+      "lat": -4.32,
+      "lon": 15.31,
+      "confirmed": 1,
+      "suspected": 2,
+      "deaths_confirmed": 0,
+      "deaths_suspected": 0,
+      "health_areas": 1,
+      "role": "Long-distance importation",
+      "notes": "One confirmed case in the capital, ~1,000 km from Ituri epicenter. Reported May 17-18."
     }
   ],
   "at_risk": [
@@ -109,8 +124,8 @@
       "iso": "RW",
       "lat": -1.94,
       "lon": 29.87,
-      "status": "Monitoring",
-      "notes": "Border with North Kivu. Enhanced surveillance active."
+      "status": "Border closed",
+      "notes": "Closed Rubavu-Goma border crossing May 18 (indefinite). Only DRC/Rwandan nationals returning home permitted. Unilateral — against WHO advice."
     },
     {
       "name": "Burundi",
@@ -133,6 +148,7 @@
     { "date": "2026-05-14", "confirmed": 8, "suspected": 200, "deaths": 62 },
     { "date": "2026-05-15", "confirmed": 10, "suspected": 246, "deaths": 77 },
     { "date": "2026-05-16", "confirmed": 10, "suspected": 280, "deaths": 80 },
-    { "date": "2026-05-17", "confirmed": 12, "suspected": 336, "deaths": 89 }
+    { "date": "2026-05-17", "confirmed": 12, "suspected": 336, "deaths": 89 },
+    { "date": "2026-05-18", "confirmed": 14, "suspected": 395, "deaths": 100 }
   ]
 }

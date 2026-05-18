@@ -1,16 +1,16 @@
 {
-  "last_updated": "2026-05-15",
+  "last_updated": "2026-05-18",
   "summary": {
-    "total_cases_2026": 114,
+    "total_cases_2026": 113,
     "total_deaths_2026": 3,
     "countries_affected": 12,
     "active_clusters": 1,
-    "cfr_percent": 2.6,
+    "cfr_percent": 2.7,
     "who_risk_global": "LOW",
     "who_risk_europe": "VERY LOW",
     "data_lag_hours": 24,
     "case_definition": "WHO 2026: confirmed (RT-PCR or IgM seroconversion), probable (clinical + epi link), suspected (clinical only)",
-    "weekly_delta": { "cases": 2, "deaths": 0 }
+    "weekly_delta": { "cases": 1, "deaths": 0 }
   },
   "countries": [
     {
@@ -102,14 +102,14 @@
       "iso": "CA",
       "lat": 56.13,
       "lon": -106.35,
-      "cases_2026": 0,
+      "cases_2026": 1,
       "deaths_2026": 0,
       "cfr_percent": 0.0,
-      "hospitalized": 0,
-      "risk_level": "MONITORING",
-      "case_classification": { "confirmed": 0, "probable": 0, "suspected": 0 },
-      "virus": "",
-      "notes": "36 Canadians connected to outbreak: 6 passengers (4 repatriated to Victoria BC, self-isolating 21-42 days), 4 flight contacts, 26 low-risk plane contacts. Flight ban for any MV Hondius passenger/crew entering Canada. No confirmed cases. Sources: CBC, CP24 (May 11-13 2026)."
+      "hospitalized": 1,
+      "risk_level": "LOW",
+      "case_classification": { "confirmed": 1, "probable": 0, "suspected": 0 },
+      "virus": "Andes virus (ANDV)",
+      "notes": "One confirmed case: Yukon resident, MV Hondius passenger, presumptive positive May 16, confirmed May 17 by PHAC National Microbiology Lab in Winnipeg. Hospitalized in isolation in British Columbia with spouse. 36 Canadians connected to outbreak total. Flight ban for MV Hondius passenger/crew entering Canada remains in effect. Sources: CBC, PHAC (May 16-17 2026)."
     },
     {
       "name": "Cape Verde",
@@ -212,7 +212,9 @@
     { "date": "2026-05-08", "cumulative_cases": 111, "cumulative_deaths": 3 },
     { "date": "2026-05-09", "cumulative_cases": 112, "cumulative_deaths": 3 },
     { "date": "2026-05-10", "cumulative_cases": 112, "cumulative_deaths": 3 },
-    { "date": "2026-05-13", "cumulative_cases": 114, "cumulative_deaths": 3 },
-    { "date": "2026-05-15", "cumulative_cases": 114, "cumulative_deaths": 3 }
+    { "date": "2026-05-13", "cumulative_cases": 113, "cumulative_deaths": 3 },
+    { "date": "2026-05-15", "cumulative_cases": 113, "cumulative_deaths": 3 },
+    { "date": "2026-05-17", "cumulative_cases": 113, "cumulative_deaths": 3 },
+    { "date": "2026-05-18", "cumulative_cases": 113, "cumulative_deaths": 3 }
   ]
 }
