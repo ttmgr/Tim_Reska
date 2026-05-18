@@ -1,0 +1,929 @@
+{
+  "last_updated": "2026-05-15",
+  "articles": [
+    {
+      "date": "2026-05-14",
+      "source": "ECDC",
+      "title": "Andes hantavirus outbreak in cruise ship — ECDC updated risk assessment, 14 May 2026",
+      "url": "https://www.ecdc.europa.eu/en/infectious-disease-topics/hantavirus-infection/surveillance-and-updates/andes-hantavirus-outbreak",
+      "summary": "ECDC publishes an updated risk assessment for the MV Hondius Andes virus outbreak as of 13 May. Total: 11 cases (8 confirmed, 1 inconclusive, 2 probable), 3 deaths. ECDC reiterates risk to EU/EEA population remains very low: the natural rodent reservoir for Andes virus is not present in Europe, and human-to-human transmission requires prolonged close contact in enclosed settings. Working hypothesis: index case acquired infection on land in Argentina before boarding. All EU/EEA affected countries continue monitoring repatriated passengers."
+    },
+    {
+      "date": "2026-05-14",
+      "source": "CNBC",
+      "title": "CDC says there are no U.S. hantavirus cases currently, 41 people being monitored",
+      "url": "https://www.cnbc.com/2026/05/14/cdc-no-us-hantavirus-cases-people-monitored.html",
+      "summary": "CDC confirms no Americans are currently positive for hantavirus. A total of 41 people across the US are being monitored in three groups: 16 passengers repatriated to the Nebraska quarantine facility, 2 at Emory University Hospital in Atlanta, 7 former passengers who returned home before the outbreak was identified, and others exposed on flights where a symptomatic case was present. CDC incident manager Dr. David Fitter said quarantine is voluntary — no state or federal quarantine orders have been issued. Risk to the general public remains low."
+    },
+    {
+      "date": "2026-05-14",
+      "source": "Washington Post",
+      "title": "CDC says 41 people across the U.S. are being monitored for hantavirus",
+      "url": "https://www.washingtonpost.com/health/2026/05/14/how-cdc-determines-if-someone-is-hantavirus-risk/",
+      "summary": "The Washington Post details how the CDC determines hantavirus risk for the 41 people under monitoring across the United States. Those monitored are advised to stay home and avoid contact with others for 42 days. The monitoring covers passengers repatriated to Nebraska (16) and Atlanta (2), former passengers who left the ship before the outbreak was declared (7), and individuals potentially exposed on flights with symptomatic cases. No confirmed US cases to date."
+    },
+    {
+      "date": "2026-05-13",
+      "source": "WHO",
+      "title": "Hantavirus cluster linked to cruise ship travel, Multi-country — DON601",
+      "url": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
+      "summary": "WHO publishes Disease Outbreak News DON601 with updated case count. As of 13 May, 11 cases (8 confirmed, 1 inconclusive, 2 probable) including 3 deaths (2 confirmed, 1 probable). Two new confirmed cases since DON600: one from France (symptomatic during repatriation, now in ICU) and one from Spain (asymptomatic, detected upon arrival at quarantine). Disembarkation completed May 11; all passengers and crew repatriated. Former passengers now hospitalised or quarantined in 12 countries: Australia, Canada, France, Germany, Netherlands, Saint Helena, Singapore, South Africa, Spain, Switzerland, Turkey, and the United States."
+    },
+    {
+      "date": "2026-05-13",
+      "source": "CNN",
+      "title": "Doctor from hantavirus-stricken ship tests negative, moves out of biocontainment unit",
+      "url": "https://www.cnn.com/2026/05/13/health/hantavirus-doctor-biocontainment-nebraska",
+      "summary": "Dr. Stephen Kornfeld, 69, an Oregon oncologist who volunteered to care for sick passengers aboard MV Hondius, has tested negative for hantavirus and been released from Nebraska's high-security biocontainment unit. Kornfeld had initially returned an inconclusive test result from abroad and was the only American placed in biocontainment. Confirmatory PCR testing in the US was negative. He has been moved to the general quarantine facility to complete his monitoring period alongside the other 15 Americans."
+    },
+    {
+      "date": "2026-05-13",
+      "source": "NBC News",
+      "title": "Hantavirus cases rise to 11 as cruise ship passengers quarantine worldwide",
+      "url": "https://www.nbcnews.com/health/health-news/hantavirus-cases-rise-11-cruise-ship-passengers-quarantine-rcna344683",
+      "summary": "NBC News reports the WHO-confirmed case count has risen to 11, with former MV Hondius passengers now quarantined or hospitalised in 12 countries across four continents. Two new confirmed cases — one French passenger now in intensive care, one asymptomatic Spanish passenger detected at the Gómez Ulla military hospital in Madrid — bring the total to 8 confirmed, 1 inconclusive, and 2 probable. WHO warns that more cases remain possible given the virus's lengthy incubation period of up to 45 days."
+    },
+    {
+      "date": "2026-05-13",
+      "source": "ITV News",
+      "title": "Hantavirus cruise passengers set to leave UK hospital to self-isolate at home",
+      "url": "https://www.itv.com/news/2026-05-13/hantavirus-cruise-passengers-set-to-leave-uk-hospital-to-self-isolate",
+      "summary": "Twenty-two people evacuated from MV Hondius — 20 British nationals, 1 German UK resident, and 1 Japanese passenger — are leaving 72-hour quarantine at Arrowe Park Hospital in Merseyside after negative PCR results. They will self-isolate at home or in other accommodation for a further 42 days. Health protection teams across the UK will maintain daily contact throughout the isolation period. The group arrived from Tenerife into Manchester airport on a dedicated charter flight on May 10."
+    },
+    {
+      "date": "2026-05-13",
+      "source": "CBC News",
+      "title": "What we know about hantavirus now that people linked to outbreak are back in Canada",
+      "url": "https://www.cp24.com/news/canada/2026/05/13/what-we-know-about-hantavirus-now-that-people-linked-to-outbreak-are-back-in-canada/",
+      "summary": "CBC reports 10 people with connections to the MV Hondius outbreak are now located in Canada, including 6 passengers and 4 people who were not aboard but may have been exposed on flights. All are under monitoring with varying isolation protocols. Four Canadian passengers repatriated from Tenerife arrived in Victoria, B.C. on May 11 and are self-isolating for a minimum of 21 days, extendable to 42. Canada has banned any MV Hondius passenger or crew from boarding flights to Canada."
+    },
+    {
+      "date": "2026-05-12",
+      "source": "Al Jazeera",
+      "title": "Two more cruise ship passengers test positive for hantavirus",
+      "url": "https://www.aljazeera.com/news/2026/5/11/two-more-cruise-ship-passengers-test-positive-for-hantavirus",
+      "summary": "Two additional MV Hondius passengers have tested positive for Andes hantavirus, bringing the total to 11 cases. A French female passenger became symptomatic during repatriation and is now in intensive care in France; French Health Minister Stephanie Rist said her condition is deteriorating. A Spanish male passenger tested positive upon arrival at Madrid's Gómez Ulla military hospital but is asymptomatic. Both cases were detected during post-evacuation screening. The French government is tracking 26 close contacts who were on the same planes as the French passenger."
+    },
+    {
+      "date": "2026-05-12",
+      "source": "Al Jazeera",
+      "title": "Spain reports new hantavirus case in passenger evacuated from cruise ship",
+      "url": "https://www.aljazeera.com/news/2026/5/12/spain-reports-new-hantavirus-case-in-passenger-evacuated-from-cruise-ship",
+      "summary": "Spain's Ministry of Health announces a Spanish passenger evacuated from MV Hondius has tested positive for Andes hantavirus. The man is one of 14 Spanish nationals admitted to the Gómez Ulla Hospital UATAN high-level isolation unit in Madrid — the other 13 have all tested negative. The patient is currently asymptomatic. WHO has updated the total case count to 11. Spanish PM Pedro Sánchez defended his government's handling of the outbreak."
+    },
+    {
+      "date": "2026-05-12",
+      "source": "UN News",
+      "title": "Passengers leave hantavirus-hit cruise ship in Tenerife as WHO says outbreak 'not another COVID'",
+      "url": "https://news.un.org/en/story/2026/05/1167477",
+      "summary": "UN News reports the first day of evacuations concluded on Sunday with 94 people of 19 nationalities disembarking from MV Hondius. Disembarkation of passengers and remaining crew was completed on Monday May 11, with all individuals repatriated to their respective countries via specially arranged non-commercial flights. WHO Director-General Tedros reiterated: 'This is not another COVID.' The evacuation is being described as the largest coordinated multi-national hantavirus response operation in history."
+    },
+    {
+      "date": "2026-05-12",
+      "source": "Euronews",
+      "title": "Spain and WHO declare hantavirus cruise evacuation 'a success'",
+      "url": "https://www.euronews.com/health/2026/05/12/spain-and-who-declare-hantavirus-cruise-evacuation-a-success",
+      "summary": "Spain and WHO jointly declare the MV Hondius evacuation a success after all 147 passengers and crew were safely disembarked and repatriated over two days. Approximately 10 repatriation flights departed Tenerife South Airport between May 10–11 to destinations across Europe, the Americas, and Asia-Pacific. WHO praised Spain's coordination and the sealed-corridor protocol that prevented any contact between evacuees and Tenerife residents."
+    },
+    {
+      "date": "2026-05-12",
+      "source": "UKHSA / GOV.UK",
+      "title": "UKHSA update on the hantavirus cruise ship outbreak — UK quarantine arrangements",
+      "url": "https://www.gov.uk/government/news/ukhsa-update-on-the-hantavirus-cruise-ship-outbreak",
+      "summary": "UK Health Security Agency provides updated guidance following the repatriation of 22 individuals from MV Hondius. All arrived at Manchester airport on a dedicated charter flight on May 10 and entered 72-hour quarantine at Arrowe Park Hospital in Merseyside. Each individual was tested by PCR; following negative results, tailored support packages were provided to enable self-isolation at home for 42 days. UKHSA health protection teams maintain daily contact for health and wellbeing support throughout the isolation period."
+    },
+    {
+      "date": "2026-05-12",
+      "source": "ABC7 Chicago",
+      "title": "Illinois investigating potential hantavirus case in Winnebago County — NOT linked to cruise ship outbreak",
+      "url": "https://abc7chicago.com/post/is-hantavirus-illinois-2026-idph-investigating-potential-case-winnebago-county-not-linked-cruise-ship-outbreak/19088997/",
+      "summary": "Illinois Department of Public Health is investigating a potential hantavirus case in Winnebago County (~90 miles from Chicago). The resident has NOT travelled internationally and the case is NOT linked to the MV Hondius outbreak. The individual is believed to have been exposed while cleaning a home where rodent droppings were present and is recovering from mild symptoms without hospitalisation. The suspected strain is the North American type — not the Andes virus — which does not spread between people. Illinois has had 7 positive cases since 1993; CDC is conducting confirmatory testing."
+    },
+    {
+      "date": "2026-05-12",
+      "source": "CBC News",
+      "title": "Canadians repatriated from hantavirus-stricken cruise land in Victoria, B.C.",
+      "url": "https://www.cbc.ca/news/canada/british-columbia/hantavirus-cruise-ship-canadians-b-c-9.7194477",
+      "summary": "Four Canadian passengers repatriated from MV Hondius via Tenerife have arrived in Victoria, British Columbia. Upon arrival they were assessed by public health officials before being transported to pre-determined locations for self-isolation of at least 21 days, extendable to 42. Canada has implemented a travel ban preventing any passenger or crew from the MV Hondius from boarding flights to Canada. Chief Public Health Officer Dr. Joss Reimer said the risk to Canadians remains low."
+    },
+    {
+      "date": "2026-05-11",
+      "source": "CNN",
+      "title": "Passengers from hantavirus-hit cruise ship being monitored at US medical units",
+      "url": "https://www.cnn.com/2026/05/11/us/live-news/hantavirus-cruise-outbreak",
+      "summary": "CNN live updates report 18 American passengers from MV Hondius are now in the US: 16 at Nebraska's National Quarantine Unit and 2 at Emory University Hospital in Atlanta. One of the Atlanta patients presented with symptoms compatible with hantavirus but has since tested negative. Dr. Stephen Kornfeld, an Oregon oncologist who helped treat patients aboard the ship, was placed in the biocontainment unit after an inconclusive test from abroad. All 16 in Nebraska are recommended to remain for 42 days, but quarantine is voluntary."
+    },
+    {
+      "date": "2026-05-11",
+      "source": "U.S. News",
+      "title": "WHO: More hantavirus cases from cruise ship possible due to lengthy incubation period",
+      "url": "https://www.usnews.com/news/health-news/articles/2026-05-11/who-more-hantavirus-cases-from-cruise-ship-possible-due-to-lengthy-incubation-period",
+      "summary": "WHO officials warn that additional hantavirus cases among former MV Hondius passengers remain possible in the coming weeks. The Andes virus incubation period is typically around three weeks but can extend to 40-45 days, meaning some passengers who were exposed may not show symptoms until late May or early June. WHO urges all repatriated passengers to complete their full monitoring periods and report any symptoms immediately."
+    },
+    {
+      "date": "2026-05-11",
+      "source": "CBC News",
+      "title": "26 more Canadians being contacted for 'low-risk' hantavirus exposure",
+      "url": "https://www.cbc.ca/news/canada/hantavirus-canada-outbreak-exposure-9.7199706",
+      "summary": "Canada's chief public health officer Dr. Joss Reimer announced that local public health units are contacting 26 people who were on the same planes as a confirmed hantavirus case, bringing the total number of Canadians connected to the MV Hondius outbreak to 36. Ten people with direct ship connections are in Canada (6 passengers, 4 flight contacts); the 26 additional contacts are low-risk. All are under monitoring with varying self-isolation protocols."
+    },
+    {
+      "date": "2026-05-10",
+      "source": "CNN",
+      "title": "Americans from hantavirus-hit cruise ship, including one who tested positive, arrive in Nebraska",
+      "url": "https://www.cnn.com/2026/05/10/us/hantavirus-cruise-passengers-nebraska-facility",
+      "summary": "American passengers from MV Hondius have arrived at the National Quarantine Unit at the University of Nebraska Medical Center. One passenger, Dr. Stephen Kornfeld, returned an inconclusive test result from abroad and was initially placed in the high-security biocontainment unit. The remaining Americans were housed in the general quarantine facility. Two Georgia residents were separately flown to Emory University Hospital in Atlanta, one presenting with symptoms. CDC teams met the passengers at Tenerife and escorted them on charter flights."
+    },
+    {
+      "date": "2026-05-10",
+      "source": "PBS News",
+      "title": "Passengers evacuate MV Hondius cruise ship following hantavirus outbreak",
+      "url": "https://www.pbs.org/newshour/world/passengers-evacuate-mv-hondius-cruise-ship-following-hantavirus-outbreak",
+      "summary": "PBS News covers the beginning of the MV Hondius evacuation at Tenerife as passengers are ferried ashore by inflatable boats under tight security. The coordinated operation involves approximately 10 repatriation flights to countries across Europe, the Americas, and Asia-Pacific. None of the 147 people aboard are showing symptoms. The evacuation marks the culmination of a two-week international effort since WHO was first notified of the outbreak on May 2."
+    },
+    {
+      "date": "2026-05-10",
+      "source": "CNN",
+      "title": "MV Hondius arrives and anchors at Tenerife as hantavirus evacuation gets underway",
+      "url": "https://www.cnn.com/2026/05/10/world/mv-hondius-tenerife-arrival-evacuation-intl",
+      "summary": "CNN confirms MV Hondius has arrived and anchored at Tenerife port. The ship's position inside the port was deemed safest by Spanish authorities. Passengers are disembarking by nationality in inflatable boats as the evacuation operation gets underway. None of the 147 aboard are symptomatic. Countries sending repatriation aircraft include Germany, France, Belgium, Ireland, the Netherlands, the United States (Nebraska NQU), the United Kingdom, and the EU (two planes). WHO Director-General Tedros Adhanom Ghebreyesus is personally overseeing operations from Tenerife."
+    },
+    {
+      "date": "2026-05-10",
+      "source": "FTN News",
+      "title": "Hantavirus ship evacuation underway: passengers leaving MV Hondius by inflatable boat at Tenerife",
+      "url": "https://www.ftnnews.com/index.php/health/hantavirus-mv-hondius-tenerife-evacuation-may-10",
+      "summary": "FTN News reports the evacuation of MV Hondius is now actively underway at Tenerife. Passengers are being ferried ashore in inflatable/tender boats, grouped by nationality, and transported in sealed guarded vehicles to Tenerife South Airport for their respective repatriation flights. The operation is proceeding within the approved weather window — Sunday through Monday — before sea state deteriorates. Authorities confirm none of the 147 aboard show symptoms. The operation is the largest coordinated multi-national hantavirus response evacuation in history."
+    },
+    {
+      "date": "2026-05-10",
+      "source": "NBC News / MSN",
+      "title": "Protests in Tenerife as hantavirus ship MV Hondius arrives at Canary Islands port",
+      "url": "https://www.nbcnews.com/health/health-news/tenerife-protests-hantavirus-ship-mv-hondius-arrives-canary-islands-rcna344800",
+      "summary": "NBC News and MSN report mass protests in Tenerife as MV Hondius arrived at the Canary Islands. Residents took to the streets opposing the ship's arrival, reflecting widespread anxiety about the hantavirus outbreak despite reassurances from WHO Director-General Tedros and Spanish health authorities that public risk remains low. Protesters voiced concerns that authorities were not being transparent about safety protocols. Police maintained perimeters around the port operation. The Spanish government overrode local objections, citing international humanitarian law obligations to the 147 people aboard."
+    },
+    {
+      "date": "2026-05-10",
+      "source": "Pravda Spain / News Ukraine RBC",
+      "title": "MV Hondius passengers to be quarantined after hantavirus outbreak — Madrid court authorises mandatory isolation",
+      "url": "https://spain.news-pravda.com/en/world/2026/05/10/17709.html",
+      "summary": "A Madrid court authorised mandatory isolation for 14 Spanish passengers upon the ship's arrival in Tenerife. The passengers will be admitted to Gómez Ulla Hospital's UATAN high-level isolation unit for a minimum of seven days for medical evaluation and monitoring. The hospital prepared to hire 60–80 extra staff for the operation. WHO's Maria Van Kerkhove cautioned that widespread media coverage may be amplifying public perception of danger beyond the actual risk level. The evacuation is expected to require approximately 10 flights to repatriate all passengers."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "STAT News",
+      "title": "CDC playing smaller role in MV Hondius hantavirus outbreak as structural changes limit response",
+      "url": "https://www.statnews.com/2026/05/09/mv-hondius-hantavirus-outbreak-cdc-takes-back-seat-to-who/",
+      "summary": "STAT News reports the CDC's response to the MV Hondius outbreak is constrained by structural changes under the Trump administration. Thousands of CDC scientists and public health professionals have been laid off, including members of the ship sanitation program. The administration's withdrawal from WHO has restricted CDC scientists from communicating with international counterparts. CDC acting director Jay Bhattacharya told Fox News 'please don't worry' but subsequently provided inaccurate details about the outbreak. CDC deployed teams to Spain and Nebraska but WHO is leading the international response. The US is building bilateral health agreements with individual countries instead of working through multilateral organisations."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "NPR",
+      "title": "CDC says threat of widespread outbreak of hantavirus remains low",
+      "url": "https://www.npr.org/2026/05/09/g-s1-121307/cdc-says-threat-of-widespread-outbreak-of-hantavirus-remains-low",
+      "summary": "NPR reports the CDC has deep experience with the Andes strain of hantavirus and assures the American public that the risk for a widespread outbreak remains extremely low. Person-to-person transmission is rare. More than two dozen American passengers were aboard MV Hondius: seven have already returned to the US and are under state monitoring, while 17 remain aboard for repatriation to the National Quarantine Unit at the University of Nebraska Medical Center. The Dutch index couple is thought to have contracted the virus during a birdwatching excursion at an Argentine landfill site."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "CBS News",
+      "title": "WHO director arrives in Canary Islands to oversee hantavirus cruise evacuation: 'This disease is not COVID'",
+      "url": "https://www.cbsnews.com/news/hantavirus-cruise-evacuation-world-health-organization-hondius-canary-islands/",
+      "summary": "CBS News reports WHO Director-General Tedros arrived in Tenerife on Saturday to oversee the evacuation of more than 100 passengers. Tedros emphasised: 'This disease is not COVID. The risk to the local population is low.' He acknowledged pandemic trauma persists — 'That trauma is still in our minds' — but stressed the biological distinction between hantavirus and coronavirus transmission patterns. WHO estimates approximately 10 total evacuation flights: six to EU countries, four to non-EU nations. WHO recommends each country isolate evacuated passengers for 42 days from last exposure. 17 Americans to be taken to the National Quarantine Center at University of Nebraska."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "1 News NZ",
+      "title": "Aboard the hantavirus-hit ship, passengers fear what awaits back home",
+      "url": "https://www.1news.co.nz/2026/05/09/aboard-the-hantavirus-hit-ship-passengers-fear-what-awaits-back-home/",
+      "summary": "1 News NZ reports from aboard MV Hondius, providing rare first-person passenger perspectives. Passengers describe relatively calm daily life: reading, attending talks wearing masks, early morning exercise on upper decks, and wildlife photography. A Spanish passenger expressed alarm at social media hostility: 'You go onto social media — they want to dynamite the boat. They want to sink the boat.' Another described heading toward Tenerife: 'You see what's out there and you realise you're heading into the eye of a hurricane.' Passengers' primary fear is not the virus itself but social stigma and public ostracisation upon arrival."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "The Spanish Eye",
+      "title": "Spain detects third hantavirus 'contact' — 45-year-old Catalonian resident identified via seat-switch tracing",
+      "url": "https://www.thespanisheye.com/2026/05/09/spain-detects-third-hantavirus-contact-as-mv-hondius-cruise-ship-prepares-to-arrive/",
+      "summary": "The Spanish Eye reports a third hantavirus contact has been identified in Spain: a 45-year-old Catalonian resident who was on the same flight as the deceased MV Hondius passenger. She was initially missed during contact tracing because she changed seats during the flight, complicating manifest-based reconstruction. She is asymptomatic and under monitoring — not hospitalised. Spain's total flight-linked contacts now stand at three: (1) 32-year-old Alicante woman hospitalised with mild symptoms, PCR pending; (2) Barcelona-based woman missed due to seat-switch, asymptomatic; (3) 45-year-old Catalonian, asymptomatic."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "The Conversation",
+      "title": "I've investigated a hantavirus outbreak. Here's what I can tell you about the cruise ship cluster",
+      "url": "https://theconversation.com/ive-investigated-a-hantavirus-outbreak-heres-what-i-can-tell-you-about-the-cruise-ship-cluster-282365",
+      "summary": "Craig Dalton, Conjoint Associate Professor at the University of Newcastle's School of Medicine and Public Health, draws on his experience investigating the 1993 Sin Nombre virus outbreak in the southwestern US. He notes the first MV Hondius case had a five-day symptom onset — shorter than the typical incubation period — suggesting pre-boarding exposure in Argentina rather than onboard infection. Later cases create ambiguity: they could represent common environmental source exposure during shore excursions or limited human-to-human transmission, requiring disciplined epidemiological investigation to distinguish between hypotheses. WHO currently assesses global risk as low."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "CDC (HAN-00528)",
+      "title": "CDC Health Advisory Notice HAN-00528: 2026 Multi-country Andes virus cluster linked to cruise ship",
+      "url": "https://www.cdc.gov/han/php/notices/han00528.html",
+      "summary": "CDC Health Advisory formally directed at US physicians and health departments (published May 8, distributed May 9). Instructs clinicians to include hantavirus pulmonary syndrome in differential diagnosis for any patient with compatible symptoms AND epidemiological risk factors within 42 days of symptom onset. Symptoms: early phase (fever, fatigue, myalgia), late phase (coughing, shortness of breath, chest tightness) 4–10 days later. Infection control: airborne isolation room, gown, gloves, eye protection, N95 or higher respirator. As of May 8: 8 cases (6 confirmed, 2 suspected), 3 deaths. Risk to US public 'extremely low'."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "WHO",
+      "title": "Message by the WHO Director-General to the people of Tenerife regarding the hantavirus response",
+      "url": "https://www.who.int/news/item/09-05-2026-message-by-the-who-director-general-to-the-people-of-tenerife-regarding-the-hantavirus-response",
+      "summary": "WHO Director-General Tedros Adhanom Ghebreyesus publishes a formal public message directly addressed to the residents of Tenerife. Tedros acknowledges their anxiety — including memories of the COVID pandemic — and states clearly: 'This is not another COVID. The current public health risk from hantavirus remains low.' He notes there are no symptomatic passengers on the ship, a WHO expert is on board, medical supplies are in place, and Spain has prepared a detailed disembarkation plan with sealed vehicles through a cordoned corridor away from residential areas. Tedros announces he will personally travel to Tenerife to observe the operation firsthand. This is an unusually direct DG-level communication to a single local community."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "AFP / multiple outlets",
+      "title": "WHO chief meets Spanish PM Pedro Sánchez before flying to Tenerife to oversee disembarkation",
+      "url": "https://www.ewn.co.za/2026/05/09/who-chief-arrives-in-spain-before-hantavirus-hit-ship-evacuation",
+      "summary": "WHO Director-General Tedros met Spanish Prime Minister Pedro Sánchez at the PM's official residence (Moncloa) at 15:00 GMT on Saturday May 9, before travelling to Tenerife. Tedros then accompanied Spain's health and interior ministers to a joint command post in Tenerife to coordinate the MV Hondius disembarkation operation. The meeting represents head-of-state level engagement in the hantavirus response — rare for an outbreak assessed as low global risk — and signals the political weight Spain and WHO are attaching to the evacuation logistics. Sources: EWN, The Journal.ie, Channels Television, FMT, BSS News."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "Netherlands Government (government.nl)",
+      "title": "Updates on Andes virus (hantavirus) outbreak on the cruise ship MV Hondius",
+      "url": "https://www.government.nl/latest/weblogs/the-work-of-the-ministry-of-foreign-affairs/2026/medical-evacuation-from-cruise-ship-m-v-hondius",
+      "summary": "The Dutch Ministry of Foreign Affairs publishes the Netherlands' first formal public weblog on the MV Hondius outbreak — significant as the Netherlands is the ship's flag state. The ministry confirms it is coordinating assistance via the Ministry of Foreign Affairs in close contact with RIVM, the Ministry of Health, Welfare and Sport, Oceanwide Expeditions, and authorities in Cape Verde and affected countries. A team from the Dutch embassy in Madrid and Rapid Deployment Consular Support Team (SCOT) staff are being deployed to Tenerife to receive Dutch nationals safely and coordinate repatriation. The ministry facilitated earlier medical evacuations in cooperation with Dutch embassies in the region."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "ECDC",
+      "title": "Questions and answers on the hantavirus outbreak in a cruise ship",
+      "url": "https://www.ecdc.europa.eu/en/infectious-disease-topics/hantavirus-infection/surveillance-and-updates/questions-answers-outbreak",
+      "summary": "ECDC publishes a dedicated Q&A page on the MV Hondius hantavirus outbreak aimed at the general public and health professionals. Key Q&As cover: what Andes virus is; why it is different from common hantaviruses; the low risk to the European population; current working hypothesis that a passenger was exposed in Argentina/Chile before boarding; why human-to-human transmission requires prolonged close contact (unlike COVID-19); and what ECDC is doing to support member states. Complements the ECDC ongoing-updates page and the Technical Assessment Brief (TAB, May 6). Published as a distinct communication product from the May 9 ongoing-updates surveillance landing page already in tracker."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "CDC",
+      "title": "Hantavirus: Current Situation",
+      "url": "https://www.cdc.gov/hantavirus/situation-summary/index.html",
+      "summary": "CDC launches a dedicated 'Current Situation' summary page for the MV Hondius hantavirus outbreak. The page centralises CDC's situational awareness content: outbreak timeline, US passenger monitoring status (six states, 9+ individuals, all asymptomatic), CDC deployment details (teams at Canary Islands and Nebraska NQU), and risk assessment for the American public (extremely low). Serves as CDC's public-facing single-source hub for the outbreak, separate from CDC Newsroom press releases and the Health Alert Network advisory."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "CDC",
+      "title": "CDC Provides Update on Hantavirus Outbreak Linked to M/V Hondius Cruise Ship",
+      "url": "https://www.cdc.gov/media/releases/2026/2026-cdc-provides-update-on-hantavirus-outbreak-linked-to-m-v-hondius-cruise-ship.html",
+      "summary": "CDC issues a second official press release updating the public on the MV Hondius hantavirus outbreak. The release confirms CDC has deployed a team of epidemiologists and medical professionals to the Canary Islands to conduct an exposure risk assessment for each American passenger upon arrival and provide monitoring recommendations. An additional CDC team has been deployed to support the National Quarantine Unit (NQU) at Offutt AFB / University of Nebraska Medical Center for returning American passengers. Risk to the American public remains extremely low. No confirmed US hantavirus cases linked to the cruise ship. Follows the first CDC statement (first press release, earlier date)."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "CDC / ABC News",
+      "title": "CDC issues Health Alert Network (HAN) advisory alerting US physicians to potential imported hantavirus cases",
+      "url": "https://abcnews.com/International/live-updates/hantavirus-live-updates-mv-hondius-canary-islands/?id=132746955",
+      "summary": "CDC issues a Health Alert Network (HAN) advisory directed at US physicians and health departments. The advisory reminds clinicians to consider hantavirus infection if a patient presents with compatible symptoms (fever, myalgia, progressive respiratory distress) combined with a known travel or contact history consistent with potential Andes virus exposure. The advisory specifies standard infection control precautions: isolated room, gown, gloves, eye protection, N95 or higher respirator. The HAN advisory is a formal channel for CDC to alert the US clinical community to potential imported infectious disease cases. No confirmed hantavirus cases in the US at time of publication. Sources: ABC News live updates, Yahoo News live updates."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "CBS News (video)",
+      "title": "As hantavirus outbreak ship heads toward Canary Islands, locals protest",
+      "url": "https://www.cbsnews.com/video/hantavirus-outbreak-ship-heads-toward-canary-islands-locals-protest/",
+      "summary": "CBS News video report showing residents of Tenerife and Canary Islands dock workers protesting the approaching MV Hondius. Protesters blow whistles, sound vuvuzelas, and carry banners outside the Canary Islands parliament building in Santa Cruz. Port workers demand special safety measures and adequate information about health protocols before an infected vessel arrives. The protest video captures the local anxiety that prompted WHO Director-General Tedros to publish his direct message to Tenerife residents and personally travel to the island."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "Al Jazeera",
+      "title": "Spain's Canary Islands brace for incoming hantavirus-stricken cruise ship",
+      "url": "https://www.aljazeera.com/news/2026/5/9/spains-canary-islands-brace-for-incoming-hantavirus-stricken-cruise-ship",
+      "summary": "Al Jazeera May 9 report as the Canary Islands prepare for the arrival of MV Hondius. Covers local protest atmosphere, Spanish government preparations, and WHO's involvement. The anti-establishment group Iustitia Europa called for the ship to be barred, posting: 'The Canary Islands cannot become Europe's health laboratory … We demand transparency, responsibility, and protection for Spaniards.' The Spanish government overrode local objections citing international humanitarian law. Ship expected to arrive in early hours of Sunday May 10; evacuation planned by nationality groups."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "Euronews",
+      "title": "The hantavirus ship is almost here: anger rises in Tenerife — is it dangerous for residents?",
+      "url": "https://www.euronews.com/2026/05/09/the-hantavirus-ship-is-almost-here-anger-rises-in-tenerife-is-it-dangerous-for-residents",
+      "summary": "Euronews May 9 feature examining local anger and public health risk in Tenerife. Profiles dock worker protests — port workers gathered outside Canary Islands parliament with whistles, vuvuzelas, and banners voicing concern about being allowed to work without special safety measures or information. Euronews frames the key public question: is MV Hondius's arrival actually dangerous for Tenerife residents? Health experts note Andes virus does not spread via casual contact and no symptomatic passengers remain on board; WHO assesses public risk as low. Spanish government and WHO coordination highlighted."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "LaPresse (Italian) / Live Science",
+      "title": "MV Hondius evacuation: passengers disembarked by nationality in inflatable boats, tender operations begin noon Sunday",
+      "url": "https://www.livescience.com/health/live/hantivirus-cruise-friday-may-8",
+      "summary": "Italian news agency LaPresse and Live Science reporting confirm that the MV Hondius evacuation protocol calls for passengers to be disembarked by nationality in small inflatable/tender boats, with operations scheduled to begin around noon local time on Sunday May 10 — after the ship arrives in the early morning hours. Each nationality group is escorted in isolated, guarded vehicles directly to their designated repatriation aircraft on the runway. The noon start allows time for the ship's early-morning arrival (now estimated at 04:00–06:00 CEST, updated from earlier 03:00–05:00 estimate), health checks, and coordination before tender operations begin. Weather window is Sunday noon through Monday before conditions deteriorate."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "WHO",
+      "title": "Hantavirus cluster linked to cruise ship travel, Multi-country — DON600",
+      "url": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON600",
+      "summary": "WHO Disease Outbreak News update (DON600), published May 8–9 2026. Key changes from DON599: three of the previously suspected cases are now confirmed, plus one additional confirmed case reported, raising the total to 8 cases (6 confirmed, 2 probable) including 3 deaths (2 confirmed, 1 probable). Case fatality ratio 38%. All six laboratory-confirmed cases identified as Andes virus by PCR or sequencing. WHO notes that 2,500 diagnostic kits have been shipped from Argentina to laboratories in five countries to strengthen testing capacity. Working hypothesis remains that case 1 acquired infection prior to boarding through environmental exposure in Argentina/Chile, with subsequent human-to-human transmission on board. WHO risk assessment: global population risk LOW."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "The Spanish Eye",
+      "title": "Second hantavirus 'contact' declared in Spain: Woman was missed after 'switching seats' on plane carrying infected passenger",
+      "url": "https://www.thespanisheye.com/2026/05/09/second-hantavirus-contact-declared-in-spain-woman-was-missed-after-switching-seats-on-plane-carrying-infected-passenger/",
+      "summary": "The Spanish Eye reports a second hantavirus contact case has been identified in Spain: a woman based in Barcelona who was aboard the same flight as the deceased MV Hondius passenger but was initially missed during contact tracing because she had switched seats during the flight, making seat-based manifest reconstruction inaccurate. She has been traced and is asymptomatic. Authorities are now monitoring her. This is the second flight-linked contact case identified in Spain after the Alicante suspected case (announced May 8). She is not currently hospitalised."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "ECDC",
+      "title": "Andes Hantavirus outbreak in cruise ship, May 2026 — ongoing updates",
+      "url": "https://www.ecdc.europa.eu/en/infectious-disease-topics/hantavirus-infection/surveillance-and-updates/andes-hantavirus-outbreak",
+      "summary": "ECDC launches a dedicated ongoing-updates surveillance page for the MV Hondius Andes virus outbreak. The page aggregates technical assessments, risk communications, and surveillance data as the situation evolves. Separate from the earlier Technical Assessment Brief (TAB, May 6) and the rapid risk assessment (May 6). Intended as the single authoritative ECDC landing point for member state public health authorities and the general public seeking up-to-date information on the ship cluster."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "EWN / Manila Times / Spain in English",
+      "title": "WHO chief due in Canaries to coordinate hantavirus ship evacuation",
+      "url": "https://www.ewn.co.za/2026/05/09/who-chief-due-in-canaries-to-coordinate-hantavirus-ship-evacuation",
+      "summary": "Multiple international outlets (EWN, Manila Times, Spain in English) report that WHO Director-General Tedros Adhanom Ghebreyesus is travelling to Tenerife, Canary Islands on Saturday May 9 to personally coordinate the evacuation of MV Hondius. Tedros will accompany Spain's health and interior ministers to a command post to ensure coordination between administrations, health control, and the application of planned surveillance and response protocols. His visit underscores the international significance of the event. The ship is expected to arrive at Tenerife in the early hours of Sunday May 10."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "The Peninsula Qatar / France 24",
+      "title": "French citizen monitored as hantavirus 'contact case' after same flight as infected passenger",
+      "url": "https://thepeninsulaqatar.com/article/06/05/2026/french-citizen-was-on-same-plane-as-hantavirus-case-ministry",
+      "summary": "French authorities confirm a French man is being monitored as a hantavirus 'contact case' after travelling on the same commercial flight as a deceased MV Hondius passenger. The flight in question transported a Dutch woman from Saint Helena to Johannesburg; the aircraft carried 82 passengers and six crew. French health officials are tracing all passengers from that flight. The French man is asymptomatic and the case is classified as a contact under monitoring — not a suspected or confirmed case. Source: France 24, The Peninsula Qatar."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "British Brief / GB News",
+      "title": "UK plane to bring Brits home from hantavirus cruise ship with oxygen and testing kits",
+      "url": "https://britbrief.co.uk/politics/immigration/uk-plane-to-bring-brits-home-from-hantavirus-cruise-ship.html",
+      "summary": "The British government has chartered a dedicated evacuation aircraft to repatriate approximately 22 British nationals from MV Hondius. The plane is equipped with oxygen and onboard testing kits to manage any symptomatic passengers during the flight. Separately, GB News reports a second Briton aboard the ship is showing hantavirus symptoms as the UK coordinates the evacuation. All returning British nationals are subject to UKHSA's 45-day mandatory isolation protocol. The UK evacuation flight is expected to depart Tenerife shortly after the ship arrives Sunday morning."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "PBS NewsHour",
+      "title": "What we don't know about the hantavirus outbreak on the cruise ship",
+      "url": "https://www.pbs.org/newshour/health/what-we-dont-know-about-the-hantavirus-outbreak-on-the-cruise-ship",
+      "summary": "PBS NewsHour analysis piece cataloguing the key open questions in the MV Hondius outbreak investigation: (1) the precise origin of the Dutch index couple's infection — Argentine investigators suspect the bird-watching trip, but no organisation has confirmed the exact exposure site; (2) the transmission delay — authorities were not notified until May 2, two weeks after passengers began disembarking, hampering early contact tracing; (3) whether the Andes virus reliably transmits between humans on a confined vessel or whether co-exposure to a common source explains secondary cases; (4) the true attack rate once all 40+ early-departing passengers are fully tested. Includes expert commentary on what surveillance gaps this outbreak has exposed."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "CIDRAP",
+      "title": "Cruise ship at center of hantavirus outbreak to dock in Spain Sunday",
+      "url": "https://www.cidrap.umn.edu/public-health/cruise-ship-center-hantavirus-outbreak-dock-spain-sunday",
+      "summary": "CIDRAP (Center for Infectious Disease Research and Policy, University of Minnesota) reports the MV Hondius is on course to arrive at Tenerife, Canary Islands on Sunday May 10. Spain has designated a completely isolated, cordoned-off arrival area. Passengers will be transferred to shore by tender boat and transported by bus to Tenerife South Airport for repatriation. CDC public health staff will meet the ship and escort American passengers to a repatriation charter flight bound for the National Quarantine Unit (NQU) in Nebraska. Coverage notes the weather window (Sunday noon to Monday) is the critical constraint for the operation."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "El Correo Gallego / Gaceta Médica",
+      "title": "Alicante hantavirus PCR still pending — positive 'unlikely', second PCR to follow if negative",
+      "url": "https://www.elcorreogallego.es/espana/2026/05/09/alicantina-sospecha-hantavirus-sera-tratada-130026746.html",
+      "summary": "Spanish health officials state on May 9 that the first PCR result for the 32-year-old Alicante woman remains pending. Officials characterise a positive result as 'unlikely' given the brief, indirect nature of the flight contact (two rows behind the deceased passenger). Protocol: if the first PCR is negative but symptoms persist, a second PCR will be performed at 24 hours. If infection is ultimately ruled out, she will be transferred to Madrid's Gómez Ulla hospital to complete a 42-day precautionary quarantine. If positive, she will be transferred to La Fe hospital in Valencia for specialist treatment."
+    },
+    {
+      "date": "2026-05-09",
+      "source": "Oceanwide Expeditions / CIDRAP / Euronews",
+      "title": "MV Hondius to arrive Tenerife early Sunday May 10, weather window Sunday noon–Monday only",
+      "url": "https://oceanwide-expeditions.com/blog/press-update-m-v-hondius-8-may-2026-19-00-hrs-cet",
+      "summary": "Oceanwide Expeditions' May 8 19:00 CET press update confirms MV Hondius is expected to reach Tenerife in the early morning hours of Sunday May 10, likely between 03:00 and 05:00 CEST. The tender-boat evacuation and passenger transfers to Tenerife South Airport are planned to begin after first light. Authorities note a narrow weather window: conditions are expected to be favourable Sunday noon through Monday, with worsening sea state and wind thereafter making tender operations difficult. All 146 remaining passengers and crew remain aboard and none are currently symptomatic. Evacuation must be completed before the weather deteriorates early next week."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "The Olive Press",
+      "title": "First suspected hantavirus case detected in Spain: woman isolates with symptoms in Alicante hospital",
+      "url": "https://www.theolivepress.es/spain-news/2026/05/08/first-suspected-hantavirus-case-detected-spain-woman-isolates-symptoms-alicante-hospital/",
+      "summary": "The Olive Press reports the first suspected hantavirus case on mainland Spain: a 32-year-old woman is isolated in a hospital in Alicante with mild respiratory symptoms including coughing and general malaise. She was identified through Europe's health alert system after she travelled on the same flight as a Dutch woman who had been a passenger on MV Hondius and subsequently died from the virus. The Spanish woman was seated two rows behind the deceased passenger; authorities describe the contact as brief. Spain's Secretary of State for Health Javier Padilla announced the suspected case. Results expected within 24–48 hours. Classified as SUSPECTED — not yet confirmed."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "RTE News",
+      "title": "Hantavirus case suspected in Alicante, say officials",
+      "url": "https://www.rte.ie/news/2026/0508/1572287-hantavirus-cruise-ship/",
+      "summary": "RTE (Ireland's national broadcaster) reports Spain has identified a suspected hantavirus case in the Alicante region. A woman has been admitted to hospital in Alicante after developing respiratory symptoms following contact with a deceased MV Hondius passenger on a shared flight. Secretary of State for Health Javier Padilla confirmed the suspected case, noting the woman was sitting two rows behind the cruise ship passenger who later died. PCR testing is ongoing; results are expected within 24–48 hours. The case remains classified as suspected."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Sky News",
+      "title": "Hantavirus cruise ship: Six confirmed cases and three suspected as ship sails between Cape Verde and Canary Islands",
+      "url": "https://news.sky.com/story/hantavirus-cruise-ship-six-confirmed-cases-three-suspected-ship-between-cape-verde-canary-islands-13367843",
+      "summary": "Sky News reports a 6th case has been lab-confirmed, raising the total to 6 confirmed and 3 suspected (9 total) linked to MV Hondius. The ship is sailing between Cape Verde and the Canary Islands en route to Tenerife. The body of the third deceased passenger remains on board. Martin Anstee, the British expedition guide hospitalised in the Netherlands (case 5), tells Sky News he is 'doing ok' but many tests remain pending. The 6th confirmation is noted as an American passenger with mild illness recovering on board."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Argentina Ministry of Health (Argentina.gob.ar)",
+      "title": "Actualización del Boletín Epidemiológico Nacional semana N° 16 — Hantavirus y brote en el MV Hondius",
+      "url": "https://www.argentina.gob.ar/noticias/actualizacion-del-boletin-epidemiologico-nacional-de-la-semana-ndeg-16",
+      "summary": "Argentina's Ministry of Health publishes the week 16 Boletín Epidemiológico Nacional with a special focus section on the MV Hondius hantavirus cluster. The bulletin documents the 4-month road trip of the Dutch index couple: they entered Argentina on November 27, 2025, crossed repeatedly into Chile and Uruguay, visited Neuquén (re-entering Argentina from Chile on January 31) and Misiones in northeastern Argentina, departed for Uruguay by land on March 13, returned to Argentina on March 27, and boarded MV Hondius in Ushuaia on April 1, 2026. The bulletin identifies both Neuquén (Patagonian Sur) and Misiones as established ANDV-endemic zones. Argentine investigators (ANLIS-Malbrán) are conducting rodent capture and testing along the identified travel route. The bulletin records 6 cases and 3 deaths linked to the ship cluster. Tierra del Fuego has no endemic hantavirus. Argentina is providing diagnostic reagents to affected European countries."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Avian Flu Diary",
+      "title": "Argentina MOH: Statement and Special Report on Recent Hantavirus Activity",
+      "url": "https://afludiary.blogspot.com/2026/05/argentina-moh-statement-and-special.html",
+      "summary": "Avian Flu Diary (Michael Coston) translates and summarises Argentina's official Ministry of Health statement and special hantavirus report. The report details the index couple's 4-month overland travel through Chile, Uruguay, and multiple Argentine provinces (Neuquén, Misiones) between November 27, 2025 and April 1, 2026, before boarding MV Hondius at Ushuaia. Argentine epidemiologists are prioritising rodent capture in Neuquén and Misiones given their ANDV endemicity. The MOH confirms 6 cases and 3 deaths in the ship cluster and notes that Tierra del Fuego — the embarkation province — has no recorded hantavirus transmission. The report identifies the sequence of exposure windows to be consistent with Andes virus incubation (7–39 days)."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "NPR",
+      "title": "Spain readies for evacuations as a hantavirus-hit cruise ship heads for Canary Islands",
+      "url": "https://www.npr.org/2026/05/08/g-s1-121055/spain-readies-for-evacuations",
+      "summary": "NPR reports Spain is preparing to receive the 146 remaining passengers and crew of MV Hondius at Tenerife. Spanish authorities confirm an isolated, cordoned-off arrival area. All non-Spanish nationals will be repatriated directly; 14 Spanish nationals transferred to Gómez Ulla UATAN. The KLM flight attendant has tested negative for hantavirus. UKHSA confirms a third British national is a suspected case on Tristan da Cunha."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "NPR / Short Wave",
+      "title": "Hantavirus: the risks, the science and what you need to know",
+      "url": "https://www.npr.org/2026/05/08/nx-s1-5811917/hantavirus-andres-mvhondius-ship-rodents",
+      "summary": "NPR Short Wave science podcast episode covering hantavirus biology and the MV Hondius outbreak. Explains rodent-to-human and Andes virus human-to-human transmission mechanisms, why no licensed vaccine or antiviral exists, and the public health significance of the ship cluster. Aimed at general audiences."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Outlook India",
+      "title": "Hantavirus Outbreak On Luxury Cruise Ship: 2 Indian Crew Members Onboard",
+      "url": "https://www.outlookindia.com/international/hantavirus-outbreak-on-luxury-cruise-ship-2-indian-crew-members-onboard",
+      "summary": "Two Indian nationals are part of the crew aboard MV Hondius. Neither has been identified as a confirmed or suspected hantavirus case. Oceanwide Expeditions has not disclosed their test status or proximity to infected passengers. Indian media coverage notes a gap in communication protocols between cruise operators, flag states, and workers' home countries during onboard disease outbreaks."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "The Globe and Mail",
+      "title": "Three Canadians isolating at home after hantavirus outbreak on cruise ship",
+      "url": "https://www.theglobeandmail.com/canada/article-hantavirus-outbreak-canadians-isolating/",
+      "summary": "The Globe and Mail reports three Canadians are self-isolating: two Ontario residents who disembarked MV Hondius at Saint Helena on April 24 (asymptomatic, under provincial monitoring), and one Quebec resident with possible contact with an infected traveller but never aboard the ship. Four further Canadians remain aboard MV Hondius; Foreign Affairs Minister Anita Anand confirmed consular staff have been dispatched to Tenerife."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Newsweek",
+      "title": "Map Shows Where Hantavirus Has Spread",
+      "url": "https://www.newsweek.com/map-shows-where-hantavirus-has-spread-11924128",
+      "summary": "Newsweek publishes an interactive map of confirmed and suspected hantavirus cases linked to MV Hondius, covering affected countries across Europe, the Americas, Asia, and remote South Atlantic territories. Notes that 8 ship-linked cases (3 deaths) have been reported across at least 10 countries, with contact tracing active in 12+ nations."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Newsweek",
+      "title": "Deadly Hantavirus Outbreak: 5 Questions Experts are Facing",
+      "url": "https://www.newsweek.com/key-questions-in-bid-to-stop-deadly-hantavirus-outbreak-11924356",
+      "summary": "Newsweek frames five open questions dominating expert discussion: (1) Did human-to-human transmission occur on board? (2) How many additional cases will emerge among the ~40 early-disembarking passengers? (3) Will the Tristan da Cunha suspected case be confirmed? (4) What is the ship's exact attack rate once full passenger testing is complete? (5) Are there unreported cases in countries with limited diagnostic capacity? No new confirmed cases announced."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "ECDC",
+      "title": "Technical Assessment Brief: Hantavirus-associated cluster of illness on a cruise ship",
+      "url": "https://www.ecdc.europa.eu/sites/default/files/documents/TAB-hantavirus-06052026.pdf",
+      "summary": "ECDC formal risk assessment document on the MV Hondius hantavirus cluster. Covers epidemiological analysis, Andes virus transmission characteristics, risk to EU/EEA population, and recommendations for member states on surveillance and contact tracing."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Tristan da Cunha Government",
+      "title": "Suspected hantavirus on the cruise ship MV Hondius",
+      "url": "https://www.tristandc.com/government/news-2026-05-04-hondius-hantavirus.php",
+      "summary": "Official statement from Tristan da Cunha government. MV Hondius visited the island April 13-15. No cases of hantavirus identified on Tristan da Cunha. One British national who disembarked is a suspected case under UKHSA investigation."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "US News",
+      "title": "New hantavirus case suspected on remote island as contact tracing continues",
+      "url": "https://www.usnews.com/news/world/articles/2026-05-08/new-hantavirus-case-suspected-on-remote-island-as-contact-tracing-continues",
+      "summary": "UKHSA confirms suspected hantavirus case on Tristan da Cunha, a remote British Overseas Territory in the South Atlantic. The individual is a British national who was aboard MV Hondius. Contact tracing continues across 12+ countries."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "UKHSA / GOV.UK",
+      "title": "UKHSA update on the hantavirus cruise ship outbreak",
+      "url": "https://www.gov.uk/government/news/ukhsa-update-on-the-hantavirus-cruise-ship-outbreak",
+      "summary": "Two British nationals confirmed with hantavirus (one in Netherlands, one in South Africa). Third British national on Tristan da Cunha under investigation as suspected case. All returning British passengers subject to 45-day mandatory isolation with UKHSA monitoring and testing. Risk to UK general public remains very low."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Première Ligne (YouTube)",
+      "title": "Hantavirus : premier cas suspecté hors du bateau, l'évacuation des passagers débute",
+      "url": "https://www.youtube.com/watch?v=u37PGat71f4",
+      "summary": "French-language report from Première Ligne confirming the first suspected hantavirus case identified in a person outside the ship: the KLM flight attendant who briefly came into contact with a deceased MV Hondius passenger at OR Tambo International Airport, Johannesburg. Simultaneously, the video reports that passenger evacuation from MV Hondius has formally begun at Tenerife on May 9, with tender boats ferrying passengers while the ship remains at anchor offshore."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Health Policy Watch",
+      "title": "First Person Outside Cruise Ship Is Suspected Of Hantavirus Infection",
+      "url": "https://healthpolicy-watch.news/first-person-outside-cruise-ship-suspected-of-hantavirus/",
+      "summary": "Health Policy Watch confirms the first hantavirus-suspected case in a person with no direct ship connection: a Dutch KLM flight attendant hospitalised at Amsterdam UMC after brief contact with the deceased second MV Hondius passenger (Dutch female, case 2) who briefly boarded KLM flight KL592 at Johannesburg on April 25. The attendant subsequently tested NEGATIVE for Andes virus by PCR and antibody testing, ruling out transmission. The article also notes that the Swiss passenger (case 8) represents the first off-ship confirmed case after disembarking at St. Helena."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Devdiscourse",
+      "title": "Tenerife Braces as Cruise Ship with Hantavirus Docks Amid Concerns",
+      "url": "https://www.devdiscourse.com/article/health/3899559-tenerife-braces-as-cruise-ship-with-hantavirus-docks-amid-concerns",
+      "summary": "MV Hondius has arrived at Tenerife amid local anxiety. Canary Islands residents, recalling the 2020 hotel lockdown affecting 700+ tourists, expressed concern about the docking despite WHO assurances of low public risk. All 146 remaining passengers are asymptomatic and will be repatriated after medical checks; non-Spanish nationals repatriated directly, 14 Spanish nationals transferred to Gómez Ulla UATAN unit in Madrid. Tender-boat evacuation replaces direct docking after port worker blockade threat."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "MSN / Jamaica Observer",
+      "title": "Spain says hantavirus ship evacuees need new plane to leave Canaries",
+      "url": "https://www.msn.com/en-us/health/other/spain-says-hantavirus-ship-evacuees-need-new-plane-to-leave-canaries/ar-AA22xthI",
+      "summary": "One of two medical evacuation aircraft transporting sick MV Hondius patients from Cape Verde to Amsterdam made an emergency diversion to the Canary Islands after the on-board physician reported a fault in the electrical life-support system of one patient. Spain's health ministry arranged a replacement aircraft while the patient remained on the original plane connected to the airport's power supply. The three evacuees (British case 5 Martin Anstee, Dutch crew member, German asymptomatic contact) were eventually transported to specialized facilities in the Netherlands and Germany."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "CNN",
+      "title": "This American doctor thought he was going on vacation. He ended up treating hantavirus patients on the infected ship",
+      "url": "https://www.cnn.com/2026/05/08/world/hantavirus-cruise-ship-doctor-interview-intl-hnk",
+      "summary": "CNN interview with an American passenger physician aboard MV Hondius who assisted in caring for infected patients during the outbreak. The physician describes the progression of the outbreak, the isolation protocols implemented on board, and the decision-making around the three medical evacuations. Provides a first-hand clinical perspective on managing Andes virus HCPS at sea with limited resources. The ship's own doctor (crew physician) was among those evacuated to Johannesburg and remains in intensive care with improving condition, according to WHO."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Breitbart Health",
+      "title": "Former Hantavirus Cruise Passenger Speaks from Hospital: 'I'm Doing Ok'",
+      "url": "https://www.breitbart.com/health/2026/05/07/former-hantavirus-cruise-ship-passenger-speaks-from-hospital-im-doing-ok/",
+      "summary": "Martin Anstee, the British expedition guide and confirmed hantavirus case 5, speaks via Sky News from his isolation room in the Netherlands. He reports feeling 'not too bad' but says many tests remain pending and his doctors will have a clearer picture later in the week. He is isolated and uncertain of his discharge timeline. First direct patient statement from the MV Hondius outbreak."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Breitbart Europe",
+      "title": "Hantavirus Ship En Route to Spain, Military Hospital Quarantine Awaits",
+      "url": "https://www.breitbart.com/europe/2026/05/07/spain-discloses-health-protocol-details-for-impending-arrival-of-hantavirus-outbreak-ship/",
+      "summary": "Spain discloses the full health protocol for receiving MV Hondius. The 14 Spanish nationals will be transferred to the High-Level Isolation Unit (UATAN) at Hospital Central de la Defensa Gómez Ulla, Madrid — a facility built after the 2014 Ebola response and previously used for COVID-19 Wuhan evacuees. Quarantine duration: up to 45 days, calibrated to last potential exposure date. Admission is voluntary, with a consent form required."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "El Español",
+      "title": "En la planta 22 del Gómez Ulla: así es la unidad UATAN de aislamiento donde irán los 14 españoles del hantavirus",
+      "url": "https://www.elespanol.com/ciencia/20260507/planta-gomez-ulla-unidad-uatan-aislamiento-iran-espanoles-hantavirus/1003744236236_0.html",
+      "summary": "El Español provides an inside description of floor 22 of the Gómez Ulla military hospital, which houses Spain's UATAN high-level isolation unit. The unit features negative-pressure rooms, airlock entries, and dedicated clinical staff trained for BSL-3/4-equivalent pathogens. It will house the 14 Spanish MV Hondius passengers for their quarantine period. The facility is Spain's most advanced biosafety isolation infrastructure."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Murcia Today",
+      "title": "Hantavirus Cruise Ship Set To Dock In Tenerife As Quarantine Plan Moves Ahead",
+      "url": "https://murciatoday.com/hantavirus-cruise-ship-set-to-dock-in-tenerife-as-quarantine-plan-moves-ahead_1000268456-a.html",
+      "summary": "MV Hondius has formally requested permission from the Canary Islands Port Authority to dock at Tenerife on Saturday May 9 at 12:00 CET, though arrival may slip to Sunday. All 146 remaining passengers and crew — none symptomatic — will disembark; foreign nationals will be repatriated directly, while 14 Spanish nationals will be transferred to Gómez Ulla. Evacuation operations are planned from May 11 onwards."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "CIDRAP",
+      "title": "WHO officials on hantavirus cases: 'This is an outbreak on a ship, not another COVID-19'",
+      "url": "https://www.cidrap.umn.edu/misc-emerging-topics/who-officials-hantavirus-cases-outbreak-ship-not-another-covid-19",
+      "summary": "WHO Director-General Tedros and officials explicitly characterise the MV Hondius cluster as a contained ship-linked outbreak, not a pandemic-scale event. Experts note that while the Andes strain can transmit between humans, it requires sustained close contact and does not possess the aerosol spread efficiency seen in SARS-CoV-2. CIDRAP coverage includes key takeaways from the WHO press briefing."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "CIDRAP",
+      "title": "At least 8 sickened in suspected hantavirus outbreak; Andes strain confirmed",
+      "url": "https://www.cidrap.umn.edu/misc-emerging-topics/least-8-sickened-suspected-hantavirus-outbreak-andes-strain-confirmed",
+      "summary": "CIDRAP reports confirmation of at least 8 cases linked to MV Hondius, with the Andes strain positively identified by laboratory testing. Timeline analysis suggests the Dutch index couple was likely infected during Argentine shore excursions prior to boarding, consistent with a 10-20 day incubation period. Three deaths confirmed. Ship evacuees transferred to Netherlands and Germany."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Singapore CDA / Mothership.SG",
+      "title": "2 Singapore residents isolated at NCID after hantavirus exposure on cruise and flight",
+      "url": "https://mothership.sg/2026/05/singapore-residents-isolated-hantavirus/",
+      "summary": "Singapore's Communicable Diseases Agency confirms two residents who were aboard MV Hondius are now isolated at the National Centre for Infectious Diseases. A 67-year-old Singaporean male arrived May 2 (asymptomatic) and a 65-year-old permanent resident male arrived May 6 (mild rhinorrhoea). Both shared an April 25 flight with a confirmed hantavirus case. Negative test followed by 30-day quarantine protocol. Public risk assessed as low."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "CBS News",
+      "title": "5 U.S. states monitoring passengers who departed cruise ship stricken by hantavirus",
+      "url": "https://www.cbsnews.com/news/hantavirus-cruise-ship-mv-hondius-passengers-monitored-us-worldwide/",
+      "summary": "Five US states have confirmed they are monitoring residents with potential MV Hondius exposure: Georgia (2), Texas (2), Arizona (1), Virginia (1), and California (number undisclosed). All are currently asymptomatic. Seventeen US nationals were aboard the vessel. At least 12 countries are simultaneously tracking dispersed passengers."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "CBC News",
+      "title": "3 Canadians isolating in Ontario, Quebec after hantavirus ship outbreak",
+      "url": "https://www.cbc.ca/news/canada/toronto/hantavirus-cruise-ontario-passengers-isolating-9.7191211",
+      "summary": "Canada confirms three individuals self-isolating in Ontario (2) and Quebec (1) following potential hantavirus exposure. Two are former MV Hondius passengers who disembarked at Saint Helena on April 24; both are asymptomatic and under provincial monitoring. The third, in Quebec, was not aboard the ship but is self-isolating after possible contact with an infected person during international travel — Public Health Agency of Canada assessed their risk as not high. All three are under 30-day monitoring. Foreign Affairs Minister Anita Anand confirmed four further Canadian nationals remain aboard MV Hondius; consular officials dispatched to the Canary Islands."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Global News",
+      "title": "3 Canadians isolating in 2 provinces over possible hantavirus exposure",
+      "url": "https://globalnews.ca/news/11838723/hantavirus-ontario-isolation/",
+      "summary": "Global News reports on Canada's three self-isolating individuals: two Ontario residents who were MV Hondius passengers disembarking at Saint Helena on April 24, and one Quebec resident who had possible contact with an infected person during international travel but was never aboard the ship. Quebec's health minister confirmed the Quebec individual is not considered high-risk. All three are asymptomatic and under 30-day monitoring with symptom checks by local public health authorities."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "STAT News",
+      "title": "Key takeaways from WHO briefing on hantavirus cruise ship outbreak",
+      "url": "https://www.statnews.com/2026/05/07/hantavirus-outbreak-key-takeaways-who-cruise-ship-briefing/",
+      "summary": "STAT News distils the May 7 WHO press briefing: WHO expects more cases may emerge but not a large epidemic; human-to-human Andes virus transmission requires prolonged close contact; the KLM flight attendant tested negative; and approximately 40 passengers who disembarked before quarantine enforcement are being traced across 12+ countries."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "France 24",
+      "title": "Hantavirus on the rise in Argentina, where MV Hondius cruise ship set sail",
+      "url": "https://www.france24.com/en/americas/20260507-hantavirus-on-rise-argentina-where-mv-hondius-cruise-ship-set-sail",
+      "summary": "Argentina's hantavirus burden for 2025–2026 is running at approximately twice the baseline rate, with 101 reported cases since June 2025. The elevated endemic activity in Patagonia preceded the MV Hondius outbreak and provides context for the likely origin of infection during Ushuaia and Argentine shore excursions."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "RNZ / NZ Herald",
+      "title": "Kiwi aboard MV Hondius cruise ship with deadly hantavirus outbreak",
+      "url": "https://www.rnz.co.nz/news/health/594285/kiwi-aboard-mv-hondius-cruise-ship-with-deadly-hantavirus-outbreak",
+      "summary": "New Zealand confirms at least one national remains aboard MV Hondius; another Kiwi passenger had disembarked earlier and returned home before quarantine was imposed. The New Zealand Ministry of Health is monitoring the situation and in contact with WHO. A second RNZ article confirms the on-board Kiwi has not requested consular assistance."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "The Olive Press",
+      "title": "Hantavirus ship to remain offshore after Tenerife port blockade threat",
+      "url": "https://www.theolivepress.es/spain-news/2026/05/07/hantavirus-ship-to-remain-offshore-after-tenerife-port-blockade-threat/",
+      "summary": "MV Hondius will not dock at Tenerife's Granadilla port after local dockworkers threatened a blockade. Canary Islands president Fernando Clavijo announced passengers will be evacuated using tender boats while the ship remains anchored offshore. The evacuation plan was revised after Spain's health minister coordinated with regional authorities."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "ITV News",
+      "title": "Two British passengers of hantavirus cruise ship self-isolating in the UK",
+      "url": "https://www.itv.com/news/2026-05-06/canary-islands-leader-opposes-hantavirus-cruise-ship-to-docking-there",
+      "summary": "Two British former MV Hondius passengers have returned independently to the UK and are self-isolating under UKHSA guidance. Neither is currently reporting symptoms. UKHSA is also supporting a small number of additional close contacts under self-isolation."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "GB News",
+      "title": "Hantavirus outbreak: Former British police officer evacuated from rat-virus ship named after 'very traumatic few days'",
+      "url": "https://www.gbnews.com/news/hantavirus-outbreak-mv-hondius-former-british-police-officer-evacuated-hantavirus-named",
+      "summary": "Martin Anstee, 56, a retired British police officer serving as expedition guide on MV Hondius, is named as the British hantavirus case (case 5). He was medically evacuated on May 6 near Cape Verde and transferred to a hospital in the Netherlands for specialist treatment."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "LBC",
+      "title": "Brit police officer seriously ill with rat virus pictured as two more self-isolate in UK after potential exposure",
+      "url": "https://www.lbc.co.uk/article/two-brits-self-isolating-uk-hantavirus-cruise-5HjdYnD_2/",
+      "summary": "Martin Anstee, British expedition guide and retired police officer, is pictured and confirmed as the UK national hospitalised with hantavirus from MV Hondius. Two further UK-based former passengers are self-isolating following UKHSA guidance with no current symptoms."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "CNN",
+      "title": "What the numbers tell us about hantavirus",
+      "url": "https://www.cnn.com/2026/05/08/health/hantavirus-numbers-analysis-intl",
+      "summary": "CNN analysis published May 8 examining the epidemiological picture of the MV Hondius outbreak: attack rate, case fatality rate, generation interval, and what the spread pattern reveals about Andes virus human-to-human transmission dynamics. Contextualises the cluster against historical ANDV outbreaks in Argentina and Chile. Notes that while CFR among confirmed ship cases exceeds 30%, this likely reflects ascertainment bias toward severe presentations."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "RTE News",
+      "title": "Third British person with suspected hantavirus found on Tristan da Cunha",
+      "url": "https://www.rte.ie/news/world/2026/0508/hantavirus-tristan-da-cunha/",
+      "summary": "RTE reports a third British national has been identified with suspected hantavirus on Tristan da Cunha, a remote British Overseas Territory in the South Atlantic with a population of approximately 250. The individual was among passengers who disembarked from MV Hondius during its stop at the island in mid-April. The case is the first suspected infection among early-departing passengers and raises questions about secondary exposure in an extremely resource-limited setting."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Xinhua",
+      "title": "Update: British hantavirus cases rise to two confirmed, third suspected on Tristan da Cunha",
+      "url": "https://english.news.cn/2026-05/08/c_1310782345.htm",
+      "summary": "Xinhua English-language report on the latest developments: UKHSA confirms two British MV Hondius passengers with confirmed hantavirus (one in Netherlands, one in South Africa) and a third suspected case on Tristan da Cunha. Report also notes the revised ship arrival date of May 10 at Tenerife and the UK's 45-day mandatory isolation order for British returnees."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Inside Medicine",
+      "title": "Dutch flight attendant tests negative for Andes virus",
+      "url": "https://insidemedicine.substack.com/p/scoop-dutch-flight-attendant-tests",
+      "summary": "WHO Director-General Tedros confirms KLM flight attendant who was hospitalized after contact with a deceased MV Hondius passenger on KLM flight KL592 (Johannesburg–Amsterdam, Apr 25) has tested negative for Andes virus by both PCR and antibody testing. No flight-related transmission confirmed."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "NL Times",
+      "title": "KLM flight attendant hospitalized after contact with hantavirus cruise ship passenger",
+      "url": "https://nltimes.nl/2026/05/07/klm-flight-attendant-hospitalized-contact-hantavirus-cruise-ship-passenger",
+      "summary": "Dutch KLM flight attendant from Haarlem hospitalized at Amsterdam UMC with mild symptoms after working on KLM KL592 (Apr 25) on which a fatally ill MV Hondius passenger briefly boarded before being asked to disembark. Passenger subsequently died of Andes virus in Johannesburg. Flight attendant later tested negative."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "CBS News",
+      "title": "3 evacuated from hantavirus cruise ship as Spain says it will dock in Canary Islands despite local opposition",
+      "url": "https://www.cbsnews.com/news/hantavirus-canary-islands-cruise-ship-new-case-switzerland/",
+      "summary": "Three people medically evacuated from MV Hondius on May 6: two sick crew members including the ship's doctor, and one asymptomatic German passenger with close contact history. Switzerland confirms 8th case — a male passenger now being treated at University Hospital Zurich. Spain's interior ministry overrides Canary Islands president's objections and authorises the ship to dock for evacuation from May 11."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Euronews",
+      "title": "WHO says hantavirus cruise outbreak is 'not the next COVID', though more infections could emerge",
+      "url": "https://www.euronews.com/health/2026/05/07/40-passengers-left-hantavirus-hit-cruise-ship",
+      "summary": "Approximately 40 passengers disembarked from MV Hondius at earlier ports of call before quarantine was enforced. WHO chief Tedros states outbreak is serious but hantavirus lacks respiratory spread efficiency for pandemic potential. Health authorities across at least a dozen countries are actively tracing these passengers."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "CBC News",
+      "title": "Deadly hantavirus outbreak on ship poses 'low' risk to wider public, WHO says",
+      "url": "https://www.cbc.ca/news/world/hantavirus-outbreak-cruise-ship-9.7190707",
+      "summary": "WHO assesses global population risk as LOW. Three deaths confirmed among 8 cases linked to MV Hondius. Andes virus human-to-human transmission requires sustained close contact; experts say outbreak will not trigger a COVID-like pandemic scenario."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Washington Post",
+      "title": "A timeline of the cruise ship hantavirus outbreak and when passengers fell sick",
+      "url": "https://www.washingtonpost.com/world/2026/05/07/hantavirus-cruise-ship-timeline-events/1d7b2b8e-4a43-11f1-a119-857cd2bf4fd4_story.html",
+      "summary": "Detailed chronological reconstruction of the MV Hondius outbreak from the index cases' four-month birdwatching road trip through Argentina, Chile, and Uruguay (Nov 2025–Apr 2026) to the current quarantine situation. Argentine health ministry confirmed the travel history of the Dutch couple on May 6."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "ABC News",
+      "title": "CDC classifies hantavirus outbreak as Level 3 emergency response",
+      "url": "https://abcnews.com/International/live-updates/hantavirus-live-updates-mv-hondius-canary-islands/?id=132746955",
+      "summary": "CDC has elevated the MV Hondius hantavirus outbreak to a Level 3 emergency response. Live updates on ship heading to Canary Islands, contact tracing across multiple countries."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Africa CDC",
+      "title": "Statement on multi-country hantavirus cluster associated with cruise ship travel",
+      "url": "https://africacdc.org/news-item/statement-on-multi-country-hantavirus-cluster-associated-with-cruise-ship-travel/",
+      "summary": "Africa CDC issues statement on the multi-country hantavirus cluster. Coordinates with WHO and Cape Verdean authorities on ship quarantine and regional surveillance."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "WHO",
+      "title": "WHO confirms eighth hantavirus case linked to MV Hondius cruise ship",
+      "url": "https://www.who.int/news/item/07-05-2026-who-s-response-to-hantavirus-cases-linked-to-a-cruise-ship",
+      "summary": "WHO confirms 8th case aboard MV Hondius. Ship now heading to Canary Islands for passenger evacuation starting May 11. 146 people from 23 countries still aboard under strict precautionary measures."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "CNN",
+      "title": "Hantavirus cruise ship heads for Spain's Canary Islands as officials race to trace contacts",
+      "url": "https://www.cnn.com/2026/05/05/africa/cruise-ship-hantavirus-who-intl",
+      "summary": "MV Hondius heading to Canary Islands after Cape Verde quarantine. Canary Islands president initially refused entry. Passenger evacuation to begin May 11. Spain's interior ministry coordinating."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "NBC News",
+      "title": "Cruise ship hantavirus outbreak sparks international effort to track passengers",
+      "url": "https://www.nbcnews.com/health/health-news/us-monitoring-hantavirus-cruise-passengers-new-case-flight-attendant-rcna343990",
+      "summary": "US officials in Arizona, California, Georgia, Texas and Virginia monitoring 17 American passengers. Health officials in at least a dozen countries tracking dispersed passengers."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "NPR",
+      "title": "Health officials track dozens who left hantavirus-stricken ship after first fatality",
+      "url": "https://www.npr.org/2026/05/07/nx-s1-5814632/passengers-left-ship-hantavirus-st-helena",
+      "summary": "Passengers who disembarked at Saint Helena before the outbreak was identified are being traced. Some left the ship before the first death was confirmed."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "BMJ",
+      "title": "Hantavirus: What you need to know",
+      "url": "https://www.bmj.com/content/393/bmj.s877",
+      "summary": "BMJ clinical explainer on hantavirus following the MV Hondius outbreak. Covers Andes virus transmission, clinical presentation, and public health response."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Time",
+      "title": "The Hantavirus Outbreak Is Serious. But It's No COVID, Health Officials Say",
+      "url": "https://time.com/article/2026/05/07/hantavirus-outbreak-andes-virus-not-covid/",
+      "summary": "Health officials emphasize hantavirus lacks respiratory spread efficiency for pandemic potential. Andes virus human-to-human transmission requires close, prolonged contact."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "CNN",
+      "title": "CDC teams will meet Americans on hantavirus-stricken ship in Canary Islands and at Nebraska quarantine unit",
+      "url": "https://www.cnn.com/2026/05/08/health/cruise-ship-hantavirus-passengers",
+      "summary": "CNN reports the CDC is deploying two separate response teams for the 17 American passengers aboard MV Hondius. One team will travel to the Canary Islands to meet the ship upon arrival and escort Americans to a repatriation charter flight. A second CDC team is positioned at the National Quarantine Unit (NQU) in Nebraska — a federally funded quarantine facility co-located with the Nebraska Biocontainment Unit at the University of Nebraska Medical Center. All Americans returning from the ship will be placed in quarantine at the NQU. Five states (Arizona, California, Georgia, Texas, Virginia) are already monitoring seven passengers who previously disembarked, all asymptomatic."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Yahoo News (live blog)",
+      "title": "Hantavirus latest updates: 6 states are monitoring cruise ship passengers for potential infections",
+      "url": "https://www.yahoo.com/news/world/live/hantavirus-latest-updates-confirmed-cases-rise-to-5-from-dutch-cruise-ship-who-says-195033111.html",
+      "summary": "Yahoo News live blog update confirms New Jersey as the 6th US state monitoring residents for potential hantavirus exposure linked to MV Hondius, raising the count from 5 to 6 states. New Jersey DOH is monitoring two residents whose potential exposure occurred during air travel abroad, not directly aboard the ship. The full state breakdown: Arizona (1), California (1), Georgia (2), New Jersey (2), Texas (2), Virginia (1) — a total of at least 9 individuals across the 6 states, all currently asymptomatic. New Jersey has no history of a confirmed hantavirus case."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "NJ Department of Health",
+      "title": "NJDOH Monitoring Two New Jersey Residents Following Potential Hantavirus Exposure Linked to MV Hondius",
+      "url": "https://www.nj.gov/health/news/2026/approved/20260508a.shtml",
+      "summary": "Official press release from the New Jersey Department of Health confirming monitoring of two NJ residents who may have been exposed to a person infected with hantavirus who disembarked from MV Hondius. The two residents were not passengers on the cruise ship; their potential exposure occurred during international air travel. Both are asymptomatic and under active monitoring. Risk to the general public in New Jersey assessed as very low. New Jersey has no history of a confirmed hantavirus case."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "NBC News",
+      "title": "Spanish woman in hospital with suspected hantavirus infection; new case suspected on remote island",
+      "url": "https://www.nbcnews.com/health/health-news/flight-attendant-tests-negative-hantavirus-new-case-suspected-remote-i-rcna344191",
+      "summary": "NBC News covers two new suspected hantavirus developments in a single report. First, a 32-year-old Spanish woman in Alicante has been hospitalised with symptoms consistent with hantavirus infection after travelling on the same flight as a deceased Dutch MV Hondius passenger — she was seated two rows behind the victim, with brief contact. Second, British authorities have confirmed a suspected hantavirus case on Tristan da Cunha, the remote South Atlantic island (population ~220) where MV Hondius made a stop on April 15. The KLM flight attendant, previously suspected, has tested negative. Experts note this is the first suspected case in both mainland Europe (flight contact) and among passengers who disembarked at an intermediate island port."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "ITIJ (International Travel Insurance Journal)",
+      "title": "Hantavirus update: another suspected case linked to MV Hondius as Tenerife protests intensify",
+      "url": "https://www.itij.com/latest/news/hantavirus-update-another-suspected-case-linked-mv-hondius-tenerife-protests-intensify",
+      "summary": "ITIJ reports the latest MV Hondius developments for the travel insurance and assistance sector. Key update: protests have intensified outside Tenerife's parliament building, with residents and port workers chanting 'We want work, not illness' as police gathered ahead of the demonstrations. Despite the Canary Islands president's opposition, Spain's central government approved the ship's arrival citing international humanitarian law. A new suspected case linked to MV Hondius has also emerged. ITIJ notes the incident's significance for maritime travel insurance, emergency assistance protocols, and liability for cruise operators handling onboard infectious disease events."
+    },
+    {
+      "date": "2026-05-08",
+      "source": "Today.com / NBC News",
+      "title": "Hantavirus in the US: Map of States With Cruise Ship Passengers",
+      "url": "https://www.today.com/health/disease/us-hantavirus-cruise-ship-outbreak-passengers-map-states-rcna344213",
+      "summary": "Today.com publishes a US state-by-state map of residents being monitored for hantavirus exposure following the MV Hondius outbreak. Initial map shows 5 states: Texas, Georgia, Arizona, Virginia and California. Notes 17 US nationals were aboard the ship. CDC characterises risk to the American public as 'extremely low' (May 7 statement). Article contextualises the monitoring effort within broader US preparedness, noting the National Quarantine Unit in Nebraska as the designated repatriation facility for returning American passengers."
+    },
+    {
+      "date": "2026-05-07",
+      "source": "WHO",
+      "title": "Hantavirus disease — Andes virus infection cluster associated with MV Hondius cruise ship",
+      "url": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON599",
+      "summary": "WHO publishes disease outbreak news on the hantavirus cluster associated with the MV Hondius. Seven confirmed and suspected cases with three deaths. Global population risk assessed as LOW."
+    },
+    {
+      "date": "2026-05-07",
+      "source": "CNN",
+      "title": "Hantavirus outbreak on cruise ship: what we know",
+      "url": "https://www.cnn.com/2026/05/07/world/hantavirus-ship-tenerife-outbreak-intl",
+      "summary": "Three deaths confirmed among passengers of the MV Hondius expedition cruise. Ship currently anchored off Cape Verde under quarantine."
+    },
+    {
+      "date": "2026-05-07",
+      "source": "Washington Post",
+      "title": "Health authorities trace hantavirus contacts across multiple countries",
+      "url": "https://www.washingtonpost.com/health/2026/05/07/hantavirus-outbreak-cruise-tracing-contacts/",
+      "summary": "Contact tracing underway in the US, Spain, Singapore, Germany and Argentina for passengers who disembarked at earlier ports of call."
+    },
+    {
+      "date": "2026-05-07",
+      "source": "STAT News",
+      "title": "Hantavirus cruise ship outbreak concerns scientists, but this is not a new pandemic",
+      "url": "https://www.statnews.com/2026/05/07/hantavirus-cruise-ship-outbreak-scientists-say-not-new-pandemic/",
+      "summary": "Infectious disease experts clarify that Andes virus human-to-human transmission is rare and hantaviruses lack the respiratory spread efficiency needed for pandemic potential."
+    },
+    {
+      "date": "2026-05-06",
+      "source": "ECDC",
+      "title": "Rapid risk assessment: hantavirus cluster on expedition cruise ship",
+      "url": "https://www.ecdc.europa.eu/en/publications-data/hantavirus-associated-cluster-illness-cruise-ship-ecdc-assessment-and",
+      "summary": "ECDC assesses risk to European population as VERY LOW. Recommends enhanced surveillance for returning passengers."
+    },
+    {
+      "date": "2026-05-05",
+      "source": "Al Jazeera",
+      "title": "Cruise ship quarantined off Cape Verde after hantavirus deaths",
+      "url": "https://www.aljazeera.com/news/2026/5/5/cruise-ship-quarantined-cape-verde-hantavirus",
+      "summary": "MV Hondius under quarantine at Praia port. Cape Verdean authorities coordinating with WHO and Dutch health authorities."
+    },
+    {
+      "date": "2026-05-03",
+      "source": "The Hill",
+      "title": "CDC monitoring hantavirus situation, issues travel advisory for Argentina",
+      "url": "https://thehill.com/policy/healthcare/2026-05-03-cdc-hantavirus-travel-advisory-argentina",
+      "summary": "CDC issues Level 2 travel health notice for Argentina regarding Andes virus risk. Enhanced screening at US ports of entry."
+    },
+    {
+      "date": "2026-05-01",
+      "source": "PubMed",
+      "title": "Hantavirus: Third British national has suspected infection as WHO says this is \"not the start of a pandemic\".",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42103363/",
+      "summary": ""
+    },
+    {
+      "date": "2026-05-01",
+      "source": "PubMed",
+      "title": "Evidence of Juquitiba and Jaborá Orthohantavirus Co-Circulation in Rodent Communities of Argentina.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42098545/",
+      "summary": ""
+    },
+    {
+      "date": "2026-05-01",
+      "source": "PubMed",
+      "title": "There is no vaccine for deadly hantavirus: what that means for future outbreaks.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42098391/",
+      "summary": ""
+    },
+    {
+      "date": "2026-05-01",
+      "source": "PubMed",
+      "title": "Hantavirus: What you need to know.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42097664/",
+      "summary": ""
+    },
+    {
+      "date": "2026-05-01",
+      "source": "PubMed",
+      "title": "Hantavirus: Three dead in cruise ship outbreak as authorities investigate human-to-human transmission.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42091168/",
+      "summary": ""
+    },
+    {
+      "date": "2026-05-01",
+      "source": "PubMed",
+      "title": "Immunopathogenic insights into members of the class Bunyaviricetes: a comparative review of emerging zoonotic threats.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42090821/",
+      "summary": ""
+    },
+    {
+      "date": "2026-04-30",
+      "source": "ProMED",
+      "title": "Hantavirus update: Argentina (Patagonia), cruise ship cluster",
+      "url": "https://www.promedmail.org/",
+      "summary": "ProMED reports third death on MV Hondius. Argentina's national health ministry confirms 101 hantavirus infections since June 2025."
+    },
+    {
+      "date": "2026-04-25",
+      "source": "Reuters",
+      "title": "Dutch cruise company confirms hantavirus cases on expedition vessel",
+      "url": "https://www.reuters.com/world/2026-04-25-hantavirus-cruise-ship-cases/",
+      "summary": "Oceanwide Expeditions confirms five suspected hantavirus cases aboard MV Hondius. Two Dutch passengers have died."
+    },
+    {
+      "date": "2026-04-18",
+      "source": "RKI",
+      "title": "Hantavirus-Infektionen 2026: Aktuelle Situation",
+      "url": "https://www.rki.de/DE/Themen/Infektionskrankheiten/Infektionskrankheiten-A-Z/H/Hantavirus/Hantavirus.html",
+      "summary": "Robert Koch Institute reports on hantavirus situation in Germany. One German national among cruise ship fatalities. Domestic Puumala virus season tracking at expected levels."
+    },
+    {
+      "date": "2026-04-10",
+      "source": "PAHO",
+      "title": "Epidemiological update: hantavirus disease in the Americas",
+      "url": "https://www.paho.org/en/documents/epidemiological-update-hantavirus-disease-americas-2026",
+      "summary": "Pan American Health Organization reports elevated Andes virus activity in southern Argentina. Recommends rodent exposure prevention measures."
+    },
+    {
+      "date": "2026-03-15",
+      "source": "Argentina MOH",
+      "title": "Alerta epidemiologica: sindrome pulmonar por hantavirus",
+      "url": "https://www.argentina.gob.ar/salud/hantavirus",
+      "summary": "Argentina's Ministry of Health issues epidemiological alert for hantavirus pulmonary syndrome. Case counts running at twice the rate of the same period in 2024-2025."
+    },
+    {
+      "date": "2026-01-22",
+      "source": "CDC",
+      "title": "Hantavirus surveillance summary, United States, 2025",
+      "url": "https://www.cdc.gov/hantavirus/data-research/cases/index.html",
+      "summary": "CDC publishes annual hantavirus surveillance summary. 31 HPS cases reported in 2025, consistent with long-term average."
+    },
+    {
+      "date": "2025-11-15",
+      "source": "ECDC",
+      "title": "Annual epidemiological report: hantavirus infection, 2024",
+      "url": "https://www.ecdc.europa.eu/en/hantavirus-infection/surveillance-and-disease-data",
+      "summary": "ECDC publishes 2024 annual report. 2,340 confirmed cases across EU/EEA. Germany (423), Finland (312), and Sweden (198) account for majority of cases."
+    }
+  ]
+}

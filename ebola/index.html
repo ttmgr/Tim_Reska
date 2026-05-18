@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ebola 2026 Outbreak Tracker</title>
+  <meta name="description" content="Unofficial surveillance dashboard for the 2026 Ituri Province Ebola outbreak. Bundibugyo ebolavirus, DRC + Uganda, WHO PHEIC.">
+  <meta name="theme-color" content="#FAF9F7">
+  <meta property="og:title" content="Ebola 2026 Outbreak Tracker">
+  <meta property="og:description" content="Bundibugyo ebolavirus epidemic in DRC and Uganda. PHEIC declared 17 May 2026.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <div class="header-left">
+        <a href="../" class="site-logo">Tim Reska</a>
+        <span class="header-sep"></span>
+        <h1>Ebola 2026 Tracker</h1>
+      </div>
+      <div class="header-right">
+        <span class="header-updated" id="last-updated"></span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <div class="card hero-card">
+      <div class="hero-pills">
+        <span class="pill pill-red">PHEIC declared</span>
+        <span class="pill pill-red" id="risk-pill">No vaccine available</span>
+        <span class="pill pill-amber">Active community transmission</span>
+      </div>
+      <h2 class="hero-headline">Bundibugyo ebolavirus epidemic</h2>
+      <p class="hero-summary" id="hero-summary">
+        DRC's 17th Ebola outbreak and first caused by Bundibugyo ebolavirus. Centered in Ituri Province with confirmed cross-border spread to Uganda. WHO declared a PHEIC on 17 May 2026. No licensed vaccine or therapeutics exist for this virus species — all approved Ebola countermeasures target Zaire ebolavirus only. At least 4 healthcare workers have died. The outbreak is occurring in an active conflict zone with limited health infrastructure. True scale likely underestimated.
+      </p>
+      <div class="hero-stats" id="hero-stats"></div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">2026 Outbreak Overview</h2>
+      <p class="section-subtitle">Confirmed and suspected cases across DRC and Uganda.</p>
+
+      <div class="stat-grid" id="stat-grid"></div>
+
+      <div class="map-layout">
+        <div class="map-card">
+          <button class="map-reset-btn" id="map-reset">Reset view</button>
+          <div id="map"></div>
+          <div class="map-legend">
+            <span class="map-legend-item"><span class="legend-dot" style="background:#dc262630;border-color:#dc2626"></span> Confirmed + deaths</span>
+            <span class="map-legend-item"><span class="legend-dot" style="background:#d9770630;border-color:#d97706"></span> Suspected</span>
+            <span class="map-legend-item"><span class="legend-dot" style="background:#64748b30;border-color:#64748b"></span> At risk / monitoring</span>
+          </div>
+        </div>
+        <div class="route-panel">
+          <div class="route-panel-title">Response timeline</div>
+          <ul class="route-timeline" id="response-timeline"></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">Ituri Province Epicenter</h2>
+      <p class="section-subtitle">Bundibugyo ebolavirus — no approved vaccine or specific therapeutics.</p>
+
+      <div class="card" style="margin-bottom:var(--sp-4)">
+        <div class="cluster-metrics" id="outbreak-metrics"></div>
+      </div>
+
+      <div class="card card-flush">
+        <div class="case-table-wrap">
+          <table class="case-table">
+            <thead><tr><th>#</th><th>Date</th><th>Region</th><th>Description</th><th>Outcome</th></tr></thead>
+            <tbody id="case-tbody"></tbody>
+          </table>
+        </div>
+        <div class="case-cards" id="case-cards"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">Trends</h2>
+      <p class="section-subtitle">Epidemic trajectory since first suspected case on 24 April 2026.</p>
+      <div class="chart-grid">
+        <div class="chart-card chart-full">
+          <h3>Suspected cases surging, confirmed cases limited by lab capacity</h3>
+          <p class="chart-caption">Large gap between suspected and confirmed reflects diagnostic delay — standard Ebola Zaire rapid tests returned negative for Bundibugyo virus.</p>
+          <div style="height:280px"><canvas id="chart-epicurve"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h3>Cumulative trajectory suggests uncontrolled spread</h3>
+          <p class="chart-caption">Steep curve with no inflection point. No containment measures yet showing effect.</p>
+          <div style="height:300px"><canvas id="chart-cumulative"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h3>Cases by region</h3>
+          <p class="chart-caption">Mongbwalu Health Zone remains the epicenter. Goma and Kampala cases represent geographic expansion.</p>
+          <div style="height:300px"><canvas id="chart-regional"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">Latest Situation Updates</h2>
+      <p class="section-subtitle">Official reports and media coverage.</p>
+
+      <div class="filter-tabs" id="filter-tabs">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="WHO">WHO</button>
+        <button class="filter-tab" data-filter="CDC">CDC</button>
+        <button class="filter-tab" data-filter="Africa CDC">Africa CDC</button>
+        <button class="filter-tab" data-filter="media">Media</button>
+      </div>
+
+      <div class="news-feed" id="news-feed"></div>
+    </div>
+
+    <div class="section">
+      <div class="ref-label">Reference material</div>
+      <div class="ref-accordion">
+        <div class="ref-item" id="ref-historical">
+          <button class="ref-trigger" onclick="toggleRef(this)"><span>DRC Ebola Outbreak History (1976-2026)</span><span class="ref-arrow">&#9660;</span></button>
+          <div class="ref-body">
+            <div class="chart-grid" style="margin-top:var(--sp-3)">
+              <div class="chart-card chart-full"><h3>17 outbreaks in 50 years</h3><p class="chart-caption">All previous DRC outbreaks were Zaire ebolavirus. This is the first Bundibugyo outbreak in DRC.</p><div style="height:300px"><canvas id="chart-historical"></canvas></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="ref-item">
+          <button class="ref-trigger" onclick="toggleRef(this)"><span>Data Notes and Methodology</span><span class="ref-arrow">&#9660;</span></button>
+          <div class="ref-body">
+            <div class="methodology">
+              <dl>
+                <dt>Sources</dt><dd>WHO DON, CDC, Africa CDC, ECDC, INRB, DRC Ministry of Health</dd>
+                <dt>Updates</dt><dd>Manual on official publication. Numbers changing rapidly.</dd>
+                <dt>Case def.</dt><dd><strong>Confirmed</strong> (Bundibugyo-specific RT-PCR) · <strong>Suspected</strong> (clinical + epi link)</dd>
+                <dt>Reviewed</dt><dd id="methodology-reviewed">--</dd>
+              </dl>
+            </div>
+            <p style="margin-top:var(--sp-3);font-size:12px;color:var(--text-muted)">This dashboard uses publicly available information for situational awareness. It is not an official public health authority.</p>
+          </div>
+        </div>
+        <div class="ref-item">
+          <button class="ref-trigger" onclick="toggleRef(this)"><span>About Bundibugyo Ebolavirus</span><span class="ref-arrow">&#9660;</span></button>
+          <div class="ref-body">
+            <p>Bundibugyo ebolavirus is one of six known species in the genus <em>Orthoebolavirus</em> that causes Ebola virus disease in humans. It was first identified during the 2007-2008 outbreak in Bundibugyo District, western Uganda.</p>
+            <p><strong>Historical CFR</strong>: 25-50%. <strong>Incubation</strong>: 2-21 days. <strong>Transmission</strong>: direct contact with blood, secretions, organs, or body fluids of infected people, and with contaminated surfaces and materials.</p>
+            <p><strong>No approved medical countermeasures</strong>: All licensed Ebola vaccines (rVSV-ZEBOV/Ervebo, Ad26.ZEBOV/MVA-BN-Filo) and therapeutics (mAb114/Ebanga, REGN-EB3/Inmazeb) were developed specifically against Zaire ebolavirus and are not expected to provide protection against Bundibugyo virus.</p>
+            <p><strong>Diagnostic challenge</strong>: Standard rapid diagnostic tests detect only Zaire ebolavirus. Bundibugyo-specific RT-PCR assays are required, which are typically available only at national reference laboratories.</p>
+          </div>
+        </div>
+        <div class="ref-item">
+          <button class="ref-trigger" onclick="toggleRef(this)"><span>Response Organizations</span><span class="ref-arrow">&#9660;</span></button>
+          <div class="ref-body">
+            <p><strong>WHO</strong> — PHEIC declaration, technical team deployment, $500K emergency funding.</p>
+            <p><strong>Africa CDC</strong> — Continental coordination, IMST activation, Director-General visiting affected countries.</p>
+            <p><strong>US CDC</strong> — 30+ staff in DRC, additional deployments, lab support, American evacuation coordination.</p>
+            <p><strong>MSF</strong> — Already operating in Ituri, scaling up medical response.</p>
+            <p><strong>DRC Ministry of Health / INRB</strong> — National outbreak declaration, laboratory confirmation.</p>
+            <p><strong>Uganda Ministry of Health</strong> — National response for imported cases.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="sources"><strong>Data:</strong> WHO DON · CDC · Africa CDC · ECDC · INRB · DRC Ministry of Health</div>
+      <div>Publicly available data for situational awareness</div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.min.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+  <script>function toggleRef(btn){btn.parentElement.classList.toggle('open');}</script>
+</body>
+</html>

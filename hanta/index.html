@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hantavirus 2026 Outbreak Tracker</title>
+  <meta name="description" content="Unofficial surveillance dashboard for the 2026 hantavirus outbreak. MV Hondius cluster, case data, WHO/CDC/ECDC sources.">
+  <meta name="theme-color" content="#FAF9F7">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta property="og:title" content="Hantavirus 2026 Outbreak Tracker">
+  <meta property="og:description" content="Cruise-linked Andes virus cluster. Live case tracking and surveillance.">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <div class="header-left">
+        <a href="../" class="site-logo">Tim Reska</a>
+        <span class="header-sep"></span>
+        <h1>Hantavirus 2026 Tracker</h1>
+      </div>
+      <div class="header-right">
+        <span class="header-updated" id="last-updated"></span>
+        <div class="lang-toggle">
+          <span class="active">EN</span>
+          <a href="de/">DE</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- HERO SITUATION CARD -->
+    <div class="card hero-card">
+      <div class="hero-pills">
+        <span class="pill pill-amber">Active cluster</span>
+        <span class="pill pill-green" id="risk-pill">Global risk: Low</span>
+      </div>
+      <h2 class="hero-headline">Cruise-associated Andes virus cluster</h2>
+      <p class="hero-summary" id="hero-summary">
+        Eleven ship-associated cases (8 confirmed, 1 inconclusive, 2 probable), three fatal. Evacuation complete — all 147 passengers and crew repatriated from Tenerife by May 11 via ~10 flights. Two new confirmed cases post-evacuation: French female passenger in ICU (deteriorating), Spanish male passenger asymptomatic (detected at Gómez Ulla Hospital, Madrid). Former passengers now quarantined in 12 countries. US: 41 monitored, no positives; UK: 22 completing 42-day home isolation after Arrowe Park; Canada: 36 connected, flight ban in effect. WHO warns more cases possible through early June (45-day incubation). No sustained community transmission. WHO global risk: LOW.
+      </p>
+      <div class="hero-stats" id="hero-stats"></div>
+    </div>
+
+    <!-- GLOBAL 2026 SURVEILLANCE -->
+    <div class="section">
+      <h2 class="section-title">2026 Global Surveillance</h2>
+      <p class="section-subtitle">All hantavirus cases reported worldwide in 2026, including endemic and outbreak-linked.</p>
+
+      <div class="stat-grid" id="stat-grid"></div>
+
+      <!-- MAP — moved up for immediate geographic context -->
+      <div class="map-layout">
+        <div class="map-card">
+          <button class="map-reset-btn" id="map-reset">Reset view</button>
+          <div id="map"></div>
+          <div class="map-legend">
+            <span class="map-legend-item"><span class="legend-dot" style="background:#2563eb30;border-color:#2563eb"></span> Cases</span>
+            <span class="map-legend-item"><span class="legend-dot" style="background:#dc262630;border-color:#dc2626"></span> Deaths</span>
+            <span class="map-legend-item"><span class="legend-dot" style="background:#64748b30;border-color:#64748b"></span> Tracing</span>
+            <span class="map-legend-item"><span class="legend-line"></span> Route</span>
+          </div>
+        </div>
+        <div class="route-panel">
+          <div class="route-panel-title">Ship route</div>
+          <ul class="route-timeline" id="route-timeline"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- MV HONDIUS CLUSTER -->
+    <div class="section">
+      <h2 class="section-title">MV Hondius Cluster Investigation</h2>
+      <p class="section-subtitle">Andes virus (ANDV) — the only hantavirus with documented human-to-human transmission.</p>
+
+      <div class="card" style="margin-bottom:var(--sp-4)">
+        <div class="cluster-metrics" id="cluster-metrics"></div>
+      </div>
+
+      <div class="card card-flush">
+        <div class="case-table-wrap">
+          <table class="case-table">
+            <thead><tr><th>Case</th><th>Date</th><th>Nationality</th><th>Description</th><th>Outcome</th></tr></thead>
+            <tbody id="case-tbody"></tbody>
+          </table>
+        </div>
+        <div class="case-cards" id="case-cards"></div>
+      </div>
+    </div>
+
+    <!-- TRENDS — moved below cluster for narrative flow -->
+    <div class="section">
+      <h2 class="section-title">Trends</h2>
+      <p class="section-subtitle">Case trajectory and geographic distribution, 2026.</p>
+      <div class="chart-grid">
+        <div class="chart-card chart-full">
+          <h3>Weekly reported cases peaked after cluster detection</h3>
+          <p class="chart-caption">New cases per reporting period. Mid-April peak coincided with MV Hondius identification.</p>
+          <div style="height:280px"><canvas id="chart-epicurve"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h3>Deaths concentrated among early ship cases</h3>
+          <p class="chart-caption">All three deaths occurred among the first MV Hondius passengers in April.</p>
+          <div style="height:300px"><canvas id="chart-timeline"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h3>Ship-linked cases by country (excl. Argentina)</h3>
+          <p class="chart-caption" id="argentina-note" style="display:none;font-weight:500"></p>
+          <p class="chart-caption">Argentina's 101 endemic cases excluded for scale. Remaining countries shown below.</p>
+          <div style="height:300px"><canvas id="chart-regional"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEWS -->
+    <div class="section">
+      <h2 class="section-title">Latest Situation Updates</h2>
+      <p class="section-subtitle">Official reports and media coverage.</p>
+
+      <div class="filter-tabs" id="filter-tabs">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="WHO">WHO</button>
+        <button class="filter-tab" data-filter="CDC">CDC</button>
+        <button class="filter-tab" data-filter="ECDC">ECDC</button>
+        <button class="filter-tab" data-filter="media">Media</button>
+      </div>
+
+      <div class="news-feed" id="news-feed"></div>
+    </div>
+
+    <!-- REFERENCE -->
+    <div class="section">
+      <div class="ref-label">Reference material</div>
+      <div class="ref-accordion">
+        <div class="ref-item" id="ref-historical">
+          <button class="ref-trigger" onclick="toggleRef(this)"><span>Historical Surveillance (2013-2025)</span><span class="ref-arrow">&#9660;</span></button>
+          <div class="ref-body">
+            <div class="chart-grid" style="margin-top:var(--sp-3)">
+              <div class="chart-card"><h3>EU/EEA and Germany</h3><p class="chart-caption">Biennial peaks correlate with beech mast years.</p><div style="height:260px"><canvas id="chart-historical-eu"></canvas></div></div>
+              <div class="chart-card"><h3>United States (HPS)</h3><p class="chart-caption">Sin Nombre virus, southwestern states.</p><div style="height:260px"><canvas id="chart-historical-us"></canvas></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="ref-item">
+          <button class="ref-trigger" onclick="toggleRef(this)"><span>Data Notes and Methodology</span><span class="ref-arrow">&#9660;</span></button>
+          <div class="ref-body">
+            <div class="methodology">
+              <dl>
+                <dt>Sources</dt><dd>WHO DON, CDC, ECDC TESSy, RKI SurvStat, ProMED, PAHO</dd>
+                <dt>Updates</dt><dd>News automated daily. Case data manual on official publication.</dd>
+                <dt>Case def.</dt><dd><strong>Confirmed</strong> (RT-PCR/IgM) · <strong>Probable</strong> (clinical+epi link) · <strong>Suspected</strong> (clinical only)</dd>
+                <dt>Reviewed</dt><dd id="methodology-reviewed">--</dd>
+              </dl>
+            </div>
+            <p style="margin-top:var(--sp-3);font-size:12px;color:var(--text-muted)">This dashboard uses publicly available information for situational awareness. It is not an official public health authority.</p>
+          </div>
+        </div>
+        <div class="ref-item">
+          <button class="ref-trigger" onclick="toggleRef(this)"><span>About Hantaviruses</span><span class="ref-arrow">&#9660;</span></button>
+          <div class="ref-body">
+            <p>Hantaviruses are RNA viruses transmitted via aerosolized rodent excreta. Two syndromes: HPS (Americas) and HFRS (Europe/Asia).</p>
+            <p><strong>ANDV</strong> (South America, CFR 30-40%, only human-to-human) · <strong>SNV</strong> (North America, CFR ~36%) · <strong>PUUV</strong> (Europe, CFR &lt;1%) · <strong>HTNV</strong> (East Asia, CFR 5-15%).</p>
+            <p>Incubation 1-5 weeks. No approved vaccine. Prevention: rodent control, PPE, building sealing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="sources"><strong>Data:</strong> WHO DON · CDC · ECDC · RKI · ProMED · PAHO</div>
+      <div><a href="https://github.com/ttmgr/GenomicsForOneHealth">GenomicsForOneHealth</a> · Publicly available data for situational awareness</div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.min.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+  <script>function toggleRef(btn){btn.parentElement.classList.toggle('open');}</script>
+</body>
+</html>

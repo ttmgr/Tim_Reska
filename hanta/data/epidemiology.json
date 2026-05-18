@@ -1,0 +1,71 @@
+{
+  "description": "Hantavirus serotype reference data for clinical context.",
+  "serotypes": [
+    {
+      "name": "Andes virus",
+      "abbreviation": "ANDV",
+      "syndrome": "Hantavirus pulmonary syndrome (HPS)",
+      "cfr_range_percent": [30, 40],
+      "incubation_days": [7, 39],
+      "reservoir": "Oligoryzomys longicaudatus (long-tailed pygmy rice rat)",
+      "geographic_range": "Argentina, Chile, Bolivia, Brazil (southern)",
+      "human_to_human": true,
+      "notes": "Only hantavirus with confirmed human-to-human transmission. Close contact required."
+    },
+    {
+      "name": "Sin Nombre virus",
+      "abbreviation": "SNV",
+      "syndrome": "Hantavirus pulmonary syndrome (HPS)",
+      "cfr_range_percent": [30, 40],
+      "incubation_days": [9, 33],
+      "reservoir": "Peromyscus maniculatus (deer mouse)",
+      "geographic_range": "United States (southwestern), Canada",
+      "human_to_human": false,
+      "notes": "Most common cause of HPS in North America. First identified 1993 in Four Corners region."
+    },
+    {
+      "name": "Puumala virus",
+      "abbreviation": "PUUV",
+      "syndrome": "Hemorrhagic fever with renal syndrome (HFRS), nephropathia epidemica",
+      "cfr_range_percent": [0.1, 0.4],
+      "incubation_days": [14, 35],
+      "reservoir": "Myodes glareolus (bank vole)",
+      "geographic_range": "Scandinavia, Germany, Balkans, western Russia",
+      "human_to_human": false,
+      "notes": "Most common hantavirus in Europe. Biennial peaks correlate with beech mast years and bank vole population cycles."
+    },
+    {
+      "name": "Hantaan virus",
+      "abbreviation": "HTNV",
+      "syndrome": "Hemorrhagic fever with renal syndrome (HFRS)",
+      "cfr_range_percent": [5, 15],
+      "incubation_days": [7, 42],
+      "reservoir": "Apodemus agrarius (striped field mouse)",
+      "geographic_range": "China, Korea, far-eastern Russia",
+      "human_to_human": false,
+      "notes": "Prototype hantavirus. First isolated during Korean War (1976). Causes classical HFRS."
+    },
+    {
+      "name": "Dobrava-Belgrade virus",
+      "abbreviation": "DOBV",
+      "syndrome": "Hemorrhagic fever with renal syndrome (HFRS)",
+      "cfr_range_percent": [5, 12],
+      "incubation_days": [14, 28],
+      "reservoir": "Apodemus flavicollis (yellow-necked mouse)",
+      "geographic_range": "Southeastern Europe, Balkans, central Europe",
+      "human_to_human": false,
+      "notes": "Most severe European hantavirus. Multiple genotypes with varying virulence."
+    },
+    {
+      "name": "Seoul virus",
+      "abbreviation": "SEOV",
+      "syndrome": "Hemorrhagic fever with renal syndrome (HFRS), mild",
+      "cfr_range_percent": [1, 2],
+      "incubation_days": [7, 21],
+      "reservoir": "Rattus norvegicus (brown rat), Rattus rattus (black rat)",
+      "geographic_range": "Worldwide (follows rat distribution)",
+      "human_to_human": false,
+      "notes": "Globally distributed via rat trade and urban rat populations. Generally milder HFRS."
+    }
+  ]
+}
