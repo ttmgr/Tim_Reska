@@ -1,0 +1,26 @@
+{
+  "drc_outbreaks": [
+    { "year": 1976, "province": "Equateur", "virus": "Zaire", "cases": 318, "deaths": 280, "cfr": 88 },
+    { "year": 1977, "province": "Equateur", "virus": "Zaire", "cases": 1, "deaths": 1, "cfr": 100 },
+    { "year": 1995, "province": "Bandundu", "virus": "Zaire", "cases": 315, "deaths": 254, "cfr": 81 },
+    { "year": 2007, "province": "Kasai-Occidental", "virus": "Zaire", "cases": 264, "deaths": 187, "cfr": 71 },
+    { "year": 2008, "province": "Kasai-Occidental", "virus": "Zaire", "cases": 32, "deaths": 14, "cfr": 44 },
+    { "year": 2012, "province": "Orientale", "virus": "Bundibugyo", "cases": 36, "deaths": 13, "cfr": 36 },
+    { "year": 2012, "province": "Equateur", "virus": "Zaire", "cases": 57, "deaths": 29, "cfr": 51 },
+    { "year": 2014, "province": "Equateur", "virus": "Zaire", "cases": 66, "deaths": 49, "cfr": 74 },
+    { "year": 2017, "province": "Bas-Uele", "virus": "Zaire", "cases": 8, "deaths": 4, "cfr": 50 },
+    { "year": 2018, "province": "Equateur", "virus": "Zaire", "cases": 54, "deaths": 33, "cfr": 61 },
+    { "year": 2018, "province": "North Kivu/Ituri", "virus": "Zaire", "cases": 3481, "deaths": 2299, "cfr": 66 },
+    { "year": 2020, "province": "Equateur", "virus": "Zaire", "cases": 130, "deaths": 55, "cfr": 42 },
+    { "year": 2021, "province": "North Kivu", "virus": "Zaire", "cases": 12, "deaths": 6, "cfr": 50 },
+    { "year": 2021, "province": "Equateur", "virus": "Zaire", "cases": 5, "deaths": 0, "cfr": 0 },
+    { "year": 2022, "province": "North Kivu", "virus": "Zaire", "cases": 7, "deaths": 1, "cfr": 14 },
+    { "year": 2022, "province": "Equateur", "virus": "Zaire", "cases": 164, "deaths": 55, "cfr": 34 },
+    { "year": 2026, "province": "Ituri", "virus": "Bundibugyo", "cases": 12, "deaths": 5, "cfr": 42 }
+  ],
+  "bundibugyo_outbreaks": [
+    { "year": 2007, "country": "Uganda", "province": "Bundibugyo District", "cases": 149, "deaths": 37, "cfr": 25 },
+    { "year": 2012, "country": "DRC", "province": "Orientale", "cases": 36, "deaths": 13, "cfr": 36 },
+    { "year": 2026, "country": "DRC/Uganda", "province": "Ituri/Kampala", "cases": 12, "deaths": 5, "cfr": 42 }
+  ]
+}

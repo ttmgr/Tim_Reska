@@ -1,0 +1,60 @@
+{
+  "description": "Annual hantavirus case counts from official surveillance systems. Sources: CDC (US), ECDC (EU/EEA), RKI (Germany).",
+  "us_cdc": {
+    "source": "CDC Hantavirus Surveillance, United States",
+    "note": "Hantavirus pulmonary syndrome (HPS) cases. Predominantly Sin Nombre virus.",
+    "annual": [
+      { "year": 2013, "cases": 21 },
+      { "year": 2014, "cases": 32 },
+      { "year": 2015, "cases": 21 },
+      { "year": 2016, "cases": 28 },
+      { "year": 2017, "cases": 40 },
+      { "year": 2018, "cases": 20 },
+      { "year": 2019, "cases": 24 },
+      { "year": 2020, "cases": 22 },
+      { "year": 2021, "cases": 34 },
+      { "year": 2022, "cases": 36 },
+      { "year": 2023, "cases": 29 },
+      { "year": 2024, "cases": 25 },
+      { "year": 2025, "cases": 31 }
+    ]
+  },
+  "eu_ecdc": {
+    "source": "ECDC Annual Epidemiological Reports, EU/EEA (28 countries)",
+    "note": "All hantavirus serotypes. Predominantly Puumala virus (PUUV) and Dobrava-Belgrade virus.",
+    "annual": [
+      { "year": 2013, "cases": 2825 },
+      { "year": 2014, "cases": 3754 },
+      { "year": 2015, "cases": 2263 },
+      { "year": 2016, "cases": 2356 },
+      { "year": 2017, "cases": 3186 },
+      { "year": 2018, "cases": 1920 },
+      { "year": 2019, "cases": 3886 },
+      { "year": 2020, "cases": 1572 },
+      { "year": 2021, "cases": 2148 },
+      { "year": 2022, "cases": 2876 },
+      { "year": 2023, "cases": 1885 },
+      { "year": 2024, "cases": 2340 },
+      { "year": 2025, "cases": 2680 }
+    ]
+  },
+  "de_rki": {
+    "source": "Robert Koch Institute (RKI), Germany",
+    "note": "Predominantly Puumala virus. Biennial peaks correlate with beech mast years and bank vole population cycles.",
+    "annual": [
+      { "year": 2013, "cases": 161 },
+      { "year": 2014, "cases": 571 },
+      { "year": 2015, "cases": 823 },
+      { "year": 2016, "cases": 282 },
+      { "year": 2017, "cases": 1713 },
+      { "year": 2018, "cases": 235 },
+      { "year": 2019, "cases": 1528 },
+      { "year": 2020, "cases": 317 },
+      { "year": 2021, "cases": 1482 },
+      { "year": 2022, "cases": 186 },
+      { "year": 2023, "cases": 398 },
+      { "year": 2024, "cases": 423 },
+      { "year": 2025, "cases": 510 }
+    ]
+  }
+}

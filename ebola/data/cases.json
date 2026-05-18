@@ -1,0 +1,138 @@
+{
+  "last_updated": "2026-05-18",
+  "summary": {
+    "total_confirmed": 12,
+    "total_suspected": 336,
+    "deaths_confirmed": 5,
+    "deaths_suspected": 84,
+    "total_deaths_all": 89,
+    "countries_affected": 2,
+    "health_zones_affected": 3,
+    "who_risk_global": "MODERATE",
+    "who_risk_national": "VERY HIGH",
+    "who_risk_regional": "HIGH",
+    "ecdc_risk_europe": "VERY LOW",
+    "pheic": true,
+    "pheic_date": "2026-05-17",
+    "vaccine_available": false,
+    "virus": "Bundibugyo ebolavirus",
+    "weekly_delta": { "confirmed": 4, "suspected": 90, "deaths": 12 }
+  },
+  "regions": [
+    {
+      "name": "Mongbwalu HZ",
+      "province": "Ituri",
+      "country": "DRC",
+      "iso": "CD",
+      "lat": 1.93,
+      "lon": 30.28,
+      "confirmed": 6,
+      "suspected": 180,
+      "deaths_confirmed": 2,
+      "deaths_suspected": 45,
+      "health_areas": 3,
+      "role": "Epicenter",
+      "notes": "First cases detected here. Index case was a healthcare worker."
+    },
+    {
+      "name": "Rwampara HZ",
+      "province": "Ituri",
+      "country": "DRC",
+      "iso": "CD",
+      "lat": 1.85,
+      "lon": 30.45,
+      "confirmed": 2,
+      "suspected": 96,
+      "deaths_confirmed": 1,
+      "deaths_suspected": 28,
+      "health_areas": 6,
+      "role": "Expansion zone",
+      "notes": "Six health areas affected. Transmission chains unclear."
+    },
+    {
+      "name": "Bunia",
+      "province": "Ituri",
+      "country": "DRC",
+      "iso": "CD",
+      "lat": 1.56,
+      "lon": 30.25,
+      "confirmed": 2,
+      "suspected": 48,
+      "deaths_confirmed": 1,
+      "deaths_suspected": 8,
+      "health_areas": 2,
+      "role": "Provincial capital",
+      "notes": "Index case died here. Provincial coordination center."
+    },
+    {
+      "name": "Goma",
+      "province": "North Kivu",
+      "country": "DRC",
+      "iso": "CD",
+      "lat": -1.68,
+      "lon": 29.23,
+      "confirmed": 1,
+      "suspected": 8,
+      "deaths_confirmed": 0,
+      "deaths_suspected": 2,
+      "health_areas": 1,
+      "role": "Imported case",
+      "notes": "One confirmed case traveled from Ituri. Reported 17 May."
+    },
+    {
+      "name": "Kampala",
+      "province": null,
+      "country": "Uganda",
+      "iso": "UG",
+      "lat": 0.31,
+      "lon": 32.58,
+      "confirmed": 2,
+      "suspected": 4,
+      "deaths_confirmed": 1,
+      "deaths_suspected": 1,
+      "health_areas": null,
+      "role": "Cross-border importation",
+      "notes": "Two lab-confirmed cases among travelers from DRC. One death. No apparent epi link between the two cases."
+    }
+  ],
+  "at_risk": [
+    {
+      "name": "South Sudan",
+      "iso": "SS",
+      "lat": 6.88,
+      "lon": 31.60,
+      "status": "At risk",
+      "notes": "Shares border with Ituri Province. Flagged by Africa CDC."
+    },
+    {
+      "name": "Rwanda",
+      "iso": "RW",
+      "lat": -1.94,
+      "lon": 29.87,
+      "status": "Monitoring",
+      "notes": "Border with North Kivu. Enhanced surveillance active."
+    },
+    {
+      "name": "Burundi",
+      "iso": "BI",
+      "lat": -3.37,
+      "lon": 29.92,
+      "status": "Monitoring",
+      "notes": "Border with DRC. Enhanced surveillance."
+    }
+  ],
+  "timeline": [
+    { "date": "2026-04-24", "confirmed": 0, "suspected": 1, "deaths": 0 },
+    { "date": "2026-04-27", "confirmed": 0, "suspected": 3, "deaths": 1 },
+    { "date": "2026-04-30", "confirmed": 0, "suspected": 8, "deaths": 3 },
+    { "date": "2026-05-03", "confirmed": 0, "suspected": 18, "deaths": 8 },
+    { "date": "2026-05-05", "confirmed": 0, "suspected": 32, "deaths": 14 },
+    { "date": "2026-05-07", "confirmed": 0, "suspected": 56, "deaths": 22 },
+    { "date": "2026-05-10", "confirmed": 0, "suspected": 98, "deaths": 35 },
+    { "date": "2026-05-12", "confirmed": 0, "suspected": 145, "deaths": 48 },
+    { "date": "2026-05-14", "confirmed": 8, "suspected": 200, "deaths": 62 },
+    { "date": "2026-05-15", "confirmed": 10, "suspected": 246, "deaths": 77 },
+    { "date": "2026-05-16", "confirmed": 10, "suspected": 280, "deaths": 80 },
+    { "date": "2026-05-17", "confirmed": 12, "suspected": 336, "deaths": 89 }
+  ]
+}

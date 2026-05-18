@@ -1,0 +1,137 @@
+{
+  "outbreak_name": "2026 Ituri Province Ebola Epidemic",
+  "virus": "Bundibugyo ebolavirus",
+  "drc_outbreak_number": 17,
+  "first_symptoms": "2026-04-24",
+  "who_alerted": "2026-05-05",
+  "lab_confirmed": "2026-05-14",
+  "official_declaration": "2026-05-15",
+  "pheic_declared": "2026-05-17",
+  "incubation_days": "2-21",
+  "historical_cfr_percent": "25-50",
+  "vaccine_available": false,
+  "therapeutics_available": false,
+  "confirmed_cases": [
+    {
+      "id": 1,
+      "date": "2026-04-24",
+      "region": "Mongbwalu HZ",
+      "description": "Healthcare worker, earliest known suspected case. Developed symptoms. Died approximately three days later at a medical center in Bunia.",
+      "outcome": "Deceased (2026-04-27)",
+      "hcw": true
+    },
+    {
+      "id": 2,
+      "date": "2026-05-14",
+      "region": "Mongbwalu HZ",
+      "description": "Confirmed via INRB Kinshasa Bundibugyo-specific assay. Part of batch of 13 samples — 8 tested positive.",
+      "outcome": "Under treatment",
+      "hcw": false
+    },
+    {
+      "id": 3,
+      "date": "2026-05-14",
+      "region": "Mongbwalu HZ",
+      "description": "Healthcare worker. Confirmed in same INRB batch.",
+      "outcome": "Deceased",
+      "hcw": true
+    },
+    {
+      "id": 4,
+      "date": "2026-05-14",
+      "region": "Rwampara HZ",
+      "description": "Confirmed in INRB batch. Epidemiological link to Mongbwalu cases unclear.",
+      "outcome": "Under treatment",
+      "hcw": false
+    },
+    {
+      "id": 5,
+      "date": "2026-05-14",
+      "region": "Bunia",
+      "description": "Healthcare worker confirmed in INRB batch. Treated patients from Mongbwalu.",
+      "outcome": "Deceased",
+      "hcw": true
+    },
+    {
+      "id": 6,
+      "date": "2026-05-14",
+      "region": "Mongbwalu HZ",
+      "description": "Community member. Confirmed in INRB batch.",
+      "outcome": "Under treatment",
+      "hcw": false
+    },
+    {
+      "id": 7,
+      "date": "2026-05-14",
+      "region": "Mongbwalu HZ",
+      "description": "Healthcare worker. Fourth HCW confirmed in initial batch.",
+      "outcome": "Deceased",
+      "hcw": true
+    },
+    {
+      "id": 8,
+      "date": "2026-05-14",
+      "region": "Rwampara HZ",
+      "description": "Community member confirmed in INRB batch.",
+      "outcome": "Under treatment",
+      "hcw": false
+    },
+    {
+      "id": 9,
+      "date": "2026-05-15",
+      "region": "Bunia",
+      "description": "Confirmed after DRC official outbreak declaration. Contact of case 5.",
+      "outcome": "Under treatment",
+      "hcw": false
+    },
+    {
+      "id": 10,
+      "date": "2026-05-15",
+      "region": "Mongbwalu HZ",
+      "description": "Community member confirmed after outbreak declaration.",
+      "outcome": "Under treatment",
+      "hcw": false
+    },
+    {
+      "id": 11,
+      "date": "2026-05-16",
+      "region": "Kampala, Uganda",
+      "description": "First Uganda case. Traveler from DRC, lab-confirmed in Kampala.",
+      "outcome": "Under treatment",
+      "hcw": false
+    },
+    {
+      "id": 12,
+      "date": "2026-05-16",
+      "region": "Kampala, Uganda",
+      "description": "Second Uganda case. Traveler from DRC, no apparent epi link to case 11. One death.",
+      "outcome": "Deceased",
+      "hcw": false
+    }
+  ],
+  "response_timeline": [
+    { "date": "2026-04-24", "event": "First suspected case develops symptoms (HCW, Mongbwalu)", "severity": "onset" },
+    { "date": "2026-04-27", "event": "Index case dies at medical center in Bunia", "severity": "death" },
+    { "date": "2026-05-05", "event": "WHO alerted to high-mortality unknown illness in Mongbwalu", "severity": "alert" },
+    { "date": "2026-05-05", "event": "Rapid response team dispatched to investigate", "severity": "response" },
+    { "date": "2026-05-13", "event": "Investigation completed by rapid response team", "severity": "response" },
+    { "date": "2026-05-14", "event": "INRB confirms Bundibugyo ebolavirus (8/13 samples positive)", "severity": "alert" },
+    { "date": "2026-05-15", "event": "DRC officially declares Ebola outbreak", "severity": "alert" },
+    { "date": "2026-05-15", "event": "Africa CDC issues continental alert", "severity": "alert" },
+    { "date": "2026-05-15", "event": "First Uganda case confirmed in Kampala", "severity": "alert" },
+    { "date": "2026-05-16", "event": "Second Uganda case confirmed; one death", "severity": "death" },
+    { "date": "2026-05-16", "event": "Africa CDC convenes high-level meeting (130+ participants)", "severity": "response" },
+    { "date": "2026-05-17", "event": "WHO declares PHEIC", "severity": "pheic" },
+    { "date": "2026-05-17", "event": "Confirmed case reported in Goma (North Kivu)", "severity": "alert" },
+    { "date": "2026-05-17", "event": "Reports of exposed Americans in DRC", "severity": "alert" }
+  ],
+  "key_metrics": {
+    "hcw_deaths": 4,
+    "hcw_cases": 4,
+    "sample_positivity": "62%",
+    "initial_samples_positive": 8,
+    "initial_samples_tested": 13,
+    "diagnostic_delay_days": 10,
+    "countries_cross_border": 1
+  }
+}

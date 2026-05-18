@@ -1,0 +1,103 @@
+{
+  "last_updated": "2026-05-18",
+  "articles": [
+    {
+      "date": "2026-05-17",
+      "source": "WHO",
+      "title": "WHO declares Ebola outbreak in DRC and Uganda a PHEIC",
+      "url": "https://www.who.int/news/item/17-05-2026-epidemic-of-ebola-disease-in-the-democratic-republic-of-the-congo-and-uganda-determined-a-public-health-emergency-of-international-concern",
+      "summary": "WHO Director-General declares the Bundibugyo ebolavirus epidemic a Public Health Emergency of International Concern. Key factors: no approved vaccine or therapeutics for this species, confirmed cross-border transmission to Uganda, rising case numbers with significant surveillance uncertainty, and ongoing armed conflict in Ituri Province."
+    },
+    {
+      "date": "2026-05-17",
+      "source": "WHO",
+      "title": "Ebola virus disease — DRC and Uganda — Disease Outbreak News DON602",
+      "url": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON602",
+      "summary": "WHO publishes DON602 with updated case counts: 12 confirmed cases (10 DRC, 2 Uganda), 336 suspected cases, 89 total deaths. Confirmed case reported in Goma, North Kivu. WHO warns outbreak may be larger than currently detected."
+    },
+    {
+      "date": "2026-05-17",
+      "source": "CDC",
+      "title": "CDC mobilizes international Ebola response",
+      "url": "https://www.cdc.gov/media/releases/2026/cdc-mobilizes-international-ebola-response.html",
+      "summary": "CDC announces 30+ staff already in DRC country office with additional deployments planned. Providing lab diagnostics support and coordinating potential evacuation of exposed Americans. Emphasizes no licensed vaccine exists for Bundibugyo ebolavirus."
+    },
+    {
+      "date": "2026-05-17",
+      "source": "ECDC",
+      "title": "WHO declares Ebola outbreak in DRC a public health emergency",
+      "url": "https://www.ecdc.europa.eu/en/news-events/who-declares-ebola-outbreak-democratic-republic-congo-public-health-emergency",
+      "summary": "ECDC monitoring statement following WHO PHEIC declaration. Risk to EU/EEA residents rated very low. Discussing potential EU Health Task Force deployment."
+    },
+    {
+      "date": "2026-05-17",
+      "source": "CNN",
+      "title": "Ebola outbreak declared global emergency: What you need to know",
+      "url": "https://www.cnn.com/2026/05/17/africa/ebola-outbreak-congo-uganda-explainer-intl",
+      "summary": "Comprehensive explainer on the Ituri Province Ebola epidemic. Key points: Bundibugyo virus lacks any approved vaccine or treatment, 8 of 13 initial samples tested positive (62%), at least 4 healthcare workers have died, and the outbreak is occurring in an active conflict zone with Islamic State-affiliated militants."
+    },
+    {
+      "date": "2026-05-17",
+      "source": "Al Jazeera",
+      "title": "WHO declares Ebola outbreak in DRC, Uganda a global emergency — what to know",
+      "url": "https://www.aljazeera.com/news/2026/5/17/who-declares-ebola-outbreak-in-drc-uganda-a-global-emergency-what-to-know",
+      "summary": "Coverage of WHO PHEIC declaration with context on the Bundibugyo virus species, the significance of cross-border spread to Uganda, and challenges posed by armed conflict and limited health infrastructure in Ituri Province."
+    },
+    {
+      "date": "2026-05-17",
+      "source": "STAT News",
+      "title": "Americans exposed to Ebola in Congo as outbreak grows",
+      "url": "https://www.statnews.com/2026/05/17/ebola-outbreak-congo-americans-exposure-suspected-cases/",
+      "summary": "Several American nationals in DRC believed to have had contact with suspected Ebola cases. At least one may have developed symptoms. US government arranging potential evacuation, possibly to a military base in Germany."
+    },
+    {
+      "date": "2026-05-16",
+      "source": "Africa CDC",
+      "title": "Africa CDC calls for urgent regional coordination following Ebola outbreak in DRC and imported case in Uganda",
+      "url": "https://africacdc.org/news-item/africa-cdc-calls-for-urgent-regional-coordination-following-ebola-virus-disease-outbreak-in-ituri-province-drc-and-imported-ebola-bundibugyo-case-reported-by-uganda/",
+      "summary": "Africa CDC convenes high-level consultative meeting with 130+ participants from WHO, UN agencies, donor countries, and pharmaceutical companies. Director-General to visit affected countries. Incident Management Support Team activated."
+    },
+    {
+      "date": "2026-05-16",
+      "source": "NPR",
+      "title": "New Ebola outbreak in DRC declared a global emergency by WHO",
+      "url": "https://www.npr.org/2026/05/16/g-s1-122494/new-ebola-outbreak-drc-who-global-emergency",
+      "summary": "NPR reports on the outbreak dynamics, noting the diagnostic delay caused by standard rapid tests only detecting Zaire ebolavirus. Bundibugyo-specific assays were required, adding approximately 10 days to confirmation."
+    },
+    {
+      "date": "2026-05-16",
+      "source": "Al Jazeera",
+      "title": "DRC Health Minister warns of very high Ebola lethality rate",
+      "url": "https://www.aljazeera.com/news/2026/5/16/drc-health-minister-warns-very-high-ebola-lethality-rate-as-toll-hits-80",
+      "summary": "DRC Health Minister issues warning about the high case fatality rate among suspected cases. Total suspected deaths reach 80. Healthcare worker infections highlight nosocomial transmission risk."
+    },
+    {
+      "date": "2026-05-15",
+      "source": "Africa CDC",
+      "title": "Africa CDC issues continental alert for Ebola in Ituri Province",
+      "url": "https://africacdc.org/news-item/africa-cdc-calls-for-urgent-regional-coordination-meeting-following-ebola-virus-disease-outbreak-in-ituri-province-drc/",
+      "summary": "Africa CDC activates continental alert following DRC official outbreak declaration. South Sudan flagged as highest-risk neighboring country due to shared border with Ituri Province."
+    },
+    {
+      "date": "2026-05-15",
+      "source": "PBS",
+      "title": "What to know about the Ebola outbreak that WHO declared a global health emergency",
+      "url": "https://www.pbs.org/newshour/world/what-to-know-about-the-ebola-outbreak-that-the-who-has-declared-a-global-health-emergency",
+      "summary": "PBS overview of the outbreak, noting this is DRC's 17th Ebola epidemic but the first caused by Bundibugyo virus in the country. All previous DRC outbreaks were Zaire ebolavirus."
+    },
+    {
+      "date": "2026-05-14",
+      "source": "WHO",
+      "title": "INRB Kinshasa confirms Bundibugyo ebolavirus in Ituri samples",
+      "url": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON602",
+      "summary": "National reference laboratory INRB in Kinshasa confirms Bundibugyo ebolavirus in 8 of 13 blood samples from Mongbwalu Health Zone. Standard Ebola Zaire rapid diagnostic tests had previously returned negative, causing a 10-day delay in identification."
+    },
+    {
+      "date": "2026-05-05",
+      "source": "WHO",
+      "title": "WHO alerted to high-mortality illness in Mongbwalu Health Zone",
+      "url": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON602",
+      "summary": "WHO receives alert about clusters of unexplained deaths in Mongbwalu, including healthcare workers. Rapid response team dispatched to investigate. Initial Ebola Zaire rapid tests return negative."
+    }
+  ]
+}

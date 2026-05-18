@@ -1,0 +1,222 @@
+{
+  "vessel": "MV Hondius",
+  "operator": "Oceanwide Expeditions",
+  "flag": "Netherlands",
+  "departure": "2026-04-01",
+  "departure_port": "Ushuaia, Argentina",
+  "current_status": "Evacuation complete, all repatriated. Disembarkation at Granadilla port, Tenerife concluded May 11 — all 147 passengers and crew repatriated via ~10 non-commercial flights. Spain and WHO declared the operation 'a success.' Two new confirmed cases detected post-evacuation: French female passenger (ICU in France, deteriorating) and Spanish male passenger (asymptomatic, Gómez Ulla hospital Madrid). WHO DON601 (May 13): 11 cases (8 confirmed, 1 inconclusive, 2 probable), 3 deaths. Former passengers now hospitalised or quarantined in 12 countries: Australia, Canada, France, Germany, Netherlands, Saint Helena, Singapore, South Africa, Spain, Switzerland, Turkey, United States. Key country statuses: US — 41 monitored (16 Nebraska NQU, 2 Emory Atlanta), no positives, quarantine voluntary; UK — 22 completed 72-hour Arrowe Park quarantine, self-isolating 42 days at home; Canada — 36 connected, 4 passengers self-isolating in Victoria BC, flight ban in effect; Spain — 14 evacuees at Gómez Ulla (1 confirmed, 13 negative); France — 26 contacts tracked, all negative. Dr. Kornfeld (US, Oregon oncologist) inconclusive test confirmed negative May 13, released from biocontainment to general quarantine. Emory Atlanta symptomatic patient tested negative. ECDC risk assessment update May 14: risk to EU/EEA very low. CDC press briefing May 14: no US cases, 41 monitored. Illinois investigating unrelated domestic case (Winnebago County, rodent exposure, North American strain). WHO warns more cases possible through early June given 45-day incubation window.",
+  "virus": "Andes virus (ANDV)",
+  "total_cases": 11,
+  "case_classification": { "confirmed": 8, "inconclusive": 1, "probable": 2 },
+  "total_deaths": 3,
+  "passengers_aboard": 147,
+  "countries_represented": 23,
+  "attack_rate_percent": 7.5,
+  "cfr_percent": 27.3,
+  "r0_estimate": 1.4,
+  "generation_interval_days": "2-7",
+  "secondary_attack_rate_percent": 4.2,
+  "transmission_type": "Suspected human-to-human (ANDV)",
+  "cases": [
+    {
+      "id": 1,
+      "date": "2026-04-12",
+      "onset_date": "2026-04-10",
+      "exposure_date": "2026-04-01",
+      "linked_to": null,
+      "description": "Dutch male, 68, onset of symptoms at sea. Suspected infection during Ushuaia shore excursion.",
+      "outcome": "Deceased (2026-04-18)",
+      "nationality": "Netherlands"
+    },
+    {
+      "id": 2,
+      "date": "2026-04-14",
+      "onset_date": "2026-04-12",
+      "exposure_date": "2026-04-01",
+      "linked_to": 1,
+      "description": "Dutch female, 65, spouse of first case. Symptom onset two days after partner.",
+      "outcome": "Deceased (2026-04-20)",
+      "nationality": "Netherlands"
+    },
+    {
+      "id": 3,
+      "date": "2026-04-19",
+      "onset_date": "2026-04-17",
+      "exposure_date": "2026-04-12",
+      "linked_to": 1,
+      "description": "German male, 57, cabin on same deck as index cases.",
+      "outcome": "Deceased (2026-04-28)",
+      "nationality": "Germany"
+    },
+    {
+      "id": 4,
+      "date": "2026-04-22",
+      "onset_date": "2026-04-20",
+      "exposure_date": "2026-04-14",
+      "linked_to": 2,
+      "description": "Crew member, 34, close contact with affected passengers.",
+      "outcome": "Hospitalized, stable",
+      "nationality": "Philippines"
+    },
+    {
+      "id": 5,
+      "date": "2026-04-25",
+      "onset_date": "2026-04-23",
+      "exposure_date": "2026-04-01",
+      "linked_to": null,
+      "description": "Martin Anstee, 56, British retired police officer serving as expedition guide aboard MV Hondius. Attended same excursion in Ushuaia. Medically evacuated May 6 to the Netherlands for specialist treatment.",
+      "outcome": "Hospitalized, Netherlands, stable",
+      "nationality": "United Kingdom"
+    },
+    {
+      "id": 6,
+      "date": "2026-04-28",
+      "onset_date": "2026-04-26",
+      "exposure_date": "2026-04-19",
+      "linked_to": 3,
+      "description": "American male, 44, suspected human-to-human transmission on board. Lab-confirmed as 6th case per Argentine MOH Boletín Epidemiológico Nacional week 16 (published ~May 7–8 2026) and Sky News reporting 6 confirmed + 3 suspected.",
+      "outcome": "Mild, recovering",
+      "nationality": "United States"
+    },
+    {
+      "id": 7,
+      "date": "2026-05-02",
+      "onset_date": "2026-04-30",
+      "exposure_date": "2026-04-22",
+      "linked_to": 4,
+      "description": "Argentine female, 29, crew member.",
+      "outcome": "Mild, recovering",
+      "nationality": "Argentina"
+    },
+    {
+      "id": 8,
+      "date": "2026-05-07",
+      "onset_date": "2026-05-05",
+      "exposure_date": "2026-04-28",
+      "linked_to": 6,
+      "description": "Swiss male, MV Hondius passenger. Confirmed by Swiss Federal Office of Public Health; receiving treatment at University Hospital Zurich.",
+      "outcome": "Hospitalized, stable",
+      "nationality": "Switzerland"
+    },
+    {
+      "id": 9,
+      "date": "2026-05-08",
+      "onset_date": null,
+      "exposure_date": "2026-04-01",
+      "linked_to": null,
+      "description": "British national, MV Hondius passenger. Confirmed with hantavirus and hospitalised in South Africa (separate from Martin Anstee, case 5). Second confirmed British case from the outbreak. Sources: UKHSA GOV.UK, Al Jazeera, ITV News (May 8 2026).",
+      "outcome": "Hospitalized, South Africa",
+      "nationality": "United Kingdom"
+    },
+    {
+      "id": 10,
+      "date": "2026-05-12",
+      "onset_date": "2026-05-10",
+      "exposure_date": null,
+      "linked_to": null,
+      "description": "French female, MV Hondius passenger. Became symptomatic during repatriation. Confirmed positive upon arrival in France; admitted to intensive care. Condition deteriorating per French Health Minister Stephanie Rist. France tracking 26 close contacts from shared flights — all negative.",
+      "outcome": "Hospitalized, France, ICU, deteriorating",
+      "nationality": "France"
+    },
+    {
+      "id": 11,
+      "date": "2026-05-12",
+      "onset_date": null,
+      "exposure_date": null,
+      "linked_to": null,
+      "description": "Spanish male, MV Hondius passenger. Asymptomatic; detected upon arrival at Gómez Ulla Hospital UATAN isolation unit in Madrid during routine post-evacuation screening. One of 14 Spanish nationals admitted — the other 13 tested negative.",
+      "outcome": "Asymptomatic, quarantined, Gómez Ulla Hospital Madrid",
+      "nationality": "Spain"
+    }
+  ],
+  "evacuations": [
+    {
+      "date": "2026-05-06",
+      "description": "Three people medically evacuated from MV Hondius near Cape Verde: two sick crew members (including the ship's doctor) and one asymptomatic German passenger who had close contact with the deceased German national (case 3). One of two evacuation aircraft made an emergency diversion to the Canary Islands due to an electrical fault in a patient life-support system; a replacement plane was dispatched by Spain. Ship's doctor transferred to Johannesburg ICU — condition serious but improving as of May 8 per WHO update. Other evacuees transported to specialized hospitals in the Netherlands and Germany."
+    }
+  ],
+  "notable_contacts": [
+    {
+      "date": "2026-05-07",
+      "description": "KLM flight attendant from Haarlem hospitalized at Amsterdam UMC with suspected hantavirus after working KLM flight KL592 (Johannesburg–Amsterdam, Apr 25) on which a deceased MV Hondius passenger (Dutch female, 69) had briefly boarded before being asked to disembark due to illness. PCR and antibody tests confirmed NEGATIVE for Andes virus. No additional cases linked to the flight."
+    },
+    {
+      "date": "2026-05-08",
+      "description": "UKHSA confirms two British nationals from MV Hondius have been confirmed with hantavirus: Martin Anstee (case 5), hospitalised in the Netherlands, and a second British national hospitalised in South Africa. UKHSA has issued a 45-day mandatory isolation directive for all returning British passengers, with active monitoring and testing. Risk to the UK general public assessed as very low. Sources: UKHSA GOV.UK, ITV News."
+    },
+    {
+      "date": "2026-05-08",
+      "description": "Third British national with SUSPECTED hantavirus identified on Tristan da Cunha — the remote South Atlantic island (pop. ~250) where MV Hondius briefly called. This is the first suspected case among passengers who disembarked at an intermediate port rather than remaining aboard. The individual is being assessed by health authorities; Tristan da Cunha has no resident physician and extremely limited medical infrastructure. Sources: UKHSA GOV.UK, RTE, Al Jazeera, ITV News, Xinhua, Medical Xpress."
+    },
+    {
+      "date": "2026-05-08",
+      "description": "Singapore CDA confirms two residents who were aboard MV Hondius are isolated at the National Centre for Infectious Diseases (NCID) and undergoing hantavirus testing. First: 67-year-old Singaporean male, arrived Singapore May 2, asymptomatic. Second: 65-year-old Singapore Permanent Resident male, arrived May 6, mild rhinorrhoea. Both were also on the same Johannesburg–Singapore flight as a confirmed case on Apr 25. If tests negative, 30-day quarantine from last exposure date with repeat testing before release. Risk to Singapore general public assessed as low."
+    },
+    {
+      "date": "2026-05-08",
+      "description": "Six US states confirmed monitoring residents: Georgia (2), Texas (2), New Jersey (2), Arizona (1), Virginia (1), and California (1) — total at least 9 individuals. New Jersey is the 6th state; its two residents were not aboard the ship but potentially exposed during air travel abroad. All individuals currently asymptomatic. Total US nationals aboard MV Hondius: 17. Sources: Yahoo News live blog, NJ DOH press release, CBS News."
+    },
+    {
+      "date": "2026-05-08",
+      "description": "CDC deploying two separate teams for American passengers: one team dispatched to the Canary Islands to meet the ship upon arrival and escort the 17 Americans aboard; a second CDC team positioned at the National Quarantine Unit (NQU) in Nebraska. Americans will be repatriated on a charter flight and placed in quarantine at the NQU — a federally funded facility co-located with the Nebraska Biocontainment Unit at University of Nebraska Medical Center. This represents the first activation of the NQU for a hantavirus event. Sources: CNN, ABC News live updates."
+    },
+    {
+      "date": "2026-05-08",
+      "description": "Canada confirms three individuals self-isolating across two provinces. Two are former MV Hondius passengers in Ontario who disembarked at Saint Helena on April 24 and are asymptomatic. A third individual in Quebec was not aboard the ship but is self-isolating after possible contact with an infected person during international travel; PHAC assessed their risk as not high. All three are under 30-day monitoring by provincial health authorities. Four Canadian nationals remain aboard MV Hondius; consular officials dispatched to Canary Islands. Sources: CBC News, Global News, CP24."
+    },
+    {
+      "date": "2026-05-08",
+      "description": "SUSPECTED mainland European community-linked case: 32-year-old Spanish woman hospitalised in Alicante with mild respiratory symptoms (coughing, general malaise). She was identified through Europe-wide health alert system after travelling on the same flight as a deceased Dutch MV Hondius passenger; she was seated two rows behind the victim, with only brief contact (the passenger had boarded for a short time). Announced by Spain's Secretary of State for Health Javier Padilla on May 8, 2026. This is the first suspected case in mainland Europe linked to a flight contact rather than direct ship contact. PCR results expected within 24–48 hours — classification remains SUSPECTED as of announcement. Sources: RTE, The Olive Press, The Local ES, Xinhua, Devdiscourse (May 8 2026)."
+    },
+    {
+      "date": "2026-05-09",
+      "description": "Second flight-linked contact identified in Spain — woman based in Barcelona. She was initially missed during contact tracing because she switched seats during the same flight as the deceased MV Hondius passenger, making seat-manifest reconstruction inaccurate. Traced and confirmed asymptomatic on May 9. Under monitoring; not hospitalised and not classified as suspected. Source: The Spanish Eye, May 9 2026."
+    },
+    {
+      "date": "2026-05-09",
+      "description": "France confirms a French man is being monitored as a hantavirus 'contact case' after travelling on the same commercial flight (Saint Helena → Johannesburg) as a deceased MV Hondius passenger. The flight carried 82 passengers and six crew. The man is asymptomatic; classified as contact under monitoring, not as a suspected case. Source: France 24, The Peninsula Qatar (reported ~May 6–9 2026)."
+    },
+    {
+      "date": "2026-05-10",
+      "description": "MV Hondius arrived and anchored at Tenerife port in the early hours of Sunday May 10. Evacuation underway: passengers disembarking by nationality in inflatable boats. None of the 147 aboard are symptomatic. Countries sending aircraft for repatriation: Germany, France, Belgium, Ireland, Netherlands, United States (Nebraska NQU), United Kingdom, and EU (2 planes). WHO Director-General Tedros personally overseeing operations from Tenerife. Mass protests in Tenerife against the ship's arrival reported by NBC News and MSN. Alicante PCR result still not publicly announced. Source: NBC News, MSN, FTN News, CNN (May 10 2026)."
+    },
+    {
+      "date": "2026-05-10",
+      "description": "Third Spanish contact: 45-year-old Catalonian resident who was on the same flight as the deceased MV Hondius passenger. Initially missed during contact tracing because she changed seats during the flight, complicating manifest-based reconstruction. Asymptomatic and under monitoring — not hospitalised. Spain's total flight-linked contacts: (1) 32-year-old Alicante woman hospitalised with mild symptoms, PCR pending; (2) Barcelona-based woman missed due to seat-switch, asymptomatic; (3) this 45-year-old Catalonian. Source: The Spanish Eye (May 9–10 2026)."
+    },
+    {
+      "date": "2026-05-10",
+      "description": "CDC voluntary quarantine decision: A CDC official stated 'We are not quarantining anybody' — the federal government will not mandate quarantine for the 17 repatriated American cruise ship passengers. Each passenger is evaluated upon arrival in Nebraska, then may opt to go home and self-monitor for 42 days while staying in touch with state/local health departments. Contrasts with WHO's recommendation of 42-day isolation and UK's mandatory 45-day isolation. STAT News reports CDC response constrained by Trump-era structural changes: layoffs of ship sanitation staff and WHO withdrawal limiting international coordination. Acting CDC director Bhattacharya's Fox News appearance included inaccurate details about the outbreak. Sources: STAT News, NBC News, Washington Post (May 9 2026)."
+    },
+    {
+      "date": "2026-05-11",
+      "description": "Evacuation complete: all 147 passengers and crew disembarked and repatriated via ~10 flights from Tenerife South Airport. Spain and WHO declared the operation 'a success.' UN News: 94 people of 19 nationalities disembarked on day 1 (May 10); remainder completed May 11. 22 British nationals arrived Manchester, entered 72-hour quarantine at Arrowe Park Hospital. 18 Americans arrived: 16 to Nebraska NQU, 2 to Emory Atlanta (1 symptomatic, later tested negative). 4 Canadians arrived Victoria BC. Sources: UN News, Euronews, CNN, CBC (May 11-12 2026)."
+    },
+    {
+      "date": "2026-05-12",
+      "description": "Two new confirmed cases announced: (1) French female passenger — symptomatic during repatriation, ICU in France, condition deteriorating; (2) Spanish male passenger — asymptomatic, detected at Gómez Ulla Hospital in Madrid post-arrival screening, 1 of 14 Spanish evacuees (other 13 negative). WHO DON601 updates total to 11 cases. Spain's Alicante flight-contact PCR tests negative so far — reclassified as contact. Sources: Al Jazeera, WHO DON601, Infobae (May 12-13 2026)."
+    },
+    {
+      "date": "2026-05-13",
+      "description": "Dr. Stephen Kornfeld, 69, Oregon oncologist who cared for patients aboard the ship, confirmed NEGATIVE for hantavirus. His initial inconclusive test from abroad had prompted placement in Nebraska's biocontainment unit. Confirmatory PCR in the US was negative. Released from biocontainment to general quarantine facility. UK passengers leaving Arrowe Park 72-hour quarantine after negative PCR; entering 42-day home self-isolation with daily UKHSA contact. Sources: CNN, Euronews, ITV/STV (May 13-14 2026)."
+    },
+    {
+      "date": "2026-05-14",
+      "description": "CDC press briefing (Dr. David Fitter, incident manager): 41 people monitored across the US — 16 Nebraska, 2 Atlanta, 7 former passengers at home, remaining are flight contacts. No Americans positive. Quarantine voluntary. ECDC publishes updated risk assessment: EU/EEA risk remains very low, rodent reservoir not present in Europe, sustained community spread unlikely. WHO warns more cases possible through early June due to 45-day incubation window. Sources: CNBC, Washington Post, ECDC, U.S. News (May 14 2026)."
+    }
+  ],
+  "track": [
+    { "date": "2026-04-01", "lat": -54.81, "lon": -68.32, "label": "Ushuaia, Argentina (departure)" },
+    { "date": "2026-04-04", "lat": -62.00, "lon": -58.75, "label": "Antarctic Peninsula" },
+    { "date": "2026-04-08", "lat": -60.72, "lon": -45.60, "label": "South Orkney Islands" },
+    { "date": "2026-04-11", "lat": -54.28, "lon": -36.51, "label": "South Georgia" },
+    { "date": "2026-04-12", "lat": -54.28, "lon": -36.51, "label": "First case reported" },
+    { "date": "2026-04-17", "lat": -37.11, "lon": -12.28, "label": "Tristan da Cunha" },
+    { "date": "2026-04-21", "lat": -15.96, "lon": -5.70, "label": "Saint Helena" },
+    { "date": "2026-04-25", "lat": -7.95, "lon": -14.36, "label": "Ascension Island" },
+    { "date": "2026-05-01", "lat": 14.93, "lon": -23.51, "label": "Praia, Cape Verde (quarantined)" },
+    { "date": "2026-05-08", "lat": 28.47, "lon": -16.25, "label": "En route to Tenerife" },
+    { "date": "2026-05-10", "lat": 28.09, "lon": -16.43, "label": "Tenerife, Canary Islands (arrived May 10)" },
+    { "date": "2026-05-11", "lat": 28.09, "lon": -16.43, "label": "Tenerife (evacuation complete May 11 — all 147 repatriated)" }
+  ]
+}
