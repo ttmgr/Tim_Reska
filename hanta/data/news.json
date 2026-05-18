@@ -1,6 +1,55 @@
 {
-  "last_updated": "2026-05-15",
+  "last_updated": "2026-05-18",
   "articles": [
+    {
+      "date": "2026-05-18",
+      "source": "Al Jazeera",
+      "title": "Hantavirus-hit cruise ship docks in the Netherlands",
+      "url": "https://www.aljazeera.com/news/2026/5/18/hantavirus-hit-cruise-ship-docks-in-the-netherlands",
+      "summary": "MV Hondius docked at Rotterdam on May 18 with 25 crew and 2 medical personnel aboard. All passengers previously disembarked at Tenerife. No symptomatic individuals on board. Crew to enter quarantine until June 18; ship undergoes full decontamination per Dutch public health guidelines."
+    },
+    {
+      "date": "2026-05-18",
+      "source": "CBS News",
+      "title": "Hantavirus-hit cruise ship arrives in Netherlands",
+      "url": "https://www.cbsnews.com/news/hantavirus-hit-cruise-ship-arrives-in-netherlands/",
+      "summary": "MV Hondius arrives at Rotterdam's Europoort for crew quarantine and ship disinfection. 3 total deaths confirmed; Oceanwide Expeditions assessing whether the May 29 Iceland departure will proceed."
+    },
+    {
+      "date": "2026-05-17",
+      "source": "ECDC",
+      "title": "Andes hantavirus outbreak in cruise ship — ECDC updated surveillance, 17 May 2026",
+      "url": "https://www.ecdc.europa.eu/en/infectious-disease-topics/hantavirus-infection/surveillance-and-updates/andes-hantavirus-outbreak",
+      "summary": "ECDC updates case count to 12 (9 confirmed, 2 probable, 1 inconclusive) following confirmation of a Canadian passenger. Notes that new cases after disembarkation are expected given the 45-day Andes virus incubation period. Risk for EU/EEA general population remains very low."
+    },
+    {
+      "date": "2026-05-17",
+      "source": "CBC",
+      "title": "National lab confirms Canadian hantavirus case from MV Hondius cruise ship",
+      "url": "https://www.cbc.ca/news/canada/canadian-hantavirus-case-confirmed-phac-9.7202841",
+      "summary": "PHAC National Microbiology Lab in Winnipeg confirms Andes virus in Yukon resident who was aboard MV Hondius. Presumptive positive announced May 16 by BC Provincial Health Officer. Patient hospitalized in isolation in British Columbia."
+    },
+    {
+      "date": "2026-05-15",
+      "source": "WHO",
+      "title": "How a little-known virus on a cruise ship put the world's health security framework to the test",
+      "url": "https://www.who.int/europe/news/item/15-05-2026-how-a-little-known-virus-on-a-cruise-ship-put-the-world-s-health-security-framework-to-the-test",
+      "summary": "WHO Europe editorial describing how the MV Hondius outbreak stress-tested the IHR (2005) framework. Details multi-country sequencing coordination, operational guidance for Spanish authorities before Tenerife docking, and contact tracing across 30+ countries (440+ contacts under monitoring)."
+    },
+    {
+      "date": "2026-05-15",
+      "source": "CDC",
+      "title": "Update on CDC's Hantavirus Response — press briefing transcript",
+      "url": "https://www.cdc.gov/media/releases/2026/transcript-update0515-on-cdcs-hantavirus-response.html",
+      "summary": "CDC confirms zero US hantavirus cases; 41 people across the US under monitoring. Dr. Kornfeld's inconclusive test retested as negative — likely false positive. Risk to US public remains 'extremely low.' Quarantine voluntary — no federal or state orders."
+    },
+    {
+      "date": "2026-05-15",
+      "source": "Al Jazeera",
+      "title": "WHO confirms 10 global hantavirus cases, Hondius crew remain symptom-free",
+      "url": "https://www.aljazeera.com/news/2026/5/15/who-confirms-10-global-hantavirus-cases-hondius-crew-remain-symptom-free",
+      "summary": "WHO revised case count from 11 to 10 after the inconclusive US case tested negative. Emphasizes no crew members have developed symptoms. Global risk assessment remains low."
+    },
     {
       "date": "2026-05-14",
       "source": "ECDC",
