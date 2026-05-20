@@ -1,4 +1,4 @@
-"""MedRisk-ADH -- Krankentagegeld-Kalkulation.
+"""MedRisk -- Krankentagegeld-Kalkulation.
 
 Interactive KTG (daily sickness benefit) calculator showing how CTMC
 disease progression models drive insurance pricing.  Three examples:
@@ -588,7 +588,7 @@ with ml_tab3:
 st.markdown("---")
 st.markdown(
     '<div style="text-align: center; color: #a0aec0; font-size: 0.75rem;">'
-    "MedRisk-ADH v2.0 | Proof of Concept | Synthetische Daten | the author, Helmholtz Munich"
+    "MedRisk v2.0 | Proof of Concept | Synthetische Daten | the author, Helmholtz Munich"
     "</div>",
     unsafe_allow_html=True,
 )

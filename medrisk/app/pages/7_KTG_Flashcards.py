@@ -1,4 +1,4 @@
-"""MedRisk-ADH -- KTG Domain Reference Flashcards.
+"""MedRisk -- KTG Domain Reference Flashcards.
 
 Quick-reference flashcard page for a major European insurer domain referencearation.
 Covers clinical thresholds, ICD-10 codes, failure modes, comorbidity interactions,

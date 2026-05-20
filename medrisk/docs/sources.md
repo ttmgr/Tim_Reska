@@ -1,6 +1,6 @@
-# MedRisk-ADH — Data Sources & References
+# MedRisk — Data Sources & References
 
-All clinical and statistical numbers used in MedRisk-ADH with their provenance.
+All clinical and statistical numbers used in MedRisk with their provenance.
 
 ---
 
@@ -159,7 +159,7 @@ All clinical and statistical numbers used in MedRisk-ADH with their provenance.
 
 ---
 
-## 8. DQS Framework (MedRisk-ADH Design)
+## 8. DQS Framework (MedRisk Design)
 
 **Used in:** `src/medrisk/validation/data_quality.py`
 
@@ -174,7 +174,7 @@ All clinical and statistical numbers used in MedRisk-ADH with their provenance.
 | Insufficient tier | < 0.60 | Reject prediction, escalate |
 | Expected features | 40 | 5 demographics + 17 Charlson + 10 labs + 8 medications |
 
-**Note:** These are design parameters specific to MedRisk-ADH. Thresholds should be calibrated against real claims outcomes in Phase 2.
+**Note:** These are design parameters specific to MedRisk. Thresholds should be calibrated against real claims outcomes in Phase 2.
 
 ---
 
@@ -185,10 +185,10 @@ All clinical and statistical numbers used in MedRisk-ADH with their provenance.
 | Parameter | Value | Source |
 |-----------|-------|--------|
 | PBW concept | "Plausible-but-Wrong" failure mode | Reska T et al., ISME Communications, 2024 |
-| Confidence threshold (theta_c) | 0.80 | MedRisk-ADH design, based on ROC analysis |
-| DQS threshold (theta_d) | 0.60 | MedRisk-ADH design, aligns with DQS tiers |
-| CCM threshold | 0.20 | MedRisk-ADH design |
-| EPU threshold | 3 deciles | MedRisk-ADH design |
+| Confidence threshold (theta_c) | 0.80 | MedRisk design, based on ROC analysis |
+| DQS threshold (theta_d) | 0.60 | MedRisk design, aligns with DQS tiers |
+| CCM threshold | 0.20 | MedRisk design |
+| EPU threshold | 3 deciles | MedRisk design |
 | PBW rate in LLM evaluation | ~2% | Observed in bioinformatics LLM evaluation (ISME Comm. 2024) |
 
 **Important note:** The ~2% PBW rate was observed in a bioinformatics LLM evaluation context, NOT in insurance underwriting. The rate in underwriting is unknown and must be determined through Phase 2 validation on real claims data. The PBW concept (high confidence on insufficient data) is domain-agnostic, but the specific rate is not transferable.
@@ -204,7 +204,7 @@ The presentation frames the business case around WHY insurers hesitate to adopt 
 | Parameter | Value | Source |
 |-----------|-------|--------|
 | PBW concept origin | LLM evaluation (bioinformatics) | Reska et al., ISME Communications, 2024 |
-| International mispricing multiplier | 2.4x vs DE | MedRisk-ADH simulation (DQS-based, synthetic data) |
+| International mispricing multiplier | 2.4x vs DE | MedRisk simulation (DQS-based, synthetic data) |
 
 **Note:** Business impact numbers (100K policies, EUR 10-50K per error) were removed from the presentation to avoid implying that the bioinformatics PBW rate applies to insurance. The actual underwriting error rate must be determined through Phase 2 validation.
 
@@ -233,7 +233,7 @@ The presentation frames the business case around WHY insurers hesitate to adopt 
 
 | Provision | Content | Relevance |
 |-----------|---------|-----------|
-| Annex III, 5(a) | KI for health insurance risk assessment/pricing = High-Risk | Core classification for MedRisk-ADH |
+| Annex III, 5(a) | KI for health insurance risk assessment/pricing = High-Risk | Core classification for MedRisk |
 | Art. 6(2) | Annex III systems are High-Risk | Classification rule |
 | Art. 6(3) | Exceptions for "narrow procedural tasks" and "preparatory activities" | Schicht 1 (DQS, OCR, Routing) may qualify |
 | Art. 9-15 | Requirements for High-Risk systems | Full compliance checklist |

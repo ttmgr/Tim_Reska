@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Generate complete MedRisk-ADH documentation package.
+"""Generate complete MedRisk documentation package.
 
 Produces 4 PDFs:
-  1. medrisk_adh_deck.pdf    -- 12-slide pitch deck (landscape)
+  1. medrisk_deck.pdf    -- 12-slide pitch deck (landscape)
   2. executive_briefing.pdf  -- executive summary
   3. technical_summary.pdf   -- complete technical reference
   4. user_manual.pdf         -- idiot-proof demo manual
@@ -128,7 +128,7 @@ def make_pitch_deck() -> None:
     ad_chart = chart_ad_progression()
     cv_chart = chart_cv_progression()
 
-    pdf = SlidePDF(n_slides=14, header_right="MedRisk-ADH v2.0")
+    pdf = SlidePDF(n_slides=14, header_right="MedRisk v2.0")
     W = pdf._pw   # 297
     H = pdf._ph   # 210
     M = 15
@@ -139,7 +139,7 @@ def make_pitch_deck() -> None:
     pdf.ln(45)
     pdf.set_font("Helvetica", "B", 32)
     pdf.set_text_color(*C_HEADING)
-    pdf.cell(CW, 16, safe("MedRisk-ADH"), align="C",
+    pdf.cell(CW, 16, safe("MedRisk"), align="C",
              new_x="LMARGIN", new_y="NEXT")
     pdf.set_font("Helvetica", "", 14)
     pdf.set_text_color(*C_BODY)
@@ -183,7 +183,7 @@ def make_pitch_deck() -> None:
         "GenomicsForOneHealth: 10 modular pipelines deployed across 7 "
         "international sites (DE/FR/ES). "
         "Led 12-site multinational surveillance campaign -- same 3 countries "
-        "as MedRisk-ADH.",
+        "as MedRisk.",
         "I built this entire system in ~48 hours with Claude to show what "
         "one person + AI tools can do.",
     ]:
@@ -416,7 +416,7 @@ def make_pitch_deck() -> None:
     pdf.ln(1)
     pdf.table_caption("Capability comparison across underwriting approaches")
     pdf.table(
-        ["Capability", "Rules / Actuarial", "Basic ML", "MedRisk-ADH (AI)"],
+        ["Capability", "Rules / Actuarial", "Basic ML", "MedRisk (AI)"],
         [["Per-case reliability", "No", "No", "Yes (DQS + P(wrong))"],
          ["Handles missing data", "Reject", "Impute (PBW risk)",
           "Route to right model"],
@@ -525,7 +525,7 @@ def make_pitch_deck() -> None:
              safe("Proof of Concept | All data is synthetic | March 2026"),
              align="C", new_x="LMARGIN", new_y="NEXT")
 
-    path = OUT / "medrisk_adh_deck.pdf"
+    path = OUT / "medrisk_deck.pdf"
     pdf.output(str(path))
     logger.info("  -> %s (%d pages)", path.name, pdf.pages_count)
 
@@ -538,7 +538,7 @@ def make_executive_brief() -> None:
     pdf = AcademicPDF(header_right="Executive Briefing")
     pdf.cover(
         "Executive Briefing",
-        "MedRisk-ADH -- AI-Augmented Medical Underwriting",
+        "MedRisk -- AI-Augmented Medical Underwriting",
         byline="Prepared for a major European insurer",
     )
 
@@ -560,7 +560,7 @@ def make_executive_brief() -> None:
         "look correct.")
 
     pdf.h2("A reliability layer detects when predictions cannot be trusted")
-    pdf.p("MedRisk-ADH adds a reliability layer on top of risk prediction:")
+    pdf.p("MedRisk adds a reliability layer on top of risk prediction:")
     pdf.li(
         "Data Quality Score (DQS): quantifies completeness, consistency, "
         "and recency of each patient record")
@@ -649,7 +649,7 @@ def make_executive_brief() -> None:
     pdf.p("Current underwriting methods leave reliability unaddressed:")
     pdf.table_caption("Capability comparison")
     pdf.table(
-        ["Capability", "Rules/Actuarial", "Basic ML", "MedRisk-ADH"],
+        ["Capability", "Rules/Actuarial", "Basic ML", "MedRisk"],
         [["Per-case reliability", "No", "No", "DQS + P(wrong)"],
          ["Missing data", "Reject", "Impute (PBW)", "Route to model"],
          ["Risk drivers", "No", "Limited", "SHAP per patient"],
@@ -694,7 +694,7 @@ def make_executive_brief() -> None:
     )
     pdf.h3("Regulatory Alignment")
     pdf.p(
-        "MedRisk-ADH is designed for EU AI Act compliance: Art. 6 "
+        "MedRisk is designed for EU AI Act compliance: Art. 6 "
         "(high-risk classification), Art. 14 (human oversight via review "
         "tier), Art. 15 (accuracy and robustness via DQS and P(wrong)).")
 
@@ -710,7 +710,7 @@ def make_technical_summary() -> None:
     logger.info("Generating technical summary...")
     pdf = AcademicPDF(header_right="Technical Summary")
     pdf.cover("Technical Summary",
-              "MedRisk-ADH v2.0 -- Complete Build Reference")
+              "MedRisk v2.0 -- Complete Build Reference")
 
     # Architecture
     pdf.add_page()
@@ -912,13 +912,13 @@ def make_user_manual() -> None:
     logger.info("Generating user manual...")
     pdf = AcademicPDF(header_right="User Manual")
     pdf.cover("User Manual",
-              "How to Run the MedRisk-ADH Demo",
+              "How to Run the MedRisk Demo",
               byline="Step-by-step guide -- no prior knowledge required")
 
     # Quick Start
     pdf.add_page()
     pdf.chapter_head(1, "Quick Start (3 Commands)")
-    pdf.p("Open a terminal in the MedRisk-ADH project directory and run:")
+    pdf.p("Open a terminal in the MedRisk project directory and run:")
     pdf.key_concept("make install")
     pdf.p("This installs all Python dependencies. Takes about 60 seconds.")
     pdf.key_concept("make app")
@@ -946,7 +946,7 @@ def make_user_manual() -> None:
     pdf.add_page()
     pdf.chapter_head(2, "Installation")
     pdf.h3("Step 1: Navigate to the project")
-    pdf.key_concept("cd /path/to/MedRisk-ADH")
+    pdf.key_concept("cd /path/to/MedRisk")
     pdf.h3("Step 2: Install in development mode")
     pdf.key_concept("make install")
     pdf.p(
@@ -1075,7 +1075,7 @@ def make_user_manual() -> None:
     pdf.p("Produces 4 PDFs in data/reports/.")
     pdf.h3("Pitch deck only (with live charts from synthetic data)")
     pdf.key_concept("python scripts/generate_slides.py")
-    pdf.p("Produces medrisk_adh_deck.pdf with embedded matplotlib charts.")
+    pdf.p("Produces medrisk_deck.pdf with embedded matplotlib charts.")
 
     # Troubleshooting
     pdf.add_page()
@@ -1354,7 +1354,7 @@ def make_pptx() -> None:
     B(tf3, "Same AI workflow I'd use at a major European insurer -- but with real data",
       sz=13)
 
-    src(s, "Source: MedRisk-ADH v2.0 system design")
+    src(s, "Source: MedRisk v2.0 system design")
 
     # ================================================================
     # SLIDE 5 -- WHAT IT FOUND (the punchline)
@@ -1405,7 +1405,7 @@ def make_pptx() -> None:
       sz=14, bold=True, col=accent, align=PP_ALIGN.CENTER)
 
     src(s,
-        "Source: MedRisk-ADH synthetic cohort, N=4,000 (1,000/market), "
+        "Source: MedRisk synthetic cohort, N=4,000 (1,000/market), "
         "seed=42")
 
     # ================================================================
@@ -1491,7 +1491,7 @@ def make_pptx() -> None:
       "and continuously verify parameters against new literature.",
       sz=12, col=footnote)
 
-    src(s, "Source: MedRisk-ADH v2.0 capability comparison")
+    src(s, "Source: MedRisk v2.0 capability comparison")
 
     # ================================================================
     # SLIDE 8 -- HOW I WORK WITH AI (the differentiator)
@@ -1591,7 +1591,7 @@ def make_pptx() -> None:
       "with real data and 90 days.",
       sz=14, bold=True, col=accent, align=PP_ALIGN.CENTER)
 
-    src(s, "Source: MedRisk-ADH project plan, March 2026")
+    src(s, "Source: MedRisk project plan, March 2026")
 
     # ================================================================
     # SLIDE 10 -- LET'S TALK
@@ -1614,7 +1614,7 @@ def make_pptx() -> None:
       "and the skills are real.",
       sz=11, col=footnote, align=PP_ALIGN.CENTER)
 
-    path = OUT / "medrisk_adh_deck.pptx"
+    path = OUT / "medrisk_deck.pptx"
     prs.save(str(path))
     logger.info("  -> %s (%d slides)", path.name, len(prs.slides))
 
@@ -1623,7 +1623,7 @@ def make_pptx() -> None:
 # Main
 # ============================================================================
 if __name__ == "__main__":
-    logger.info("MedRisk-ADH Documentation Generator")
+    logger.info("MedRisk Documentation Generator")
     logger.info("=" * 50)
 
     try:

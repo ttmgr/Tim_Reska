@@ -1,4 +1,4 @@
-"""Shared test fixtures for MedRisk-ADH."""
+"""Shared test fixtures for MedRisk."""
 
 import pytest
 

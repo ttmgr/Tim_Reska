@@ -1,6 +1,6 @@
 """End-to-end v2 pipeline orchestrator.
 
-Connects all MedRisk-ADH v2 components into a single pipeline:
+Connects all MedRisk v2 components into a single pipeline:
 1. Generate/load cohort
 2. Compute data profiles
 3. Compute DQS v2

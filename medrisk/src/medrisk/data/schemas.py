@@ -1,4 +1,4 @@
-"""Patient record data models for MedRisk-ADH.
+"""Patient record data models for MedRisk.
 
 All data contracts are enforced via Pydantic strict models. The schemas define
 the structure of synthetic patient records flowing through the pipeline.

@@ -185,7 +185,7 @@ def _header_footer(canvas, doc):
         canvas.drawString(MARGIN, PAGE_H - 12.5 * mm,
                           "KTG-Kalkulation: Hypertonie")
         canvas.drawRightString(PAGE_W - MARGIN, PAGE_H - 12.5 * mm,
-                               "MedRisk-ADH v2.0")
+                               "MedRisk v2.0")
     # Footer
     canvas.setStrokeColor(C_RULE)
     canvas.setLineWidth(0.3)
@@ -533,7 +533,7 @@ def build_study_guide_de():
 
     # ===== TITELSEITE =====
     story.append(Spacer(1, 80))
-    story.append(Paragraph("MedRisk-ADH v2.0", S["meta"]))
+    story.append(Paragraph("MedRisk v2.0", S["meta"]))
     story.append(Spacer(1, 16))
     story.append(Paragraph("KTG-Kalkulation", S["title"]))
     story.append(Paragraph("am Beispiel Hypertonie", S["subtitle"]))
@@ -943,7 +943,7 @@ def build_study_guide_de():
     story.append(Paragraph("7 &nbsp; Was ich gebaut habe", S["chapter"]))
 
     story.append(Paragraph(
-        "MedRisk-ADH ist ein Proof of Concept für KI-gestütztes medizinisches "
+        "MedRisk ist ein Proof of Concept für KI-gestütztes medizinisches "
         "Underwriting mit Fehlererkennung. Es demonstriert die gesamte Pipeline "
         "von Patientendaten bis zur auditierten Entscheidung.", S["body"]))
 
@@ -960,7 +960,7 @@ def build_study_guide_de():
             ["Governance", "Audit-Trail (JSON Lines) + Human Override (EU AI Act Art. 12/14)"],
         ],
         col_widths=[25, 95],
-        caption="MedRisk-ADH v2.0 — Komponenten", styles=S)
+        caption="MedRisk v2.0 — Komponenten", styles=S)
 
     story.append(Paragraph("Hypertonie als Demonstrator", S["h2"]))
     story.append(Paragraph(
@@ -988,7 +988,7 @@ def build_study_guide_de():
         S["body"]))
 
     story += make_key_concept(
-        "MedRisk-ADH beantwortet die Frage: Kann man erkennen, "
+        "MedRisk beantwortet die Frage: Kann man erkennen, "
         "wenn ein KI-Underwriting-Modell sicher falsch liegt? "
         "Die Antwort ist ja, auf synthetischen Daten. "
         "Phase 2 beantwortet: Funktioniert das auf echten Schäden?", S)

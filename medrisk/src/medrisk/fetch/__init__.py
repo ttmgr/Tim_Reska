@@ -1,7 +1,7 @@
 """
 medrisk.fetch — Public health cohort data fetcher for disease progression modeling.
 
-Ported from cohort_fetch to integrate with the MedRisk-ADH pipeline.
+Ported from cohort_fetch to integrate with the MedRisk pipeline.
 """
 
 __version__ = "0.1.0"

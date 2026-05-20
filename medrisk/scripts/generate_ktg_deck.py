@@ -121,7 +121,7 @@ def slide_01_title(pdf: SlidePDF) -> None:
     pdf.set_font("Helvetica", "", 10)
     pdf.set_text_color(*C_FOOTNOTE)
     pdf.set_xy(MARGIN, 45)
-    pdf.cell(CONTENT_W, 5, safe("MedRisk-ADH v2.0"), align="C",
+    pdf.cell(CONTENT_W, 5, safe("MedRisk v2.0"), align="C",
              new_x="LMARGIN", new_y="NEXT")
     pdf.ln(8)
 
@@ -323,7 +323,7 @@ def slide_04_ctmc(pdf: SlidePDF, chart_buf: BytesIO) -> None:
                         "und SCORE2-Risikotabellen."))
     pdf.set_text_color(*C_BODY)
 
-    pdf.source_line("Quelle: MedRisk-ADH CTMC, Framingham Heart Study, SCORE2 (ESC 2021)")
+    pdf.source_line("Quelle: MedRisk CTMC, Framingham Heart Study, SCORE2 (ESC 2021)")
     _insight_line(pdf,
                   "Jedes Stadium hat eigene AU-Wahrscheinlichkeit und erwartete Dauer")
 
@@ -427,7 +427,7 @@ def slide_05_beispiel(pdf: SlidePDF) -> None:
              align="C")
     pdf.set_text_color(*C_BODY)
 
-    pdf.source_line("Quelle: MedRisk-ADH Modellrechnung, synthetische Daten, "
+    pdf.source_line("Quelle: MedRisk Modellrechnung, synthetische Daten, "
                     "DAV-Sterbetafel 2004 T")
     _insight_line(pdf,
                   "Stadienspezifische Kalkulation statt Pauschaltarif -- "
@@ -490,7 +490,7 @@ def slide_06_dqs(pdf: SlidePDF) -> None:
              align="C")
     pdf.set_text_color(*C_BODY)
 
-    pdf.source_line("Quelle: MedRisk-ADH DQS v2, synthetische Patientendaten")
+    pdf.source_line("Quelle: MedRisk DQS v2, synthetische Patientendaten")
     _insight_line(pdf,
                   "Datenqualitaet ist kein Metadaten-Problem -- "
                   "sie bestimmt direkt die Praemienhoehe")
@@ -625,7 +625,7 @@ def main() -> None:
     chart_buf = chart_cv_progression()
 
     # Build deck
-    pdf = SlidePDF(n_slides=N_SLIDES, header_right="MedRisk-ADH v2.0")
+    pdf = SlidePDF(n_slides=N_SLIDES, header_right="MedRisk v2.0")
     slide_01_title(pdf)
     slide_02_ktg_basics(pdf)
     slide_03_why_hypertonie(pdf)

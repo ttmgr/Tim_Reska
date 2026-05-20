@@ -237,7 +237,7 @@ def chart_two_patients() -> BytesIO:
 def build_methods_guide():
     logger.info("Generiere Methods Guide...")
     pdf = AcademicPDF(
-        header_left="MedRisk-ADH v2.0",
+        header_left="MedRisk v2.0",
         header_right="Methods Guide: DQS",
         footer_left="the author | Helmholtz Munich | April 2026",
     )
@@ -633,7 +633,7 @@ def build_methods_guide():
         "Decision Engine (Schicht 2), die voll compliant sein muss."
     )
 
-    pdf.h2("Compliance-Status MedRisk-ADH")
+    pdf.h2("Compliance-Status MedRisk")
     pdf.table(
         headers=["Anforderung", "Artikel", "Status"],
         rows=[
@@ -657,7 +657,7 @@ def build_methods_guide():
     # ── Chapter 9: Variablenverzeichnis ──
     pdf.chapter_head(9, "Variablenverzeichnis")
 
-    pdf.p("Alle Variablen und Formelzeichen in MedRisk-ADH auf einen Blick:")
+    pdf.p("Alle Variablen und Formelzeichen in MedRisk auf einen Blick:")
 
     pdf.h2("DQS-Framework")
     pdf.table(
@@ -718,7 +718,7 @@ def build_methods_guide():
     )
 
     pdf.source_line(
-        "MedRisk-ADH v2.0 | Methods Guide | the author | Helmholtz Munich | April 2026"
+        "MedRisk v2.0 | Methods Guide | the author | Helmholtz Munich | April 2026"
     )
 
     # ── Save ──

@@ -1,6 +1,6 @@
 """Plausible-but-wrong failure mode detection.
 
-The core intellectual contribution of MedRisk-ADH. Detects when an
+The core intellectual contribution of MedRisk. Detects when an
 underwriting model produces a confident prediction on insufficient data —
 the most dangerous failure mode in automated underwriting.
 

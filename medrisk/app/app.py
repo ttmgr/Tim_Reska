@@ -1,4 +1,4 @@
-"""MedRisk-ADH v2 -- Interactive Underwriting Demo.
+"""MedRisk v2 -- Interactive Underwriting Demo.
 
 Streamlit multi-page app demonstrating AI-augmented medical underwriting
 with confidence-calibrated failure mode detection.
@@ -9,7 +9,7 @@ Run: streamlit run app/app.py
 import streamlit as st
 
 st.set_page_config(
-    page_title="MedRisk-ADH",
+    page_title="MedRisk",
     page_icon="M",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -299,7 +299,7 @@ st.markdown("""
 # ---------------------------------------------------------------------------
 st.markdown("""
 <div class="doc-header">
-    <h1>MedRisk-<span>ADH</span> <span class="version-badge">v2.0</span></h1>
+    <h1>MedRisk <span class="version-badge">v2.0</span></h1>
     <p>AI-Augmented Medical Underwriting with Confidence-Calibrated Failure Mode Detection</p>
 </div>
 """, unsafe_allow_html=True)
@@ -405,7 +405,7 @@ st.markdown("""
       <th style="padding:0.55rem 0.8rem; text-align:left; font-size:0.7rem; color:#1a365d; text-transform:uppercase; letter-spacing:0.5px; font-weight:700;">Capability</th>
       <th style="padding:0.55rem 0.8rem; text-align:center; font-size:0.7rem; color:#1a365d; text-transform:uppercase; letter-spacing:0.5px; font-weight:700;">Rules / Actuarial</th>
       <th style="padding:0.55rem 0.8rem; text-align:center; font-size:0.7rem; color:#1a365d; text-transform:uppercase; letter-spacing:0.5px; font-weight:700;">Basic ML</th>
-      <th style="padding:0.55rem 0.8rem; text-align:center; font-size:0.7rem; color:#1a365d; text-transform:uppercase; letter-spacing:0.5px; font-weight:700;">MedRisk-ADH</th>
+      <th style="padding:0.55rem 0.8rem; text-align:center; font-size:0.7rem; color:#1a365d; text-transform:uppercase; letter-spacing:0.5px; font-weight:700;">MedRisk</th>
     </tr>
   </thead>
   <tbody>
@@ -496,7 +496,7 @@ st.markdown("""
 # ---------------------------------------------------------------------------
 # Sidebar (light Doctolib style)
 # ---------------------------------------------------------------------------
-st.sidebar.markdown("### MedRisk-ADH")
+st.sidebar.markdown("### MedRisk")
 st.sidebar.markdown('<span class="sidebar-badge">v2.0</span>', unsafe_allow_html=True)
 st.sidebar.markdown("---")
 st.sidebar.markdown("**the author**")

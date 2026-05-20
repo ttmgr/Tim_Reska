@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate documentation PDFs for MedRisk-ADH."""
+"""Generate documentation PDFs for MedRisk."""
 
 from pathlib import Path
 
@@ -21,7 +21,7 @@ class DocPDF(FPDF):
         self.set_font("Helvetica", "B", 8)
         self.set_text_color(100, 120, 142)
         self.cell(
-            0, 5, "MedRisk-ADH v2.0 | Helmholtz Munich",
+            0, 5, "MedRisk v2.0 | Helmholtz Munich",
             align="R", new_x="LMARGIN", new_y="NEXT",
         )
         self.line(15, self.get_y(), 195, self.get_y())
@@ -74,10 +74,10 @@ class DocPDF(FPDF):
 
 def make_what_we_built():
     pdf = DocPDF()
-    pdf.cover("What We Built", "MedRisk-ADH -- Complete Technical Summary")
+    pdf.cover("What We Built", "MedRisk -- Complete Technical Summary")
     pdf.add_page()
     pdf.h2("Project Overview")
-    pdf.p("MedRisk-ADH is an AI-driven medical underwriting system with confidence-calibrated failure mode detection. It detects when a prediction is not supported by sufficient input data -- the Plausible-but-Wrong (PBW) problem.")
+    pdf.p("MedRisk is an AI-driven medical underwriting system with confidence-calibrated failure mode detection. It detects when a prediction is not supported by sufficient input data -- the Plausible-but-Wrong (PBW) problem.")
 
     pdf.h2("Architecture (v2)")
     pdf.p("Patient Record -> Data Profile -> DQS v2 -> Model Router -> Reliability Head -> Decision + Audit")
@@ -117,7 +117,7 @@ def make_what_we_built():
 
 def make_app_guide():
     pdf = DocPDF()
-    pdf.cover("Application Guide", "How to Use the MedRisk-ADH Demo")
+    pdf.cover("Application Guide", "How to Use the MedRisk Demo")
     pdf.add_page()
     pdf.h2("Starting the App")
     pdf.p("Streamlit: make app (or streamlit run app/app.py) -> http://localhost:8501")
@@ -151,7 +151,7 @@ def make_app_guide():
 
 def make_data_requirements():
     pdf = DocPDF()
-    pdf.cover("Data Requirements", "What MedRisk-ADH Needs for Phase 2 Validation")
+    pdf.cover("Data Requirements", "What MedRisk Needs for Phase 2 Validation")
     pdf.add_page()
     pdf.h2("Minimum Requirements")
     pdf.li("50,000+ patient records, 5+ years follow-up")

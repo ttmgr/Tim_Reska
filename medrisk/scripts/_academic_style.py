@@ -1,4 +1,4 @@
-"""Shared academic/scientific PDF styling for all MedRisk-ADH reports.
+"""Shared academic/scientific PDF styling for all MedRisk reports.
 
 Provides:
 - AcademicPDF: portrait or landscape FPDF subclass with clean typography
@@ -106,7 +106,7 @@ def chart_style():
 class AcademicPDF(FPDF):
     """Portrait A4 document with academic/scientific styling."""
 
-    def __init__(self, header_left: str = "MedRisk-ADH v2.0",
+    def __init__(self, header_left: str = "MedRisk v2.0",
                  header_right: str = "", footer_left: str = "the author | Helmholtz Munich | March 2026"):
         super().__init__(orientation="P", unit="mm", format="A4")
         self.set_auto_page_break(auto=True, margin=16)
@@ -327,7 +327,7 @@ class SlidePDF(FPDF):
     """Landscape A4 slide deck with academic styling."""
 
     def __init__(self, n_slides: int = 10,
-                 header_right: str = "MedRisk-ADH v2.0"):
+                 header_right: str = "MedRisk v2.0"):
         super().__init__(orientation="L", unit="mm", format="A4")
         self.set_auto_page_break(auto=False)
         self.set_margins(15, 15, 15)

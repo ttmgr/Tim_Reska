@@ -153,7 +153,7 @@ def slide_01_title(pdf: SlidePDF):
     pdf.set_font("Helvetica", "", 10)
     pdf.set_text_color(*C_FOOTNOTE)
     pdf.set_xy(MARGIN, 45)
-    pdf.cell(CONTENT_W, 6, safe("MedRisk-ADH v2.0"), align="C",
+    pdf.cell(CONTENT_W, 6, safe("MedRisk v2.0"), align="C",
              new_x="LMARGIN", new_y="NEXT")
     pdf.ln(6)
 
@@ -223,7 +223,7 @@ def slide_02_conformal(pdf: SlidePDF, chart_buf: BytesIO):
 
     pdf.source_line(
         "Quelle: Angelopoulos & Bates, Conformal Prediction (2023); "
-        "MedRisk-ADH Implementierung")
+        "MedRisk Implementierung")
 
 
 def slide_03_survival(pdf: SlidePDF, chart_buf: BytesIO):
@@ -255,7 +255,7 @@ def slide_03_survival(pdf: SlidePDF, chart_buf: BytesIO):
 
     pdf.source_line(
         "Quelle: lifelines (Davidson-Pilon 2019), "
-        "Framingham Heart Study, MedRisk-ADH CTMC")
+        "Framingham Heart Study, MedRisk CTMC")
 
 
 def slide_04_causal(pdf: SlidePDF):
@@ -327,7 +327,7 @@ def slide_04_causal(pdf: SlidePDF):
 
     pdf.source_line(
         "Quelle: Hernan & Robins (2020), "
-        "Chernozhukov et al. (2018), MedRisk-ADH IPW")
+        "Chernozhukov et al. (2018), MedRisk IPW")
 
 
 def slide_05_vision(pdf: SlidePDF):
@@ -452,7 +452,7 @@ def main():
     cp_chart = chart_conformal()
     surv_chart = chart_survival()
 
-    pdf = SlidePDF(n_slides=N_SLIDES, header_right="MedRisk-ADH v2.0")
+    pdf = SlidePDF(n_slides=N_SLIDES, header_right="MedRisk v2.0")
     slide_01_title(pdf)
     slide_02_conformal(pdf, cp_chart)
     slide_03_survival(pdf, surv_chart)

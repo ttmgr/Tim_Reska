@@ -1,4 +1,4 @@
-"""MedRisk-ADH -- Underwriting Simulator (Interactive Quiz).
+"""MedRisk -- Underwriting Simulator (Interactive Quiz).
 
 Interview prep tool: presents KTG underwriting case studies as an interactive
 quiz.  The user plays the role of a medical underwriter reviewing algorithm
@@ -26,7 +26,7 @@ from medrisk.underwriting.profiles import CaseStudy, load_case_studies
 # Page config
 # ---------------------------------------------------------------------------
 st.set_page_config(
-    page_title="Underwriting Simulator | MedRisk-ADH",
+    page_title="Underwriting Simulator | MedRisk",
     page_icon="🩺",
     layout="wide",
 )

@@ -1,4 +1,4 @@
-# MedRisk-ADH
+# MedRisk
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../LICENSE)
@@ -12,7 +12,7 @@ Automated underwriting AI fails most dangerously not when it is obviously wrong 
 
 ## The Solution
 
-MedRisk-ADH proposes a validation layer that sits between the risk models and the underwriting decision. It computes a **Data Quality Score** (DQS) for each patient before inference, then flags cases where model confidence exceeds what the input data can support — the **plausible-but-wrong** (PBW) detection.
+MedRisk proposes a validation layer that sits between the risk models and the underwriting decision. It computes a **Data Quality Score** (DQS) for each patient before inference, then flags cases where model confidence exceeds what the input data can support — the **plausible-but-wrong** (PBW) detection.
 
 This does not improve model accuracy. It identifies when the model's predictions should not be trusted. The distinction matters: it enables automation for the 80% of cases where data quality supports the decision, and escalates only the cases that need a human.
 
@@ -161,7 +161,7 @@ These let the platform be evaluated against real-world data for validation studi
 ## Project Structure
 
 ```
-medrisk-adh/
+medrisk/
 ├── app/                    # 7-page Streamlit application + UI components
 │   ├── app.py
 │   ├── pages/              # 1_Patient_Assessment ... 7_KTG_Flashcards
@@ -189,7 +189,7 @@ medrisk-adh/
 ## Documentation
 
 - [`docs/failure_modes.md`](docs/failure_modes.md) — Methods-section treatment of the PBW failure taxonomy with worked case studies
-- [`docs/guide_medrisk_adh.md`](docs/guide_medrisk_adh.md) — End-to-end user guide
+- [`docs/guide_medrisk.md`](docs/guide_medrisk.md) — End-to-end user guide
 - [`docs/ktg_underwriting_manual.md`](docs/ktg_underwriting_manual.md) — German Krankentagegeld underwriting reference
 - [`docs/study_guide.md`](docs/study_guide.md) / [`docs/study_guide_de.md`](docs/study_guide_de.md) — Long-form study guides (English / German) covering epidemiology, actuarial foundations, and ML
 - [`docs/data_requirements.md`](docs/data_requirements.md) — Input data schemas

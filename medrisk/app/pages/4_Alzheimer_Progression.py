@@ -1,4 +1,4 @@
-"""MedRisk-ADH -- Alzheimer's Disease Progression Demo.
+"""MedRisk -- Alzheimer's Disease Progression Demo.
 
 Interactive exploration of a 7-state CTMC model for Alzheimer's disease
 progression, from normal cognition through severe AD to death.
@@ -156,7 +156,7 @@ st.markdown("""
         <span style="display:inline-block;background:#f0fff4;color:#38a169;font-size:0.68rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:10px;margin-left:0.3rem;vertical-align:middle;">Generalizability Proof</span>
     </h1>
     <p style="color:#718096;font-size:0.95rem;margin:0;">
-        This page demonstrates that MedRisk-ADH's core validation framework (DQS, Model Router, Reliability Head) generalises beyond cardiovascular risk. New diseases are added as data configurations, not code.
+        This page demonstrates that MedRisk's core validation framework (DQS, Model Router, Reliability Head) generalises beyond cardiovascular risk. New diseases are added as data configurations, not code.
     </p>
 </div>
 """, unsafe_allow_html=True)

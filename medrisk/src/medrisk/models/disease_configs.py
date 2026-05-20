@@ -1,4 +1,4 @@
-"""Disease-specific CTMC configurations for MedRisk-ADH.
+"""Disease-specific CTMC configurations for MedRisk.
 
 Provides a registry of pre-configured disease progression models. Each
 DiseaseConfig packages state definitions, transition intensities, and

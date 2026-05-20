@@ -1,8 +1,8 @@
-# MedRisk-ADH — Technische Anleitung
+# MedRisk — Technische Anleitung
 
-## 1. Was ist MedRisk-ADH?
+## 1. Was ist MedRisk?
 
-MedRisk-ADH ist ein Proof-of-Concept fuer KI-gestuetzte medizinische Risikopruefung mit eingebauter Fehlererkennung. Das System erkennt automatisch, wenn ein Modell eine selbstsichere Vorhersage auf schlechten Daten trifft — sogenannte "Plausible-but-Wrong" (PBW) Entscheidungen.
+MedRisk ist ein Proof-of-Concept fuer KI-gestuetzte medizinische Risikopruefung mit eingebauter Fehlererkennung. Das System erkennt automatisch, wenn ein Modell eine selbstsichere Vorhersage auf schlechten Daten trifft — sogenannte "Plausible-but-Wrong" (PBW) Entscheidungen.
 
 ### Das zentrale Problem
 
@@ -12,7 +12,7 @@ Bei 100.000 Policen pro Jahr und einer 2% PBW-Rate sind das 2.000 falsch bewerte
 
 ### Die Loesung
 
-MedRisk-ADH fuegt eine **Validierungsschicht vor der Entscheidung** ein:
+MedRisk fuegt eine **Validierungsschicht vor der Entscheidung** ein:
 
 ```
 Patientendaten
@@ -36,7 +36,7 @@ Patientendaten
 ## 2. Projektstruktur
 
 ```
-MedRisk-ADH/
+MedRisk/
   src/medrisk/
     data/           # Datenmodelle, ICD-10, Charlson, Synthetic Generator
     features/       # Feature Engineering (ICD-10 Encoding, Feature Matrix)

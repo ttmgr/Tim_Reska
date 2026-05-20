@@ -1,4 +1,4 @@
-"""MedRisk-ADH: AI-driven medical underwriting with failure mode detection."""
+"""MedRisk: AI-driven medical underwriting with failure mode detection."""
 
 from medrisk._version import __version__
 

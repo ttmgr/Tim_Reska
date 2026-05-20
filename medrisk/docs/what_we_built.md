@@ -1,7 +1,7 @@
-# What We Built -- MedRisk-ADH Technical Summary
+# What We Built -- MedRisk Technical Summary
 
 ## Project
-MedRisk-ADH v2.0 -- AI-driven medical underwriting with confidence-calibrated failure mode detection.
+MedRisk v2.0 -- AI-driven medical underwriting with confidence-calibrated failure mode detection.
 
 ## v2 Architecture
 ```

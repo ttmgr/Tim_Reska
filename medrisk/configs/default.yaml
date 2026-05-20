@@ -1,4 +1,4 @@
-# MedRisk-ADH default experiment configuration
+# MedRisk default experiment configuration
 
 cohort:
   patients_per_market: 5000

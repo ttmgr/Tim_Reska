@@ -238,7 +238,7 @@ def build_pdf() -> Path:
         title="Medical Underwriting Fundamentals",
         subtitle="Essential knowledge for AI-augmented risk assessment at a major European insurer",
         byline="the author",
-        extra="Based on MedRisk-ADH v2.0 -- AI-driven medical underwriting with confidence-calibrated failure mode detection",
+        extra="Based on MedRisk v2.0 -- AI-driven medical underwriting with confidence-calibrated failure mode detection",
     )
 
     # ── Table of Contents ──
@@ -271,7 +271,7 @@ def build_pdf() -> Path:
     pdf.set_text_color(*C_CAPTION)
     pdf.multi_cell(pdf._cw, 4, safe(
         "This document contains synthetic data and clinical parameters "
-        "from the MedRisk-ADH proof-of-concept. Evidence tiers: "
+        "from the MedRisk proof-of-concept. Evidence tiers: "
         "[T1] = guideline-level, [T2] = observational, [T3] = expert judgment."
     ))
 
@@ -328,7 +328,7 @@ def build_pdf() -> Path:
     pdf.p(
         "ICD-10 codes are the primary language of diagnosis in underwriting. "
         "Germany uses ICD-10-GM (German Modification), which differs from "
-        "ICD-10-CM (US Clinical Modification) in several codes. The MedRisk-ADH "
+        "ICD-10-CM (US Clinical Modification) in several codes. The MedRisk "
         "system maintains 73 curated codes across cardiovascular, metabolic, "
         "renal, respiratory, psychiatric, musculoskeletal, and neurological categories."
     )
@@ -769,7 +769,7 @@ def build_pdf() -> Path:
     pdf.chapter_head(11, "Data Quality & Failure Mode Detection")
 
     pdf.p(
-        "MedRisk-ADH computes a Data Quality Score (DQS) for each patient "
+        "MedRisk computes a Data Quality Score (DQS) for each patient "
         "before any model makes a prediction. The DQS determines how much "
         "a downstream model should trust its own input."
     )
@@ -798,7 +798,7 @@ def build_pdf() -> Path:
 
     pdf.h2("Plausible-But-Wrong (PBW) Detection")
     pdf.p(
-        "The core intellectual contribution of MedRisk-ADH. PBW detects "
+        "The core intellectual contribution of MedRisk. PBW detects "
         "when a model produces a confident prediction on insufficient "
         "data -- the most dangerous failure mode in automated underwriting. "
         "Three signals:"
@@ -894,7 +894,7 @@ def build_pdf() -> Path:
     pdf.set_text_color(*C_CAPTION)
     pdf.multi_cell(pdf._cw, 4, safe(
         "Medical Underwriting Fundamentals -- a major European insurer. "
-        "All clinical data is synthetic (MedRisk-ADH v2.0). "
+        "All clinical data is synthetic (MedRisk v2.0). "
         "Evidence tiers: [T1] guideline-level, [T2] observational, "
         "[T3] expert judgment. Not medical advice; for risk assessment only. "
         "the author, Helmholtz Munich, April 2026."

@@ -43,7 +43,7 @@ _safe = safe
 _chart_style = chart_style
 StudyGuidePDF = lambda: AcademicPDF(  # noqa: E731
     header_left="Medical Underwriting Study Guide",
-    header_right="MedRisk-ADH v2.0",
+    header_right="MedRisk v2.0",
 )
 
 
@@ -518,7 +518,7 @@ def build_study_guide():
     pdf.ln(50)
     pdf.set_font("Helvetica", "", 12)
     pdf.set_text_color(*C_FOOTNOTE)
-    pdf.cell(0, 6, "MedRisk-ADH Study Guide", align="C",
+    pdf.cell(0, 6, "MedRisk Study Guide", align="C",
              new_x="LMARGIN", new_y="NEXT")
     pdf.ln(8)
     pdf.set_font("Helvetica", "B", 24)
@@ -541,7 +541,7 @@ def build_study_guide():
     pdf.set_text_color(*C_FOOTNOTE)
     pdf.multi_cell(0, 4.5, _safe(
         "A practitioner's guide to AI-driven medical underwriting, grounded in "
-        "the MedRisk-ADH codebase. Covers data sources, medical coding, "
+        "the MedRisk codebase. Covers data sources, medical coding, "
         "comorbidity assessment, risk models, disease progression, data quality "
         "scoring, failure detection, insurance pricing, actuarial reserving, "
         "and the full validation pipeline.\n\n"
@@ -594,13 +594,13 @@ def build_study_guide():
           "(3) decide -- accept at standard terms, accept with premium loading, defer "
           "for more information, or decline.")
 
-    pdf.key_concept("MedRisk-ADH maps this to three outcomes: accept (auto-process), "
+    pdf.key_concept("MedRisk maps this to three outcomes: accept (auto-process), "
                     "human_review (escalate), reject (decline). The Reliability Head "
                     "chooses the cost-optimal action per patient.")
 
     pdf.table_caption("Insurance products and their risk questions")
     pdf.table(
-        ["Product", "German name", "Risk question", "MedRisk-ADH model"],
+        ["Product", "German name", "Risk question", "MedRisk model"],
         [
             ["Life", "Lebensversicherung", "Mortality risk", "Cox PH"],
             ["Health", "Krankenversicherung", "Morbidity burden", "XGBoost"],
@@ -656,7 +656,7 @@ def build_study_guide():
     # ================================================================
     pdf.chapter_head(3, "Medical Coding Systems")
     pdf.p("Every diagnosis is an ICD-10 code, lab results use LOINC codes, and "
-          "medications use ATC codes. MedRisk-ADH registers 56 curated ICD-10 codes "
+          "medications use ATC codes. MedRisk registers 56 curated ICD-10 codes "
           "(src/medrisk/data/icd10.py), 14 lab definitions with condition-specific "
           "distributions, and medication mappings for 10 conditions.")
 
@@ -763,7 +763,7 @@ def build_study_guide():
     # ================================================================
     pdf.chapter_head(6, "Disease Progression Modeling")
     pdf.p("An underwriter needs to know not just whether a patient will get sick, but "
-          "when and how fast. MedRisk-ADH uses continuous-time Markov chains (CTMC) to "
+          "when and how fast. MedRisk uses continuous-time Markov chains (CTMC) to "
           "model disease progression through discrete stages. The transition intensity "
           "matrix Q encodes rates between states; P(t) = expm(Qt) gives transition "
           "probabilities at time t.")
@@ -852,7 +852,7 @@ def build_study_guide():
     # CHAPTER 8
     # ================================================================
     pdf.chapter_head(8, "Failure Detection and PBW")
-    pdf.p("The core contribution of MedRisk-ADH: detecting when a model produces a "
+    pdf.p("The core contribution of MedRisk: detecting when a model produces a "
           "confident prediction on insufficient data. Three independent signals flag "
           "unreliable predictions.")
 
@@ -934,7 +934,7 @@ def build_study_guide():
     pdf.chapter_head(10, "Pipeline and Validation")
 
     pdf.figure(chart_pipeline_flow(),
-               "MedRisk-ADH v2 pipeline: seven stages from patient record to audited "
+               "MedRisk v2 pipeline: seven stages from patient record to audited "
                "decision. Each stage adds a quality gate. Source: MedRiskPipeline "
                "in src/medrisk/pipeline.py.", w=160)
 
@@ -1044,7 +1044,7 @@ def build_study_guide():
     pdf.chapter_head(12, "The Full Pipeline -- End to End")
 
     pdf.figure(chart_full_pipeline(),
-               "MedRisk-ADH v2 complete pipeline: 11 stages from cohort generation "
+               "MedRisk v2 complete pipeline: 11 stages from cohort generation "
                "to audited underwriting decision. The top row handles data processing "
                "and ML predictions; the bottom row adds clinical validation and "
                "governance. Source: src/medrisk/pipeline.py.", w=160)
@@ -1109,7 +1109,7 @@ def build_study_guide():
           "explainability, and full audit trail. Phase 2 requires minimum 50,000 "
           "patients with 5+ years follow-up and linked outcomes.")
 
-    pdf.key_concept("MedRisk-ADH answers the question: can we detect when an AI "
+    pdf.key_concept("MedRisk answers the question: can we detect when an AI "
                     "underwriting model is confidently wrong? The answer is yes, on "
                     "synthetic data. Phase 2 answers: does this detection work on "
                     "real claims? The bottleneck is data access and regulatory "

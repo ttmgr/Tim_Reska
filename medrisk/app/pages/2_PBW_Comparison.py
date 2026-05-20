@@ -159,7 +159,7 @@ st.info(f"""
   {len(int_patient.medications)} medications -- the model is filling gaps with population priors.
 
 The Reliability Head estimates P(wrong) = {de_decision.p_wrong:.0%} for DE
-vs {int_decision.p_wrong:.0%} for INT. Without MedRisk-ADH, both would be treated identically.
+vs {int_decision.p_wrong:.0%} for INT. Without MedRisk, both would be treated identically.
 """)
 
 if int_dqs.missingness_types:

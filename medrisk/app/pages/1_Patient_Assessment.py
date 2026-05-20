@@ -40,7 +40,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.title("Patient Assessment")
-st.markdown('<p class="page-subtitle">Score an individual patient through the full MedRisk-ADH v2 pipeline.</p>', unsafe_allow_html=True)
+st.markdown('<p class="page-subtitle">Score an individual patient through the full MedRisk v2 pipeline.</p>', unsafe_allow_html=True)
 
 # Load cached data
 data = load_app_data(n_per_market=1000)

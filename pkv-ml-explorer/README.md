@@ -4,7 +4,7 @@ A self-contained, browser-based catalogue of machine-learning and actuarial meth
 
 ## What this is
 
-An onboarding and reference instrument — for actuaries new to ML, ML practitioners new to insurance, and reviewers who want a quick refresher on a specific method's strengths and limits. The interface language is German (the target audience is the DACH PKV market). Designed as a companion to the applied-ML work in [`../disease-progression/`](../disease-progression/) and [`../medrisk-adh/`](../medrisk-adh/).
+An onboarding and reference instrument — for actuaries new to ML, ML practitioners new to insurance, and reviewers who want a quick refresher on a specific method's strengths and limits. The interface language is German (the target audience is the DACH PKV market). Designed as a companion to the applied-ML work in [`../disease-progression/`](../disease-progression/) and [`../medrisk/`](../medrisk/).
 
 ## Run it
 
@@ -84,4 +84,4 @@ Vanilla HTML + CSS + JavaScript, single file. No bundler, no runtime dependencie
 ## Companion projects
 
 - [`../disease-progression/`](../disease-progression/) — production-grade implementation of survival analysis and multistate Markov on synthetic clinical cohorts.
-- [`../medrisk-adh/`](../medrisk-adh/) — full underwriting platform that operationalizes several of these methods with confidence-calibrated failure detection.
+- [`../medrisk/`](../medrisk/) — full underwriting platform that operationalizes several of these methods with confidence-calibrated failure detection.

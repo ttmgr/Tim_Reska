@@ -1,6 +1,6 @@
 """Cached data generation and model training for the Streamlit app.
 
-Runs the full MedRisk-ADH v2 pipeline once on startup and caches all
+Runs the full MedRisk v2 pipeline once on startup and caches all
 results for interactive exploration.
 """
 

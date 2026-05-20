@@ -4,7 +4,7 @@ A standalone browser dashboard for exploring disease-state transitions and inter
 
 ## What this is
 
-An educational, evidence-anchored simulation layer for understanding how cardiorenal, metabolic, and mental-health risk compounds across a patient trajectory. It is a companion visualization to the applied ML work in [`../disease-progression/`](../disease-progression/) (survival and multistate models) and [`../medrisk-adh/`](../medrisk-adh/) (underwriting platform with plausible-but-wrong detection).
+An educational, evidence-anchored simulation layer for understanding how cardiorenal, metabolic, and mental-health risk compounds across a patient trajectory. It is a companion visualization to the applied ML work in [`../disease-progression/`](../disease-progression/) (survival and multistate models) and [`../medrisk/`](../medrisk/) (underwriting platform with plausible-but-wrong detection).
 
 ## Run it
 
@@ -72,7 +72,7 @@ Vanilla ES6 modules, [D3.js](https://d3js.org/) v7 for the network / timeline, [
 ## Companion projects
 
 - [`../disease-progression/`](../disease-progression/) — reproducible Python framework with Cox PH, DeepSurv, DeepHit, SurvTRACE, and multistate Markov models on the same clinical tracks.
-- [`../medrisk-adh/`](../medrisk-adh/) — Streamlit platform that operationalizes these transitions into an underwriting decision with confidence-calibrated failure-mode flags.
+- [`../medrisk/`](../medrisk/) — Streamlit platform that operationalizes these transitions into an underwriting decision with confidence-calibrated failure-mode flags.
 
 ## Language
 

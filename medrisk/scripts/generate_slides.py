@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate MedRisk-ADH pitch deck as PDF.
+"""Generate MedRisk pitch deck as PDF.
 
 Produces a 10-slide landscape PDF using fpdf2 with live charts generated
 from actual synthetic data via matplotlib.  Uses the shared academic/scientific
@@ -199,7 +199,7 @@ def slide_01_title(pdf: SlidePDF) -> None:
     pdf.set_text_color(*C_HEADING)
     pdf.set_font("Helvetica", "B", 28)
     pdf.set_y(55)
-    pdf.cell(CONTENT_W, 14, safe("MedRisk-ADH"), align="C",
+    pdf.cell(CONTENT_W, 14, safe("MedRisk"), align="C",
              new_x="LMARGIN", new_y="NEXT")
 
     pdf.set_font("Helvetica", "", 14)
@@ -452,7 +452,7 @@ def slide_04_architecture(pdf: SlidePDF) -> None:
         size=10,
     )
 
-    pdf.source_line("Source: MedRisk-ADH v2.0 system design")
+    pdf.source_line("Source: MedRisk v2.0 system design")
 
 
 def slide_05_dqs(pdf: SlidePDF) -> None:
@@ -532,7 +532,7 @@ def slide_05_dqs(pdf: SlidePDF) -> None:
         pdf.cell(0, 7, safe(f"  {desc}"), new_x="LMARGIN", new_y="NEXT")
     pdf.set_text_color(*C_BODY)
 
-    pdf.source_line("Source: MedRisk-ADH DQS v2 implementation")
+    pdf.source_line("Source: MedRisk DQS v2 implementation")
 
 
 def slide_06_multimarket(pdf: SlidePDF, chart_buf: BytesIO) -> None:
@@ -564,7 +564,7 @@ def slide_06_multimarket(pdf: SlidePDF, chart_buf: BytesIO) -> None:
     # Chart on right
     pdf.embed_chart(chart_buf, w=130)
 
-    pdf.source_line("Source: MedRisk-ADH synthetic cohort, N=4,000 (1,000/market), seed=42")
+    pdf.source_line("Source: MedRisk synthetic cohort, N=4,000 (1,000/market), seed=42")
 
 
 def slide_07_pbw(pdf: SlidePDF, chart_buf: BytesIO, data: dict) -> None:
@@ -632,7 +632,7 @@ def slide_07_pbw(pdf: SlidePDF, chart_buf: BytesIO, data: dict) -> None:
     chart_buf.seek(0)
     pdf.image(chart_buf, x=PAGE_W / 2 + 5, w=130)
 
-    pdf.source_line("Source: MedRisk-ADH synthetic cohort, N=4,000, seed=42")
+    pdf.source_line("Source: MedRisk synthetic cohort, N=4,000, seed=42")
 
 
 def slide_08_enables(pdf: SlidePDF, data: dict) -> None:
@@ -673,7 +673,7 @@ def slide_08_enables(pdf: SlidePDF, data: dict) -> None:
     pdf.bullet(safe("Auditability:  Every automated decision has a traceable quality assessment"))
     pdf.bullet(safe("Risk reduction:  PBW detection directly reduces the insurer's exposure to mispriced risk"))
 
-    pdf.source_line("Source: MedRisk-ADH synthetic cohort, N=4,000")
+    pdf.source_line("Source: MedRisk synthetic cohort, N=4,000")
 
 
 def slide_09_roadmap(pdf: SlidePDF) -> None:
@@ -778,7 +778,7 @@ def slide_09_roadmap(pdf: SlidePDF) -> None:
         pdf.set_xy(pos, y_arrow + 3)
         pdf.cell(30, 6, safe(label), align="C")
     pdf.set_text_color(*C_BODY)
-    pdf.source_line("Source: MedRisk-ADH project plan, March 2026")
+    pdf.source_line("Source: MedRisk project plan, March 2026")
 
 
 def slide_10_ask(pdf: SlidePDF) -> None:
@@ -845,7 +845,7 @@ def slide_10_ask(pdf: SlidePDF) -> None:
 
 def main() -> None:
     """Generate the slide deck."""
-    output_path = Path(__file__).resolve().parent.parent / "data" / "reports" / "medrisk_adh_deck.pdf"
+    output_path = Path(__file__).resolve().parent.parent / "data" / "reports" / "medrisk_deck.pdf"
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     # Prepare data

@@ -1,14 +1,14 @@
 # Medical Underwriting Study Guide
 
-## Using MedRisk-ADH as a Learning Laboratory
+## Using MedRisk as a Learning Laboratory
 
 ### About This Guide
 
-This guide teaches what a medical underwriting expert does as a job — how risk decisions are made, where data comes from, how models work, and when to trust (or override) an automated decision. Every concept is grounded in the MedRisk-ADH codebase with concrete code references, real numbers, and hands-on exercises.
+This guide teaches what a medical underwriting expert does as a job — how risk decisions are made, where data comes from, how models work, and when to trust (or override) an automated decision. Every concept is grounded in the MedRisk codebase with concrete code references, real numbers, and hands-on exercises.
 
 **Who it's for:** Someone with strong ML/data science skills who is new to insurance underwriting.
 
-**Prerequisites:** Python, basic ML concepts, MedRisk-ADH installed (`make install`).
+**Prerequisites:** Python, basic ML concepts, MedRisk installed (`make install`).
 
 **Total estimated time:** ~120 minutes reading + exercises.
 
@@ -37,7 +37,7 @@ The workflow is:
 2. **Assess risk** — map diagnoses to severity, check comorbidities, evaluate data completeness
 3. **Decide** — accept at standard terms, accept with a premium loading, defer for more information, or decline
 
-In MedRisk-ADH, this maps directly to the three-outcome decision in `src/medrisk/validation/reliability_head.py`:
+In MedRisk, this maps directly to the three-outcome decision in `src/medrisk/validation/reliability_head.py`:
 - **accept** — auto-process at standard or loaded premium
 - **human_review** — escalate to a senior underwriter for manual assessment
 - **reject** — decline coverage or request additional medical evidence
@@ -48,13 +48,13 @@ At scale, this matters enormously. A large insurer processes ~100,000 policies p
 
 These three roles are often confused:
 
-| Role | Question | Timeframe | MedRisk-ADH Analog |
+| Role | Question | Timeframe | MedRisk Analog |
 |------|----------|-----------|-------------------|
 | **Underwriter** | Should we insure this person, and at what price? | Before policy issuance | `ReliabilityHead.predict()` |
 | **Actuary** | What premium covers expected losses for this portfolio? | Portfolio-level pricing | KTG pricing in Page 5, actuarial reserving |
 | **Claims adjuster** | Is this claim valid and how much should we pay? | After a claim is filed | Not modeled |
 
-The underwriter operates at the **individual** level. The actuary operates at the **portfolio** level. MedRisk-ADH bridges both: individual risk scoring (XGBoost) feeds into portfolio-level KTG pricing (CTMC).
+The underwriter operates at the **individual** level. The actuary operates at the **portfolio** level. MedRisk bridges both: individual risk scoring (XGBoost) feeds into portfolio-level KTG pricing (CTMC).
 
 ### 1.3 Types of Insurance Products
 
@@ -64,7 +64,7 @@ Medical underwriting applies to several product lines:
 - **Health insurance (Krankenversicherung)** — pays for treatment. Key question: morbidity burden.
 - **Disability/sickness benefit (Krankentagegeld, KTG)** — pays a daily rate when unable to work. Key question: how likely is work incapacity (Arbeitsunfähigkeit, AU), how long will it last?
 
-MedRisk-ADH demonstrates all three through its models:
+MedRisk demonstrates all three through its models:
 - Cox PH survival model → mortality/event timing (`src/medrisk/models/cox_ph.py`)
 - XGBoost classifier → binary morbidity risk (`src/medrisk/models/xgb_classifier.py`)
 - CTMC multistate model → disease progression and KTG pricing (`src/medrisk/models/multistate.py`)
@@ -136,7 +136,7 @@ See `docs/data_requirements.md` for the full data source comparison with costs a
 
 ### 2.2 The PatientRecord Schema
 
-In MedRisk-ADH, every patient is represented as a `PatientRecord` (`src/medrisk/data/schemas.py`). This schema mirrors what a real-world underwriting system receives:
+In MedRisk, every patient is represented as a `PatientRecord` (`src/medrisk/data/schemas.py`). This schema mirrors what a real-world underwriting system receives:
 
 **Demographics (5 fields — always present):**
 - `age` (18-100), `sex` (M/F), `bmi` (12.0-60.0), `smoking_status` (never/former/current), `market` (DE/ES/FR/INT)
@@ -158,7 +158,7 @@ In MedRisk-ADH, every patient is represented as a `PatientRecord` (`src/medrisk/
 - `gt_true_risk_score` — their true underlying risk
 - `gt_data_quality_score` — how complete their synthetic record is
 
-This separation between observed data and ground truth is what enables MedRisk-ADH to measure when models are confidently wrong.
+This separation between observed data and ground truth is what enables MedRisk to measure when models are confidently wrong.
 
 ### 2.3 Market Variation
 
@@ -195,7 +195,7 @@ This two-stage process is not an engineering trick — it mirrors reality. Every
 
 ### 2.5 External Data Fetching
 
-Beyond synthetic data, MedRisk-ADH includes a production-grade data fetching pipeline (`src/medrisk/fetch/`) for ingesting real-world cohort data from 8 external sources. All adapters harmonize into a unified 4-table schema (`Person`, `Measurement`, `Event`, `Treatment`) defined in `src/medrisk/fetch/_schema.py`.
+Beyond synthetic data, MedRisk includes a production-grade data fetching pipeline (`src/medrisk/fetch/`) for ingesting real-world cohort data from 8 external sources. All adapters harmonize into a unified 4-table schema (`Person`, `Measurement`, `Event`, `Treatment`) defined in `src/medrisk/fetch/_schema.py`.
 
 | Adapter | Source | Data Type | Coverage |
 |---------|--------|-----------|----------|
@@ -243,7 +243,7 @@ I21.0
 └───── Chapter (I = diseases of the circulatory system)
 ```
 
-MedRisk-ADH registers 56 curated codes in `src/medrisk/data/icd10.py` (line 32), organized by clinical relevance:
+MedRisk registers 56 curated codes in `src/medrisk/data/icd10.py` (line 32), organized by clinical relevance:
 
 **Cardiovascular (Chapter IX: I00-I99) — 21 codes:**
 - I10 = Essential hypertension (the single most common underwriting code)
@@ -276,7 +276,7 @@ If you're building underwriting systems for the German market, you must handle b
 
 ### 3.3 LOINC Codes for Lab Results
 
-Lab results use LOINC codes (Logical Observation Identifiers Names and Codes). MedRisk-ADH defines 14 labs in `src/medrisk/data/synthetic.py` (line 143), each with normal and disease-state distributions:
+Lab results use LOINC codes (Logical Observation Identifiers Names and Codes). MedRisk defines 14 labs in `src/medrisk/data/synthetic.py` (line 143), each with normal and disease-state distributions:
 
 | LOINC | Lab Test | Unit | Normal (mean ± SD) | Disease State (mean ± SD) | Condition |
 |-------|----------|------|-------|---------|-----------|
@@ -314,7 +314,7 @@ C09AA02
 └─────── Anatomical main group (C = cardiovascular system)
 ```
 
-MedRisk-ADH maps conditions to medications in `src/medrisk/data/synthetic.py` (line 269):
+MedRisk maps conditions to medications in `src/medrisk/data/synthetic.py` (line 269):
 
 | Condition | Drug | ATC | Probability |
 |-----------|------|-----|-------------|
@@ -514,7 +514,7 @@ The mismatch between raw and calibrated probabilities is exactly what the **CCM 
 
 ### 5.5 Model Metrics
 
-On the synthetic cohort, MedRisk-ADH achieves:
+On the synthetic cohort, MedRisk achieves:
 
 | Metric | Value | Interpretation |
 |--------|-------|---------------|
@@ -529,7 +529,7 @@ On the synthetic cohort, MedRisk-ADH achieves:
 
 ### 5.6 The Model Router
 
-Instead of training one model and imputing missing features, MedRisk-ADH trains **separate models per data profile** via the `ModelRouter` (`src/medrisk/models/model_router.py`):
+Instead of training one model and imputing missing features, MedRisk trains **separate models per data profile** via the `ModelRouter` (`src/medrisk/models/model_router.py`):
 
 | Profile | Features Available | Typical Market |
 |---------|-------------------|----------------|
@@ -563,7 +563,7 @@ This is the architectural foundation of PBW detection.
 
 An underwriter doesn't just ask "will this patient get sick?" but "**when?**" and "**how fast will it progress?**" A 50-year-old with early-stage hypertension is a very different risk from a 50-year-old with hypertensive crisis.
 
-Three time-aware models in MedRisk-ADH address this:
+Three time-aware models in MedRisk address this:
 
 | Model | Question | Output |
 |-------|----------|--------|
@@ -583,7 +583,7 @@ Key outputs:
 - **Hazard ratio** `exp(βᵢ)` — e.g., if HR for diabetes = 2.1, a diabetic patient has 2.1x the hazard of a non-diabetic, all else equal
 - **Survival function S(t)** — probability of being event-free at time t
 - **Median survival** — the time at which S(t) = 0.50
-- **Concordance index** — like AUC but for survival data. 0.72 in MedRisk-ADH.
+- **Concordance index** — like AUC but for survival data. 0.72 in MedRisk.
 
 **Insurance application:** Cox PH tells the underwriter how much extra risk a given condition adds (hazard ratio) and when the expected event occurs (median survival). This directly feeds pricing models.
 
@@ -709,7 +709,7 @@ Consistency checks whether diagnoses and lab values agree with each other. Five 
 
 Lab values decay in relevance over time. A blood pressure reading from 3 years ago tells less about today's risk than one from last month.
 
-MedRisk-ADH uses exponential decay with a **half-life of 1.4 years** (from `data_quality.py` line 211):
+MedRisk uses exponential decay with a **half-life of 1.4 years** (from `data_quality.py` line 211):
 
 ```
 weight(age) = exp(-ln(2) / 1.4 × age_in_years)
@@ -786,7 +786,7 @@ This matters because structural missingness is **not the patient's fault** and s
 
 ### 8.1 The Plausible-but-Wrong Problem
 
-This is the core intellectual contribution of MedRisk-ADH, implemented in `src/medrisk/validation/failure_detection.py`.
+This is the core intellectual contribution of MedRisk, implemented in `src/medrisk/validation/failure_detection.py`.
 
 **The problem:** A model trained on rich German data (95% completeness) will output a confident prediction (say 85% risk) even on sparse International data (50% completeness). The model doesn't know its input is degraded — it just pattern-matches against what it learned.
 
@@ -1175,7 +1175,7 @@ This feeds into Solvency II capital requirements and reinsurance pricing.
 *~10 min | Advanced — Capstone*
 
 **Learning Objectives:**
-- Trace data through the full MedRisk-ADH v2 pipeline
+- Trace data through the full MedRisk v2 pipeline
 - Understand the audit trail and governance requirements
 - Know the validation roadmap from synthetic to real data
 
@@ -1274,7 +1274,7 @@ When shift is detected, the model should be recalibrated or retrained.
 
 ### 12.7 What You Have Built
 
-MedRisk-ADH is a **regulatory-ready skeleton** that demonstrates:
+MedRisk is a **regulatory-ready skeleton** that demonstrates:
 
 - 442 passing tests across all components
 - 4 European markets with realistic data quality variance
