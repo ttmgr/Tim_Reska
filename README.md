@@ -2,7 +2,7 @@
 
 **Research Scientist · LLM Evaluation · AI Deployment Strategy · Production ML for Regulated Industries**
 
-PhD candidate at Helmholtz Munich and the Technical University of Munich (defense July 2026). 3 years evaluating LLMs across 22+ models and three major families. Builder of production AI systems for medical underwriting with EU AI Act governance. 8 peer-reviewed publications including *Nature Communications*.
+PhD candidate at Helmholtz Munich and the Technical University of Munich (defense July 2026). 3 years evaluating LLMs across 28 models and three major families. Builder of production AI systems for medical underwriting with EU AI Act governance. 8 peer-reviewed publications including *Nature Communications*.
 
 I know where AI works, where it fails, and how to help organisations deploy it.
 
@@ -22,7 +22,7 @@ flowchart TB
     end
 
     subgraph I["Independent · LLM Evaluation"]
-        E["<b>Against Plausibility</b><br/>22 models · 476 step-results<br/>KW + LMM + flagship comparison"]
+        E["<b>Against Plausibility</b><br/>28 models · 476 step-results<br/>KW + LMM + flagship comparison"]
     end
 
     subgraph T["Applied ML · Healthcare & Underwriting"]
@@ -87,7 +87,7 @@ My scientific work develops nanopore sequencing workflows for pathogen surveilla
 
 ## LLM Evaluation · Against Plausibility
 
-A structured benchmark of **22+ models across 476 scored step-results** testing whether LLMs can build real scientific workflows — not just produce locally plausible code. Two validated nanopore pipelines serve as ground truth: a 7-step aerobiome workflow and a 10-step multi-omics wetland workflow.
+A structured benchmark of **28 models across 476 scored step-results** testing whether LLMs can build real scientific workflows — not just produce locally plausible code. Two validated nanopore pipelines serve as ground truth: a 7-step aerobiome workflow and a 10-step multi-omics wetland workflow.
 
 The dominant failure mode: **"plausible but wrong"** — generated code that runs, looks reasonable, and would pass a surface-level review, but makes domain-specific choices that an expert would immediately reject. These failures are invisible to automated benchmarks and dangerous in regulated environments.
 
@@ -121,7 +121,7 @@ GDPR-safe multi-market synthetic cohort generator (DE/FR/ES/INT profiles). 9 ext
 
 Stack: Python 3.11+, XGBoost, lifelines, SHAP, Streamlit, reportlab.
 
-Links: [`medrisk-adh/`](./medrisk-adh/)
+Links: [`medrisk/`](./medrisk/)
 
 ### Disease progression modeling
 
@@ -173,13 +173,13 @@ Links: [`llm-cost-calculator/`](./llm-cost-calculator/)
 
 ```
 Tim_Reska/
-├── llm-eval/                  LLM benchmark: 22 models, 2 pipelines, 476 step-results
+├── llm-eval/                  LLM benchmark: 28 models, 2 pipelines, 476 step-results
 │   ├── methodology/           evaluation framework, scoring rubrics, pipeline references
 │   ├── prompts/               standardised prompts per pipeline step
 │   ├── evaluations/           scored evaluations by step and by model
 │   ├── results/               figures, tables, scoring matrix
 │   └── scripts/               heatmap, radar, statistical analysis generators
-├── medrisk-adh/               medical underwriting AI platform
+├── medrisk/                   medical underwriting AI platform
 │   ├── src/medrisk/           67 Python modules across 10 subpackages
 │   ├── tests/                 442 tests
 │   ├── configs/               insurance market configs, underwriting profiles

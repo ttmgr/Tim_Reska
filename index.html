@@ -26,6 +26,7 @@
             --text-secondary: #6B6A73;
             --accent: #C4794A;
             --accent-hover: #A8603A;
+            --accent-text: #9A5A2E;
             --border: #E8E6E1;
             --tag-bg: #F0EDEA;
             --tag-text: #5A584F;
@@ -44,7 +45,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+        a { color: var(--accent-text); text-decoration: none; transition: color 0.2s; }
         a:hover { color: var(--accent-hover); }
 
         *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
@@ -74,7 +75,7 @@
             padding-bottom: 4px; border-bottom: 2px solid transparent;
         }
         nav ul li a:hover { color: var(--text); }
-        nav ul li a.active { color: var(--text); border-bottom-color: var(--accent); }
+        nav ul li a.active { color: var(--text); border-bottom-color: var(--accent-text); }
 
         .hamburger {
             display: none; background: none; border: none; cursor: pointer; padding: 8px;
@@ -89,10 +90,11 @@
         .hero .container {
             display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
         }
-        .hero-text { position: relative; z-index: 2; }
+        .hero-text { position: relative; z-index: 2; min-width: 0; }
         .hero h1 {
+            overflow-wrap: break-word;
             font-family: 'Source Serif 4', Georgia, serif;
-            font-size: clamp(36px, 4.5vw, 52px);
+            font-size: clamp(30px, 4.5vw, 52px);
             font-weight: 600; line-height: 1.1; margin-bottom: 20px;
             color: var(--text);
         }
@@ -122,7 +124,7 @@
         /* --- HERO VISUAL (terminal + DNA) --- */
         .hero-visual {
             position: relative; display: flex; align-items: center; justify-content: center;
-            min-height: 420px;
+            min-height: 420px; min-width: 0;
         }
         .dna-svg { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); opacity: 0.1; }
         .terminal {
@@ -136,7 +138,7 @@
         .terminal-dot.r { background: #fb7185; }
         .terminal-dot.y { background: #fbbf24; }
         .terminal-dot.g { background: #34d399; }
-        .terminal-title { font-size: 11px; color: #6B6A73; margin-left: 12px; font-family: 'JetBrains Mono', monospace; }
+        .terminal-title { font-size: 11px; color: #9b9aa3; margin-left: 12px; font-family: 'JetBrains Mono', monospace; }
         .terminal-body {
             padding: 18px 20px; font-family: 'JetBrains Mono', monospace; font-size: 13px;
             line-height: 1.9; color: #94a3b8;
@@ -144,7 +146,7 @@
         .terminal-body .prompt { color: var(--accent); }
         .terminal-body .cmd { color: #f8fafc; }
         .terminal-body .flag { color: #60a5fa; }
-        .terminal-body .output { color: #64748b; }
+        .terminal-body .output { color: #9aa6b8; }
         .cursor {
             display: inline-block; width: 7px; height: 14px; background: var(--accent);
             animation: blink 1s step-end infinite; vertical-align: middle; margin-left: 2px;
@@ -176,7 +178,7 @@
 
         .section-label {
             font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
-            text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
+            text-transform: uppercase; color: var(--accent-text); margin-bottom: 12px;
         }
         .section-title {
             font-family: 'Source Serif 4', Georgia, serif;
@@ -194,7 +196,7 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
         }
-        .research-grid { grid-template-columns: repeat(4, 1fr); }
+        .research-grid { grid-template-columns: repeat(3, 1fr); }
         .project-card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -206,12 +208,11 @@
         .project-card:hover {
             border-color: #d0cec8;
             box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-            transform: translateY(-2px);
         }
         .project-card .card-tag {
             display: inline-block; font-size: 11px; font-weight: 600;
             letter-spacing: 0.06em; text-transform: uppercase;
-            color: var(--accent); margin-bottom: 12px;
+            color: var(--accent-text); margin-bottom: 12px;
         }
         .project-card h3 {
             font-family: 'Source Serif 4', Georgia, serif;
@@ -219,7 +220,7 @@
         }
         .project-card p {
             font-size: 15px; color: var(--text-secondary); line-height: 1.7;
-            margin-bottom: 16px; flex-grow: 1; text-align: justify;
+            margin-bottom: 16px; flex-grow: 1;
         }
         .project-card .card-meta {
             display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px;
@@ -236,6 +237,7 @@
             font-size: 13px; font-weight: 500;
             display: inline-flex; align-items: center; gap: 4px;
         }
+        .card-status { font-size: 13px; font-weight: 500; color: var(--text-secondary); }
 
         /* --- FEATURED (full-width card) --- */
         .featured-card {
@@ -245,7 +247,7 @@
         .featured-card .card-tag {
             display: inline-block; font-size: 11px; font-weight: 600;
             letter-spacing: 0.06em; text-transform: uppercase;
-            color: var(--accent); margin-bottom: 16px;
+            color: var(--accent-text); margin-bottom: 16px;
         }
         .featured-card h3 {
             font-family: 'Source Serif 4', Georgia, serif;
@@ -320,7 +322,7 @@
         }
         .pub-list li:last-child { border-bottom: none; }
         .pub-journal {
-            font-size: 12px; font-weight: 600; color: var(--accent);
+            font-size: 12px; font-weight: 600; color: var(--accent-text);
             text-transform: uppercase; letter-spacing: 0.04em;
             margin-bottom: 2px;
         }
@@ -330,13 +332,13 @@
             margin-bottom: 2px;
         }
         .pub-title a { color: var(--text); }
-        .pub-title a:hover { color: var(--accent); }
+        .pub-title a:hover { color: var(--accent-text); }
         .pub-authors {
             font-size: 14px; color: var(--text-secondary); line-height: 1.5;
         }
         .pub-authors strong { color: var(--text); font-weight: 600; }
         .pub-note {
-            font-size: 12px; color: var(--accent); font-weight: 500;
+            font-size: 12px; color: var(--accent-text); font-weight: 500;
             margin-top: 2px; display: inline-block;
         }
         .pub-more {
@@ -381,7 +383,7 @@
             color: var(--text-secondary); transition: color 0.2s;
             display: flex; align-items: center;
         }
-        .footer-links a:hover { color: var(--accent); }
+        .footer-links a:hover { color: var(--accent-text); }
         .footer-links svg { width: 20px; height: 20px; }
 
         /* --- RESPONSIVE --- */
@@ -391,9 +393,9 @@
             .skills-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 900px) {
-            .hero .container { grid-template-columns: 1fr; text-align: center; }
+            .hero .container { display: block; text-align: center; }
             .hero-links { justify-content: center; }
-            .hero p { margin-left: auto; margin-right: auto; }
+            .hero p { margin-left: auto; margin-right: auto; max-width: 100%; }
             .hero-visual { min-height: 300px; margin-top: 16px; }
             .terminal { margin: 0 auto; max-width: 100%; }
             .terminal-body { font-size: 12px; padding: 14px 16px; overflow-x: auto; }
@@ -463,7 +465,7 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 13px;
             font-weight: 500;
-            color: var(--accent);
+            color: var(--accent-text);
             padding-top: 2px;
         }
         .tl-content h3 {
@@ -483,11 +485,17 @@
         }
 
         /* --- ANIMATIONS --- */
-        .fade-in {
-            opacity: 0; transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+        .fade-in { opacity: 1; transform: none; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .cursor { animation: none; opacity: 1; }
         }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
@@ -880,7 +888,7 @@
                         <span>EU AI Act</span>
                     </div>
                     <div class="card-links">
-                        <a>Client confidential</a>
+                        <span class="card-status">Client confidential</span>
                     </div>
                 </div>
 
@@ -895,7 +903,7 @@
                         <span>OSINT</span>
                     </div>
                     <div class="card-links">
-                        <a>Client confidential</a>
+                        <span class="card-status">Client confidential</span>
                     </div>
                 </div>
 
@@ -909,24 +917,24 @@
                         <span>PE</span>
                     </div>
                     <div class="card-links">
-                        <a>Client confidential</a>
+                        <span class="card-status">Client confidential</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="skills" style="padding: 48px 0;">
+    <section id="skills">
         <div class="container">
             <div class="fade-in">
                 <div class="section-label">Expertise</div>
                 <h2 class="section-title" style="margin-bottom: 20px;">Skills &amp; Tools</h2>
             </div>
             <div class="fade-in" style="display: flex; flex-wrap: wrap; gap: 8px;">
-                <span style="font-size:13px;font-weight:600;color:var(--text);padding:5px 14px;background:var(--surface);border:1px solid var(--border);border-radius:20px;">Python</span>
-                <span style="font-size:13px;font-weight:600;color:var(--text);padding:5px 14px;background:var(--surface);border:1px solid var(--border);border-radius:20px;">PyTorch</span>
-                <span style="font-size:13px;font-weight:600;color:var(--text);padding:5px 14px;background:var(--surface);border:1px solid var(--border);border-radius:20px;">Nanopore</span>
-                <span style="font-size:13px;font-weight:600;color:var(--text);padding:5px 14px;background:var(--surface);border:1px solid var(--border);border-radius:20px;">Snakemake</span>
+                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Python</span>
+                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">PyTorch</span>
+                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Nanopore</span>
+                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Snakemake</span>
                 <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">XGBoost</span>
                 <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">scikit-learn</span>
                 <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Transformers</span>
@@ -1129,17 +1137,6 @@
     </footer>
 
     <script>
-        // Scroll-based fade-in
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
         // Mobile nav close on link click
         document.querySelectorAll('nav a[href^="#"]').forEach(link => {
             link.addEventListener('click', () => {
