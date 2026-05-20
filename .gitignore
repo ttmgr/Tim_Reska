@@ -50,3 +50,6 @@ multi_agent_dd/docs/
 multi_agent_dd/outputs/
 multi_agent_dd/workings/
 multi_agent_dd/templates/
+
+# Local archive — old/unwanted working files; never published
+archive/
