@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nanopore Pipeline Advisor &mdash; Tim Reska</title>
+  <meta name="description"
+    content="Interactive advisor that recommends an Oxford Nanopore kit, basecalling model, and analysis pipeline from a short questionnaire — with rationale, alternatives, and ready-to-run commands.">
+  <link rel="icon" href="../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20260425">
+  <script defer src="recommendation-engine.js?v=20260425"></script>
+  <script defer src="app.js?v=20260425"></script>
+</head>
+
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="hero-link-row">
+          <a href="../index.html">&larr; Tim Reska &mdash; Portfolio</a>
+          &nbsp;&middot;&nbsp;
+          <a href="https://github.com/ttmgr/GenomicsForOneHealth" target="_blank" rel="noreferrer">GenomicsForOneHealth</a>
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <!-- ── Pipeline advisor ──────────────────────────────── -->
+      <section class="content-section advisor-section" id="advisor" aria-labelledby="advisor-heading">
+        <p class="eyebrow">Pipeline Advisor</p>
+        <h2 class="section-heading" id="advisor-heading">What should I sequence with?</h2>
+        <p class="section-text">
+          Describe your project and get a kit, basecalling model, and pipeline recommendation.
+        </p>
+
+        <div class="advisor-shell">
+          <!-- Left pane: questions -->
+          <section class="advisor-pane pane-questions" id="questions-pane">
+            <div class="panel-head">
+              <div>
+                <p class="panel-kicker">Sequencing advisor</p>
+                <h2>Describe your project</h2>
+              </div>
+              <button id="reset-button" class="ghost-button" type="button">Start over</button>
+            </div>
+
+            <div id="progress-root" class="progress-root" aria-label="Advisor progress"></div>
+            <div id="page-root" class="page-root"></div>
+
+            <div class="wizard-controls">
+              <button id="back-button" class="ghost-button" type="button">Back</button>
+              <div class="wizard-controls-right">
+                <button id="skip-to-results-button" class="ghost-button" type="button" hidden>Skip to results</button>
+                <button id="next-button" class="primary-button" type="button">Continue</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Middle pane: live recommendation -->
+          <aside class="advisor-pane pane-recommendation" id="recommendation-pane">
+            <div class="rec-card" id="rec-card">
+              <div class="rec-header">
+                <p class="panel-kicker">Live recommendation</p>
+                <button type="button"
+                  class="confidence-badge confidence-chip"
+                  id="rec-confidence"
+                  data-level="low"
+                  aria-haspopup="dialog"
+                  aria-expanded="false"
+                  aria-controls="confidence-popover">
+                  <span class="confidence-dot"></span>
+                  <span class="confidence-label">Needs more info</span>
+                  <span class="confidence-info-icon" aria-hidden="true">i</span>
+                </button>
+              </div>
+
+              <div class="visually-hidden" aria-live="polite" id="rec-live"></div>
+
+              <div class="rec-slot" id="rec-slot-workflow">
+                <p class="rec-slot-label">Workflow</p>
+                <p class="rec-slot-value" id="rec-workflow">&mdash;</p>
+              </div>
+
+              <div class="rec-slot" id="rec-slot-kit">
+                <p class="rec-slot-label">Recommended kit</p>
+                <p class="rec-slot-value" id="rec-kit">&mdash;</p>
+                <p class="rec-slot-meta" id="rec-kit-meta"></p>
+              </div>
+
+              <div class="rec-slot" id="rec-slot-basecalling">
+                <p class="rec-slot-label">Basecalling model</p>
+                <p class="rec-slot-value" id="rec-basecalling">&mdash;</p>
+                <p class="rec-slot-meta" id="rec-basecalling-meta"></p>
+              </div>
+
+              <div class="rec-slot" id="rec-slot-pipeline">
+                <p class="rec-slot-label">Analysis pipeline</p>
+                <p class="rec-slot-value" id="rec-pipeline">&mdash;</p>
+                <p class="rec-slot-meta" id="rec-pipeline-meta"></p>
+              </div>
+
+              <div class="rec-slot rec-slot-rationale" id="rec-slot-rationale">
+                <p class="rec-slot-label">Why this is the best fit</p>
+                <ul class="rec-rationale-list" id="rec-rationale"></ul>
+              </div>
+
+              <div class="rec-warnings" id="rec-warnings" hidden></div>
+            </div>
+          </aside>
+
+          <!-- Right pane: rationale, alternatives, commands -->
+          <aside class="advisor-pane pane-rationale" id="rationale-pane">
+            <div class="rationale-section" id="rationale-compare" hidden>
+              <p class="panel-kicker">Top candidates</p>
+              <div id="rationale-compare-content"></div>
+            </div>
+
+            <div class="rationale-section" id="rationale-alternative" hidden>
+              <p class="panel-kicker">Alternative</p>
+              <div id="rationale-alt-content"></div>
+            </div>
+
+            <div class="rationale-section" id="rationale-commands" hidden>
+              <p class="panel-kicker">Ready-to-run commands</p>
+              <div id="rationale-commands-content"></div>
+            </div>
+
+            <div class="rationale-section" id="rationale-checklist" hidden>
+              <p class="panel-kicker">Wet-lab checklist</p>
+              <ol class="checklist" id="rationale-checklist-content"></ol>
+            </div>
+
+            <div class="rationale-section" id="rationale-protocols" hidden>
+              <p class="panel-kicker">Protocol links</p>
+              <ul class="protocol-links" id="rationale-protocols-content"></ul>
+            </div>
+
+            <div class="rationale-section" id="rationale-placeholder">
+              <p class="muted">Answer questions on the left to see recommendations, alternatives, and ready-to-run commands.</p>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Shared confidence popover (toggled by any .confidence-chip) -->
+  <div class="confidence-popover" id="confidence-popover" role="dialog" aria-labelledby="confidence-popover-title" hidden>
+    <p class="confidence-popover-title" id="confidence-popover-title">Confidence: <span data-popover-level>low</span></p>
+    <dl class="confidence-signals">
+      <div class="confidence-signal-row"><dt>Core fields answered</dt><dd data-popover-core>0 of 3</dd></div>
+      <div class="confidence-signal-row"><dt>Top kit leads by</dt><dd data-popover-gap>—</dd></div>
+      <div class="confidence-signal-row"><dt>Top kit score</dt><dd data-popover-top>—</dd></div>
+    </dl>
+    <p class="confidence-popover-explain" data-popover-reason></p>
+    <button type="button" class="confidence-popover-close" id="confidence-popover-close" aria-label="Close">×</button>
+  </div>
+
+  <!-- Mobile bottom sheet — opened from the sticky bar's "View recommendation" button -->
+  <div class="mobile-rec-sheet-overlay" id="mobile-rec-sheet-overlay" hidden></div>
+  <div class="mobile-rec-sheet" id="mobile-rec-sheet" role="dialog" aria-modal="true" aria-labelledby="mobile-rec-sheet-title" hidden>
+    <div class="mobile-rec-sheet-handle" aria-hidden="true"></div>
+    <div class="mobile-rec-sheet-head">
+      <h3 id="mobile-rec-sheet-title">Your recommendation</h3>
+      <button type="button" class="mobile-rec-sheet-close" id="mobile-rec-sheet-close" aria-label="Close">×</button>
+    </div>
+    <div class="mobile-rec-sheet-body" id="mobile-rec-sheet-body"></div>
+  </div>
+
+  <!-- Mobile sticky recommendation bar (visible < 860px) -->
+  <div class="mobile-rec-bar is-hidden" id="mobile-rec-bar">
+    <div class="mobile-rec-bar-inner">
+      <div class="mobile-rec-summary">
+        <p class="mobile-rec-label">Recommendation</p>
+        <p class="mobile-rec-value" id="mobile-rec-value">&mdash;</p>
+      </div>
+      <button type="button"
+        class="confidence-badge confidence-chip"
+        id="mobile-rec-confidence"
+        data-level="low"
+        aria-haspopup="dialog"
+        aria-expanded="false"
+        aria-controls="confidence-popover">
+        <span class="confidence-dot"></span>
+        <span class="confidence-label">Needs info</span>
+        <span class="confidence-info-icon" aria-hidden="true">i</span>
+      </button>
+      <button class="mobile-rec-expand" id="mobile-rec-expand" type="button" aria-haspopup="dialog">View recommendation ↓</button>
+    </div>
+  </div>
+</body>
+
+</html>
