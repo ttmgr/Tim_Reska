@@ -29,3 +29,24 @@ Thumbs.db
 # Misc
 *.tgz
 *.pdf
+
+# Office deliverables (anonymized demos, but heavy — keep repo lean)
+*.pptx
+*.docx
+
+# Design scratch
+previews/
+
+# Askeras — lives in its own repo (own domain, future GmbH)
+askeras-v1/
+askeras-v2/
+askeras_v2_data_do_not_touch_if_not_prompted/
+academy_data_do_not_touch_if_not_prompted/
+
+# multi_agent_dd: publish only the showcase (index.html); keep build internals local
+multi_agent_dd/build_*.py
+multi_agent_dd/SKILL.md
+multi_agent_dd/docs/
+multi_agent_dd/outputs/
+multi_agent_dd/workings/
+multi_agent_dd/templates/
