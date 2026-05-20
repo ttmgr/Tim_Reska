@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent Skill Pack for One Health Genomics &mdash; Tim Reska</title>
+  <meta name="description"
+    content="A coding-agent skill pack over the GenomicsForOneHealth pipelines: routes a sequencing project to a documented workflow, validates inputs, builds commands only from declared templates, parses outputs, runs sanity checks, and writes audit logs.">
+  <link rel="icon" href="../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20260425">
+</head>
+
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Agent Skill Pack</p>
+        <h1>A coding-agent skill pack for One Health genomics</h1>
+        <p class="hero-text">
+          A machine-readable, inspectable layer over the GenomicsForOneHealth pipelines. It lets
+          LLM-assisted coding agents (Codex, Claude Code, Cursor, Continue) route a sequencing project
+          to the right documented workflow, validate inputs, build commands only from declared
+          templates, parse outputs, run sanity checks, and write audit logs &mdash; without inventing
+          commands, parameters, tools, or databases.
+        </p>
+        <p class="hero-link-row">
+          <a href="../index.html">&larr; Tim Reska &mdash; Portfolio</a>
+          &nbsp;&middot;&nbsp;
+          <a href="https://github.com/ttmgr/GenomicsForOneHealth/tree/main/agent_skills" target="_blank" rel="noreferrer">View source</a>
+        </p>
+      </div>
+      <div class="hero-meta">
+        <div class="meta-card">
+          <p class="meta-label">Skills</p>
+          <p class="meta-value">13 workflows, one YAML each</p>
+        </div>
+        <div class="meta-card">
+          <p class="meta-label">Hooks</p>
+          <p class="meta-value">Preflight, command builder, parsers, validation, audit</p>
+        </div>
+        <div class="meta-card">
+          <p class="meta-label">Runtime</p>
+          <p class="meta-value">Python standard library (+ PyYAML); no LLM required</p>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- ── What it is ────────────────────────────────────── -->
+      <section class="content-section" id="overview">
+        <p class="eyebrow">What it is</p>
+        <h2 class="section-heading">A workflow-orchestration layer, not a chatbot demo</h2>
+        <p class="section-text">
+          The pack is designed for inspectability and reproducibility, and it is useful even with no
+          LLM runtime: the hooks and the eval runner are plain Python you can call directly. The local
+          repository is the source of truth &mdash; current public Oxford Nanopore and EPI2ME references
+          are used only for comparison and never override the local workflows. Every curated command
+          must cite the repository file it was extracted from.
+        </p>
+      </section>
+
+      <!-- ── Hook pipeline ─────────────────────────────────── -->
+      <section class="content-section" id="hooks">
+        <p class="eyebrow">The hook pipeline</p>
+        <h2 class="section-heading">Five hooks around every skill</h2>
+        <p class="section-text">
+          Standard library only, except <code>command_builder.load_skill_yaml</code>, which uses PyYAML.
+        </p>
+        <div class="domain-grid">
+          <article class="domain-card">
+            <p class="meta-label">preflight.py</p>
+            <h3>Input checks</h3>
+            <p class="domain-desc">Verifies inputs, files, directories, databases, and command availability before anything is built.</p>
+          </article>
+          <article class="domain-card">
+            <p class="meta-label">command_builder.py</p>
+            <h3>Build, never execute</h3>
+            <p class="domain-desc">Loads a skill, validates parameters, builds command strings. Refuses undeclared parameters, reports missing required ones, and shell-quotes values to prevent injection.</p>
+          </article>
+          <article class="domain-card">
+            <p class="meta-label">parsers.py</p>
+            <h3>Structured outputs</h3>
+            <p class="domain-desc">Parses NanoStat, Kraken2 reports, AMRFinderPlus tables, VCF, and generic TSV into dicts &mdash; never raising on bad input.</p>
+          </article>
+          <article class="domain-card">
+            <p class="meta-label">validation.py</p>
+            <h3>Sanity flags</h3>
+            <p class="domain-desc">Flags low yield, low N50, low classification rate, contamination, missing AMR hits, empty output, and missing databases or commands.</p>
+          </article>
+          <article class="domain-card">
+            <p class="meta-label">audit.py</p>
+            <h3>Traceable log</h3>
+            <p class="domain-desc">Writes a JSON audit log with timestamp, inputs, parameters, commands, results, flags, source files, and external references.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ── Skills ────────────────────────────────────────── -->
+      <section class="content-section" id="skills">
+        <p class="eyebrow">Coverage</p>
+        <h2 class="section-heading">Thirteen documented workflows</h2>
+        <p class="section-text">
+          Each skill declares its domain, supported inputs, version-pinned tools, required databases,
+          parameters, ordered command templates (extracted verbatim from the repository), hook
+          references, outputs, caveats, failure modes, and the source files it derives from.
+        </p>
+        <div class="domain-grid">
+          <article class="domain-card">
+            <p class="meta-label">Environmental Metagenomics</p>
+            <p class="domain-desc"><code>air_metagenomics</code>, <code>wetland_dna_shotgun_metagenomics</code>, <code>wetland_viral_metagenomics</code></p>
+          </article>
+          <article class="domain-card">
+            <p class="meta-label">Wetland RNA &amp; eDNA</p>
+            <p class="domain-desc"><code>wetland_aiv_rna_consensus</code>, <code>wetland_12s_vertebrate_metabarcoding</code>, <code>zambia_edna_metabarcoding</code></p>
+          </article>
+          <article class="domain-card">
+            <p class="meta-label">Food Safety &amp; Clinical</p>
+            <p class="domain-desc"><code>listeria_adaptive_sampling</code>, <code>amr_nanopore</code>, <code>cre_plasmid_clustering</code>, <code>nanopore_amr_host_association</code></p>
+          </article>
+          <article class="domain-card">
+            <p class="meta-label">Veterinary &amp; Viability</p>
+            <p class="domain-desc"><code>avian_influenza_profiling</code>, <code>from_feather_to_fur</code>, <code>squiggle4viability</code></p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ── Quick start ───────────────────────────────────── -->
+      <section class="content-section" id="quick-start">
+        <p class="eyebrow">Quick start</p>
+        <h2 class="section-heading">Runs offline, no LLM and no bioinformatics tools needed</h2>
+        <div class="command-card" style="margin-top: 14px;">
+          <pre><code># inspect a skill
+python -c "from agent_skills.hooks import command_builder as cb; \
+import json; print(json.dumps(cb.load_skill_yaml('agent_skills/skills/cre_plasmid_clustering.yaml')['skill']['display_name']))"
+
+# run the offline benchmark suite
+python agent_skills/evals/run_benchmarks.py</code></pre>
+        </div>
+      </section>
+
+      <!-- ── Caveats ───────────────────────────────────────── -->
+      <section class="content-section" id="caveats">
+        <p class="eyebrow">Caveats</p>
+        <h2 class="section-heading">Suggestions, not conclusions</h2>
+        <p class="section-text">
+          All outputs from this pack are suggestions, not biological, clinical, regulatory, or
+          diagnostic conclusions. Commands are built, not executed; the human remains responsible for
+          running them and interpreting results.
+        </p>
+        <p class="section-text">
+          <a href="https://github.com/ttmgr/GenomicsForOneHealth/tree/main/agent_skills" target="_blank" rel="noreferrer">Browse the skill pack on GitHub</a>
+        </p>
+      </section>
+    </main>
+  </div>
+</body>
+
+</html>
