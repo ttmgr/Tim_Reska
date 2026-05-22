@@ -850,6 +850,26 @@ export function buildSourceCards(context) {
   }));
 }
 
+// Selects the (up to) five future diseases shown on the 10-year incidence chart:
+// the union of the top-5 baseline and top-5 intervention diseases, re-ranked by
+// their larger 10-year probability. Pure data-shaping, lifted out of the render
+// layer (ui.mjs) so the "what does the patient see" selection is testable.
+export function pickIncidenceRows(context, baselineBundle, interventionBundle) {
+  const ids = new Set();
+  baselineBundle.simulation.topFutureDiseases.slice(0, 5).forEach((row) => ids.add(row.id));
+  interventionBundle.simulation.topFutureDiseases.slice(0, 5).forEach((row) => ids.add(row.id));
+
+  return [...ids]
+    .map((id) => {
+      const disease = getDisease(context, id);
+      const baseline = baselineBundle.simulation.topFutureDiseases.find((row) => row.id === id)?.probability10 || 0;
+      const intervention = interventionBundle.simulation.topFutureDiseases.find((row) => row.id === id)?.probability10 || 0;
+      return { id, label: disease.short_label, baseline, intervention };
+    })
+    .sort((left, right) => Math.max(right.baseline, right.intervention) - Math.max(left.baseline, left.intervention))
+    .slice(0, 5);
+}
+
 function sampleRange(rng, range, fallback) {
   if (!Array.isArray(range) || range.length !== 2) return fallback;
   return range[0] + (range[1] - range[0]) * rng();

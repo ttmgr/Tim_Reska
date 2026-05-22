@@ -6,7 +6,8 @@ import { createDataContext } from "../assets/js/data.mjs";
 import {
   buildScenarioBundle,
   deriveNetworkModel,
-  deriveTimelineModel
+  deriveTimelineModel,
+  pickIncidenceRows
 } from "../assets/js/model.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -122,6 +123,26 @@ assert(
 const survival = t2dBaseline.simulation.survival;
 for (let index = 1; index < survival.length; index += 1) {
   assert(survival[index] <= survival[index - 1] + 1e-9, "Survival-Kurve steigt im Verlauf an");
+}
+
+const incidenceRows = pickIncidenceRows(context, t2dBaseline, t2dImproved);
+assert(incidenceRows.length <= 5, "pickIncidenceRows liefert mehr als 5 Zeilen");
+assert(
+  incidenceRows.every(
+    (row) =>
+      typeof row.label === "string" &&
+      Number.isFinite(row.baseline) &&
+      Number.isFinite(row.intervention)
+  ),
+  "pickIncidenceRows-Zeile hat kein Label oder keine endlichen Wahrscheinlichkeiten"
+);
+for (let index = 1; index < incidenceRows.length; index += 1) {
+  const previous = Math.max(incidenceRows[index - 1].baseline, incidenceRows[index - 1].intervention);
+  const current = Math.max(incidenceRows[index].baseline, incidenceRows[index].intervention);
+  assert(
+    current <= previous + 1e-9,
+    "pickIncidenceRows ist nicht absteigend nach max(Baseline, Intervention) sortiert"
+  );
 }
 
 const syncPatient = {
