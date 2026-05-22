@@ -12,111 +12,25 @@ Stdout prints the exact contents of summary_generated.md.
 
 from __future__ import annotations
 
-import re
 import sys
 from collections import Counter
 from pathlib import Path
 
 import pandas as pd
 
-SCORE_MAP = {
-    "tool_selection": {"C": 1.0, "A": 0.5, "I": 0.0},
-    "parameter_accuracy": {"C": 1.0, "P": 0.5, "I": 0.0},
-    "output_compatibility": {"P": 1.0, "F": 0.0},
-    "scientific_validity": {"S": 1.0, "Q": 0.5, "I": 0.0},
-    "executability": {"R": 1.0, "M": 0.5, "N": 0.0},
-}
-
-FULLY_CORRECT = {
-    "tool_selection": "C",
-    "parameter_accuracy": "C",
-    "output_compatibility": "P",
-    "scientific_validity": "S",
-    "executability": "R",
-}
-
-DIMENSIONS = list(SCORE_MAP.keys())
-
-PIPELINE_STEP_COUNTS = {"aerobiome": 7, "wetland": 10}
-PIPELINE_LABELS = {"aerobiome": "Aerobiome", "wetland": "Wetland"}
-
-CORE_VERSION_ORDER = {
-    "openai": [
-        "gpt4o",
-        "o1_preview",
-        "o1_mini",
-        "o1",
-        "o1_pro",
-        "o3_mini",
-        "o3_high",
-        "o4_mini",
-        "gpt5",
-        "chatgpt_deep_research",
-    ],
-    "claude": [
-        "sonnet_3.5",
-        "sonnet_4",
-        "sonnet_4.5",
-        "haiku_4.5",
-        "opus_4.5",
-        "opus_4.6",
-        "sonnet_4.6",
-        "deep_research",
-    ],
-    "gemini": [
-        "2.0_flash",
-        "2.5_pro_preview",
-        "2.5_flash",
-        "2.5_pro_stable",
-        "3_pro",
-        "3_flash",
-        "3.1_pro",
-    ],
-    "google": ["gemini_deep_research"],
-    "deepseek": ["v3"],
-    "zhipu": ["glm_5"],
-}
-
-FAMILY_ORDER = ["openai", "claude", "gemini", "google", "deepseek", "zhipu"]
-FAMILY_LABELS = {
-    "openai": "OpenAI",
-    "claude": "Claude",
-    "gemini": "Gemini",
-    "google": "Google",
-    "deepseek": "DeepSeek",
-    "zhipu": "Zhipu",
-}
-
-MODEL_LABELS = {
-    ("openai", "gpt4o"): "GPT-4o",
-    ("openai", "o1_preview"): "o1-preview",
-    ("openai", "o1_mini"): "o1-mini",
-    ("openai", "o1"): "o1",
-    ("openai", "o1_pro"): "o1-pro",
-    ("openai", "o3_mini"): "o3-mini",
-    ("openai", "o3_high"): "o3 (high reasoning)",
-    ("openai", "o4_mini"): "o4-mini",
-    ("openai", "gpt5"): "GPT-5",
-    ("openai", "chatgpt_deep_research"): "ChatGPT Deep Research",
-    ("claude", "sonnet_3.5"): "Sonnet 3.5",
-    ("claude", "sonnet_4"): "Sonnet 4",
-    ("claude", "sonnet_4.5"): "Sonnet 4.5",
-    ("claude", "haiku_4.5"): "Haiku 4.5",
-    ("claude", "opus_4.5"): "Opus 4.5",
-    ("claude", "opus_4.6"): "Opus 4.6",
-    ("claude", "sonnet_4.6"): "Sonnet 4.6",
-    ("claude", "deep_research"): "Claude Deep Research",
-    ("gemini", "2.0_flash"): "Gemini 2.0 Flash",
-    ("gemini", "2.5_pro_preview"): "Gemini 2.5 Pro Preview",
-    ("gemini", "2.5_flash"): "Gemini 2.5 Flash",
-    ("gemini", "2.5_pro_stable"): "Gemini 2.5 Pro",
-    ("gemini", "3_pro"): "Gemini 3 Pro",
-    ("gemini", "3_flash"): "Gemini 3 Flash",
-    ("gemini", "3.1_pro"): "Gemini 3.1 Pro",
-    ("google", "gemini_deep_research"): "Gemini Deep Research",
-    ("deepseek", "v3"): "DeepSeek V3",
-    ("zhipu", "glm_5"): "GLM-5",
-}
+from scoring import (
+    DIMENSIONS,
+    FAMILY_ORDER,
+    FULLY_CORRECT,
+    PIPELINE_LABELS,
+    PIPELINE_STEP_COUNTS,
+    SCORE_MAP,
+    family_label,
+    is_step_fully_correct,
+    model_label,
+    ordered_models,
+    slugify,
+)
 
 
 def load_scores(csv_path: Path, pipeline: str | None = None) -> pd.DataFrame:
@@ -140,33 +54,6 @@ def model_key(row_or_pair) -> tuple[str, str]:
     return row_or_pair["model_family"], row_or_pair["model_version"]
 
 
-def preferred_models(df: pd.DataFrame) -> list[tuple[str, str]]:
-    seen = set(zip(df["model_family"], df["model_version"]))
-    ordered = []
-
-    for family in FAMILY_ORDER:
-        for version in CORE_VERSION_ORDER.get(family, []):
-            key = (family, version)
-            if key in seen:
-                ordered.append(key)
-
-    extras = sorted(seen - set(ordered))
-    ordered.extend(extras)
-    return ordered
-
-
-def model_label(family: str, version: str) -> str:
-    return MODEL_LABELS.get((family, version), f"{family}/{version}")
-
-
-def family_label(family: str) -> str:
-    return FAMILY_LABELS.get(family, family.title())
-
-
-def is_step_fully_correct(row: pd.Series) -> bool:
-    return all(row[dim] == expected for dim, expected in FULLY_CORRECT.items())
-
-
 def first_fully_correct(df: pd.DataFrame, expected_steps: int | None = None) -> dict[str, str | None]:
     if expected_steps is None:
         # Infer from pipeline column if present
@@ -175,7 +62,7 @@ def first_fully_correct(df: pd.DataFrame, expected_steps: int | None = None) -> 
     results = {}
     for family in preferred_family_sequence(df):
         results[family] = None
-        family_models = [m for m in preferred_models(df) if m[0] == family]
+        family_models = [m for m in ordered_models(df) if m[0] == family]
         for fam, version in family_models:
             version_df = df[(df["model_family"] == fam) & (df["model_version"] == version)]
             if len(version_df) != expected_steps:
@@ -218,15 +105,9 @@ def most_common_failures(df: pd.DataFrame) -> dict[int, dict[str, str]]:
     return out
 
 
-def slugify(text: str) -> str:
-    text = text.lower().strip()
-    text = re.sub(r"[^a-z0-9]+", "_", text)
-    return text.strip("_")
-
-
 def write_by_step(df: pd.DataFrame, output_dir: Path) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
-    ordered_index = {key: i for i, key in enumerate(preferred_models(df))}
+    ordered_index = {key: i for i, key in enumerate(ordered_models(df))}
     for step_num in sorted(df["step_number"].unique()):
         subset = df[df["step_number"] == step_num].copy()
         step_name = subset["step_name"].iloc[0]
@@ -282,8 +163,8 @@ def write_by_step(df: pd.DataFrame, output_dir: Path) -> None:
 
 def write_by_model(df: pd.DataFrame, output_dir: Path) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
-    ordered_models = preferred_models(df)
-    for family, version in ordered_models:
+    model_order = ordered_models(df)
+    for family, version in model_order:
         subset = df[(df["model_family"] == family) & (df["model_version"] == version)].copy()
         subset = subset.sort_values("step_number")
         # Determine expected step count from pipeline column
@@ -323,7 +204,7 @@ def write_by_model(df: pd.DataFrame, output_dir: Path) -> None:
 
 
 def build_summary(df: pd.DataFrame) -> str:
-    ordered_models = preferred_models(df)
+    model_order = ordered_models(df)
     first_correct = first_fully_correct(df)
     steps_ranked = hardest_steps(df)
     failures = most_common_failures(df)
@@ -335,7 +216,7 @@ def build_summary(df: pd.DataFrame) -> str:
         "",
         "## Dataset Scope",
         "",
-        f"- Evaluated entries: {len(ordered_models)}",
+        f"- Evaluated entries: {len(model_order)}",
         f"- Scored step-results: {len(df)}",
         f"- Pipeline steps: {df['step_number'].nunique()}",
         "",
@@ -376,7 +257,7 @@ def build_summary(df: pd.DataFrame) -> str:
         "",
     ])
     for family in preferred_family_sequence(df):
-        versions = [model_label(fam, version) for fam, version in ordered_models if fam == family]
+        versions = [model_label(fam, version) for fam, version in model_order if fam == family]
         lines.append(f"- **{family_label(family)} ({len(versions)}):** " + " | ".join(versions))
 
     return "\n".join(lines).rstrip() + "\n"

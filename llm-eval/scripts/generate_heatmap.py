@@ -19,15 +19,12 @@ import numpy as np
 import pandas as pd
 from matplotlib.colors import LinearSegmentedColormap
 
-SCORE_MAP = {
-    "tool_selection": {"C": 1.0, "A": 0.5, "I": 0.0},
-    "parameter_accuracy": {"C": 1.0, "P": 0.5, "I": 0.0},
-    "output_compatibility": {"P": 1.0, "F": 0.0},
-    "scientific_validity": {"S": 1.0, "Q": 0.5, "I": 0.0},
-    "executability": {"R": 1.0, "M": 0.5, "N": 0.0},
-}
-
-DIMENSIONS = list(SCORE_MAP.keys())
+from scoring import (
+    DIMENSIONS,
+    FAMILY_LABELS,
+    SCORE_MAP,
+    ordered_models,
+)
 STEP_LABELS_AEROBIOME = {
     1: "Basecalling",
     2: "QC",
@@ -59,43 +56,6 @@ PIPELINE_TITLES = {
 }
 # Keep backward compat alias
 STEP_LABELS = STEP_LABELS_AEROBIOME
-FAMILY_ORDER = ["openai", "claude", "gemini", "google", "deepseek", "zhipu"]
-VERSION_ORDER = {
-    "openai": [
-        "gpt4o",
-        "o1_preview",
-        "o1_mini",
-        "o1",
-        "o1_pro",
-        "o3_mini",
-        "o3_high",
-        "o4_mini",
-        "gpt5",
-        "chatgpt_deep_research",
-    ],
-    "claude": [
-        "sonnet_3.5",
-        "sonnet_4",
-        "sonnet_4.5",
-        "haiku_4.5",
-        "opus_4.5",
-        "opus_4.6",
-        "sonnet_4.6",
-        "deep_research",
-    ],
-    "gemini": [
-        "2.0_flash",
-        "2.5_pro_preview",
-        "2.5_flash",
-        "2.5_pro_stable",
-        "3_pro",
-        "3_flash",
-        "3.1_pro",
-    ],
-    "google": ["gemini_deep_research"],
-    "deepseek": ["v3"],
-    "zhipu": ["glm_5"],
-}
 MODEL_LABELS = {
     ("openai", "gpt4o"): "GPT-4o",
     ("openai", "o1_preview"): "o1-preview",
@@ -126,16 +86,6 @@ MODEL_LABELS = {
     ("deepseek", "v3"): "DeepSeek V3",
     ("zhipu", "glm_5"): "GLM-5",
 }
-FAMILY_LABELS = {
-    "openai": "OpenAI",
-    "claude": "Claude",
-    "gemini": "Gemini",
-    "google": "Google",
-    "deepseek": "DeepSeek",
-    "zhipu": "Zhipu",
-}
-
-
 def load_scores(csv_path: Path, pipeline: str | None = None) -> pd.DataFrame:
     df = pd.read_csv(csv_path)
     if "pipeline" not in df.columns:
@@ -157,18 +107,6 @@ def composite_score(row: pd.Series) -> float | None:
             return None
         values.append(score)
     return float(np.mean(values))
-
-
-def ordered_models(df: pd.DataFrame) -> list[tuple[str, str]]:
-    present = set(zip(df["model_family"], df["model_version"]))
-    ordered = []
-    for family in FAMILY_ORDER:
-        for version in VERSION_ORDER.get(family, []):
-            key = (family, version)
-            if key in present:
-                ordered.append(key)
-    ordered.extend(sorted(present - set(ordered)))
-    return ordered
 
 
 def build_matrix(df: pd.DataFrame, pipeline: str = "aerobiome") -> tuple[np.ndarray, list[str], list[str], list[tuple[str, int, int]]]:

@@ -18,15 +18,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-SCORE_MAP = {
-    "tool_selection": {"C": 1.0, "A": 0.5, "I": 0.0},
-    "parameter_accuracy": {"C": 1.0, "P": 0.5, "I": 0.0},
-    "output_compatibility": {"P": 1.0, "F": 0.0},
-    "scientific_validity": {"S": 1.0, "Q": 0.5, "I": 0.0},
-    "executability": {"R": 1.0, "M": 0.5, "N": 0.0},
-}
-
-DIMENSIONS = list(SCORE_MAP.keys())
+from scoring import DIMENSIONS, FAMILY_LABELS, add_numeric_scores
 
 FAMILY_COLORS = {
     "openai": "#10b981",
@@ -35,14 +27,6 @@ FAMILY_COLORS = {
     "google": "#f59e0b",
     "deepseek": "#3b82f6",
     "zhipu": "#6b7280",
-}
-FAMILY_LABELS = {
-    "openai": "OpenAI",
-    "claude": "Claude",
-    "gemini": "Gemini",
-    "google": "Google",
-    "deepseek": "DeepSeek",
-    "zhipu": "Zhipu",
 }
 MODEL_LABELS = {
     ("openai", "gpt4o"): "GPT-4o",
@@ -80,8 +64,7 @@ def load_and_score(csv_path: Path) -> pd.DataFrame:
     df = pd.read_csv(csv_path)
     if "pipeline" not in df.columns:
         return pd.DataFrame()
-    for dim in DIMENSIONS:
-        df[f"{dim}_num"] = df[dim].map(SCORE_MAP[dim])
+    add_numeric_scores(df)
     df["composite"] = df[[f"{d}_num" for d in DIMENSIONS]].mean(axis=1)
     return df
 

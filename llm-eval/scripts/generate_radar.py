@@ -19,15 +19,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch
 
-SCORE_MAP = {
-    "tool_selection": {"C": 1.0, "A": 0.5, "I": 0.0},
-    "parameter_accuracy": {"C": 1.0, "P": 0.5, "I": 0.0},
-    "output_compatibility": {"P": 1.0, "F": 0.0},
-    "scientific_validity": {"S": 1.0, "Q": 0.5, "I": 0.0},
-    "executability": {"R": 1.0, "M": 0.5, "N": 0.0},
-}
-
-DIMENSIONS = list(SCORE_MAP.keys())
+from scoring import DIMENSIONS, add_numeric_scores
 DIM_LABELS = ["Tool\nSelection", "Parameter\nAccuracy", "Output\nCompat.", "Scientific\nValidity", "Execut-\nability"]
 
 FAMILY_STYLES = {
@@ -48,8 +40,7 @@ def load_and_score(csv_path: str, pipeline: str | None = None) -> pd.DataFrame:
         df.insert(0, "pipeline", "aerobiome")
     if pipeline is not None:
         df = df[df["pipeline"] == pipeline].copy()
-    for dim in DIMENSIONS:
-        df[f"{dim}_num"] = df[dim].map(SCORE_MAP[dim])
+    add_numeric_scores(df)
     return df
 
 

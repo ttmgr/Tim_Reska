@@ -49,6 +49,8 @@ import statsmodels.formula.api as smf
 from scipy.stats import chi2, kruskal, mannwhitneyu
 from statsmodels.stats.multitest import multipletests
 
+from scoring import DIMENSIONS, add_numeric_scores
+
 # ── paths ─────────────────────────────────────────────────────────────────────
 ROOT = Path(__file__).resolve().parent.parent
 CSV_PATH = ROOT / "results" / "tables" / "scoring_matrix.csv"
@@ -58,15 +60,8 @@ OUT_FLAGSHIP_CSV = ROOT / "results" / "tables" / "statistical_tests_flagship.csv
 OUT_MD = ROOT / "evaluations" / "statistical_tests.md"
 OUT_FIG_DIR = ROOT / "results" / "figures"
 
-# ── scoring map (mirrors aggregate_scores.py) ─────────────────────────────────
-SCORE_MAP = {
-    "tool_selection":       {"C": 1.0, "A": 0.5, "I": 0.0},
-    "parameter_accuracy":   {"C": 1.0, "P": 0.5, "I": 0.0},
-    "output_compatibility": {"P": 1.0, "F": 0.0},
-    "scientific_validity":  {"S": 1.0, "Q": 0.5, "I": 0.0},
-    "executability":        {"R": 1.0, "M": 0.5, "N": 0.0},
-}
-DIMENSIONS = list(SCORE_MAP.keys())
+# ── scoring taxonomy — imported from scoring.py ─────────────────────────────────
+# SCORE_MAP and DIMENSIONS are imported from scoring (single source of truth).
 
 # ── comparison definitions ────────────────────────────────────────────────────
 COMPARISONS = [
@@ -266,8 +261,7 @@ def _holm(raw_pvals):
 
 def load_data():
     df = pd.read_csv(CSV_PATH)
-    for dim, mapping in SCORE_MAP.items():
-        df[f"{dim}_num"] = df[dim].map(mapping)
+    add_numeric_scores(df)
     df["composite"] = df[[f"{d}_num" for d in DIMENSIONS]].mean(axis=1)
     df["model_key"] = df["model_family"] + "_" + df["model_version"]
     return df
