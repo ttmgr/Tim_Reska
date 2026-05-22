@@ -26,7 +26,7 @@
     {href: depth + 'llm-eval/flowchart.html', label: 'LLM Eval'},
     {href: depth + 'ai-deployment-readiness/', label: 'AI Readiness'},
     {href: depth + 'llm-cost-calculator/', label: 'Cost Calculator'},
-    {href: depth + 'multi_agent_dd/', label: 'Multi-Agent DD'},
+    {href: depth + 'multi-agent-dd/', label: 'Multi-Agent DD'},
     {href: depth + 'academy/', label: 'AI Academy'}
   ];
 

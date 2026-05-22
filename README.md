@@ -10,6 +10,8 @@ Within the broader [GenomicsForOneHealth](https://github.com/ttmgr/GenomicsForOn
 
 Links: [Email](mailto:timreska@gmail.com) · [LinkedIn](https://linkedin.com/in/tim-r-ai) · [ORCID](https://orcid.org/0009-0001-9700-5128)
 
+*Repository layout and conventions: see [STRUCTURE.md](STRUCTURE.md).*
+
 ## Portfolio at a glance
 
 ```mermaid
