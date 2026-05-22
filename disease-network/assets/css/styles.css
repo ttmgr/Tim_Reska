@@ -1,16 +1,12 @@
 :root {
-  --bg: #FAF9F7;
-  --bg-soft: #F0EDEA;
-  --surface: #FFFFFF;
-  --surface-strong: #FFFFFF;
+  /* Base palette inherited from ../../assets/css/tokens.css (single source of truth).
+     Page-specific aliases below map onto the canonical tokens; the named hues are
+     intentional data-viz encodings for the network/cluster visualisation. */
+  --bg-soft: var(--tag-bg);
+  --surface-strong: var(--surface);
   --surface-light: #F5F3F0;
-  --border: #E8E6E1;
-  --border-strong: #D5D2CC;
-  --text: #1A1A2E;
-  --muted: #6B6A73;
+  --muted: var(--text-secondary);
   --muted-soft: #8A8990;
-  --blue: #C4794A;
-  --blue-deep: #A8603A;
   --teal: #1a9a8a;
   --orange: #e07a2f;
   --red: #d9566a;
@@ -279,7 +275,7 @@ select {
 
 input[type="range"] {
   width: 100%;
-  accent-color: var(--blue);
+  accent-color: var(--accent);
 }
 
 select,
@@ -479,7 +475,7 @@ select option {
   position: absolute;
   inset: 0 auto 0 0;
   width: 4px;
-  background: linear-gradient(180deg, var(--blue), var(--green));
+  background: linear-gradient(180deg, var(--accent), var(--green));
 }
 
 .intervention-card::before {

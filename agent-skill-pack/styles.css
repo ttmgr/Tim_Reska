@@ -1,13 +1,12 @@
 :root {
-  --bg: #faf7f3;
+  /* Base palette inherited from ../assets/css/tokens.css (single source of truth).
+     Page-specific aliases and tokens below. */
   --panel: rgba(255, 255, 255, 0.94);
   --panel-strong: #ffffff;
-  --line: #e8e6e1;
+  --line: var(--border);
   --line-strong: #d8d4cd;
-  --text: #1a1a2e;
-  --muted: #6b6a73;
-  --accent: #c4794a;
-  --accent-strong: #a8603a;
+  --muted: var(--text-secondary);
+  --accent-strong: var(--accent-hover);
   --accent-soft: #f4e9e0;
   --sand: #f3ece4;
   --warn-bg: #fff1dd;

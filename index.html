@@ -107,7 +107,7 @@
             transition: all 0.2s;
         }
         .hero-links a.primary { background: var(--text); color: #fff; }
-        .hero-links a.primary:hover { background: #2d2d42; color: #fff; }
+        .hero-links a.primary:hover { background: var(--accent); color: #fff; }
         .hero-links a.secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
         .hero-links a.secondary:hover { border-color: var(--text-secondary); }
 
@@ -123,7 +123,7 @@
             width: 100%; max-width: 520px;
             box-shadow: 0 12px 40px rgba(0,0,0,0.12);
         }
-        .terminal-bar { background: #2d2d42; padding: 10px 16px; display: flex; gap: 8px; align-items: center; }
+        .terminal-bar { background: var(--text); padding: 10px 16px; display: flex; gap: 8px; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.06); }
         .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
         .terminal-dot.r { background: #fb7185; }
         .terminal-dot.y { background: #fbbf24; }
@@ -196,7 +196,7 @@
             display: flex; flex-direction: column;
         }
         .project-card:hover {
-            border-color: #d0cec8;
+            border-color: var(--border-strong);
             box-shadow: 0 4px 20px rgba(0,0,0,0.04);
         }
         .project-card .card-tag {
@@ -474,9 +474,6 @@
             .tl-entry { grid-template-columns: 1fr; gap: 4px; }
         }
 
-        /* --- ANIMATIONS --- */
-        .fade-in { opacity: 1; transform: none; }
-
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
             *, *::before, *::after {
@@ -507,7 +504,7 @@
 
     <header class="hero">
         <div class="container">
-            <div class="hero-text fade-in">
+            <div class="hero-text">
                 <h1>Bioinformatician who builds <span>AI systems that know when they're wrong</span></h1>
                 <p>Helping organisations figure out where AI fits and where it doesn't. 8 publications, 28 LLMs benchmarked, production ML under EU AI Act governance. Dr. rer. nat. from Helmholtz AI &amp; TU Munich.</p>
                 <div class="hero-subtitle">
@@ -533,7 +530,7 @@
                     </a>
                 </div>
             </div>
-            <div class="hero-visual fade-in">
+            <div class="hero-visual">
                 <svg class="dna-svg" width="320" height="640" viewBox="0 0 320 640" fill="none">
                     <path d="M100 0 C100 32,220 32,220 64 C220 96,100 96,100 128 C100 160,220 160,220 192 C220 224,100 224,100 256 C100 288,220 288,220 320 C220 352,100 352,100 384 C100 416,220 416,220 448 C220 480,100 480,100 512 C100 544,220 544,220 576 C220 608,100 608,100 640" stroke="#C4794A" stroke-width="2.5" fill="none"/>
                     <path d="M220 0 C220 32,100 32,100 64 C100 96,220 96,220 128 C220 160,100 160,100 192 C100 224,220 224,220 256 C220 288,100 288,100 320 C100 352,220 352,220 384 C220 416,100 416,100 448 C100 480,220 480,220 512 C220 544,100 544,100 576 C100 608,220 608,220 640" stroke="#1A1A2E" stroke-width="2.5" fill="none"/>
@@ -596,13 +593,13 @@
 
     <section id="research">
         <div class="container">
-            <div class="fade-in">
+            <div>
                 <div class="section-label">Dr. rer. nat. Research &mdash; Helmholtz AI &amp; TU Munich</div>
                 <h2 class="section-title">Genomics &amp; One Health</h2>
                 <p class="section-desc">Nanopore sequencing workflows for pathogen surveillance across air, water, food, and clinical settings. Founding member of an international research group spanning 7 sites. These peer-reviewed pipelines also serve as the validated ground truth for the LLM evaluation below.</p>
             </div>
             <div class="projects-grid research-grid">
-                <div class="project-card fade-in">
+                <div class="project-card">
                     <div class="card-tag">First Author &mdash; Published</div>
                     <h3>Air Metagenomics</h3>
                     <p>Long-read metagenomic characterization of bioaerosols. Published in <em>ISME Communications</em> (2024). Complete Snakemake pipeline for Oxford Nanopore data.</p>
@@ -611,12 +608,12 @@
                         <span>Nanopore</span>
                     </div>
                     <div class="card-links">
-                        <a href="./pipelines/aerobiome/">Overview &rarr;</a>
+                        <a href="https://github.com/ttmgr/Tim_Reska/tree/main/pipelines/aerobiome" target="_blank" rel="noopener">Overview &rarr;</a>
                         <a href="https://doi.org/10.1093/ismeco/ycae058" target="_blank" rel="noopener">Paper</a>
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card">
                     <div class="card-tag">First Author &mdash; Published</div>
                     <h3>Wetland Multi-Omics</h3>
                     <p>Multi-site surveillance integrating DNA metagenomics, RNA viromics, AIV whole-genome sequencing, and eDNA metabarcoding across 12 wetlands in 3 countries. Published in <em>AEM</em> (2025).</p>
@@ -626,12 +623,12 @@
                         <span>3 countries</span>
                     </div>
                     <div class="card-links">
-                        <a href="./pipelines/wetland-surveillance/">Overview &rarr;</a>
+                        <a href="https://github.com/ttmgr/Tim_Reska/tree/main/pipelines/wetland-surveillance" target="_blank" rel="noopener">Overview &rarr;</a>
                         <a href="https://doi.org/10.1101/2025.09.05.674394" target="_blank" rel="noopener">Paper</a>
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card">
                     <div class="card-tag">Second Author &mdash; Published</div>
                     <h3>Avian Influenza Sequencing</h3>
                     <p>Rapid genetic characterization of avian influenza using DNA and RNA nanopore sequencing (R10 + RNA004 chemistry) from lab cultures and environmental samples. Published in <em>Virus Evolution</em> (2025).</p>
@@ -645,7 +642,7 @@
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card">
                     <div class="card-tag">Contributing Author &mdash; Published</div>
                     <h3>Deep Learning on Raw Nanopore Signals</h3>
                     <p>Viability assessment directly from raw electrical signals (POD5/FAST5) using ResNet models with explainable AI (Class Activation Maps). Published in <em>GigaScience</em> (2025).</p>
@@ -659,7 +656,7 @@
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card">
                     <div class="card-tag">Third Author &mdash; Published</div>
                     <h3>Hidden Antibiotic Resistance</h3>
                     <p>Detection of concealed AMR determinants through real-time nanopore sequencing. Published in <em>Nature Communications</em> (2024).</p>
@@ -673,7 +670,7 @@
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card">
                     <div class="card-tag">Interactive &mdash; Live Demo</div>
                     <h3>Nanopore Pipeline Advisor</h3>
                     <p>Browser tool that recommends an Oxford Nanopore kit, basecalling model, and analysis pipeline from a few questions &mdash; with rationale, alternatives, confidence scoring, and ready-to-run commands. Pure client-side JavaScript over the GenomicsForOneHealth workflow catalogue.</p>
@@ -688,7 +685,7 @@
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card">
                     <div class="card-tag">Agent Tooling &mdash; Overview</div>
                     <h3>Agent Skill Pack</h3>
                     <p>A coding-agent skill pack over the GenomicsForOneHealth pipelines: 13 declarative skills with preflight, command-builder, parser, validation, and audit hooks. Builds commands only from declared templates &mdash; never invents tools or parameters. Plain Python, runs offline.</p>
@@ -708,13 +705,13 @@
 
     <section id="llm-eval">
         <div class="container">
-            <div class="fade-in">
+            <div>
                 <div class="section-label">From pipelines to benchmarks</div>
                 <h2 class="section-title">LLM Evaluation &mdash; Against Plausibility</h2>
                 <p class="section-desc">The genomics pipelines above became ground truth for a question: can frontier LLMs actually build scientific workflows, or do they just produce code that <em>looks</em> right?</p>
             </div>
 
-            <div class="featured-card fade-in">
+            <div class="featured-card">
                 <div class="card-tag">28 Models &middot; 476 Scored Step-Results &middot; 2 Pipelines</div>
                 <h3>Against Plausibility</h3>
                 <p>A structured benchmark testing whether frontier LLMs can build real scientific workflows &mdash; not just produce locally plausible code. Two validated pipelines as ground truth: one solvable, one not.</p>
@@ -764,9 +761,9 @@
                 </div>
 
                 <div class="card-links" style="padding-top:20px; border-top:1px solid var(--border);">
-                    <a href="./llm-eval/">Repository &rarr;</a>
-                    <a href="./llm-eval/methodology/evaluation_framework.md">Methodology</a>
-                    <a href="./llm-eval/evaluations/summary.md">Findings</a>
+                    <a href="https://github.com/ttmgr/Tim_Reska/tree/main/llm-eval" target="_blank" rel="noopener">Repository &rarr;</a>
+                    <a href="https://github.com/ttmgr/Tim_Reska/blob/main/llm-eval/methodology/evaluation_framework.md" target="_blank" rel="noopener">Methodology</a>
+                    <a href="https://github.com/ttmgr/Tim_Reska/blob/main/llm-eval/evaluations/summary.md" target="_blank" rel="noopener">Findings</a>
                 </div>
             </div>
         </div>
@@ -774,14 +771,14 @@
 
     <section id="side-projects">
         <div class="container">
-            <div class="fade-in">
+            <div>
                 <div class="section-label">Side Quests</div>
                 <h2 class="section-title">Independent Projects</h2>
                 <p class="section-desc">Production ML for medical underwriting, interactive clinical tools, and AI deployment strategy &mdash; built alongside the Dr. rer. nat.</p>
             </div>
 
             <div class="projects-grid">
-                <div class="project-card fade-in">
+                <div class="project-card">
                     <div class="card-tag">Interactive &mdash; Live Demo</div>
                     <h3>AI Deployment Readiness</h3>
                     <p>25-question self-assessment across five dimensions. Weighted scoring, maturity tier assignment, sector benchmarks, and prioritised recommendations.</p>
@@ -795,7 +792,7 @@
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card">
                     <div class="card-tag">Interactive &mdash; Live Demo</div>
                     <h3>Hantavirus 2026 Outbreak Tracker</h3>
                     <p>Surveillance dashboard for the MV Hondius cruise-linked Andes virus cluster. Leaflet map, epidemic curves, case timeline, and 130+ news items from WHO/CDC/ECDC sources. Bilingual EN/DE.</p>
@@ -810,7 +807,7 @@
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card">
                     <div class="card-tag">Interactive &mdash; Live Demo</div>
                     <h3>Ebola 2026 Outbreak Tracker</h3>
                     <p>PHEIC surveillance dashboard for the Ituri Province Bundibugyo ebolavirus epidemic. DRC + Uganda case tracking, WHO/Africa CDC/ECDC sources. No vaccine exists for this strain.</p>
@@ -825,7 +822,7 @@
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card">
                     <div class="card-tag">Interactive &mdash; Live Demo</div>
                     <h3>LLM Cost Calculator</h3>
                     <p>Cost modeling for LLM deployment decisions. Pricing database for 13 models across 5 providers, ROI calculator comparing manual vs LLM-augmented workflows.</p>
@@ -839,7 +836,7 @@
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card">
                     <div class="card-tag">Interactive &mdash; Live Demo</div>
                     <h3>PKV ML Explorer</h3>
                     <p>Browser-based catalogue of ML and actuarial methods for German private health insurance. Includes an agentic AI orchestration layer for multi-step underwriting workflows.</p>
@@ -853,7 +850,7 @@
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card">
                     <div class="card-tag">Production ML &mdash; 231 Tests</div>
                     <h3>MedRisk</h3>
                     <p>AI underwriting platform with failure-mode detection. XGBoost, Cox PH, CTMC multistate models with conformal validation, Data Quality Scoring, and Plausible-But-Wrong flagging. 8 real-world data adapters, EU AI Act governance.</p>
@@ -868,7 +865,7 @@
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card">
                     <div class="card-tag">Interactive &mdash; Live Demo</div>
                     <h3>Clinical Atlas</h3>
                     <p>D3.js browser dashboard for disease-state transitions and intervention scenarios. Eight interconnected disease nodes, evidence-linked uncertainty bands, patient profile controls.</p>
@@ -882,7 +879,7 @@
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card">
                     <div class="card-tag">Interactive &mdash; Live Demo</div>
                     <h3>Disease Progression</h3>
                     <p>Survival analysis and transformer-based patient trajectory prediction on synthetic FHIR/OMOP records. Cox PH, DeepSurv, DeepHit, Dynamic-DeepHit, SurvTRACE. Two clinical tracks: CVD and Type 2 diabetes.</p>
@@ -897,7 +894,7 @@
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card">
                     <div class="card-tag">Consulting &mdash; NDA</div>
                     <h3>AI Email Classification for a Major GKV Insurer</h3>
                     <p>Hybrid RAG + fine-tuning architecture for automated email triage in regulated healthcare. GBERT classification model (76.7% accuracy), DSGVO/EU AI Act/SGB V compliance framework, 3-phase rollout plan with human-in-the-loop safeguards.</p>
@@ -912,7 +909,7 @@
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card">
                     <div class="card-tag">Consulting &mdash; NDA</div>
                     <h3>Competitive Intelligence Tool for Industrial OEM</h3>
                     <p>OSINT pipeline mapping competitor product installations globally. 8 async web scrapers, pattern extraction with confidence scoring, 6,500 LOC, 96 verified sightings across 9 countries. Full pipeline from scraping to executive PDF.</p>
@@ -927,7 +924,7 @@
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card">
                     <div class="card-tag">Consulting &mdash; NDA</div>
                     <h3>PE Outreach Platform</h3>
                     <p>Scalable outreach infrastructure for AI assessment mandates at mid/large-cap PE firms. Research covering 100 firms, 300 portfolio companies, 900 AI use cases. Standalone browser-based personalization tool, zero backend.</p>
@@ -946,11 +943,11 @@
 
     <section id="skills">
         <div class="container">
-            <div class="fade-in">
+            <div>
                 <div class="section-label">Expertise</div>
                 <h2 class="section-title" style="margin-bottom: 20px;">Skills &amp; Tools</h2>
             </div>
-            <div class="fade-in" style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
                 <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Python</span>
                 <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">PyTorch</span>
                 <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Nanopore</span>
@@ -979,11 +976,11 @@
 
     <section id="publications">
         <div class="container">
-            <div class="fade-in">
+            <div>
                 <div class="section-label">Research output</div>
                 <h2 class="section-title">Selected Publications</h2>
             </div>
-            <ul class="pub-list fade-in">
+            <ul class="pub-list">
                 <li>
                     <div class="pub-journal">ISME Communications &middot; 2024</div>
                     <div class="pub-title"><a href="https://doi.org/10.1093/ismeco/ycae058" target="_blank" rel="noopener">Air monitoring by nanopore sequencing</a></div>
@@ -1030,11 +1027,11 @@
 
     <section id="timeline">
         <div class="container">
-            <div class="fade-in">
+            <div>
                 <div class="section-label">Journey</div>
                 <h2 class="section-title">Research Timeline</h2>
             </div>
-            <div class="timeline-track fade-in">
+            <div class="timeline-track">
                 <div class="tl-entry">
                     <div class="tl-date">Jul 2022</div>
                     <div class="tl-content">
@@ -1083,12 +1080,12 @@
 
     <section id="venture">
         <div class="container">
-            <div class="fade-in">
+            <div>
                 <div class="section-label">2026</div>
                 <h2 class="section-title">What's next</h2>
             </div>
 
-            <div class="featured-card fade-in" style="margin-bottom: 24px;">
+            <div class="featured-card" style="margin-bottom: 24px;">
                 <div class="card-tag">Askeras DD &mdash; Productized Methodology</div>
                 <h3>Multi-Agent Due Diligence</h3>
                 <p>A 6-phase pipeline that produces investment-grade AI deployment assessments. Three parallel agents in isolated contexts, a blind validator that cannot rationalise prior conclusions, and synthesis forced to honour every critique. Not a ChatGPT prompt &mdash; real subagent architecture.</p>
@@ -1104,7 +1101,7 @@
                 </div>
             </div>
 
-            <div class="featured-card fade-in" style="margin-bottom: 24px;">
+            <div class="featured-card" style="margin-bottom: 24px;">
                 <div class="card-tag">Askeras Academy &mdash; AI Competence Curriculum</div>
                 <h3>AI Academy</h3>
                 <p>Four-tier AI competence programme from 4-week literacy sprint to 12-month enterprise deployment with train-the-trainer. Provider-neutral. EU AI Act Article 4-aligned. Six sector variants.</p>
@@ -1120,7 +1117,7 @@
                 </div>
             </div>
 
-            <div class="venture-card fade-in">
+            <div class="venture-card">
                 <div class="venture-inner">
                     <div class="venture-text">
                         <h3><strong>ASKERAS</strong></h3>

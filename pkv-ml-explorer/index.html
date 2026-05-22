@@ -9,19 +9,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/tokens.css">
 <style>
 /* ═══════════════════════════════════════════
    DESIGN SYSTEM — Light Scientific Theme
    ═══════════════════════════════════════════ */
 :root {
-  --bg: #FAF9F7;
-  --surface: #FFFFFF;
-  --surface2: #F0EDEA;
-  --surface3: #E8E6E1;
-  --border: #E8E6E1;
-  --border-light: #d0cec8;
-  --text: #1A1A2E;
-  --text-secondary: #6B6A73;
+  /* Base palette inherited from ../assets/css/tokens.css (single source of truth).
+     Page-specific aliases below map onto the canonical tokens. */
+  --surface2: var(--tag-bg);
+  --surface3: var(--border);
+  --border-light: var(--border-strong);
   --muted: #9B9A9F;
   --accent-rf: #1a8a3e;
   --accent-lstm: #1a6fb5;
@@ -41,7 +39,6 @@
   --sidebar-width: 260px;
   --header-height: 52px;
   --nav-height: 48px;
-  --radius: 12px;
   --radius-lg: 14px;
   --shadow: 0 1px 4px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
   --shadow-lg: 0 4px 16px rgba(0,0,0,0.06);
@@ -67,7 +64,7 @@ h1 { font-size: 1.75rem; }
 h2 { font-size: 1.5rem; margin-bottom: 0.75rem; letter-spacing: -0.01em; }
 h3 { font-size: 1.1rem; margin-bottom: 0.6rem; }
 code, .mono { font-family: var(--font-mono); font-size: 0.85rem; }
-a { color: var(--accent-lstm); text-decoration: none; }
+a { color: var(--accent-text); text-decoration: none; }
 strong { font-weight: 600; }
 em { font-style: italic; }
 
@@ -199,13 +196,8 @@ em { font-style: italic; }
   display: none;
   padding: 40px 48px 80px;
   max-width: 860px;
-  animation: fadeIn 0.35s ease;
 }
 #main-content section.active { display: block; }
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
 
 /* ═══════════════════════════════════════════
    COMPONENTS
@@ -359,7 +351,7 @@ em { font-style: italic; }
   -webkit-appearance: none;
   width: 16px; height: 16px;
   border-radius: 50%;
-  background: var(--accent-lstm);
+  background: var(--accent);
   cursor: pointer;
   border: 2px solid #fff;
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
@@ -394,14 +386,14 @@ em { font-style: italic; }
 .formula-card .formula-math {
   font-family: var(--font-mono);
   font-size: 0.85rem;
-  color: #1a3a5c;
-  background: #f0f3f8;
+  color: var(--text);
+  background: var(--tag-bg);
   padding: 10px 14px;
   border-radius: 4px;
   margin-bottom: 8px;
   overflow-x: auto;
   white-space: nowrap;
-  border: 1px solid #e0e4ec;
+  border: 1px solid var(--border);
 }
 .formula-card .formula-note {
   font-size: 0.85rem;
@@ -592,13 +584,8 @@ em { font-style: italic; }
   display: flex; gap: 12px;
   padding: 12px 0;
   border-bottom: 1px solid var(--border);
-  animation: traceFadeIn 0.4s ease;
 }
 .trace-msg:last-child { border-bottom: none; }
-@keyframes traceFadeIn {
-  from { opacity: 0; transform: translateX(-8px); }
-  to { opacity: 1; transform: translateX(0); }
-}
 .trace-msg .trace-icon {
   width: 32px; height: 32px;
   border-radius: 50%;
@@ -727,8 +714,8 @@ em { font-style: italic; }
 
 /* Observe callouts — interactive guidance */
 .observe-callout {
-  background: #f0f6fc;
-  border: 1px solid #c5d7e8;
+  background: var(--tag-bg);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 16px 20px;
   margin-bottom: 24px;
@@ -737,7 +724,7 @@ em { font-style: italic; }
   line-height: 1.72;
 }
 .observe-callout strong {
-  color: var(--accent-lstm);
+  color: var(--accent-text);
   font-weight: 600;
 }
 
@@ -856,7 +843,6 @@ em { font-style: italic; }
     <span style="font-size:13px;color:#6B6A73;font-weight:500;">PKV ML Framework Explorer</span>
   </div>
 </div>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:wght@600&display=swap" rel="stylesheet">
 
 <!-- ═══════════════════════════════════════════
      SIDEBAR NAVIGATION
