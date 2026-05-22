@@ -30,16 +30,7 @@ var eventAnnotations = {
   }
 };
 
-var legendCfg = { position: 'bottom', labels: { font: { family: 'Inter', size: 12 }, boxWidth: 12, padding: 16 } };
-
-function timeXScale(unit) {
-  return {
-    type: 'time',
-    time: { unit: unit || 'month', displayFormats: { month: 'MMM', week: 'MMM d', day: 'MMM d' }, tooltipFormat: 'MMM d, yyyy' },
-    ticks: { font: { family: 'Inter', size: 12 }, maxTicksLimit: 7 },
-    grid: { display: false }
-  };
-}
+var legendCfg = OUTBREAK_LEGEND;
 
 var yScaleCfg = { beginAtZero: true, ticks: { font: { family: 'Inter', size: 12 } }, grid: { color: gridColor } };
 
@@ -74,49 +65,20 @@ function weeklyNew(tl) {
 }
 
 function epiCurve(cases) {
-  var el = document.getElementById('chart-epicurve');
-  if (!el) return;
   var w = weeklyNew(cases.timeline);
-
-  new Chart(el.getContext('2d'), {
-    type: 'bar',
-    data: {
-      datasets: [
-        { label: 'New cases', data: w.map(function(d) { return { x: d.x, y: d.nc }; }), backgroundColor: blue + '60', borderColor: blue, borderWidth: 1 },
-        { label: 'New deaths', data: w.map(function(d) { return { x: d.x, y: d.nd }; }), backgroundColor: red + '60', borderColor: red, borderWidth: 1 }
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: legendCfg, annotation: eventAnnotations },
-      scales: {
-        x: timeXScale('month'),
-        y: Object.assign({}, yScaleCfg, { title: { display: true, text: 'Cases per period', font: { family: 'Inter', size: 12 } } })
-      }
-    }
-  });
+  makeTimeSeriesChart('chart-epicurve', 'bar', [
+    { label: 'New cases', data: w.map(function(d) { return { x: d.x, y: d.nc }; }), backgroundColor: blue + '60', borderColor: blue, borderWidth: 1 },
+    { label: 'New deaths', data: w.map(function(d) { return { x: d.x, y: d.nd }; }), backgroundColor: red + '60', borderColor: red, borderWidth: 1 }
+  ], { xUnit: 'month', xFormats: { month: 'MMM', week: 'MMM d', day: 'MMM d' }, maxTicks: 7, annotations: eventAnnotations, yTitle: 'Cases per period', gridColor: gridColor });
 }
 
 function cumulative(cases) {
-  var el = document.getElementById('chart-timeline');
-  if (!el) return;
   var data = cases.timeline.map(function(d) { return { x: new Date(d.date), y: d.cumulative_cases }; });
   var deaths = cases.timeline.map(function(d) { return { x: new Date(d.date), y: d.cumulative_deaths }; });
-
-  new Chart(el.getContext('2d'), {
-    type: 'line',
-    data: {
-      datasets: [
-        { label: 'Cumulative cases (global)', data: data, borderColor: blue, backgroundColor: blue + '1a', fill: true, tension: 0.3, pointRadius: 3, borderWidth: 2 },
-        { label: 'Cumulative deaths (global)', data: deaths, borderColor: red, backgroundColor: red + '1a', fill: true, tension: 0.3, pointRadius: 3, borderWidth: 2 }
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: legendCfg, annotation: eventAnnotations },
-      scales: { x: timeXScale('month'), y: yScaleCfg }
-    }
-  });
+  makeTimeSeriesChart('chart-timeline', 'line', [
+    { label: 'Cumulative cases (global)', data: data, borderColor: blue, backgroundColor: blue + '1a', fill: true, tension: 0.3, pointRadius: 3, borderWidth: 2 },
+    { label: 'Cumulative deaths (global)', data: deaths, borderColor: red, backgroundColor: red + '1a', fill: true, tension: 0.3, pointRadius: 3, borderWidth: 2 }
+  ], { xUnit: 'month', xFormats: { month: 'MMM', week: 'MMM d', day: 'MMM d' }, maxTicks: 7, annotations: eventAnnotations, gridColor: gridColor });
 }
 
 function regional(cases) {
@@ -135,24 +97,10 @@ function regional(cases) {
     arNote.style.display = '';
   }
 
-  new Chart(el.getContext('2d'), {
-    type: 'bar',
-    data: {
-      labels: nonAR.map(function(c) { return c.name; }),
-      datasets: [
-        { label: 'Cases', data: nonAR.map(function(c) { return c.cases_2026; }), backgroundColor: blue + '40', borderColor: blue, borderWidth: 1 },
-        { label: 'Deaths', data: nonAR.map(function(c) { return c.deaths_2026; }), backgroundColor: red + '40', borderColor: red, borderWidth: 1 }
-      ]
-    },
-    options: {
-      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-      plugins: { legend: legendCfg },
-      scales: {
-        x: { beginAtZero: true, ticks: { font: { family: 'Inter', size: 12 } }, grid: { color: gridColor } },
-        y: { ticks: { font: { family: 'Inter', size: 12 } }, grid: { display: false } }
-      }
-    }
-  });
+  makeCategoryBarChart('chart-regional', nonAR.map(function(c) { return c.name; }), [
+    { label: 'Cases', data: nonAR.map(function(c) { return c.cases_2026; }), backgroundColor: blue + '40', borderColor: blue, borderWidth: 1 },
+    { label: 'Deaths', data: nonAR.map(function(c) { return c.deaths_2026; }), backgroundColor: red + '40', borderColor: red, borderWidth: 1 }
+  ], { gridColor: gridColor });
 }
 
 function trend(data) {
