@@ -288,7 +288,7 @@
         /* --- SKILLS --- */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 20px;
         }
         .skill-group {
@@ -296,8 +296,9 @@
             border-radius: var(--radius); padding: 24px;
         }
         .skill-group h3 {
-            font-size: 14px; font-weight: 600; margin-bottom: 14px;
-            color: var(--text);
+            font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
+            text-transform: uppercase; color: var(--accent-text);
+            margin-bottom: 14px;
         }
         .skill-tags { display: flex; flex-wrap: wrap; gap: 7px; }
         .skill-tags span {
@@ -356,7 +357,7 @@
         .venture-cta {
             display: inline-block; margin-top: 16px;
             font-size: 14px; font-weight: 600;
-            color: var(--accent-text) !important; letter-spacing: 0.01em;
+            color: var(--accent) !important; letter-spacing: 0.01em;
         }
         .venture-cta:hover { color: #e8a070 !important; }
 
@@ -401,6 +402,7 @@
             .research-grid { grid-template-columns: 1fr; }
             .skills-grid { grid-template-columns: 1fr; }
             .featured-card { padding: 24px; }
+            .section-desc, .featured-card > p, .key-finding { text-align: left; }
             .featured-stats { gap: 20px; }
             .featured-stats .stat { min-width: 45%; }
             .hero-visual { min-height: auto; }
@@ -947,29 +949,49 @@
                 <div class="section-label">Expertise</div>
                 <h2 class="section-title" style="margin-bottom: 20px;">Skills &amp; Tools</h2>
             </div>
-            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Python</span>
-                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">PyTorch</span>
-                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Nanopore</span>
-                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Snakemake</span>
-                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">XGBoost</span>
-                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">scikit-learn</span>
-                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Transformers</span>
-                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Survival analysis</span>
-                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">SHAP</span>
-                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Conformal prediction</span>
-                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">LLM benchmarking</span>
-                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Nextflow</span>
-                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Metagenomics</span>
-                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">AMR profiling</span>
-                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Adaptive sampling</span>
-                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">JavaScript</span>
-                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">D3.js</span>
-                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">Docker</span>
-                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">SQL</span>
-                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">EU AI Act</span>
-                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">GDPR</span>
-                <span style="font-size:13px;padding:5px 14px;background:var(--tag-bg);color:var(--tag-text);border-radius:20px;">FHIR / OMOP</span>
+            <div class="skills-grid">
+                <div class="skill-group">
+                    <h3>ML &amp; AI</h3>
+                    <div class="skill-tags">
+                        <span>Python</span>
+                        <span>PyTorch</span>
+                        <span>scikit-learn</span>
+                        <span>XGBoost</span>
+                        <span>Transformers</span>
+                        <span>Survival analysis</span>
+                        <span>SHAP</span>
+                        <span>Conformal prediction</span>
+                        <span>LLM benchmarking</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <h3>Genomics &amp; One Health</h3>
+                    <div class="skill-tags">
+                        <span>Nanopore</span>
+                        <span>Snakemake</span>
+                        <span>Nextflow</span>
+                        <span>Metagenomics</span>
+                        <span>AMR profiling</span>
+                        <span>Adaptive sampling</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <h3>Engineering</h3>
+                    <div class="skill-tags">
+                        <span>JavaScript</span>
+                        <span>D3.js</span>
+                        <span>Docker</span>
+                        <span>SQL</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <h3>Regulatory &amp; Health Data</h3>
+                    <div class="skill-tags">
+                        <span>EU AI Act</span>
+                        <span>GDPR</span>
+                        <span>FHIR / OMOP</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1211,7 +1233,7 @@
             }
             function textColor(v) {
                 if (v === null || v === undefined || v < 0) return '#9B9A94';
-                if (v >= 0.7 || v === 0) return '#fff';
+                if (v >= 1.0 || v === 0) return '#fff';
                 return '#1A1A2E';
             }
 
@@ -1313,11 +1335,15 @@
             if (firstTab) { firstTab.style.background = 'var(--text)'; firstTab.style.color = '#fff'; firstTab.style.borderColor = 'var(--text)'; }
 
             fetch('./llm-eval/results/heatmap_data.json')
-                .then(function(r) { return r.json(); })
+                .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
                 .then(function(d) {
                     hmData = d;
                     if (d.dim_labels) dimLabels = d.dim_labels;
                     render('aerobiome');
+                })
+                .catch(function() {
+                    var t = document.getElementById('hm-table');
+                    if (t) t.innerHTML = '<tbody><tr><td style="padding:24px 12px;font-size:14px;color:var(--text-secondary);line-height:1.6;">Heatmap data could not be loaded. <a href="https://github.com/ttmgr/Tim_Reska/blob/main/llm-eval/evaluations/summary.md" target="_blank" rel="noopener">View the full scoring results on GitHub &rarr;</a></td></tr></tbody>';
                 });
         })();
     </script>
