@@ -10,17 +10,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/tokens.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#FAF9F7;--surface:#FFFFFF;--text:#1A1A2E;--text-secondary:#6B6A73;
-  --accent:#C4794A;--accent-hover:#A8603A;--border:#E8E6E1;
-  --tag-bg:#F0EDEA;--tag-text:#5A584F;--radius:12px;
   --green:#1a7a42;--amber:#b5750d;--red:#b5334d;
 }
 html{scroll-behavior:smooth}
 body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:16px;-webkit-font-smoothing:antialiased}
-a{color:var(--accent);text-decoration:none}
+a{color:var(--accent-text);text-decoration:none}
 
 .portfolio-nav{position:sticky;top:0;z-index:9999;background:rgba(250,249,247,0.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
 .portfolio-nav .inner{max-width:1080px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:48px}
@@ -36,7 +34,7 @@ h1{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(28px,4vw,36px);fon
 h2{font-family:'Source Serif 4',Georgia,serif;font-size:22px;font-weight:600;margin-bottom:12px}
 h3{font-size:14px;font-weight:600;margin-bottom:8px;color:var(--text)}
 
-.eyebrow{font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent-text);margin-bottom:8px}
 
 .intro-text{font-size:17px;color:var(--text-secondary);line-height:1.75;margin-bottom:32px;max-width:560px}
 .intro-stats{display:flex;gap:32px;margin-bottom:40px;flex-wrap:wrap}
@@ -63,7 +61,7 @@ h3{font-size:14px;font-weight:600;margin-bottom:8px;color:var(--text)}
 .progress-bar{height:3px;background:var(--border);border-radius:2px;margin-bottom:40px;overflow:hidden}
 .progress-fill{height:100%;background:var(--accent);transition:width 0.4s ease}
 
-.question-dim{font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.question-dim{font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent-text);margin-bottom:6px}
 .question-num{font-size:13px;color:var(--text-secondary);margin-bottom:16px}
 .question-text{font-family:'Source Serif 4',Georgia,serif;font-size:20px;font-weight:600;line-height:1.4;margin-bottom:28px}
 
@@ -100,7 +98,7 @@ h3{font-size:14px;font-weight:600;margin-bottom:8px;color:var(--text)}
 .dim-benchmark{display:flex;justify-content:space-between;margin-top:8px;font-size:12px;color:var(--text-secondary)}
 
 .rec-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-bottom:12px}
-.rec-dim{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+.rec-dim{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent-text);margin-bottom:4px}
 .rec-text{font-size:14px;color:var(--text-secondary);line-height:1.6}
 
 .tier-defs{margin-top:32px}

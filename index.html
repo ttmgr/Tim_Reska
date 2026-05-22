@@ -16,22 +16,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/tokens.css">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --bg: #FAF9F7;
-            --surface: #FFFFFF;
-            --text: #1A1A2E;
-            --text-secondary: #6B6A73;
-            --accent: #C4794A;
-            --accent-hover: #A8603A;
-            --accent-text: #9A5A2E;
-            --border: #E8E6E1;
-            --tag-bg: #F0EDEA;
-            --tag-text: #5A584F;
             --max-width: 1140px;
-            --radius: 12px;
         }
 
         html { scroll-behavior: smooth; }
@@ -366,7 +356,7 @@
         .venture-cta {
             display: inline-block; margin-top: 16px;
             font-size: 14px; font-weight: 600;
-            color: var(--accent) !important; letter-spacing: 0.01em;
+            color: var(--accent-text) !important; letter-spacing: 0.01em;
         }
         .venture-cta:hover { color: #e8a070 !important; }
 
@@ -1236,7 +1226,7 @@
                     html += '<th style="padding:6px 4px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-secondary);text-align:center;border-bottom:2px solid var(--border);min-width:56px;white-space:nowrap;">' + s + '</th>';
                 });
                 html += '<th style="padding:6px 8px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-secondary);text-align:center;border-bottom:2px solid var(--border);min-width:44px;">Avg</th>';
-                html += '<th style="padding:6px 12px;font-size:11px;font-weight:600;color:var(--accent);text-align:right;border-bottom:2px solid var(--border);min-width:60px;font-family:\'Source Serif 4\',Georgia,serif;"></th></tr></thead><tbody>';
+                html += '<th style="padding:6px 12px;font-size:11px;font-weight:600;color:var(--accent-text);text-align:right;border-bottom:2px solid var(--border);min-width:60px;font-family:\'Source Serif 4\',Georgia,serif;"></th></tr></thead><tbody>';
 
                 p.families.forEach(function(fam, fi) {
                     fam.models.forEach(function(m, mi) {
@@ -1266,7 +1256,7 @@
                         var famLabel = isFirst ? fam.name : '';
                         var famSpan = isFirst ? ' rowspan="' + fam.models.length + '"' : '';
                         if (isFirst) {
-                            html += '<td' + famSpan + ' style="padding:4px 12px;font-family:\'Source Serif 4\',Georgia,serif;font-size:12px;font-weight:600;color:var(--accent);text-align:right;vertical-align:middle;border-bottom:1px solid #f0f0ed;white-space:nowrap;">' + famLabel + '</td>';
+                            html += '<td' + famSpan + ' style="padding:4px 12px;font-family:\'Source Serif 4\',Georgia,serif;font-size:12px;font-weight:600;color:var(--accent-text);text-align:right;vertical-align:middle;border-bottom:1px solid #f0f0ed;white-space:nowrap;">' + famLabel + '</td>';
                         }
                         html += '</tr>';
                     });
