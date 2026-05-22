@@ -52,5 +52,10 @@ multi-agent-dd/outputs/
 multi-agent-dd/workings/
 multi-agent-dd/templates/
 
+# medrisk: publish only the teaser (index.html); platform code, docs,
+# methodology & data adapters are private (sellable IP)
+medrisk/*
+!medrisk/index.html
+
 # Local archive — old/unwanted working files; never published
 archive/
