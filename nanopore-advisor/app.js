@@ -133,7 +133,7 @@ function isRecommendationReady() {
 }
 
 function answeredCoreCount() {
-  return ['molecule', 'study_type', 'priority'].filter(field => {
+  return CORE_FIELDS.filter(field => {
     const val = answers[field];
     return Array.isArray(val) ? val.length > 0 : val !== undefined && val !== null;
   }).length;
@@ -397,11 +397,6 @@ function findOptionLabel(field, value) {
     }
   }
   return value;
-}
-
-function fieldToPageId(field) {
-  if (['molecule', 'study_type', 'priority'].includes(field)) return field;
-  return 'constraints';
 }
 
 function renderResultsToolbar(rec) {
@@ -1095,8 +1090,7 @@ function attachConflictHandlers() {
   const relax = document.getElementById('relax-constraints');
   if (relax) {
     relax.onclick = () => {
-      const constraintFields = ['input_amount', 'input_quality', 'host_background', 'barcoding_needed', 'device', 'compute_gpu'];
-      for (const f of constraintFields) delete answers[f];
+      for (const f of CONSTRAINT_FIELDS) delete answers[f];
       delete answers.__kit_override;
       saveAnswersToStorage(answers);
       render();

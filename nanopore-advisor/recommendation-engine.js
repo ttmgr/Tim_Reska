@@ -81,8 +81,8 @@ function rankScores(scores) {
 }
 
 // ── Confidence ──────────────────────────────────────────────
-
-const CORE_FIELDS = ['molecule', 'study_type', 'priority'];
+// CORE_FIELDS, CONSTRAINT_FIELDS, isConstraintField, fieldToPageId live in
+// field-metadata.js (loaded first).
 
 function countCoreAnswered(answers) {
   return CORE_FIELDS.filter(
@@ -521,11 +521,6 @@ const FIELD_LABELS = {
   device: 'device',
   compute_gpu: 'compute setup'
 };
-
-function fieldToPageId(field) {
-  if (CORE_FIELDS.includes(field)) return field;
-  return 'constraints';
-}
 
 function detectConflicts(answers, kitResult, bcResult, fcResult, rules) {
   if (!canPreviewResults(answers)) return null;
