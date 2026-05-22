@@ -17,7 +17,7 @@ If you're looking for a file: first decide which *showcase/project* it belongs t
 ## Published showcases (each = a `/<dir>/` route)
 
 **Applied ML · healthcare**
-- `medrisk/` — medical-underwriting platform (full codebase: `src/ tests/ app/ scripts/ configs/ docs/`).
+- `medrisk/` — medical-underwriting platform. **Published as a teaser only** (`index.html`); the platform code, methodology, and data adapters are private (gitignored, sellable IP).
 - `disease-progression/` — survival + multistate progression models.
 - `disease-network/` — D3.js clinical comorbidity atlas.
 - `pkv-ml-explorer/` — PKV ML methods catalog.
@@ -44,6 +44,5 @@ If you're looking for a file: first decide which *showcase/project* it belongs t
 ## Local-only (gitignored — never published)
 
 - `archive/` — old working files.
-- `askeras-v2/` — the Askeras site (moves to its own repo at launch).
-- `company_askeras/` — private Askeras generator codebase.
-- `*_data_do_not_touch_if_not_prompted/` — staging holding folders.
+- `*_data_do_not_touch_if_not_prompted/` — staging holding folders, reviewed before promotion.
+- Additional gitignored working directories hold private and in-progress projects that are not part of the public site.
