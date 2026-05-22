@@ -12,16 +12,18 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
   <script defer src="../assets/js/nav.js"></script>
   <style>
     :root {
+      /* Terracotta accent single-sourced from ../assets/css/tokens.css;
+         the warm-paper base below is this reference page's own reading aesthetic. */
       --bg: #f6f1e8;
-      --panel: #ffffff;
+      --panel: var(--surface);
       --line: #ddd2c3;
       --text: #213029;
       --muted: #62716a;
-      --accent: #c4794a;
-      --accent-strong: #a8603a;
+      --accent-strong: var(--accent-hover);
       --accent-soft: #f4e9e0;
       --warn-bg: #fff1dd;
       --warn-text: #7b5008;

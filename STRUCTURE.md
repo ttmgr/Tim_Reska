@@ -45,4 +45,6 @@ If you're looking for a file: first decide which *showcase/project* it belongs t
 
 - `archive/` — old working files.
 - `*_data_do_not_touch_if_not_prompted/` — staging holding folders, reviewed before promotion.
-- Additional gitignored working directories hold private and in-progress projects that are not part of the public site.
+- `company_askeras/`, `askeras-v1/`, `askeras-v2/` — the Askeras venture (own domain / future GmbH); lives here locally but is published from its own repo.
+- `medrisk/` (all except `index.html`) — the underwriting platform code, methodology, and data adapters (sellable IP).
+- `multi-agent-dd/` build internals (`build_*.py`, `SKILL.md`, `docs/`, `outputs/`, `workings/`, `templates/`) — only the teaser `index.html` is published.

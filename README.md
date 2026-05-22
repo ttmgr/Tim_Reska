@@ -41,6 +41,12 @@ flowchart TB
         LCC["llm-cost-calculator<br/>cost modeling + ROI"]
     end
 
+    subgraph C["Consulting · AI Enablement"]
+        direction LR
+        MAD["multi-agent-dd<br/>due-diligence showcase"]
+        ACA["academy<br/>AI enablement curriculum"]
+    end
+
     A -. ground truth .-> E
     W -. ground truth .-> E
     E == PBW thesis ==> MR
@@ -52,15 +58,19 @@ flowchart TB
     E -. deployment lessons .-> ADR
     E -. pricing analysis .-> LCC
     MR -. regulated deployment .-> ADR
+    ADR -. enablement .-> ACA
+    MR -. advisory method .-> MAD
 
     classDef helm fill:#e8f4fd,stroke:#1a73e8,color:#0b1b2b
     classDef ind fill:#fef7e0,stroke:#f9ab00,color:#2b1b00
     classDef appl fill:#e8f5e9,stroke:#34a853,color:#0b1f10
     classDef depl fill:#fce8e6,stroke:#ea4335,color:#2b0b0b
+    classDef cons fill:#f3e8fd,stroke:#a142f4,color:#1f0b2b
     class A,W,L helm
     class E ind
     class DP,DN,MR,PKV appl
     class ADR,LCC depl
+    class MAD,ACA cons
 ```
 
 The peer-reviewed bioinformatics pipelines on the left double as ground truth for the LLM evaluation in the centre. The "plausible but wrong" failure mode that emerged from that evaluation is operationalized in the applied-ML portfolio on the right, and the deployment lessons feed into the AI strategy tools at the bottom.
@@ -175,21 +185,24 @@ Links: [`llm-cost-calculator/`](./llm-cost-calculator/)
 
 ```
 Tim_Reska/
+├── index.html                 portfolio hub
+├── assets/                    shared brand tokens + nav (css/tokens.css, js/nav.js)
 ├── llm-eval/                  LLM benchmark: 28 models, 2 pipelines, 476 step-results
 │   ├── methodology/           evaluation framework, scoring rubrics, pipeline references
 │   ├── prompts/               standardised prompts per pipeline step
 │   ├── evaluations/           scored evaluations by step and by model
 │   ├── results/               figures, tables, scoring matrix
 │   └── scripts/               heatmap, radar, statistical analysis generators
-├── medrisk/                   medical underwriting AI platform
-│   ├── src/medrisk/           67 Python modules across 10 subpackages
-│   ├── tests/                 442 tests
-│   ├── configs/               insurance market configs, underwriting profiles
-│   ├── notebooks/             5 Jupyter notebooks
-│   └── app/                   Streamlit application
+├── medrisk/                   medical underwriting AI platform (public teaser; platform code private)
 ├── disease-progression/       survival + transformer models on FHIR/OMOP data
 ├── disease-network/           D3.js interactive clinical atlas
 ├── pkv-ml-explorer/           PKV ML methods reference catalog
+├── nanopore-advisor/          Nanopore protocol recommendation wizard
+├── agent-skill-pack/          agent skill showcase
+├── multi-agent-dd/            multi-agent due-diligence showcase (public teaser)
+├── academy/                   AI enablement curriculum overview
+├── ebola/                     Ebola outbreak dashboard
+├── hanta/                     Hantavirus outbreak dashboard (+ German de/)
 ├── pipelines/                 pipeline overviews (→ GenomicsForOneHealth)
 │   ├── aerobiome/
 │   ├── wetland-surveillance/
