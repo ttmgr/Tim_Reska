@@ -42,6 +42,7 @@ askeras-v1/
 askeras-v2/
 askeras_v2_data_do_not_touch_if_not_prompted/
 academy_data_do_not_touch_if_not_prompted/
+company_askeras/
 
 # multi_agent_dd: publish only the showcase (index.html); keep build internals local
 multi_agent_dd/build_*.py

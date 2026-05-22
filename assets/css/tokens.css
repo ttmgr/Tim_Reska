@@ -1,0 +1,18 @@
+/* Shared brand tokens for the portfolio-style pages.
+   Single source of truth for the warm-terracotta palette. Page-specific
+   tokens (max-width, fonts, per-page accents) stay in each page's own
+   :root. The outbreak dashboards (ebola/hanta) and disease-network use
+   their own token vocabularies and intentionally do not link this file. */
+:root {
+  --bg: #FAF9F7;
+  --surface: #FFFFFF;
+  --text: #1A1A2E;
+  --text-secondary: #6B6A73;
+  --accent: #C4794A;
+  --accent-hover: #A8603A;
+  --accent-text: #9A5A2E;
+  --border: #E8E6E1;
+  --tag-bg: #F0EDEA;
+  --tag-text: #5A584F;
+  --radius: 12px;
+}
