@@ -126,7 +126,10 @@ class StaticFeatureExtractor:
                 features[flag_name] = 0
             features["n_distinct_conditions"] = 0
 
-        features = features.fillna(0)
+        # Fill numeric NaNs introduced by the left joins; leave the categorical
+        # age_group untouched (filling it with 0 raises on a non-category value).
+        fill_cols = [c for c in features.columns if c != "age_group"]
+        features[fill_cols] = features[fill_cols].fillna(0)
         logger.info("Static features: %d patients, %d columns", *features.shape)
         return features
 
