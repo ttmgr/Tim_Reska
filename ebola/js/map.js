@@ -1,24 +1,11 @@
 var mapInstance = null;
-var defaultBounds = [[-5, 25], [8, 35]];
 
 function initMap(cases) {
-  mapInstance = L.map('map', {
-    scrollWheelZoom: false,
-    zoomControl: true,
-    tap: false,
-    dragging: !L.Browser.mobile,
-    touchZoom: true,
+  mapInstance = createOutbreakMap('map', {
+    defaultBounds: [[-5, 25], [8, 35]],
     maxBounds: [[-10, 15], [15, 45]],
-    maxBoundsViscosity: 1.0
+    fitMaxZoom: 7
   });
-
-  mapInstance.fitBounds(defaultBounds, { padding: [20, 20], maxZoom: 7 });
-
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 19
-  }).addTo(mapInstance);
 
   var red = '#dc2626';
   var amber = '#d97706';
@@ -70,13 +57,6 @@ function initMap(cases) {
       );
       marker.on('mouseover', function() { this.openPopup(); });
       marker.on('mouseout', function() { this.closePopup(); });
-    });
-  }
-
-  var resetBtn = document.getElementById('map-reset');
-  if (resetBtn) {
-    resetBtn.addEventListener('click', function() {
-      mapInstance.fitBounds(defaultBounds, { padding: [20, 20], maxZoom: 7 });
     });
   }
 }

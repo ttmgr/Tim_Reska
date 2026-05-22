@@ -30,16 +30,7 @@ var eventAnnotations = {
   }
 };
 
-var legendCfg = { position: 'bottom', labels: { font: { family: 'Inter', size: 12 }, boxWidth: 12, padding: 16 } };
-
-function timeXScale(unit) {
-  return {
-    type: 'time',
-    time: { unit: unit || 'day', displayFormats: { day: 'MMM d', week: 'MMM d' }, tooltipFormat: 'MMM d, yyyy' },
-    ticks: { font: { family: 'Inter', size: 12 }, maxTicksLimit: 8 },
-    grid: { display: false }
-  };
-}
+var legendCfg = OUTBREAK_LEGEND;
 
 var yScaleCfg = { beginAtZero: true, ticks: { font: { family: 'Inter', size: 12 } }, grid: { color: gridColor } };
 
@@ -74,81 +65,34 @@ function periodNew(tl) {
 }
 
 function epiCurve(cases) {
-  var el = document.getElementById('chart-epicurve');
-  if (!el) return;
   var w = periodNew(cases.timeline);
-
-  new Chart(el.getContext('2d'), {
-    type: 'bar',
-    data: {
-      datasets: [
-        { label: 'New suspected', data: w.map(function(d) { return { x: d.x, y: d.ns }; }), backgroundColor: amber + '50', borderColor: amber, borderWidth: 1 },
-        { label: 'New confirmed', data: w.map(function(d) { return { x: d.x, y: d.nc }; }), backgroundColor: blue + '60', borderColor: blue, borderWidth: 1 },
-        { label: 'New deaths', data: w.map(function(d) { return { x: d.x, y: d.nd }; }), backgroundColor: red + '50', borderColor: red, borderWidth: 1 }
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: legendCfg, annotation: eventAnnotations },
-      scales: {
-        x: timeXScale('day'),
-        y: Object.assign({}, yScaleCfg, { title: { display: true, text: 'Cases per period', font: { family: 'Inter', size: 12 } } })
-      }
-    }
-  });
+  makeTimeSeriesChart('chart-epicurve', 'bar', [
+    { label: 'New suspected', data: w.map(function(d) { return { x: d.x, y: d.ns }; }), backgroundColor: amber + '50', borderColor: amber, borderWidth: 1 },
+    { label: 'New confirmed', data: w.map(function(d) { return { x: d.x, y: d.nc }; }), backgroundColor: blue + '60', borderColor: blue, borderWidth: 1 },
+    { label: 'New deaths', data: w.map(function(d) { return { x: d.x, y: d.nd }; }), backgroundColor: red + '50', borderColor: red, borderWidth: 1 }
+  ], { xUnit: 'day', xFormats: { day: 'MMM d', week: 'MMM d' }, maxTicks: 8, annotations: eventAnnotations, yTitle: 'Cases per period', gridColor: gridColor });
 }
 
 function cumulative(cases) {
-  var el = document.getElementById('chart-cumulative');
-  if (!el) return;
   var suspected = cases.timeline.map(function(d) { return { x: new Date(d.date), y: d.suspected }; });
   var confirmed = cases.timeline.map(function(d) { return { x: new Date(d.date), y: d.confirmed }; });
   var deaths = cases.timeline.map(function(d) { return { x: new Date(d.date), y: d.deaths }; });
-
-  new Chart(el.getContext('2d'), {
-    type: 'line',
-    data: {
-      datasets: [
-        { label: 'Cumulative suspected', data: suspected, borderColor: amber, backgroundColor: amber + '1a', fill: true, tension: 0.3, pointRadius: 3, borderWidth: 2 },
-        { label: 'Cumulative confirmed', data: confirmed, borderColor: blue, backgroundColor: blue + '1a', fill: true, tension: 0.3, pointRadius: 3, borderWidth: 2 },
-        { label: 'Cumulative deaths', data: deaths, borderColor: red, backgroundColor: red + '1a', fill: true, tension: 0.3, pointRadius: 3, borderWidth: 2 }
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: legendCfg, annotation: eventAnnotations },
-      scales: { x: timeXScale('day'), y: yScaleCfg }
-    }
-  });
+  makeTimeSeriesChart('chart-cumulative', 'line', [
+    { label: 'Cumulative suspected', data: suspected, borderColor: amber, backgroundColor: amber + '1a', fill: true, tension: 0.3, pointRadius: 3, borderWidth: 2 },
+    { label: 'Cumulative confirmed', data: confirmed, borderColor: blue, backgroundColor: blue + '1a', fill: true, tension: 0.3, pointRadius: 3, borderWidth: 2 },
+    { label: 'Cumulative deaths', data: deaths, borderColor: red, backgroundColor: red + '1a', fill: true, tension: 0.3, pointRadius: 3, borderWidth: 2 }
+  ], { xUnit: 'day', xFormats: { day: 'MMM d', week: 'MMM d' }, maxTicks: 8, annotations: eventAnnotations, gridColor: gridColor });
 }
 
 function regional(cases) {
-  var el = document.getElementById('chart-regional');
-  if (!el) return;
-
   var regions = cases.regions.sort(function(a, b) {
     return (b.confirmed + b.suspected) - (a.confirmed + a.suspected);
   });
-
-  new Chart(el.getContext('2d'), {
-    type: 'bar',
-    data: {
-      labels: regions.map(function(r) { return r.name; }),
-      datasets: [
-        { label: 'Confirmed', data: regions.map(function(r) { return r.confirmed; }), backgroundColor: blue + '60', borderColor: blue, borderWidth: 1 },
-        { label: 'Suspected', data: regions.map(function(r) { return r.suspected; }), backgroundColor: amber + '40', borderColor: amber, borderWidth: 1 },
-        { label: 'Deaths', data: regions.map(function(r) { return r.deaths_confirmed + r.deaths_suspected; }), backgroundColor: red + '40', borderColor: red, borderWidth: 1 }
-      ]
-    },
-    options: {
-      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-      plugins: { legend: legendCfg },
-      scales: {
-        x: { beginAtZero: true, ticks: { font: { family: 'Inter', size: 12 } }, grid: { color: gridColor } },
-        y: { ticks: { font: { family: 'Inter', size: 12 } }, grid: { display: false } }
-      }
-    }
-  });
+  makeCategoryBarChart('chart-regional', regions.map(function(r) { return r.name; }), [
+    { label: 'Confirmed', data: regions.map(function(r) { return r.confirmed; }), backgroundColor: blue + '60', borderColor: blue, borderWidth: 1 },
+    { label: 'Suspected', data: regions.map(function(r) { return r.suspected; }), backgroundColor: amber + '40', borderColor: amber, borderWidth: 1 },
+    { label: 'Deaths', data: regions.map(function(r) { return r.deaths_confirmed + r.deaths_suspected; }), backgroundColor: red + '40', borderColor: red, borderWidth: 1 }
+  ], { gridColor: gridColor });
 }
 
 function histDRC(h) {
