@@ -12,7 +12,8 @@ import {
   computeStageSuggestion,
   confidenceToLabel,
   deriveNetworkModel,
-  deriveTimelineModel
+  deriveTimelineModel,
+  pickIncidenceRows
 } from "./model.mjs";
 
 const d3 = globalThis.d3;
@@ -751,22 +752,6 @@ function renderTrajectory(context, dom, runtime, baselineBundle, interventionBun
       </div>
     </div>
   `;
-}
-
-function pickIncidenceRows(context, baselineBundle, interventionBundle) {
-  const ids = new Set();
-  baselineBundle.simulation.topFutureDiseases.slice(0, 5).forEach((row) => ids.add(row.id));
-  interventionBundle.simulation.topFutureDiseases.slice(0, 5).forEach((row) => ids.add(row.id));
-
-  return [...ids]
-    .map((id) => {
-      const disease = getDisease(context, id);
-      const baseline = baselineBundle.simulation.topFutureDiseases.find((row) => row.id === id)?.probability10 || 0;
-      const intervention = interventionBundle.simulation.topFutureDiseases.find((row) => row.id === id)?.probability10 || 0;
-      return { id, label: disease.short_label, baseline, intervention };
-    })
-    .sort((left, right) => Math.max(right.baseline, right.intervention) - Math.max(left.baseline, left.intervention))
-    .slice(0, 5);
 }
 
 function datasetBand(label, data, backgroundColor, fill = false) {
