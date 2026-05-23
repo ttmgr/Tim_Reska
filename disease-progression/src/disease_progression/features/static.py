@@ -112,19 +112,19 @@ class StaticFeatureExtractor:
         features = self._extract_demographics(person)
 
         # --- Comorbidities ---
-        if not conditions.empty:
-            baseline_conds = self._filter_baseline_conditions(conditions)
-            charlson = self._compute_charlson(baseline_conds, set(features.index))
-            flags = self._compute_clinical_flags(baseline_conds, set(features.index))
-            comorbidity_count = self._compute_comorbidity_count(baseline_conds)
-            features = features.join(charlson, how="left")
-            features = features.join(flags, how="left")
-            features = features.join(comorbidity_count, how="left")
-        else:
-            features["charlson_index"] = 0
-            for flag_name in CLINICAL_FLAGS:
-                features[flag_name] = 0
-            features["n_distinct_conditions"] = 0
+        # The three helpers below each handle an empty condition frame, so a
+        # single code path covers both "no conditions table" and "conditions
+        # exist but none fall in the baseline window". Branching on
+        # ``conditions.empty`` here would duplicate the zero-fill defaults and
+        # let the two paths drift apart silently.
+        baseline_conds = self._filter_baseline_conditions(conditions)
+        person_ids = set(features.index)
+        charlson = self._compute_charlson(baseline_conds, person_ids)
+        flags = self._compute_clinical_flags(baseline_conds, person_ids)
+        comorbidity_count = self._compute_comorbidity_count(baseline_conds)
+        features = features.join(charlson, how="left")
+        features = features.join(flags, how="left")
+        features = features.join(comorbidity_count, how="left")
 
         # Fill numeric NaNs introduced by the left joins; leave the categorical
         # age_group untouched (filling it with 0 raises on a non-category value).
