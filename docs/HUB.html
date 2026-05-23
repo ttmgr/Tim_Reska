@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tim Reska · project hub</title>
+<style>
+  :root {
+    --air: #9A5A2E; --water: #2D8659; --thesis: #C4794A;
+    --bg: #FAF9F7; --bg-soft: #F0EDEA;
+    --ink: #1A1A2E; --muted: #6B6A73;
+    --border: #E8E6E1; --border-2: #D0CEC8;
+    --status-ok: #2D8659;
+    --dim: #B0AFA8;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px; line-height: 1.55; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 28px 32px 96px; }
+  .mono, code { font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace; }
+  a { color: var(--air); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .banner { border: 1px solid var(--border); border-left: 4px solid var(--status-ok);
+    padding: 18px 22px; background: var(--bg-soft);
+    display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; }
+  .banner .eyebrow { margin: 0 0 4px; font-family: "JetBrains Mono", monospace;
+    font-size: 11.5px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--muted); }
+  .banner h1 { font-size: 22px; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+  .banner .sub { font-size: 13px; color: var(--muted); margin: 4px 0 0; }
+  .banner .meta { font-family: "JetBrains Mono", monospace; font-size: 11.5px;
+    color: var(--muted); text-align: right; line-height: 1.7; }
+  .pill { display: inline-block; padding: 2px 9px; background: var(--status-ok);
+    color: white; font-family: "JetBrains Mono", monospace;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.10em; }
+  .readout { font-family: "JetBrains Mono", monospace; font-size: 11px;
+    color: var(--muted); padding: 8px 0 0; letter-spacing: 0.02em; }
+  .readout .dot { color: var(--status-ok); }
+  nav.strip { display: flex; flex-wrap: wrap; gap: 2px; margin: 24px 0 36px;
+    padding: 6px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    font-family: "JetBrains Mono", monospace; font-size: 12px; align-items: center; }
+  nav.strip a { color: var(--muted); padding: 6px 12px; }
+  nav.strip a:hover { color: var(--air); background: var(--bg-soft); text-decoration: none; }
+  nav.strip a.cta { margin-left: auto; color: var(--air); font-weight: 600; }
+  h2.section { font-family: "JetBrains Mono", monospace; font-size: 12px;
+    font-weight: 600; color: var(--muted); letter-spacing: 0.10em;
+    text-transform: uppercase; margin: 56px 0 18px; padding-bottom: 7px;
+    border-bottom: 1px solid var(--border); }
+  h2.section .id { color: var(--air); }
+  .flow-frame { border: 1px solid var(--border);
+    background: linear-gradient(var(--bg-soft) 1px, transparent 1px) 0 0 / 100% 14px,
+                linear-gradient(90deg, var(--bg-soft) 1px, transparent 1px) 0 0 / 14px 100%,
+                var(--bg);
+    background-blend-mode: multiply; padding: 22px 12px 18px; overflow-x: auto; }
+  .flow-frame svg { display: block; width: 100%; min-width: 940px; height: auto; }
+  .graph-embed { position: relative; border: 1px solid var(--border);
+    background: var(--bg-soft); }
+  .graph-embed iframe { display: block; width: 100%; height: 720px;
+    border: 0; background: white; }
+  .graph-embed .open-full { position: absolute; top: 10px; right: 14px;
+    font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--air);
+    background: white; padding: 4px 9px; border: 1px solid var(--border);
+    text-decoration: none; z-index: 2; }
+  .graph-embed .open-full:hover { background: var(--bg-soft); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+  .card { border: 1px solid var(--border); padding: 12px 14px 13px;
+    background: white; transition: border-color 0.15s, background 0.15s; }
+  .card:hover { border-color: var(--air); background: var(--bg-soft); }
+  .card .id { font-family: "JetBrains Mono", monospace; font-size: 12.5px;
+    font-weight: 600; color: var(--air); letter-spacing: -0.01em; }
+  .card .id.cn { color: var(--water); }
+  .card .id.sc { color: var(--thesis); }
+  .card .id.pp { color: #5A5A5A; }
+  .card .path { font-family: "JetBrains Mono", monospace; font-size: 11.5px;
+    color: var(--ink); margin-top: 4px; word-break: break-all; }
+  .card .desc { font-size: 12.5px; color: var(--ink); margin-top: 6px; line-height: 1.5; }
+  .touch-list, .doc-list { margin: 8px 0 0; padding: 0; list-style: none; }
+  .touch-list li, .doc-list li { padding: 5px 0; font-size: 13.5px;
+    border-bottom: 1px dashed var(--border); }
+  .touch-list li:last-child, .doc-list li:last-child { border-bottom: 0; }
+  .touch-list code, .doc-list code { color: var(--air); background: var(--bg-soft);
+    padding: 1px 6px; font-size: 12px; }
+  .doc-list .note { color: var(--muted); font-family: Inter, sans-serif; font-size: 12px; }
+  #superseded { opacity: 0.7; }
+  #superseded:hover { opacity: 1; }
+  .empty { color: var(--muted); font-style: italic; }
+  footer { margin-top: 72px; padding-top: 22px; border-top: 1px solid var(--border);
+    font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: var(--muted);
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  footer code { background: var(--bg-soft); padding: 1px 5px; color: var(--ink); }
+  @media (max-width: 720px) {
+    .banner { grid-template-columns: 1fr; }
+    .banner .meta { text-align: left; }
+    .wrap { padding: 20px 18px 60px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="banner">
+    <div>
+      <p class="eyebrow">Tim Reska // project hub</p>
+      <h1>Research Scientist · LLM Evaluation · AI Deployment Strategy · Production ML for Regulated Industries</h1>
+      <p class="sub">branch <code>main</code> · last commit 9 min ago · 2 uncommitted</p>
+    </div>
+    <div class="meta">
+      <span class="pill">ACTIVE</span><br>
+      hub regenerated 2026-05-23 07:34<br>
+      from <code style="background:transparent;padding:0;color:var(--ink)">scripts/build_hub.py</code>
+    </div>
+  </header>
+
+  <div class="readout">
+    <span class="dot">●</span> system online &nbsp;·&nbsp;
+    4 waves &nbsp;·&nbsp;
+    1 canonical &nbsp;·&nbsp;
+    0 concepts &nbsp;·&nbsp;
+    1 scripts &nbsp;·&nbsp;
+    1 contributors &nbsp;·&nbsp;
+    0 superseded
+  </div>
+
+  <nav class="strip">
+    <a href="#status">:status</a>
+    <a href="#waves">:waves</a>
+    <a href="#graph">:graph</a>
+    <a href="#canonical">:canonical</a>
+    <a href="#concepts">:concepts</a>
+    <a href="#scripts">:scripts</a>
+    <a href="#decisions">:decisions</a>
+    <a href="#plans">:plans</a>
+    <a href="#collaborators">:collaborators</a>
+    <a href="#activity">:activity</a>
+    <a href="#superseded">:superseded</a>
+    
+  </nav>
+
+  <section id="status">
+    <h2 class="section">/// <span class="id">:status</span></h2>
+    <p>Status: <strong>ACTIVE</strong> &nbsp;·&nbsp; last commit 9 min ago · 2 uncommitted.</p>
+    <p>Touch this directory to:</p>
+    <ul class="touch-list">
+      <li>understand what's authoritative right now &nbsp;→&nbsp; <code><a href="#canonical">:canonical</a></code></li>
+      <li>recall the project's vocabulary &nbsp;→&nbsp; <code><a href="#concepts">:concepts</a></code></li>
+      <li>regenerate an artifact &nbsp;→&nbsp; <code><a href="#scripts">:scripts</a></code></li>
+      <li>see why a decision was made &nbsp;→&nbsp; <code><a href="#decisions">:decisions</a></code></li>
+      <li>find what's been retired &nbsp;→&nbsp; <code><a href="#superseded">:superseded</a></code></li>
+    </ul>
+  </section>
+
+  <section id="waves">
+    <h2 class="section">/// <span class="id">:waves</span>
+      &nbsp; <span style="color:var(--muted);letter-spacing:0;text-transform:none;font-weight:normal">— phases of work, derived from commit history</span></h2>
+    <div class="flow-frame"><svg viewBox="0 0 1040 140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" style="font-family:'JetBrains Mono','SF Mono',Menlo,monospace;">
+<line x1="40" y1="60" x2="1000" y2="60" stroke="#D5D5D5" stroke-width="1"/>
+<text x="60" y="32" text-anchor="middle" font-size="10" fill="#6B6B6B">feb 2026</text>
+<circle cx="60" cy="60" r="18" fill="#C4794A"/>
+<text x="60" y="65" text-anchor="middle" fill="white" font-size="11" font-weight="700">W1</text>
+<text x="60" y="104" text-anchor="middle" font-size="9.5" fill="#6B6B6B">32 commits</text>
+<text x="367" y="32" text-anchor="middle" font-size="10" fill="#6B6B6B">mar 2026</text>
+<circle cx="367" cy="60" r="18" fill="#C4794A"/>
+<text x="367" y="65" text-anchor="middle" fill="white" font-size="11" font-weight="700">W2</text>
+<text x="367" y="104" text-anchor="middle" font-size="9.5" fill="#6B6B6B">11 commits</text>
+<text x="673" y="32" text-anchor="middle" font-size="10" fill="#6B6B6B">apr 2026</text>
+<circle cx="673" cy="60" r="18" fill="#C4794A"/>
+<text x="673" y="65" text-anchor="middle" fill="white" font-size="11" font-weight="700">W3</text>
+<text x="673" y="104" text-anchor="middle" font-size="9.5" fill="#6B6B6B">13 commits</text>
+<text x="980" y="32" text-anchor="middle" font-size="10" fill="#6B6B6B">may 2026</text>
+<circle cx="980" cy="60" r="22" fill="#2D8659"/>
+<text x="980" y="65" text-anchor="middle" fill="white" font-size="11" font-weight="700">W4</text>
+<text x="980" y="104" text-anchor="middle" font-size="9.5" fill="#6B6B6B">53 commits</text>
+</svg></div>
+  </section>
+
+  <section id="canonical">
+    <h2 class="section">/// <span class="id">:canonical</span>
+      &nbsp; <span style="color:var(--muted);letter-spacing:0;text-transform:none;font-weight:normal">— where current truth lives</span></h2>
+    <div class="grid"><div class="card"><div class="id">:README</div><div class="path"><a href="vscode://file//Users/ttreska57/Documents/Tim_Reska_site/README.md">README.md</a></div><div class="desc">Project README — first-read entry point.</div></div></div>
+  </section>
+
+  <section id="concepts">
+    <h2 class="section">/// <span class="id" style="color:var(--water)">:concepts</span>
+      &nbsp; <span style="color:var(--muted);letter-spacing:0;text-transform:none;font-weight:normal">— vocabulary from CONTEXT.md</span></h2>
+    <div class="grid"><p class="empty">No concepts detected (expected `- **Name** — description` bullets in CONTEXT.md).</p></div>
+  </section>
+
+  <section id="scripts">
+    <h2 class="section">/// <span class="id" style="color:var(--thesis)">:scripts</span>
+      &nbsp; <span style="color:var(--muted);letter-spacing:0;text-transform:none;font-weight:normal">— regeneration entry points</span></h2>
+    <div class="grid"><div class="card"><div class="id sc">:build_hub.py</div><div class="path">scripts/build_hub.py</div></div></div>
+  </section>
+
+  <section id="decisions">
+    <h2 class="section">/// <span class="id">:decisions</span>
+      &nbsp; <span style="color:var(--muted);letter-spacing:0;text-transform:none;font-weight:normal">— ADRs in docs/adr/</span></h2>
+    <ul class="doc-list"><li class="empty">No ADRs in docs/adr/.</li></ul>
+  </section>
+
+  <section id="plans">
+    <h2 class="section">/// <span class="id">:plans</span>
+      &nbsp; <span style="color:var(--muted);letter-spacing:0;text-transform:none;font-weight:normal">— in-flight work in docs/plans/</span></h2>
+    <ul class="doc-list"><li class="empty">No plans in docs/plans/.</li></ul>
+  </section>
+
+  <section id="collaborators">
+    <h2 class="section">/// <span class="id" style="color:#5A5A5A">:collaborators</span></h2>
+    <div class="grid"><div class="card"><div class="id pp">:Tim Reska</div><div class="desc">109 commits</div></div></div>
+  </section>
+
+  <section id="activity">
+    <h2 class="section">/// <span class="id">:activity</span>
+      &nbsp; <span style="color:var(--muted);letter-spacing:0;text-transform:none;font-weight:normal">— most-recent commits</span></h2>
+    <ul class="doc-list"><li><code>7863931</code> chore(academy): drop 6-sector overclaim, add instructor + NDA proof, focus-visible <span class="note">(9 minutes ago)</span></li><li><code>ab6f6bd</code> data(hanta): refresh through 2026-05-22 (timeline, NL country, hondius, events, news) <span class="note">(48 minutes ago)</span></li><li><code>df0f5fc</code> data(ebola): refresh through 2026-05-22 (timeline, regions, events, news) <span class="note">(48 minutes ago)</span></li><li><code>048b074</code> chore: academy copy polish + llm-cost-calculator author email <span class="note">(59 minutes ago)</span></li><li><code>0f38777</code> chore: gitignore llm-coding-radar/ and .nav/, document in STRUCTURE <span class="note">(59 minutes ago)</span></li><li><code>b2bfec4</code> fix(disease-progression): unify empty and filtered-empty comorbidity paths <span class="note">(59 minutes ago)</span></li><li><code>c85610d</code> refactor(outbreak): extend shared factories for chips, stat cards, metric grids, event markers <span class="note">(59 minutes ago)</span></li><li><code>e09c9ba</code> fix(disease-progression): repair static feature extractor, add leak tests <span class="note">(11 hours ago)</span></li></ul>
+  </section>
+
+  <section id="superseded">
+    <h2 class="section">/// <span class="id" style="color:var(--dim)">:superseded</span>
+      &nbsp; <span style="color:var(--muted);letter-spacing:0;text-transform:none;font-weight:normal">— kept for provenance, not for daily use (hover to undim)</span></h2>
+    <ul class="doc-list"><li class="empty">Nothing matched common superseded patterns (_orig, _old, _v*, *backup*, *.archived-*).</li></ul>
+  </section>
+
+  <footer>
+    <span>auto-generated from repo state · override curated bits in <code>docs/hub.yaml</code> · never edit this HTML directly</span>
+    <span>regenerated 2026-05-23 07:34</span>
+  </footer>
+
+</div>
+</body>
+</html>
