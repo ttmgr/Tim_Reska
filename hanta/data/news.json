@@ -1,6 +1,41 @@
 {
-  "last_updated": "2026-05-18",
+  "last_updated": "2026-05-22",
   "articles": [
+    {
+      "date": "2026-05-22",
+      "source": "Al Jazeera",
+      "title": "WHO says 12th person infected with hantavirus detected in the Netherlands",
+      "url": "https://www.aljazeera.com/news/2026/5/22/who-says-12th-person-infected-with-hantavirus-detected-in-the-netherlands",
+      "summary": "WHO confirmed a 12th hantavirus case — a Dutch crew member from MV Hondius who had been in home quarantine after repatriation from Tenerife — testing positive for Andes virus and admitted to hospital; total deaths remain 3."
+    },
+    {
+      "date": "2026-05-22",
+      "source": "DutchNews.nl",
+      "title": "Twelfth hantavirus case confirmed in isolated crew member",
+      "url": "https://www.dutchnews.nl/2026/05/twelfth-hantavirus-case-confirmed-in-isolated-crew-member/",
+      "summary": "A Dutch crew member repatriated from MV Hondius via Tenerife and in home quarantine tested positive for Andes virus, confirmed by RIVM and Erasmus MC; over 600 contacts continue to be monitored across 30 countries."
+    },
+    {
+      "date": "2026-05-22",
+      "source": "WHO",
+      "title": "Hantavirus in Focus II — EPI-WIN webinar on natural history, infection control and clinical management",
+      "url": "https://www.who.int/news-room/events/detail/2026/05/22/default-calendar/who-health-emergencies-epi-win-webinar-hantavirus-in-focus-ii-hantavirus-in-an-international-maritime-setting-natural-history-infection-control-and-clinical-management-of-patients-in-hospital",
+      "summary": "WHO held its second 'Hantavirus in Focus' expert webinar covering disease natural history, hospital infection prevention, and clinical management lessons from the MV Hondius multi-country outbreak."
+    },
+    {
+      "date": "2026-05-22",
+      "source": "GMA News Online",
+      "title": "No hantavirus cases involving quarantined Filipino cruise ship crew — DMW",
+      "url": "https://www.gmanetwork.com/news/pinoyabroad/dispatch/988664/no-hantavirus-cases-involving-quarantined-filipino-cruise-ship-crew-dmw/story/",
+      "summary": "The Philippines Department of Migrant Workers confirmed all 38 Filipino MV Hondius crew members quarantined in the Netherlands tested negative for hantavirus, and the 12th confirmed case is a Dutch crew member."
+    },
+    {
+      "date": "2026-05-21",
+      "source": "ECDC",
+      "title": "Andes hantavirus outbreak in cruise ship, 21 May 2026",
+      "url": "https://www.ecdc.europa.eu/en/infectious-disease-topics/hantavirus-infection/surveillance-and-updates/andes-hantavirus-outbreak",
+      "summary": "ECDC weekly update confirmed 11 cases (9 confirmed, 2 probable) and no new deaths as of May 21; ship sanitation ongoing at Rotterdam and EU/EEA general-population risk remains very low."
+    },
     {
       "date": "2026-05-18",
       "source": "Al Jazeera",
