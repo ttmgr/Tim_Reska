@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-05-18",
+  "last_updated": "2026-05-22",
   "summary": {
-    "total_cases_2026": 113,
+    "total_cases_2026": 114,
     "total_deaths_2026": 3,
     "countries_affected": 12,
     "active_clusters": 1,
-    "cfr_percent": 2.7,
+    "cfr_percent": 2.6,
     "who_risk_global": "LOW",
     "who_risk_europe": "VERY LOW",
     "data_lag_hours": 24,
@@ -32,14 +32,14 @@
       "iso": "NL",
       "lat": 52.37,
       "lon": 4.90,
-      "cases_2026": 2,
+      "cases_2026": 3,
       "deaths_2026": 2,
-      "cfr_percent": 100.0,
-      "hospitalized": 0,
+      "cfr_percent": 66.7,
+      "hospitalized": 1,
       "risk_level": "LOW",
-      "case_classification": { "confirmed": 2, "probable": 0, "suspected": 0 },
+      "case_classification": { "confirmed": 3, "probable": 0, "suspected": 0 },
       "virus": "Andes virus (ANDV)",
-      "notes": "Dutch couple infected during MV Hondius shore excursion in Argentina. Both deceased."
+      "notes": "Dutch couple infected during MV Hondius shore excursion in Argentina (both deceased). Third case (2026-05-22): Dutch crew member previously evacuated from the ship in Tenerife and in home quarantine, tested positive after symptom onset and was admitted to hospital. Confirmed by RIVM and Erasmus MC. Source: Al Jazeera, DutchNews.nl, RIVM (2026-05-22)."
     },
     {
       "name": "Germany",
@@ -215,6 +215,8 @@
     { "date": "2026-05-13", "cumulative_cases": 113, "cumulative_deaths": 3 },
     { "date": "2026-05-15", "cumulative_cases": 113, "cumulative_deaths": 3 },
     { "date": "2026-05-17", "cumulative_cases": 113, "cumulative_deaths": 3 },
-    { "date": "2026-05-18", "cumulative_cases": 113, "cumulative_deaths": 3 }
+    { "date": "2026-05-18", "cumulative_cases": 113, "cumulative_deaths": 3 },
+    { "date": "2026-05-21", "cumulative_cases": 113, "cumulative_deaths": 3 },
+    { "date": "2026-05-22", "cumulative_cases": 114, "cumulative_deaths": 3 }
   ]
 }

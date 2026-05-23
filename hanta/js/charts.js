@@ -7,7 +7,8 @@ var amber = '#d97706';
 var eventAnnotations = buildEventAnnotations([
   { date: '2026-04-12', color: grey,  label: 'First case · Apr 12' },
   { date: '2026-04-18', color: red,   label: 'First death · Apr 18' },
-  { date: '2026-05-01', color: amber, label: 'Quarantined · May 1' }
+  { date: '2026-05-01', color: amber, label: 'Quarantined · May 1' },
+  { date: '2026-05-22', color: amber, label: '12th case (Dutch crew, NL) · May 22' }
 ]);
 
 var legendCfg = OUTBREAK_LEGEND;

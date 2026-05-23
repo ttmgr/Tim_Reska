@@ -4,10 +4,10 @@
   "flag": "Netherlands",
   "departure": "2026-04-01",
   "departure_port": "Ushuaia, Argentina",
-  "current_status": "Ship docked at Rotterdam May 18 with 25 crew + 2 medical staff for quarantine and decontamination. All 147 passengers previously repatriated from Tenerife May 10-11. ECDC updated May 17: 12 ship-linked cases (9 confirmed, 2 probable, 1 inconclusive), 3 deaths. New case: Canadian Yukon resident confirmed May 17 by PHAC National Microbiology Lab. US inconclusive case (Dr. Kornfeld) retested negative — zero US cases. French patient critically ill on ECMO in Paris. UK 22 returnees in 42-day home isolation. Crew quarantine at Rotterdam until June 18. Oceanwide Expeditions assessing whether May 29 Iceland departure proceeds. WHO global risk: LOW. Next WHO event: 'Hantavirus in Focus I' webinar May 20.",
+  "current_status": "Ship at Rotterdam since May 18; all 27 people aboard at docking (25 crew + Dutch doctor + Dutch nurse) tested NEGATIVE for Andes virus (May 20-21, per RIVM and Dutch minister Hermans). 23 non-Dutch crew quarantined in portable cabin units at Rotterdam port until June 18; Dutch nationals at home quarantine. ECDC updated May 21: 11 cases (9 confirmed, 2 probable, 0 inconclusive — US Kornfeld retested negative and removed). WHO May 22: 12th case detected — Dutch crew member previously repatriated from Tenerife in home quarantine, tested positive (confirmed by RIVM + Erasmus MC), admitted to hospital. French ECMO patient status unchanged. Oceanwide Expeditions has not announced whether May 29 Iceland departure proceeds. WHO global risk: LOW. WHO 'Hantavirus in Focus II' expert webinar held May 22.",
   "virus": "Andes virus (ANDV)",
-  "total_cases": 12,
-  "case_classification": { "confirmed": 9, "inconclusive": 1, "probable": 2 },
+  "total_cases": 13,
+  "case_classification": { "confirmed": 11, "inconclusive": 0, "probable": 2 },
   "total_deaths": 3,
   "passengers_aboard": 147,
   "countries_represented": 23,
@@ -137,6 +137,16 @@
       "description": "Canadian Yukon resident, MV Hondius passenger. Presumptive positive announced May 16 by BC Provincial Health Officer; confirmed May 17 by PHAC National Microbiology Lab in Winnipeg. Hospitalized in isolation in British Columbia with spouse (spouse had minor symptoms).",
       "outcome": "Hospitalized, British Columbia",
       "nationality": "Canada"
+    },
+    {
+      "id": 13,
+      "date": "2026-05-22",
+      "onset_date": null,
+      "exposure_date": "2026-04-01",
+      "linked_to": null,
+      "description": "Dutch crew member of MV Hondius, evacuated from the ship at Tenerife earlier in May and repatriated to the Netherlands. Had been in home quarantine since arrival; reported symptoms and tested positive for Andes virus. Confirmation by RIVM (Bilthoven) and Erasmus MC (Rotterdam). Admitted to hospital as a precaution. WHO/EPI-WIN cite this as the first post-disembarkation crew case — demonstrates the operational relevance of the 45-day ANDV incubation window. Source: Al Jazeera, DutchNews.nl, RIVM (2026-05-22).",
+      "outcome": "Hospitalized, Netherlands",
+      "nationality": "Netherlands"
     }
   ],
   "evacuations": [
