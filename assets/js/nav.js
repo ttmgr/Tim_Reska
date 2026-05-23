@@ -3,6 +3,11 @@
   var scriptSrc = scripts.length ? scripts[scripts.length - 1].getAttribute('src') : '';
   var depth = scriptSrc.replace(/assets\/js\/nav\.js.*$/, '');
 
+  // Manifest is loaded synchronously via assets/js/nav-manifest.js (declares
+  // window.TR_NAV_LINKS). Bail quietly if the page forgot to include it.
+  var links = window.TR_NAV_LINKS;
+  if (!links || !links.length) return;
+
   var css = [
     '.tr-nav{position:fixed;top:0;left:0;right:0;z-index:9999;',
     'background:rgba(250,249,247,0.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);',
@@ -19,22 +24,14 @@
     '@media(max-width:640px){.tr-nav-links{display:none}.tr-nav-back{font-size:12px;padding:5px 12px}}'
   ].join('\n');
 
-  var links = [
-    {href: depth + 'disease-network/', label: 'Clinical Atlas'},
-    {href: depth + 'pkv-ml-explorer/', label: 'PKV Explorer'},
-    {href: depth + 'disease-progression/', label: 'Disease Progression'},
-    {href: depth + 'llm-eval/flowchart.html', label: 'LLM Eval'},
-    {href: depth + 'ai-deployment-readiness/', label: 'AI Readiness'},
-    {href: depth + 'llm-cost-calculator/', label: 'Cost Calculator'},
-    {href: depth + 'multi-agent-dd/', label: 'Multi-Agent DD'},
-    {href: depth + 'academy/', label: 'AI Academy'}
-  ];
-
+  // Current-page detection: slug match in pathname. Robust against renames of
+  // the human-readable label, which the old substring-on-label check wasn't.
   var currentPath = window.location.pathname;
-  var linkHTML = links.map(function (l) {
-    if (currentPath.indexOf(l.href.replace(depth, '/')) > -1 || currentPath.indexOf(l.label.toLowerCase().replace(/ /g, '-')) > -1) return '';
-    return '<li><a href="' + l.href + '">' + l.label + '</a></li>';
-  }).filter(Boolean).slice(0, 4).join('');
+  var linkHTML = links
+    .filter(function (l) { return currentPath.indexOf('/' + l.slug + '/') === -1; })
+    .slice(0, 4)
+    .map(function (l) { return '<li><a href="' + depth + l.path + '">' + l.label + '</a></li>'; })
+    .join('');
 
   var style = document.createElement('style');
   style.textContent = css;
