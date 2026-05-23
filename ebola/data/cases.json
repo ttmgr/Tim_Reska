@@ -1,13 +1,13 @@
 {
-  "last_updated": "2026-05-18",
+  "last_updated": "2026-05-22",
   "summary": {
-    "total_confirmed": 14,
-    "total_suspected": 395,
-    "deaths_confirmed": 5,
-    "deaths_suspected": 95,
-    "total_deaths_all": 100,
+    "total_confirmed": 84,
+    "total_suspected": 744,
+    "deaths_confirmed": 8,
+    "deaths_suspected": 176,
+    "total_deaths_all": 184,
     "countries_affected": 2,
-    "health_zones_affected": 9,
+    "health_zones_affected": 11,
     "who_risk_global": "MODERATE",
     "who_risk_national": "VERY HIGH",
     "who_risk_regional": "HIGH",
@@ -16,7 +16,8 @@
     "pheic_date": "2026-05-17",
     "vaccine_available": false,
     "virus": "Bundibugyo ebolavirus",
-    "weekly_delta": { "confirmed": 6, "suspected": 149, "deaths": 23 }
+    "weekly_delta": { "confirmed": 74, "suspected": 498, "deaths": 107 },
+    "note_sub_zones": "Topline reflects WHO 2026-05-22 figures (DG briefing + CDC situation summary). Province-level breakdowns updated where ECDC sub-attribution exists (Ituri, North Kivu, South Kivu); individual health-zone counts below remain at 2026-05-18 attribution pending the next detailed MoH bulletin."
   },
   "regions": [
     {
@@ -65,19 +66,19 @@
       "notes": "Index case died here. Provincial coordination center."
     },
     {
-      "name": "Goma",
+      "name": "North Kivu (Goma + Butembo)",
       "province": "North Kivu",
       "country": "DRC",
       "iso": "CD",
       "lat": -1.68,
       "lon": 29.23,
-      "confirmed": 1,
-      "suspected": 8,
-      "deaths_confirmed": 0,
-      "deaths_suspected": 2,
-      "health_areas": 1,
-      "role": "Imported case",
-      "notes": "One confirmed case traveled from Ituri. Reported 17 May."
+      "confirmed": 4,
+      "suspected": 24,
+      "deaths_confirmed": 2,
+      "deaths_suspected": 5,
+      "health_areas": 2,
+      "role": "Expansion zone",
+      "notes": "ECDC (2026-05-19): 4 confirmed across Goma and Butembo (newly affected); 2 deaths confirmed. Goma index case traveled from Ituri; Butembo cluster identified 2026-05-18."
     },
     {
       "name": "Kampala",
@@ -107,7 +108,22 @@
       "deaths_suspected": 0,
       "health_areas": 1,
       "role": "Long-distance importation",
-      "notes": "One confirmed case in the capital, ~1,000 km from Ituri epicenter. Reported May 17-18."
+      "notes": "One confirmed case in the capital, ~1,000 km from Ituri epicenter. Reported May 17-18. Status flagged for re-validation: subsequent secondary reporting suggests the initial confirmation may have been a false positive — awaiting Ministry of Health re-test."
+    },
+    {
+      "name": "Bukavu (South Kivu)",
+      "province": "South Kivu",
+      "country": "DRC",
+      "iso": "CD",
+      "lat": -2.50,
+      "lon": 28.86,
+      "confirmed": 1,
+      "suspected": 4,
+      "deaths_confirmed": 1,
+      "deaths_suspected": 0,
+      "health_areas": 1,
+      "role": "M23-controlled importation",
+      "notes": "First confirmed case in South Kivu (2026-05-21). Patient traveled from Kisangani (Tshopo Province); died before diagnosis confirmed. Territory under M23 control — surveillance and contact tracing severely constrained. Source: Al Jazeera, Jamaica Observer (2026-05-21)."
     }
   ],
   "at_risk": [
@@ -149,6 +165,8 @@
     { "date": "2026-05-15", "confirmed": 10, "suspected": 246, "deaths": 77 },
     { "date": "2026-05-16", "confirmed": 10, "suspected": 280, "deaths": 80 },
     { "date": "2026-05-17", "confirmed": 12, "suspected": 336, "deaths": 89 },
-    { "date": "2026-05-18", "confirmed": 14, "suspected": 395, "deaths": 100 }
+    { "date": "2026-05-18", "confirmed": 14, "suspected": 395, "deaths": 100 },
+    { "date": "2026-05-19", "confirmed": 66, "suspected": 650, "deaths": 167 },
+    { "date": "2026-05-22", "confirmed": 84, "suspected": 744, "deaths": 184 }
   ]
 }
