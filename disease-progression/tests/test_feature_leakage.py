@@ -98,3 +98,44 @@ def test_only_future_conditions_yield_empty_baseline(extractor) -> None:
     )
     features = extractor.transform(only_future)
     assert features.loc[PERSON_ID, "n_distinct_conditions"] == 0
+
+
+def test_empty_and_filtered_conditions_produce_identical_features(extractor) -> None:
+    """Empty condition_occurrence and filtered-to-empty conditions converge.
+
+    The old transform() branched on ``conditions.empty``: one path filled
+    defaults explicitly, the other relied on left-join + fillna via the
+    helpers. Both paths could drift apart -- a helper changing its empty-frame
+    contract would only affect one branch. This test pins the unified path:
+    no matter how the baseline window ends up empty, the feature row must be
+    identical and fully zero-filled across the comorbidity columns.
+    """
+    fully_empty = OMOPTables(
+        person=_person(), condition_occurrence=pd.DataFrame()
+    )
+    filtered_empty = OMOPTables(
+        person=_person(), condition_occurrence=_conditions([FUTURE_CONDITION])
+    )
+
+    f_fully = extractor.transform(fully_empty)
+    f_filtered = extractor.transform(filtered_empty)
+
+    pd.testing.assert_frame_equal(f_fully, f_filtered)
+
+    # And the load-bearing comorbidity columns must all be zero.
+    expected_zero_cols = [
+        "charlson_index",
+        "n_distinct_conditions",
+        "has_hypertension",
+        "has_atrial_fibrillation",
+        "has_diabetes",
+        "has_ckd",
+        "has_prior_mi",
+        "has_prior_stroke",
+        "has_heart_failure",
+        "has_dyslipidemia",
+        "has_obesity",
+        "has_copd",
+    ]
+    for col in expected_zero_cols:
+        assert f_fully.loc[PERSON_ID, col] == 0, f"{col} should be 0 on empty conditions"
