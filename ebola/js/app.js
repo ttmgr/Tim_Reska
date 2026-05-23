@@ -31,13 +31,15 @@ function renderOutbreakMetrics(outbreak) {
   ]);
 }
 
-function outcomeInfo(outcome) {
-  var lo = outcome.toLowerCase();
-  if (lo.indexOf('deceased') !== -1) return { cls: 'outcome-deceased', sym: '✖' };
-  if (lo.indexOf('treatment') !== -1 || lo.indexOf('hospitalized') !== -1) return { cls: 'outcome-hospitalized', sym: '●' };
-  if (lo.indexOf('recovering') !== -1) return { cls: 'outcome-recovering', sym: '✔' };
-  return { cls: 'outcome-unknown', sym: '?' };
-}
+var OUTCOME_MAP = {
+  keywords: [
+    { match: ['deceased'], cls: 'outcome-deceased', sym: '✖' },
+    { match: ['treatment', 'hospitalized'], cls: 'outcome-hospitalized', sym: '●' },
+    { match: ['recovering'], cls: 'outcome-recovering', sym: '✔' }
+  ],
+  unknown: { cls: 'outcome-unknown', sym: '?' }
+};
+function outcomeInfo(outcome) { return classifyOutcome(outcome, OUTCOME_MAP); }
 
 function renderCaseTable(outbreak) {
   var tbody = document.getElementById('case-tbody');
