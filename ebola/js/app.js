@@ -1,66 +1,34 @@
 function renderHeroStats(data) {
   var s = data.summary;
-  var chips = [
-    { val: s.total_confirmed, label: 'Confirmed', sub: 'Lab-confirmed (Bundibugyo RT-PCR)', cls: 'blue', subCls: '' },
-    { val: s.total_suspected, label: 'Suspected', sub: 'Pending confirmation', cls: 'default', subCls: '' },
-    { val: s.total_deaths_all, label: 'Deaths', sub: s.deaths_confirmed + ' confirmed + ' + s.deaths_suspected + ' suspected', cls: 'red', subCls: '' },
-    { val: 'PHEIC', label: 'WHO status', sub: 'Declared ' + s.pheic_date, cls: 'red', subCls: '' }
-  ];
-  var el = document.getElementById('hero-stats');
-  if (!el) return;
-  el.innerHTML = chips.map(function(c) {
-    return '<div class="stat-chip ' + c.cls + '">' +
-      '<span class="stat-value">' + (typeof c.val === 'number' ? c.val.toLocaleString() : c.val) + '</span>' +
-      '<span class="stat-label">' + c.label + '</span>' +
-      (c.sub ? '<span class="stat-sub ' + c.subCls + '">' + c.sub + '</span>' : '') +
-      '</div>';
-  }).join('');
+  renderStatChips('hero-stats', [
+    { val: s.total_confirmed, label: 'Confirmed', sub: 'Lab-confirmed (Bundibugyo RT-PCR)', cls: 'blue' },
+    { val: s.total_suspected, label: 'Suspected', sub: 'Pending confirmation', cls: 'default' },
+    { val: s.total_deaths_all, label: 'Deaths', sub: s.deaths_confirmed + ' confirmed + ' + s.deaths_suspected + ' suspected', cls: 'red' },
+    { val: 'PHEIC', label: 'WHO status', sub: 'Declared ' + s.pheic_date, cls: 'red' }
+  ]);
 }
 
 function renderStatGrid(data) {
   var s = data.summary;
   var d = s.weekly_delta || {};
-  var cards = [
-    { val: s.total_confirmed, label: 'Confirmed cases', sub: 'Bundibugyo-specific RT-PCR', delta: d.confirmed, type: 'cases', cls: 'blue-top' },
-    { val: s.total_suspected, label: 'Suspected cases', sub: 'Clinical + epi link', delta: d.suspected, type: 'cases', cls: 'amber-top' },
-    { val: s.total_deaths_all, label: 'Total deaths', sub: 'Confirmed + suspected', delta: d.deaths, type: 'deaths', cls: 'red-top' },
+  renderDeltaStatCards('stat-grid', [
+    { val: s.total_confirmed, label: 'Confirmed cases', sub: 'Bundibugyo-specific RT-PCR', delta: d.confirmed, cls: 'blue-top', zeroLabel: 'No change this week' },
+    { val: s.total_suspected, label: 'Suspected cases', sub: 'Clinical + epi link', delta: d.suspected, cls: 'amber-top', zeroLabel: 'No change this week' },
+    { val: s.total_deaths_all, label: 'Total deaths', sub: 'Confirmed + suspected', delta: d.deaths, cls: 'red-top', zeroLabel: 'No change this week' },
     { val: s.countries_affected, label: 'Countries affected', sub: 'DRC + Uganda', delta: null, cls: '' }
-  ];
-  var el = document.getElementById('stat-grid');
-  if (!el) return;
-  el.innerHTML = cards.map(function(c) {
-    var deltaHtml = '';
-    if (c.delta !== null && c.delta !== undefined) {
-      if (c.delta === 0) deltaHtml = '<div class="delta delta-flat">No change this week</div>';
-      else {
-        var cls = c.delta > 0 ? 'delta-up' : 'delta-down';
-        deltaHtml = '<div class="delta ' + cls + '">' + (c.delta > 0 ? '+' : '') + c.delta + ' this week</div>';
-      }
-    }
-    return '<div class="stat-card ' + c.cls + '">' +
-      '<div class="stat-value">' + c.val.toLocaleString() + '</div>' +
-      deltaHtml +
-      '<div class="stat-label">' + c.label + '</div>' +
-      '<div class="stat-sub">' + c.sub + '</div>' +
-      '</div>';
-  }).join('');
+  ]);
 }
 
 function renderOutbreakMetrics(outbreak) {
-  var el = document.getElementById('outbreak-metrics');
-  if (!el) return;
   var k = outbreak.key_metrics;
-  var stats = [
+  renderMetricGrid('outbreak-metrics', [
     { l: 'HCW deaths', v: k.hcw_deaths },
     { l: 'HCW cases', v: k.hcw_cases },
     { l: 'Sample positivity', v: k.sample_positivity },
     { l: 'Historical CFR', v: outbreak.historical_cfr_percent + '%' },
     { l: 'Diagnostic delay', v: k.diagnostic_delay_days + ' days' },
     { l: 'DRC outbreak #', v: outbreak.drc_outbreak_number }
-  ];
-  el.innerHTML = stats.map(function(s) {
-    return '<div class="metric"><span class="metric-val">' + s.v + '</span><span class="metric-lbl">' + s.l + '</span></div>';
-  }).join('');
+  ]);
 }
 
 function outcomeInfo(outcome) {

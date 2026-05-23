@@ -4,31 +4,11 @@ var grey = '#94a3b8';
 var gridColor = '#e2e8f0';
 var amber = '#d97706';
 
-var eventAnnotations = {
-  annotations: {
-    a1: {
-      type: 'line', scaleID: 'x',
-      value: new Date('2026-04-12').getTime(),
-      borderColor: grey, borderWidth: 1, borderDash: [4, 4],
-      label: { display: true, content: 'First case · Apr 12', position: 'start', yAdjust: -12,
-        font: { size: 10, family: 'Inter' }, color: grey, backgroundColor: 'rgba(255,255,255,0.85)', padding: 3 }
-    },
-    a2: {
-      type: 'line', scaleID: 'x',
-      value: new Date('2026-04-18').getTime(),
-      borderColor: red, borderWidth: 1, borderDash: [4, 4],
-      label: { display: true, content: 'First death · Apr 18', position: 'start', yAdjust: -12,
-        font: { size: 10, family: 'Inter' }, color: red, backgroundColor: 'rgba(255,255,255,0.85)', padding: 3 }
-    },
-    a3: {
-      type: 'line', scaleID: 'x',
-      value: new Date('2026-05-01').getTime(),
-      borderColor: amber, borderWidth: 1, borderDash: [4, 4],
-      label: { display: true, content: 'Quarantined · May 1', position: 'start', yAdjust: -12,
-        font: { size: 10, family: 'Inter' }, color: amber, backgroundColor: 'rgba(255,255,255,0.85)', padding: 3 }
-    }
-  }
-};
+var eventAnnotations = buildEventAnnotations([
+  { date: '2026-04-12', color: grey,  label: 'First case · Apr 12' },
+  { date: '2026-04-18', color: red,   label: 'First death · Apr 18' },
+  { date: '2026-05-01', color: amber, label: 'Quarantined · May 1' }
+]);
 
 var legendCfg = OUTBREAK_LEGEND;
 
