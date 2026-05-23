@@ -143,6 +143,79 @@ function makeTimeSeriesChart(elId, type, datasets, opts) {
   });
 }
 
+// `events` is a small per-disease array of { date: 'YYYY-MM-DD', color, label }.
+// Returns a Chart.js annotation plugin config (the object you'd pass directly to
+// chart options.plugins.annotation). Each event becomes a dashed vertical line
+// with its label tucked into the upper-left, identical styling across dashboards.
+function buildEventAnnotations(events) {
+  var annotations = {};
+  events.forEach(function(e, i) {
+    annotations['a' + (i + 1)] = {
+      type: 'line', scaleID: 'x',
+      value: new Date(e.date).getTime(),
+      borderColor: e.color, borderWidth: 1, borderDash: [4, 4],
+      label: { display: true, content: e.label, position: 'start', yAdjust: -12,
+        font: { size: 10, family: 'Inter' }, color: e.color, backgroundColor: 'rgba(255,255,255,0.85)', padding: 3 }
+    };
+  });
+  return { annotations: annotations };
+}
+
+// ── Stat-card factories ───────────────────────────────────────────────────────
+// Three families of cards appear on every dashboard. Each twin builds an array
+// of {val, label, sub, …} items from its disease-specific JSON and passes it in;
+// the shared renderer handles the markup. Markup is byte-identical to the old
+// per-twin functions.
+
+// Hero strip: <div class="stat-chip {cls}"> with numeric or string value.
+function renderStatChips(elId, chips) {
+  var el = document.getElementById(elId);
+  if (!el) return;
+  el.innerHTML = chips.map(function(c) {
+    var val = typeof c.val === 'number' ? c.val.toLocaleString() : c.val;
+    return '<div class="stat-chip ' + c.cls + '">' +
+      '<span class="stat-value">' + val + '</span>' +
+      '<span class="stat-label">' + c.label + '</span>' +
+      (c.sub ? '<span class="stat-sub ' + (c.subCls || '') + '">' + c.sub + '</span>' : '') +
+      '</div>';
+  }).join('');
+}
+
+// Grid of big stat cards, optionally with a weekly delta. Each card may set
+// `zeroLabel` to override the rendering when delta === 0 (e.g. Ebola uses
+// "No change this week" for every card; Hanta uses "No new deaths this week"
+// only on the deaths card).
+function renderDeltaStatCards(elId, cards) {
+  var el = document.getElementById(elId);
+  if (!el) return;
+  el.innerHTML = cards.map(function(c) {
+    var deltaHtml = '';
+    if (c.delta !== null && c.delta !== undefined) {
+      if (c.delta === 0 && c.zeroLabel) {
+        deltaHtml = '<div class="delta delta-flat">' + c.zeroLabel + '</div>';
+      } else {
+        var cls = c.delta > 0 ? 'delta-up' : c.delta < 0 ? 'delta-down' : 'delta-flat';
+        deltaHtml = '<div class="delta ' + cls + '">' + (c.delta > 0 ? '+' : '') + c.delta + ' this week</div>';
+      }
+    }
+    return '<div class="stat-card ' + c.cls + '">' +
+      '<div class="stat-value">' + c.val.toLocaleString() + '</div>' +
+      deltaHtml +
+      '<div class="stat-label">' + c.label + '</div>' +
+      '<div class="stat-sub">' + c.sub + '</div>' +
+      '</div>';
+  }).join('');
+}
+
+// Compact metric strip used inside the cluster/outbreak detail card.
+function renderMetricGrid(elId, metrics) {
+  var el = document.getElementById(elId);
+  if (!el) return;
+  el.innerHTML = metrics.map(function(m) {
+    return '<div class="metric"><span class="metric-val">' + m.v + '</span><span class="metric-lbl">' + m.l + '</span></div>';
+  }).join('');
+}
+
 function makeCategoryBarChart(elId, labels, datasets, opts) {
   var el = document.getElementById(elId);
   if (!el) return null;

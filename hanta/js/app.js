@@ -1,65 +1,33 @@
 function renderHeroStats(data, hondius) {
   var h = hondius || {};
-  var chips = [
-    { val: h.total_cases || '--', label: 'Ship cases', sub: 'MV Hondius cluster', cls: 'blue', subCls: '' },
-    { val: h.total_deaths || '--', label: 'Ship deaths', sub: 'All passengers aged 57-68', cls: 'red', subCls: '' },
-    { val: (h.cfr_percent || '--') + '%', label: 'Ship CFR', sub: 'Case fatality rate', cls: 'red', subCls: '' },
-    { val: 'Quarantined', label: 'Status', sub: 'En route Tenerife', cls: 'default', subCls: '' }
-  ];
-  var el = document.getElementById('hero-stats');
-  if (!el) return;
-  el.innerHTML = chips.map(function(c) {
-    return '<div class="stat-chip ' + c.cls + '">' +
-      '<span class="stat-value">' + c.val.toLocaleString() + '</span>' +
-      '<span class="stat-label">' + c.label + '</span>' +
-      (c.sub ? '<span class="stat-sub ' + c.subCls + '">' + c.sub + '</span>' : '') +
-      '</div>';
-  }).join('');
+  renderStatChips('hero-stats', [
+    { val: h.total_cases || '--', label: 'Ship cases', sub: 'MV Hondius cluster', cls: 'blue' },
+    { val: h.total_deaths || '--', label: 'Ship deaths', sub: 'All passengers aged 57-68', cls: 'red' },
+    { val: (h.cfr_percent || '--') + '%', label: 'Ship CFR', sub: 'Case fatality rate', cls: 'red' },
+    { val: 'Quarantined', label: 'Status', sub: 'En route Tenerife', cls: 'default' }
+  ]);
 }
 
 function renderStatGrid(data) {
   var s = data.summary;
   var d = s.weekly_delta || {};
-  var cards = [
-    { val: s.total_cases_2026, label: 'Global total cases', sub: 'All 2026 reported cases worldwide', delta: d.cases, type: 'cases', cls: 'blue-top' },
-    { val: s.total_deaths_2026, label: 'Global total deaths', sub: 'Global CFR: ' + s.cfr_percent + '%', delta: d.deaths, type: 'deaths', cls: 'red-top' },
+  renderDeltaStatCards('stat-grid', [
+    { val: s.total_cases_2026, label: 'Global total cases', sub: 'All 2026 reported cases worldwide', delta: d.cases, cls: 'blue-top' },
+    { val: s.total_deaths_2026, label: 'Global total deaths', sub: 'Global CFR: ' + s.cfr_percent + '%', delta: d.deaths, cls: 'red-top', zeroLabel: 'No new deaths this week' },
     { val: s.countries_affected, label: 'Countries affected', sub: 'Cases or contact tracing', delta: null, cls: '' },
     { val: s.active_clusters, label: 'Active clusters', sub: 'MV Hondius (ANDV)', delta: null, cls: 'amber-top' }
-  ];
-  var el = document.getElementById('stat-grid');
-  if (!el) return;
-  el.innerHTML = cards.map(function(c) {
-    var deltaHtml = '';
-    if (c.delta !== null && c.delta !== undefined) {
-      if (c.delta === 0 && c.type === 'deaths') deltaHtml = '<div class="delta delta-flat">No new deaths this week</div>';
-      else {
-        var cls = c.delta > 0 ? 'delta-up' : c.delta < 0 ? 'delta-down' : 'delta-flat';
-        deltaHtml = '<div class="delta ' + cls + '">' + (c.delta > 0 ? '+' : '') + c.delta + ' this week</div>';
-      }
-    }
-    return '<div class="stat-card ' + c.cls + '">' +
-      '<div class="stat-value">' + c.val.toLocaleString() + '</div>' +
-      deltaHtml +
-      '<div class="stat-label">' + c.label + '</div>' +
-      '<div class="stat-sub">' + c.sub + '</div>' +
-      '</div>';
-  }).join('');
+  ]);
 }
 
 function renderClusterMetrics(h) {
-  var el = document.getElementById('cluster-metrics');
-  if (!el) return;
-  var stats = [
+  renderMetricGrid('cluster-metrics', [
     { l: 'Ship cases', v: h.total_cases },
     { l: 'Ship deaths', v: h.total_deaths },
     { l: 'Ship CFR', v: h.cfr_percent + '%' },
     { l: 'Attack rate', v: h.attack_rate_percent + '%' },
     { l: 'R₀ estimate', v: h.r0_estimate },
     { l: 'Status', v: 'Quarantined' }
-  ];
-  el.innerHTML = stats.map(function(s) {
-    return '<div class="metric"><span class="metric-val">' + s.v + '</span><span class="metric-lbl">' + s.l + '</span></div>';
-  }).join('');
+  ]);
 }
 
 function outcomeInfo(outcome) {
