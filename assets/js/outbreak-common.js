@@ -208,6 +208,23 @@ function renderDeltaStatCards(elId, cards) {
 }
 
 // Compact metric strip used inside the cluster/outbreak detail card.
+// ── Outcome classification ───────────────────────────────────────────────────
+// Each twin passes its own keyword -> {cls, sym} map. The first keyword whose
+// lowercased substring is found in the outcome string wins; if nothing matches,
+// the `unknown` entry is used. Pulling this out of per-twin app.js keeps the
+// outcome vocabulary in one place and lets a new outbreak add its own keywords
+// without re-implementing the loop.
+function classifyOutcome(outcome, keywordMap) {
+  var lo = (outcome || '').toLowerCase();
+  for (var i = 0; i < keywordMap.keywords.length; i++) {
+    var entry = keywordMap.keywords[i];
+    for (var j = 0; j < entry.match.length; j++) {
+      if (lo.indexOf(entry.match[j]) !== -1) return { cls: entry.cls, sym: entry.sym };
+    }
+  }
+  return keywordMap.unknown;
+}
+
 function renderMetricGrid(elId, metrics) {
   var el = document.getElementById(elId);
   if (!el) return;
