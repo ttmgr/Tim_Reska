@@ -1,0 +1,237 @@
+# docs/index_nodes.yaml — curated code-graph nodes for the project hub.
+#
+# Read by scripts/build_index.py (writes docs/INDEX.md) and
+# scripts/build_visualization.py (writes docs/INDEX.html — interactive
+# force-directed graph). Complements the .nav/ system (which is the source
+# this file is derived from) by adding the visual graph layer.
+#
+# To refresh after structural changes:
+#   python3 scripts/build_index.py            # expect: unmapped=0 dead_globs=0
+#   python3 scripts/build_visualization.py
+#   python3 scripts/build_hub.py              # picks up the new :graph section
+
+title: "Tim Reska site — Repo Node Map"
+intro: |
+  Start here. Each node is one showcase or support layer of the personal
+  site: what it is, its files, related nodes ([[links]]), and the questions
+  it answers. Mirrors the structure in `.nav/INDEX.md`; refresh both
+  systems after any structural change. For the human-oriented narrative
+  see `STRUCTURE.md`.
+
+ignore:
+  - "**/.DS_Store"
+  - "**/*.png"
+  - "**/*.jpg"
+  - "**/*.jpeg"
+  - "**/*.ico"
+  - "**/*.svg"
+  - "**/*.pdf"
+  - "**/*.pptx"
+  - "**/*.docx"
+  - "**/*.xlsx"
+  - "**/__pycache__/**"
+  - "**/.pytest_cache/**"
+  - "**/node_modules/**"
+  - "**/package-lock.json"
+
+groups:
+  - "Applied ML · healthcare"
+  - "LLM evaluation"
+  - "AI deployment strategy"
+  - "Outbreak dashboards"
+  - "Other showcases"
+  - "Infrastructure · non-published"
+  - "Local-only / private"
+  - "Meta & tooling"
+
+nodes:
+  # --- Applied ML · healthcare ---------------------------------------------
+  - id: disease-network
+    title: Disease Network v3
+    group: "Applied ML · healthcare"
+    globs: ["disease-network/**"]
+    summary: D3.js clinical comorbidity atlas for medical underwriting; German UI.
+    reads_for: "clinical comorbidity visualisation, underwriting risk graph"
+    edges: [medrisk, disease-progression]
+
+  - id: disease-progression
+    title: Disease Progression Models
+    group: "Applied ML · healthcare"
+    globs: ["disease-progression/**"]
+    summary: Survival and multistate disease-progression models (Cox PH, CTMC, DeepSurv/DeepHit, SurvTRACE) on FHIR/OMOP data.
+    reads_for: "survival modelling, multistate disease progression, FHIR/OMOP pipelines, feature leakage tests"
+    edges: [medrisk, disease-network]
+
+  - id: medrisk
+    title: Medrisk underwriting platform
+    group: "Applied ML · healthcare"
+    globs: ["medrisk/**"]
+    summary: Medical-underwriting platform — risk classification and debit/credit rating from clinical and lab inputs. Public teaser only; platform code private.
+    reads_for: "underwriting risk rating, debit/credit logic, public teaser"
+    edges: [disease-progression, disease-network, pkv-ml-explorer]
+
+  - id: pkv-ml-explorer
+    title: PKV ML Explorer
+    group: "Applied ML · healthcare"
+    globs: ["pkv-ml-explorer/**"]
+    summary: Catalog of ML methods for PKV (private health insurance) — logistic regression, RF, LSTM, autoencoder, survival, agentic AI.
+    reads_for: "ML method survey for German PKV, side-by-side comparison"
+    edges: [medrisk]
+
+  # --- LLM evaluation -------------------------------------------------------
+  - id: llm-eval
+    title: Against Plausibility (LLM eval)
+    group: "LLM evaluation"
+    globs: ["llm-eval/**"]
+    summary: 'Against Plausibility — a 28-model LLM evaluation across two pipelines (evaluations/, responses/, results/, prompts/, methodology/, scripts/).'
+    reads_for: "LLM error taxonomy, plausible-but-wrong benchmark, scoring rubric, evaluation methodology"
+    edges: [llm-cost-calculator, company_askeras]
+
+  # --- AI deployment strategy ----------------------------------------------
+  - id: ai-deployment-readiness
+    title: AI Deployment Readiness
+    group: "AI deployment strategy"
+    globs: ["ai-deployment-readiness/**"]
+    summary: AI-deployment maturity self-assessment (25 questions, 5 dimensions, sector benchmarks).
+    reads_for: "AI readiness self-assessment, sector benchmarking"
+    edges: [llm-cost-calculator, company_askeras]
+
+  - id: llm-cost-calculator
+    title: LLM Cost Calculator
+    group: "AI deployment strategy"
+    globs: ["llm-cost-calculator/**"]
+    summary: LLM cost modeling and ROI — pricing DB, Monte Carlo sensitivity.
+    reads_for: "LLM TCO, pricing comparisons, Monte Carlo sensitivity, ROI modelling"
+    edges: [ai-deployment-readiness, llm-eval]
+
+  # --- Outbreak dashboards --------------------------------------------------
+  - id: ebola
+    title: Ebola 2026 Tracker
+    group: "Outbreak dashboards"
+    globs: ["ebola/**"]
+    summary: Ebola 2026 outbreak tracker dashboard; consumes WHO/CDC/Africa CDC reporting.
+    reads_for: "outbreak dashboard pattern, timeline visualisation, regional breakdown"
+    edges: [hanta, assets]
+
+  - id: hanta
+    title: Hantavirus 2026 Tracker
+    group: "Outbreak dashboards"
+    globs: ["hanta/**"]
+    summary: Hantavirus 2026 outbreak tracker dashboard; has a German page under de/ and a ship-narrative (MV Hondius) layer.
+    reads_for: "outbreak dashboard pattern, German localisation, ship-cluster narrative"
+    edges: [ebola, assets]
+
+  # --- Other showcases ------------------------------------------------------
+  - id: academy
+    title: Askeras AI Academy (public)
+    group: "Other showcases"
+    globs: ["academy/**"]
+    summary: Askeras AI Academy — public teaser for the AI-enablement curriculum (4 tiers, 21 lessons, 4 sector variants live).
+    reads_for: "academy public positioning, tier descriptions, NDA pilot framing"
+    edges: [company_askeras, multi-agent-dd]
+
+  - id: agent-skill-pack
+    title: Agent Skill Pack (One Health)
+    group: "Other showcases"
+    globs: ["agent-skill-pack/**"]
+    summary: Agent Skill Pack for One Health Genomics — showcase of agent skills.
+    reads_for: "agent skill packaging, one-health genomics workflows"
+    edges: [pipelines, nanopore-advisor]
+
+  - id: multi-agent-dd
+    title: Multi-Agent DD (public)
+    group: "Other showcases"
+    globs: ["multi-agent-dd/**"]
+    summary: Multi-Agent Due Diligence — public teaser for the DD pipeline.
+    reads_for: "DD pipeline positioning, public teaser, methodology overview"
+    edges: [company_askeras, academy]
+
+  - id: nanopore-advisor
+    title: Nanopore Pipeline Advisor
+    group: "Other showcases"
+    globs: ["nanopore-advisor/**"]
+    summary: Nanopore pipeline advisor — protocol/parameter recommendation wizard.
+    reads_for: "Nanopore protocol recommendation, parameter wizard, shared field-metadata module"
+    edges: [pipelines, agent-skill-pack]
+
+  # --- Infrastructure · non-published --------------------------------------
+  - id: assets
+    title: Shared site assets
+    group: "Infrastructure · non-published"
+    globs: ["assets/**"]
+    summary: Site-wide shared resources — css/tokens.css (brand tokens), css/outbreak.css, js/nav.js, js/outbreak-common.js. Register new showcases in js/nav.js.
+    reads_for: "shared brand tokens, outbreak-common factories, nav registration"
+    edges: [ebola, hanta, academy]
+
+  - id: pipelines
+    title: One Health bioinformatics pipelines
+    group: "Infrastructure · non-published"
+    globs: ["pipelines/**"]
+    summary: One Health bioinformatics (Snakemake) pipelines — aerobiome/, listeria-adaptive-sampling/, wetland-surveillance/.
+    reads_for: "Snakemake pipeline structure, One Health genomics, AMR surveillance"
+    edges: [nanopore-advisor, agent-skill-pack]
+
+  # --- Local-only / private (gitignored) -----------------------------------
+  - id: archive
+    title: Local archive (gitignored)
+    group: "Local-only / private"
+    globs: ["archive/**"]
+    summary: Old/unwanted working files. Gitignored; never published.
+    reads_for: "(nothing committed)"
+    edges: []
+
+  - id: askeras-v2
+    title: Askeras marketing site v2 (gitignored)
+    group: "Local-only / private"
+    globs: ["askeras-v2/**"]
+    summary: ASKERAS marketing site (v2) — "AI Deployment Due Diligence & AI Academy". Published from its own repo.
+    reads_for: "Askeras marketing positioning"
+    edges: [company_askeras, academy]
+
+  - id: company_askeras
+    title: Askeras venture monorepo (gitignored)
+    group: "Local-only / private"
+    globs: ["company_askeras/**"]
+    summary: Askeras — AI Enablement & Academy venture's full Python monorepo (src/askeras/ — brand, clients, academy, slides, DD reports, 5 bible generators).
+    reads_for: "Askeras methodology, 5 bibles (internal/external/SME-DE/student/teacher), DD pipeline, brand module"
+    edges: [academy, askeras-v2, multi-agent-dd, llm-eval, ai-deployment-readiness]
+
+  - id: llm-coding-radar
+    title: LLM coding radar (gitignored)
+    group: "Local-only / private"
+    globs: ["llm-coding-radar/**"]
+    summary: Personal weekly digests of the LLM-coding ecosystem (output of the /llm-coding-radar skill).
+    reads_for: "weekly ecosystem digest, model/pricing changes, agent tooling"
+    edges: []
+
+  # --- Meta & tooling -------------------------------------------------------
+  - id: site-root
+    title: Site root + homepage
+    group: "Meta & tooling"
+    globs:
+      - "index.html"
+      - "README.md"
+      - "STRUCTURE.md"
+      - ".gitignore"
+      - ".nojekyll"
+      - "CITATION.cff"
+      - "LICENSE"
+    summary: Top-level site files — homepage, README, structure doc, license, citation, deployment config. (favicon.svg exists but is excluded from the file map by the **/*.svg ignore rule.)
+    reads_for: "homepage layout, site structure map, deployment config"
+    edges: [academy, ebola, hanta, assets]
+
+  - id: node-system
+    title: Project hub + nav node system (self)
+    group: "Meta & tooling"
+    globs:
+      - "scripts/build_hub.py"
+      - "scripts/build_index.py"
+      - "scripts/build_visualization.py"
+      - "docs/index_nodes.yaml"
+      - "docs/INDEX.md"
+      - "docs/INDEX.html"
+      - "docs/HUB.html"
+      - "docs/hub.yaml"
+    summary: Two navigation layers — (1) HUB.html / INDEX.html / INDEX.md, the auto-generated project dashboard + interactive code graph; (2) .nav/ (gitignored, local-only), the Markdown node map agents read at session start.
+    reads_for: "how navigation works, refreshing the views, adding new nodes"
+    edges: []
