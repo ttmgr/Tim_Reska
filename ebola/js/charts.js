@@ -7,7 +7,9 @@ var gridColor = '#E8E6E1';
 var eventAnnotations = buildEventAnnotations([
   { date: '2026-04-24', color: grey,  label: 'First case · Apr 24' },
   { date: '2026-05-14', color: amber, label: 'Lab confirmed · May 14' },
-  { date: '2026-05-17', color: red,   label: 'PHEIC · May 17' }
+  { date: '2026-05-17', color: red,   label: 'PHEIC · May 17' },
+  { date: '2026-05-21', color: red,   label: 'South Kivu (M23) · May 21' },
+  { date: '2026-05-22', color: amber, label: 'IHR Cmte · 84 confirmed · May 22' }
 ]);
 
 var legendCfg = OUTBREAK_LEGEND;

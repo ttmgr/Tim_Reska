@@ -145,7 +145,18 @@
     { "date": "2026-05-18", "event": "Rwanda closes Rubavu-Goma border indefinitely", "severity": "alert" },
     { "date": "2026-05-18", "event": "US enhanced screening at ports of entry", "severity": "response" },
     { "date": "2026-05-18", "event": "Field hospitals established in Bunia (facilities overwhelmed)", "severity": "response" },
-    { "date": "2026-05-18", "event": "US Embassy Kampala issues health alert for Uganda", "severity": "response" }
+    { "date": "2026-05-18", "event": "US Embassy Kampala issues health alert for Uganda", "severity": "response" },
+    { "date": "2026-05-18", "event": "US invokes Title 42: 30-day entry ban on non-US nationals recently in DRC/Uganda/South Sudan (first US Ebola-specific travel ban)", "severity": "alert" },
+    { "date": "2026-05-19", "event": "WHO IHR Emergency Committee holds first meeting in Geneva", "severity": "response" },
+    { "date": "2026-05-20", "event": "WHO DG briefing: ~600 suspected, 139 suspected deaths; national risk upgraded to VERY HIGH", "severity": "alert" },
+    { "date": "2026-05-20", "event": "American physician Dr. Peter Stafford (Bundibugyo-positive) medevac'd from DRC to Charite Berlin", "severity": "alert" },
+    { "date": "2026-05-21", "event": "First confirmed Ebola case in South Kivu Province (M23-held territory near Bukavu); patient died before diagnosis confirmed", "severity": "alert" },
+    { "date": "2026-05-21", "event": "India-Africa Forum Summit (New Delhi) postponed by AU and India", "severity": "response" },
+    { "date": "2026-05-21", "event": "US-bound flights from Ebola-affected region funneled to Dulles, Atlanta, Houston for CDC screening", "severity": "response" },
+    { "date": "2026-05-21", "event": "Community protests in Rwampara HZ; police fire tear gas; two treatment tents burned", "severity": "alert" },
+    { "date": "2026-05-22", "event": "WHO IHR Emergency Committee issues first temporary recommendations; national risk VERY HIGH, regional HIGH, global LOW", "severity": "alert" },
+    { "date": "2026-05-22", "event": "WHO R&D Blueprint recommends two monoclonal antibodies + obeldesivir for prioritized Bundibugyo clinical trials", "severity": "response" },
+    { "date": "2026-05-22", "event": "Second American (high-risk contact) transferred to Czech Republic for monitoring", "severity": "response" }
   ],
   "key_metrics": {
     "hcw_deaths": 4,

@@ -1,6 +1,48 @@
 {
-  "last_updated": "2026-05-18",
+  "last_updated": "2026-05-22",
   "articles": [
+    {
+      "date": "2026-05-22",
+      "source": "ABC News",
+      "title": "Ebola outbreak in DRC is 'spreading rapidly' with almost 750 suspected cases: WHO chief",
+      "url": "https://abcnews.com/Health/ebola-outbreak-drc-spreading-rapidly-750-suspected-cases/story?id=133219863",
+      "summary": "WHO Director-General Tedros warned the DRC Ebola outbreak is spreading rapidly, citing 82 confirmed and nearly 750 suspected cases as of May 22, with national risk upgraded to VERY HIGH."
+    },
+    {
+      "date": "2026-05-22",
+      "source": "WHO",
+      "title": "First meeting of the IHR Emergency Committee — Temporary recommendations",
+      "url": "https://www.who.int/news/item/22-05-2026-first-meeting-of-the-ihr-emergency-committee-regarding-the-epidemic-of-ebola-bundibugyo-virus-disease-in-the-democratic-republic-of-the-congo-and-uganda-2026-temporary-recommendations",
+      "summary": "WHO IHR Emergency Committee issued the first temporary recommendations for the PHEIC, directing DRC and Uganda to declare health emergencies and strengthen contact tracing; no approved vaccines or therapeutics exist for Bundibugyo virus."
+    },
+    {
+      "date": "2026-05-21",
+      "source": "Al Jazeera",
+      "title": "India-Africa summit postponed as Ebola spreads to M23-held DR Congo area",
+      "url": "https://www.aljazeera.com/news/2026/5/21/india-africa-summit-postponed-as-ebola-spreads-to-m23-held-dr-congo-area",
+      "summary": "First confirmed Ebola case announced in South Kivu's M23-controlled territory; AU and India jointly postponed the India-Africa Forum Summit in New Delhi."
+    },
+    {
+      "date": "2026-05-20",
+      "source": "NBC News",
+      "title": "American doctor with Ebola flown to Germany as his wife and children are monitored",
+      "url": "https://www.nbcnews.com/health/health-news/american-doctor-ebola-evacuated-germany-wife-four-children-congo-rcna345961",
+      "summary": "Dr. Peter Stafford, a US medical missionary who tested positive for Bundibugyo ebolavirus after unknowingly operating on an infected patient, was evacuated to Berlin's Charite University Hospital; family monitored in DRC."
+    },
+    {
+      "date": "2026-05-19",
+      "source": "ECDC",
+      "title": "Ebola virus disease outbreak — DRC and Uganda, 19 May 2026",
+      "url": "https://www.ecdc.europa.eu/en/ebola-virus-disease-outbreak-democratic-republic-congo-and-uganda-19-may-2026",
+      "summary": "ECDC update: 64 confirmed cases in DRC (60 Ituri, 4 North Kivu including Goma + newly affected Butembo) plus 2 in Uganda; over 650 suspected cases with 160 suspected deaths."
+    },
+    {
+      "date": "2026-05-18",
+      "source": "STAT News",
+      "title": "US bans entry from Ebola-affected countries as American patient is identified",
+      "url": "https://www.statnews.com/2026/05/18/cdc-ebola-travel-ban-announced-uganda-congo-south-sudan/",
+      "summary": "The administration invoked Title 42 to bar non-US nationals who had been in DRC, Uganda, or South Sudan within the prior 21 days — the first US Ebola-specific travel ban."
+    },
     {
       "date": "2026-05-18",
       "source": "media",
