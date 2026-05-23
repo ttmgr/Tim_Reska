@@ -1,14 +1,14 @@
-/* Shared brand tokens for the portfolio-style pages.
-   Single source of truth for the warm-terracotta palette. Page-specific
-   tokens (max-width, fonts, per-page accents, data-viz hues) stay in each
-   page's own :root, aliased onto these canonical tokens. The outbreak
-   dashboards (ebola/hanta) use their own token vocabulary
-   (assets/css/outbreak.css) and intentionally do not link this file. */
+/* Shared brand tokens for every page in the portfolio.
+   Single source of truth for the warm-terracotta palette. The outbreak
+   dashboards (ebola/hanta) extend these by @importing this file from
+   assets/css/outbreak.css and adding chart/data-viz tokens on top. */
 :root {
   --bg: #FAF9F7;
   --surface: #FFFFFF;
+  --surface-muted: #F0EDEA;
   --text: #1A1A2E;
   --text-secondary: #6B6A73;
+  --text-muted: #9B9A94;
   --accent: #C4794A;
   --accent-hover: #A8603A;
   --accent-text: #9A5A2E;

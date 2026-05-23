@@ -1,15 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('./tokens.css');
 
+/* Inherits brand tokens (bg, surface, text scale, accent triad, border, radius)
+   from tokens.css. Only outbreak-specific tokens are defined here: data-viz
+   colours, shadows, spacing scale, finer radii. */
 :root {
-  --bg: #FAF9F7;
-  --surface: #FFFFFF;
-  --surface-muted: #F0EDEA;
-  --text: #1A1A2E;
-  --text-mid: #6B6A73;
-  --text-muted: #9B9A94;
-  --accent: #C4794A;
-  --accent-hover: #A8603A;
-  --accent-text: #9A5A2E;
   --blue: #2563eb;
   --blue-soft: #dbeafe;
   --red: #dc2626;
@@ -18,8 +13,6 @@
   --amber-soft: #fef3c7;
   --green: #16a34a;
   --green-soft: #dcfce7;
-  --border: #E8E6E1;
-  --radius: 12px;
   --radius-sm: 8px;
   --radius-xs: 6px;
   --shadow: 0 1px 3px rgba(26,26,46,0.04);
@@ -112,7 +105,7 @@ header h1 {
   font-weight: 600;
   letter-spacing: -0.01em;
   line-height: 1.2;
-  color: var(--text-mid);
+  color: var(--text-secondary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -149,7 +142,7 @@ header h1 {
   background: var(--text);
   color: var(--surface);
 }
-.lang-toggle a:hover { background: var(--surface-muted); text-decoration: none; color: var(--text-mid); }
+.lang-toggle a:hover { background: var(--surface-muted); text-decoration: none; color: var(--text-secondary); }
 
 .hero-card { margin: var(--sp-4) 0; }
 .hero-pills {
@@ -169,7 +162,7 @@ header h1 {
 .hero-summary {
   font-size: 15px;
   line-height: 1.7;
-  color: var(--text-mid);
+  color: var(--text-secondary);
   margin-bottom: var(--sp-4);
 }
 .hero-stats {
@@ -201,7 +194,7 @@ header h1 {
 .stat-chip .stat-label {
   font-size: 12px;
   font-weight: 500;
-  color: var(--text-mid);
+  color: var(--text-secondary);
   margin-top: var(--sp-1);
 }
 .stat-chip .stat-sub {
@@ -224,7 +217,7 @@ header h1 {
 }
 .section-subtitle {
   font-size: 13px;
-  color: var(--text-mid);
+  color: var(--text-secondary);
   margin-bottom: var(--sp-4);
   margin-top: calc(-1 * var(--sp-2));
 }
@@ -259,7 +252,7 @@ header h1 {
 .stat-card .stat-label {
   font-size: 12px;
   font-weight: 600;
-  color: var(--text-mid);
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.03em;
   margin-top: var(--sp-2);
@@ -296,7 +289,7 @@ header h1 {
 }
 .chart-caption {
   font-size: 12px;
-  color: var(--text-mid);
+  color: var(--text-secondary);
   margin-bottom: var(--sp-3);
   line-height: 1.45;
 }
@@ -328,7 +321,7 @@ header h1 {
   font-size: 11px;
   font-weight: 500;
   font-family: inherit;
-  color: var(--text-mid);
+  color: var(--text-secondary);
   cursor: pointer;
   box-shadow: var(--shadow);
 }
@@ -340,7 +333,7 @@ header h1 {
   padding: var(--sp-3) var(--sp-4);
   border-top: 1px solid var(--border);
   font-size: 12px;
-  color: var(--text-mid);
+  color: var(--text-secondary);
 }
 .map-legend-item { display: inline-flex; align-items: center; gap: 5px; }
 .legend-dot { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid; }
@@ -366,7 +359,7 @@ header h1 {
   position: relative;
   padding: 6px 0;
   font-size: 13px;
-  color: var(--text-mid);
+  color: var(--text-secondary);
 }
 .route-stop::before {
   content: '';
@@ -476,10 +469,10 @@ header h1 {
   align-items: center;
   margin-bottom: var(--sp-2);
 }
-.case-card-id { font-size: 13px; font-weight: 700; color: var(--text-mid); }
+.case-card-id { font-size: 13px; font-weight: 700; color: var(--text-secondary); }
 .case-card-date { font-size: 12px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
 .case-card-nation { font-size: 13px; font-weight: 500; margin-bottom: var(--sp-1); }
-.case-card-desc { font-size: 13px; color: var(--text-mid); line-height: 1.45; margin-bottom: var(--sp-2); }
+.case-card-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.45; margin-bottom: var(--sp-2); }
 
 .filter-tabs {
   display: flex;
@@ -495,7 +488,7 @@ header h1 {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 99px;
-  color: var(--text-mid);
+  color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.15s;
 }
@@ -532,7 +525,7 @@ header h1 {
   padding: 2px 8px;
   border-radius: 99px;
   background: var(--surface-muted);
-  color: var(--text-mid);
+  color: var(--text-secondary);
   border: 1px solid var(--border);
 }
 .news-sev-badge {
@@ -549,7 +542,7 @@ header h1 {
 .sev-background { background: var(--surface-muted); color: var(--text-muted); }
 .news-headline { font-size: 14px; font-weight: 500; color: var(--text); }
 .news-headline:hover { color: var(--accent); }
-.news-summary-text { font-size: 13px; color: var(--text-mid); margin-top: var(--sp-1); line-height: 1.45; }
+.news-summary-text { font-size: 13px; color: var(--text-secondary); margin-top: var(--sp-1); line-height: 1.45; }
 .news-show-more {
   display: inline-flex;
   align-items: center;
@@ -608,13 +601,13 @@ header h1 {
   padding: 0 var(--sp-4) var(--sp-4);
   font-size: 14px;
   line-height: 1.6;
-  color: var(--text-mid);
+  color: var(--text-secondary);
 }
 .ref-item.open .ref-body { display: block; }
 .ref-body p { margin-bottom: var(--sp-2); }
 .methodology dl { display: grid; grid-template-columns: 120px 1fr; gap: var(--sp-1) var(--sp-3); font-size: 13px; }
 .methodology dt { font-weight: 600; color: var(--text); }
-.methodology dd { color: var(--text-mid); }
+.methodology dd { color: var(--text-secondary); }
 
 footer {
   margin-top: var(--sp-8);
