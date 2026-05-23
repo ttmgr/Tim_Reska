@@ -59,3 +59,9 @@ medrisk/*
 
 # Local archive — old/unwanted working files; never published
 archive/
+
+# LLM Coding Radar — personal weekly ecosystem digests (private, never published)
+llm-coding-radar/
+
+# Local repo-navigation node system — agent/maintainer aid, never published
+.nav/
