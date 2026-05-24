@@ -104,6 +104,7 @@ function loadAnswersFromUrl() {
 }
 
 const CHECK_SVG = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3.5 8.5 6.5 11.5 12.5 5.5"/></svg>';
+const RESULT_SVG = '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="8" cy="8" r="3"/><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>';
 const ARROW_SVG = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 4 11 8 5 12"/></svg>';
 
 // ── Utilities ───────────────────────────────────────────────
@@ -193,7 +194,7 @@ function renderProgress(currentPageId) {
           const label = isResults ? 'Results' : (page?.title || id);
           const indexContent = isDone
             ? CHECK_SVG
-            : (isResults ? '<span class="progress-results-icon" aria-hidden="true">✦</span>' : (i + 1));
+            : (isResults ? `<span class="progress-results-icon" aria-hidden="true">${RESULT_SVG}</span>` : (i + 1));
           const connector = i < pages.length - 1
             ? `<span class="progress-connector ${isDone ? 'is-filled' : ''}"></span>`
             : '';
@@ -491,7 +492,7 @@ function renderComparisonTable(rec, opts = {}) {
     { label: 'Prep time', cell: c => escapeHtml(c.info?.prep_time || '—') },
     { label: 'Input range', cell: c => escapeHtml(c.info?.input_range || '—') },
     { label: 'Multiplexing', cell: c => escapeHtml(c.info?.multiplexing || '—') },
-    { label: 'PCR-free', cell: c => c.info?.pcr_free ? '<span class="compare-yes">✓</span>' : '<span class="compare-no">–</span>' },
+    { label: 'PCR-free', cell: c => c.info?.pcr_free ? `<span class="compare-yes">${CHECK_SVG}</span>` : '<span class="compare-no">&ndash;</span>' },
     {
       label: 'Why it fits',
       cell: c => c.rationale?.length ? escapeHtml(c.rationale[0]) : '<span class="muted">—</span>'

@@ -621,6 +621,13 @@ footer {
 footer .sources { margin-bottom: var(--sp-2); }
 footer a { color: var(--text-muted); }
 footer a:hover { color: var(--accent); }
+.footer-updated {
+  margin-top: var(--sp-2);
+  font-family: 'JetBrains Mono', monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  color: var(--accent-text);
+}
 
 @media (max-width: 768px) {
   .container { padding: 0 var(--sp-3); }

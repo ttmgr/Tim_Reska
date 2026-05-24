@@ -8,7 +8,7 @@ it answers. Mirrors the structure in `.nav/INDEX.md`; refresh both
 systems after any structural change. For the human-oriented narrative
 see `STRUCTURE.md`.
 
-*21 nodes · 324 files mapped.*
+*22 nodes · 342 files mapped · ⚠ 2 unmapped.*
 
 ## Quick lookup — read when…
 
@@ -21,6 +21,7 @@ see `STRUCTURE.md`.
 | LLM error taxonomy, plausible-but-wrong benchmark, scoring rubric, evaluation methodology | [[llm-eval]] |
 | AI readiness self-assessment, sector benchmarking | [[ai-deployment-readiness]] |
 | LLM TCO, pricing comparisons, Monte Carlo sensitivity, ROI modelling | [[llm-cost-calculator]] |
+| agentic primitives map, topology patterns, ambient automation, cost/speed optimization, Askeras orchestrator audit | [[agentic-systems]] |
 | outbreak dashboard pattern, timeline visualisation, regional breakdown | [[ebola]] |
 | outbreak dashboard pattern, German localisation, ship-cluster narrative | [[hanta]] |
 | academy public positioning, tier descriptions, NDA pilot framing | [[academy]] |
@@ -84,51 +85,57 @@ LLM cost modeling and ROI — pricing DB, Monte Carlo sensitivity.
 **Related:** [[ai-deployment-readiness]] · [[llm-eval]]
 **Read when:** LLM TCO, pricing comparisons, Monte Carlo sensitivity, ROI modelling
 
+### `agentic-systems` · Agentic Frontier Primer  (9 files)
+Briefing on the Claude agentic-systems frontier — primitives, topologies, Anthropic shipments, ambient automation, optimization patterns, push-the-limit case studies, and a candid audit of the existing Askeras orchestrator skills. Produced by 7 Haiku 4.5 subagents fanned out in parallel, synthesized by Opus 4.7 — the architecture is the demonstration.
+**Files:** `agentic_systems/AGENTIC_FRONTIER_PRIMER.html` · `agentic_systems/AGENTIC_FRONTIER_PRIMER.md` · `agentic_systems/research/01_primitives.md` · `agentic_systems/research/02_topologies.md` · `agentic_systems/research/03_shipments.md` · `agentic_systems/research/04_ambient.md` · `agentic_systems/research/05_optimization.md` · `agentic_systems/research/06_case_studies.md` · `agentic_systems/research/07_audit.md`
+**Related:** [[company_askeras]] · [[ai-deployment-readiness]] · [[llm-cost-calculator]] · [[multi-agent-dd]]
+**Read when:** agentic primitives map, topology patterns, ambient automation, cost/speed optimization, Askeras orchestrator audit
+
 ## Outbreak dashboards
 
-### `ebola` · Ebola 2026 Tracker  (8 files)
+### `ebola` · Ebola 2026 Tracker  (9 files)
 Ebola 2026 outbreak tracker dashboard; consumes WHO/CDC/Africa CDC reporting.
-**Files:** `ebola/data/cases.json` · `ebola/data/historical.json` · `ebola/data/news.json` · `ebola/data/outbreak.json` · `ebola/index.html` · `ebola/js/app.js` · `ebola/js/charts.js` · `ebola/js/map.js`
+**Files:** `ebola/README.md` · `ebola/data/cases.json` · `ebola/data/historical.json` · `ebola/data/news.json` · `ebola/data/outbreak.json` · `ebola/index.html` · `ebola/js/app.js` · `ebola/js/charts.js` · `ebola/js/map.js`
 **Related:** [[hanta]] · [[assets]]
 **Read when:** outbreak dashboard pattern, timeline visualisation, regional breakdown
 
-### `hanta` · Hantavirus 2026 Tracker  (10 files)
+### `hanta` · Hantavirus 2026 Tracker  (11 files)
 Hantavirus 2026 outbreak tracker dashboard; has a German page under de/ and a ship-narrative (MV Hondius) layer.
-**Files:** `hanta/data/cases.json` · `hanta/data/epidemiology.json` · `hanta/data/historical.json` · `hanta/data/hondius.json` · `hanta/data/news.json` · `hanta/de/index.html` · `hanta/index.html` · `hanta/js/app.js` · `hanta/js/charts.js` · `hanta/js/map.js`
+**Files:** `hanta/README.md` · `hanta/data/cases.json` · `hanta/data/epidemiology.json` · `hanta/data/historical.json` · `hanta/data/hondius.json` · `hanta/data/news.json` · `hanta/de/index.html` · `hanta/index.html` · `hanta/js/app.js` · `hanta/js/charts.js` · `hanta/js/map.js`
 **Related:** [[ebola]] · [[assets]]
 **Read when:** outbreak dashboard pattern, German localisation, ship-cluster narrative
 
 ## Other showcases
 
-### `academy` · Askeras AI Academy (public)  (1 file)
+### `academy` · Askeras AI Academy (public)  (3 files)
 Askeras AI Academy — public teaser for the AI-enablement curriculum (4 tiers, 21 lessons, 4 sector variants live).
-**Files:** `academy/index.html`
+**Files:** `academy/README.md` · `academy/index.html` · `academy/sample-lesson/index.html`
 **Related:** [[company_askeras]] · [[multi-agent-dd]]
 **Read when:** academy public positioning, tier descriptions, NDA pilot framing
 
-### `agent-skill-pack` · Agent Skill Pack (One Health)  (2 files)
+### `agent-skill-pack` · Agent Skill Pack (One Health)  (3 files)
 Agent Skill Pack for One Health Genomics — showcase of agent skills.
-**Files:** `agent-skill-pack/index.html` · `agent-skill-pack/styles.css`
+**Files:** `agent-skill-pack/README.md` · `agent-skill-pack/index.html` · `agent-skill-pack/styles.css`
 **Related:** [[pipelines]] · [[nanopore-advisor]]
 **Read when:** agent skill packaging, one-health genomics workflows
 
-### `multi-agent-dd` · Multi-Agent DD (public)  (1 file)
+### `multi-agent-dd` · Multi-Agent DD (public)  (2 files)
 Multi-Agent Due Diligence — public teaser for the DD pipeline.
-**Files:** `multi-agent-dd/index.html`
+**Files:** `multi-agent-dd/README.md` · `multi-agent-dd/index.html`
 **Related:** [[company_askeras]] · [[academy]]
 **Read when:** DD pipeline positioning, public teaser, methodology overview
 
-### `nanopore-advisor` · Nanopore Pipeline Advisor  (10 files)
+### `nanopore-advisor` · Nanopore Pipeline Advisor  (11 files)
 Nanopore pipeline advisor — protocol/parameter recommendation wizard.
-**Files:** `nanopore-advisor/app.js` · `nanopore-advisor/data/matrix_profiles.json` · `nanopore-advisor/data/questions_v2.json` · `nanopore-advisor/data/recommendation_rules.json` · `nanopore-advisor/data/route_mapping.json` · `nanopore-advisor/field-metadata.js` · `nanopore-advisor/index.html` · `nanopore-advisor/nanopore-guide.html` · `nanopore-advisor/recommendation-engine.js` · `nanopore-advisor/styles.css`
+**Files:** `nanopore-advisor/README.md` · `nanopore-advisor/app.js` · `nanopore-advisor/data/matrix_profiles.json` · `nanopore-advisor/data/questions_v2.json` · `nanopore-advisor/data/recommendation_rules.json` · `nanopore-advisor/data/route_mapping.json` · `nanopore-advisor/field-metadata.js` · `nanopore-advisor/index.html` · `nanopore-advisor/nanopore-guide.html` · `nanopore-advisor/recommendation-engine.js` · `nanopore-advisor/styles.css`
 **Related:** [[pipelines]] · [[agent-skill-pack]]
 **Read when:** Nanopore protocol recommendation, parameter wizard, shared field-metadata module
 
 ## Infrastructure · non-published
 
-### `assets` · Shared site assets  (4 files)
+### `assets` · Shared site assets  (6 files)
 Site-wide shared resources — css/tokens.css (brand tokens), css/outbreak.css, js/nav.js, js/outbreak-common.js. Register new showcases in js/nav.js.
-**Files:** `assets/css/outbreak.css` · `assets/css/tokens.css` · `assets/js/nav.js` · `assets/js/outbreak-common.js`
+**Files:** `assets/css/outbreak.css` · `assets/css/teaser.css` · `assets/css/tokens.css` · `assets/js/nav-manifest.js` · `assets/js/nav.js` · `assets/js/outbreak-common.js`
 **Related:** [[ebola]] · [[hanta]] · [[academy]]
 **Read when:** shared brand tokens, outbreak-common factories, nav registration
 
@@ -170,3 +177,8 @@ Top-level site files — homepage, README, structure doc, license, citation, dep
 Two navigation layers — (1) HUB.html / INDEX.html / INDEX.md, the auto-generated project dashboard + interactive code graph; (2) .nav/ (gitignored, local-only), the Markdown node map agents read at session start.
 **Files:** `docs/HUB.html` · `docs/INDEX.html` · `docs/INDEX.md` · `docs/index_nodes.yaml` · `scripts/build_hub.py` · `scripts/build_index.py` · `scripts/build_visualization.py`
 **Read when:** how navigation works, refreshing the views, adding new nodes
+
+## ⚠ Unmapped files (not in any node — add a glob in index_nodes.yaml)
+
+- `robots.txt`
+- `sitemap.xml`

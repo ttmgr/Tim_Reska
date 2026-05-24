@@ -39,6 +39,8 @@ If you're looking for a file: first decide which *showcase/project* it belongs t
 
 - `pipelines/` — One Health bioinformatics (Snakemake) pipelines (`aerobiome/`, `listeria-adaptive-sampling/`, `wetland-surveillance/`). Tracked code, not linked as a Pages showcase.
 - `assets/` — site-wide shared resources: `css/tokens.css` (brand tokens), `css/outbreak.css`, `js/nav.js`, `js/outbreak-common.js`.
+- `docs/` — project-hub outputs from the `/79-project-hub` skill: `HUB.html` (narrative dashboard), `INDEX.html` (interactive code graph), `INDEX.md` (Markdown node map), `index_nodes.yaml` (curated node manifest). Generated — do not edit by hand.
+- `scripts/` — generators for `docs/`: `build_hub.py`, `build_index.py`, `build_visualization.py`. Re-run after structural changes.
 - Root files: `index.html` (hub), `README.md`, `LICENSE`, `CITATION.cff`, `favicon.svg`, `.nojekyll`.
 
 ## Local-only (gitignored — never published)
