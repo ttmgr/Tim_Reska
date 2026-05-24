@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ttmgr.github.io/Tim_Reska/sitemap.xml

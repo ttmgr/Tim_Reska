@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic Frontier Primer — May 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAF9F7;
+  --paper: #FFFFFF;
+  --paper-soft: #F3F0EB;
+  --ink: #1F1F1F;
+  --ink-soft: #555555;
+  --ink-fade: #888888;
+  --accent: #C4794A;
+  --accent-dark: #6B3A1C;
+  --accent-soft: #E8D4C0;
+  --accent-faint: #F5E8DC;
+  --line: #E5E1DA;
+  --line-strong: #D2CCC2;
+  --code-bg: #2A2826;
+  --code-fg: #E8E2D8;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+.container { max-width: 1100px; margin: 0 auto; padding: 56px 32px 96px; }
+h1, h2, h3, h4, h5 { font-family: 'Source Serif 4', Georgia, serif; line-height: 1.25; font-weight: 600; margin: 0; }
+h1 { font-size: 2.75rem; letter-spacing: -0.025em; }
+h2 { font-size: 1.65rem; margin: 72px 0 12px; padding-bottom: 10px; border-bottom: 1px solid var(--line); letter-spacing: -0.01em; }
+h3 { font-size: 1.2rem; margin: 28px 0 8px; }
+h4 { font-size: 1.02rem; font-family: 'Inter', sans-serif; font-weight: 600; }
+p { margin: 10px 0; }
+a { color: var(--accent-dark); text-decoration: none; border-bottom: 1px solid var(--accent-soft); }
+a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.kicker {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.hero {
+  padding: 24px 0 36px;
+  border-bottom: 3px solid var(--accent);
+  margin-bottom: 8px;
+}
+.hero .kicker { margin-bottom: 12px; }
+.hero h1 { margin-bottom: 18px; }
+.hero .lede {
+  font-size: 1.22rem;
+  color: var(--ink-soft);
+  max-width: 760px;
+  margin: 12px 0 0;
+  font-weight: 400;
+}
+.meta-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin-top: 28px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+.meta-card strong { color: var(--ink); font-weight: 600; }
+.toc {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 22px 26px;
+  margin: 36px 0;
+}
+.toc .kicker { margin-bottom: 10px; }
+.toc ol {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.97rem;
+  margin: 0;
+  padding-left: 20px;
+  columns: 2;
+  column-gap: 32px;
+  line-height: 1.95;
+}
+.toc a { color: var(--ink); border-bottom: none; }
+.toc a:hover { color: var(--accent); }
+.section-intro {
+  font-size: 1.04rem;
+  color: var(--ink-soft);
+  margin: 0 0 24px;
+  max-width: 820px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+}
+.card.used { border-left: 4px solid var(--accent); }
+.card.unused { border-left: 4px solid var(--line-strong); background: var(--paper-soft); }
+.card h4 { margin: 0 0 4px; }
+.tag {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+.tag.used { background: var(--accent); color: white; }
+.tag.unused { background: var(--ink-fade); color: white; }
+.card .what {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  color: var(--ink);
+  margin: 6px 0 10px;
+}
+.card .edge {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  padding: 8px 12px;
+  background: var(--accent-faint);
+  border-radius: 6px;
+  margin-top: auto;
+}
+.card .edge strong { color: var(--accent-dark); font-weight: 600; }
+.card .source {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  margin-top: 10px;
+}
+.card .source a { color: var(--ink-fade); border-bottom: 1px dotted var(--line-strong); }
+.card .source a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.topology {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin: 16px 0;
+}
+.topology h3 { margin-top: 0; }
+.topology .desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  margin: 8px 0 14px;
+}
+.mermaid {
+  background: #FCFAF7;
+  border: 1px solid var(--line);
+  padding: 16px;
+  border-radius: 8px;
+  margin: 12px 0;
+  text-align: center;
+}
+.when-beats {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  padding: 12px 16px;
+  background: var(--accent-faint);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  margin-top: 14px;
+}
+.when-beats strong { color: var(--accent-dark); }
+.use-case {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line);
+}
+.use-case strong { color: var(--ink); font-weight: 600; }
+.timeline { position: relative; padding-left: 36px; margin-top: 24px; }
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 14px;
+  bottom: 0;
+  width: 2px;
+  background: var(--accent-soft);
+}
+.timeline-quarter {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 24px 0 12px;
+  padding-left: 4px;
+}
+.timeline-entry { position: relative; padding: 6px 0 22px; }
+.timeline-entry::before {
+  content: "";
+  position: absolute;
+  left: -32px;
+  top: 12px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.timeline-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.84rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+.timeline-ship {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 3px 0;
+  color: var(--ink);
+}
+.timeline-unlock {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.93rem;
+  color: var(--ink-soft);
+}
+.timeline-unlock a { font-size: 0.78rem; font-family: 'JetBrains Mono', monospace; color: var(--ink-fade); border-bottom: none; }
+.timeline-unlock a:hover { color: var(--accent); }
+code {
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--accent-faint);
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: var(--accent-dark);
+  font-size: 0.88em;
+}
+pre {
+  background: var(--code-bg);
+  color: var(--code-fg);
+  padding: 18px 22px;
+  border-radius: 8px;
+  overflow-x: auto;
+  line-height: 1.55;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.84rem;
+  margin: 14px 0;
+}
+pre code { background: transparent; padding: 0; color: inherit; font-size: 1em; }
+.callout {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 22px 26px;
+  margin: 24px 0;
+  border-left: 4px solid var(--accent);
+}
+.callout-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 10px;
+}
+.case-study {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin: 12px 0;
+}
+.case-study h4 { margin: 0 0 6px; font-family: 'Inter', sans-serif; font-size: 1.02rem; color: var(--ink); }
+.case-study .case-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  color: var(--ink-fade);
+  margin-bottom: 10px;
+}
+.case-study .case-what {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.93rem;
+  color: var(--ink-soft);
+  margin: 6px 0;
+}
+.case-study .case-primitive {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.86rem;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: var(--accent-faint);
+  border-radius: 6px;
+  color: var(--accent-dark);
+}
+.case-study .case-primitive strong { font-weight: 600; }
+.audit-block {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin: 14px 0;
+}
+.audit-block h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  color: var(--accent);
+  margin: 0 0 12px;
+}
+.audit-item {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  margin: 10px 0;
+  padding: 8px 0 8px 16px;
+  border-left: 2px solid var(--accent-soft);
+}
+.audit-item strong { color: var(--accent-dark); font-weight: 600; }
+.opt-pattern {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin: 12px 0;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+  align-items: start;
+}
+.opt-pattern .opt-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  color: var(--accent-dark);
+  font-size: 1rem;
+}
+.opt-pattern .opt-name .opt-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 2px;
+}
+.opt-pattern .opt-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+}
+.opt-pattern .opt-pays { color: var(--ink); margin-bottom: 6px; }
+.opt-pattern .opt-not { color: var(--ink-fade); font-style: italic; }
+.opt-pattern .opt-not::before { content: "Avoid: "; font-style: normal; font-weight: 600; color: var(--accent-dark); }
+.cheatsheet {
+  background: var(--paper);
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  padding: 32px 36px;
+  margin: 32px 0;
+}
+.cheatsheet h2 { border: none; margin: 0 0 18px; padding: 0; }
+.cheat-row {
+  font-family: 'Inter', sans-serif;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--line);
+  display: grid;
+  grid-template-columns: 1.4fr 1.6fr;
+  gap: 24px;
+  align-items: baseline;
+}
+.cheat-row:last-child { border-bottom: none; }
+.cheat-row .want {
+  font-weight: 600;
+  color: var(--accent-dark);
+  font-size: 0.98rem;
+}
+.cheat-row .reach {
+  font-size: 0.92rem;
+  color: var(--ink);
+}
+.cheat-row .reach code { font-size: 0.85em; }
+footer {
+  margin-top: 72px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.84rem;
+  color: var(--ink-fade);
+}
+footer a { color: var(--ink-fade); border-bottom-color: var(--line); }
+footer a:hover { color: var(--accent); }
+.research-links {
+  margin-top: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  line-height: 2;
+}
+@media (max-width: 740px) {
+  .container { padding: 32px 18px 64px; }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.35rem; }
+  .toc ol { columns: 1; }
+  .cheat-row, .opt-pattern { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="hero">
+  <div class="kicker">Frontier Primer · Personal Briefing · 2026-05-23</div>
+  <h1>What's actually possible<br>with Claude agentic systems</h1>
+  <p class="lede">Not a recap of the five orchestrators you already run. A map of the edge cases beyond them — primitives, topologies, shipments, ambient automation, optimization, frontier case studies, and a candid audit of where your own pipelines can push harder.</p>
+  <div class="meta-card">
+    <strong>This page was produced by 7 Haiku 4.5 agents fanned out in parallel</strong> — the same single-message subagent pattern your <code>/48-dd-multi-agent</code>, <code>/42-askeras-ai-enablement</code>, and <code>/49-multi-agent-science</code> skills use. Each Haiku researched one slice of the frontier and wrote to <code>agentic_systems/research/</code>. Opus 4.7 synthesized them into this primer. The architecture is the demonstration.
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="kicker">Sections</div>
+  <ol>
+    <li><a href="#primitives">The primitive map</a></li>
+    <li><a href="#topologies">Topology gallery beyond fan-out</a></li>
+    <li><a href="#shipments">Anthropic shipments, Oct 2025 → May 2026</a></li>
+    <li><a href="#ambient">Ambient automation: hooks, MCP, settings</a></li>
+    <li><a href="#optimization">Cost &amp; speed optimization patterns</a></li>
+    <li><a href="#cases">Push-the-limit case studies</a></li>
+    <li><a href="#audit">Your existing pipelines, audited</a></li>
+    <li><a href="#cheatsheet">Frontier cheatsheet</a></li>
+  </ol>
+</nav>
+
+<!-- ========== SECTION 1: PRIMITIVES ========== -->
+
+<section id="primitives">
+<h2>1 · The primitive map</h2>
+<p class="section-intro">Every primitive Claude exposes today, grouped by whether your five orchestrator skills already lean on it. The terracotta-edged cards are routine for you; the gray-edged cards are mature primitives sitting unused — each one is a door you have not yet opened.</p>
+
+<h3 style="margin-top:32px;">In your kit already</h3>
+<div class="grid">
+
+  <div class="card used">
+    <span class="tag used">In use</span>
+    <h4>Skills</h4>
+    <p class="what">Reusable agent instructions in <code>SKILL.md</code> with YAML frontmatter, loaded on demand or by trigger heuristics.</p>
+    <p class="edge"><strong>Unlocks:</strong> declarative workflows that survive across sessions — your 36 installed skills are this primitive at work.</p>
+  </div>
+
+  <div class="card used">
+    <span class="tag used">In use</span>
+    <h4>Subagents (Task tool)</h4>
+    <p class="what">Spawn isolated child agents in parallel with independent context, tools, and model.</p>
+    <p class="edge"><strong>Unlocks:</strong> Phase 1 A/B/C single-message fan-out across all three big orchestrators.</p>
+  </div>
+
+  <div class="card used">
+    <span class="tag used">In use</span>
+    <h4>Hooks (Stop, UserPromptSubmit)</h4>
+    <p class="what">Shell scripts that fire at session lifecycle events — you already run <code>resume_checkpoint.sh</code> and <code>stop_checkpoint.sh</code>.</p>
+    <p class="edge"><strong>Unlocks:</strong> session-resume continuity and end-of-session git hygiene without manual prompting.</p>
+  </div>
+
+  <div class="card used">
+    <span class="tag used">In use</span>
+    <h4>Plan Mode</h4>
+    <p class="what">Read-only sandbox where Claude proposes changes and waits for approval before touching disk. Shift+Tab cycles modes.</p>
+    <p class="edge"><strong>Unlocks:</strong> high-stakes refactors reviewed before execution — the mode this primer was planned in.</p>
+  </div>
+
+  <div class="card used">
+    <span class="tag used">In use</span>
+    <h4>Extended Thinking</h4>
+    <p class="what">Adaptive reasoning step before responding; the orchestrator and validator phases of your Science skill use Opus + max thinking.</p>
+    <p class="edge"><strong>Unlocks:</strong> blind validators that reason through claims privately before grading them.</p>
+  </div>
+
+  <div class="card used">
+    <span class="tag used">In use</span>
+    <h4>Prompt Caching (5-min TTL)</h4>
+    <p class="what">Stable prefixes reused across calls at 10% input cost. Default 5-minute window; 1-hour available at 2× write cost.</p>
+    <p class="edge"><strong>Unlocks:</strong> long system prompts that pay for themselves after one cache hit.</p>
+  </div>
+
+  <div class="card used">
+    <span class="tag used">In use</span>
+    <h4>CLAUDE.md &amp; Auto-Memory</h4>
+    <p class="what">Human-written and self-written persistent context that survives compaction and session boundaries.</p>
+    <p class="edge"><strong>Unlocks:</strong> 36 skills, your role profile, project checkpoints — all recalled without re-explaining each session.</p>
+  </div>
+
+</div>
+
+<h3 style="margin-top:48px;">Doors you haven't opened</h3>
+<div class="grid">
+
+  <div class="card unused">
+    <span class="tag unused">Unused</span>
+    <h4>MCP Servers</h4>
+    <p class="what">Open-standard bridges to GitHub, Slack, Sentry, Postgres, Figma, internal APIs. 800+ official servers, 10,000+ public.</p>
+    <p class="edge"><strong>Unlocks:</strong> a DD skill that reads a target's GitHub activity live; a Science skill that queries Sentry for production-error context.</p>
+  </div>
+
+  <div class="card unused">
+    <span class="tag unused">Unused</span>
+    <h4>Computer Use</h4>
+    <p class="what">Claude controls mouse, keyboard, scroll, screenshots as a tool. Opus 4.7 ships native pixel coordinates at 2576px.</p>
+    <p class="edge"><strong>Unlocks:</strong> automating a manual SaaS workflow (Salesforce, EHR portals, regulatory submission UIs) without writing Selenium.</p>
+  </div>
+
+  <div class="card unused">
+    <span class="tag unused">Unused</span>
+    <h4>Files API + Citations</h4>
+    <p class="what">Upload PDFs once, reuse across calls with verbatim source citations anchored to page ranges.</p>
+    <p class="edge"><strong>Unlocks:</strong> a clinical-evidence skill where every claim is auto-cited to the exact PubMed PDF page — no manual fact-check.</p>
+  </div>
+
+  <div class="card unused">
+    <span class="tag unused">Unused</span>
+    <h4>Batch API</h4>
+    <p class="what">Queue requests, get 50% discount on input and output. Stacks with caching for ~95% combined savings on offline work.</p>
+    <p class="edge"><strong>Unlocks:</strong> overnight processing of 1,000 underwriting case files at half-price while you sleep.</p>
+  </div>
+
+  <div class="card unused">
+    <span class="tag unused">Unused</span>
+    <h4>Scheduled Routines (Cron)</h4>
+    <p class="what">CronCreate spins up remote agents on a schedule. RemoteTrigger fires them on demand from outside the session.</p>
+    <p class="edge"><strong>Unlocks:</strong> <code>/71-llm-coding-radar</code> running every Monday at 06:00 without your laptop being open.</p>
+  </div>
+
+  <div class="card unused">
+    <span class="tag unused">Unused</span>
+    <h4>Managed Agents (Sessions API)</h4>
+    <p class="what">Cloud-hosted agents with persistent filesystems, secure containers, multi-hour task execution. Launched 2026-04-08.</p>
+    <p class="edge"><strong>Unlocks:</strong> a DD pipeline that survives your laptop sleeping — the whole 1-week engagement runs server-side.</p>
+  </div>
+
+  <div class="card unused">
+    <span class="tag unused">Unused</span>
+    <h4>Tool Search (Deferred MCP)</h4>
+    <p class="what">Tool names load at session start; schemas hydrate only when Claude searches. Lets you wire 200+ tools without context bloat.</p>
+    <p class="edge"><strong>Unlocks:</strong> hooking every market-data vendor (FactSet, S&amp;P, MSCI, Daloopa) into a DD skill without paying schema-token tax up front.</p>
+  </div>
+
+  <div class="card unused">
+    <span class="tag unused">Unused</span>
+    <h4>Structured Output (JSON Schema)</h4>
+    <p class="what">Schema becomes compiler-enforced grammar — the model cannot generate invalid JSON. GA on Opus 4.7 + Sonnet 4.6 + Haiku 4.5.</p>
+    <p class="edge"><strong>Unlocks:</strong> Phase-1/2/3 JSON artefacts in your skills become unconditionally parseable. No retry-on-malformed-JSON logic ever.</p>
+  </div>
+
+  <div class="card unused">
+    <span class="tag unused">Unused</span>
+    <h4>Compaction Hooks (PreCompact)</h4>
+    <p class="what">Fire just before context compaction — inject checkpoints, save intermediate state, preserve work across the boundary.</p>
+    <p class="edge"><strong>Unlocks:</strong> a Science skill that runs for 4+ hours without losing cached regression models when context compacts.</p>
+  </div>
+
+  <div class="card unused">
+    <span class="tag unused">Unused</span>
+    <h4>Permission Deny Rules</h4>
+    <p class="what">Glob/regex matchers in <code>settings.json</code> that prevent reading <code>.env</code>, <code>*.pem</code>, secrets. Per-tool deny lists.</p>
+    <p class="edge"><strong>Unlocks:</strong> running agentic pipelines on the Allianz medical-UW codebase without risk of credential exposure into chat.</p>
+  </div>
+
+  <div class="card unused">
+    <span class="tag unused">Unused</span>
+    <h4>Background Tasks</h4>
+    <p class="what">Move a subagent to background with pre-granted permissions. Continues autonomously; you get notified on completion.</p>
+    <p class="edge"><strong>Unlocks:</strong> launching a 30-minute Phase-1 fan-out and continuing foreground work — exactly what produced this primer.</p>
+  </div>
+
+  <div class="card unused">
+    <span class="tag unused">Unused</span>
+    <h4>1-Hour Extended Cache TTL</h4>
+    <p class="what">Cache writes cost 2×, reads still 0.1×. Break-even at 2 reads. Shipped 2026-05-02. AWS Bedrock also exposes it.</p>
+    <p class="edge"><strong>Unlocks:</strong> a multi-step DD engagement where the firm context (target dossier, comps, methodology) caches once and is hit dozens of times across phases.</p>
+  </div>
+
+</div>
+
+<p class="section-intro" style="margin-top:24px;"><a href="research/01_primitives.md">→ Full Haiku-1 inventory with 25+ primitives</a></p>
+</section>
+
+<!-- ========== SECTION 2: TOPOLOGIES ========== -->
+
+<section id="topologies">
+<h2>2 · Topology gallery beyond fan-out</h2>
+<p class="section-intro">Your five skills converge on one orchestration pattern: parallel Sonnet fan-out (3–6 subagents in a single message) + Opus synthesis + blind Opus validator. It is a strong default. These are the topologies that beat it under specific constraints.</p>
+
+<div class="topology">
+  <h3>2.1 Hierarchical / Nested Orchestrators</h3>
+  <p class="desc">A top-level orchestrator delegates to mid-level supervisors, each managing leaf-level workers. Layers communicate through summary compression; fault isolation at each layer.</p>
+  <div class="mermaid">
+flowchart TD
+    A["Orchestrator<br/>(Strategy)"]
+    B["Supervisor 1<br/>(Tactics)"]
+    C["Supervisor 2<br/>(Tactics)"]
+    D["Worker 1"]
+    E["Worker 2"]
+    F["Worker 3"]
+    G["Worker 4"]
+    A -->|summary| B
+    A -->|summary| C
+    B -->|summ| D
+    B -->|summ| E
+    C -->|summ| F
+    C -->|summ| G
+  </div>
+  <div class="when-beats"><strong>Beats fan-out when:</strong> the problem has natural organizational boundaries (legal, medical, engineering) and coordination overhead in flat fan-out exceeds latency budget.</div>
+  <div class="use-case"><strong>Use case:</strong> a buyer-side DD where one supervisor handles fact-base + comps and another handles market + competition, each spawning their own workers — saves orchestrator context from carrying all 6 fan-out children simultaneously.</div>
+</div>
+
+<div class="topology">
+  <h3>2.2 Blackboard / Shared-State Pattern</h3>
+  <p class="desc">Specialist agents read and write to a shared artifact. Agents self-select when their preconditions match the current state. No direct agent-to-agent messaging.</p>
+  <div class="mermaid">
+flowchart TD
+    KB["Blackboard<br/>(Problem State)"]
+    A["Agent A<br/>(Rules 1)"]
+    B["Agent B<br/>(Rules 2)"]
+    C["Agent C<br/>(Rules 3)"]
+    D["Control<br/>Component"]
+    A -->|read/write| KB
+    B -->|read/write| KB
+    C -->|read/write| KB
+    D -->|monitor| KB
+    D -->|trigger| A
+    D -->|trigger| B
+    D -->|trigger| C
+  </div>
+  <div class="when-beats"><strong>Beats fan-out when:</strong> agent execution order depends on what is already known, and agents should self-activate based on preconditions — adaptive, decoupled problem-solving.</div>
+  <div class="use-case"><strong>Use case:</strong> medical underwriting where cardiology / nephrology / endocrine specialists each read a shared patient record and fire only when their domain constraints match.</div>
+</div>
+
+<div class="topology">
+  <h3>2.3 Adversarial Pairs (Proposer / Critic)</h3>
+  <p class="desc">Proposer produces a draft. Critic reads it and writes a structured critique. Proposer revises; cycle repeats until quality gates are met.</p>
+  <div class="mermaid">
+sequenceDiagram
+    Proposer->>Critic: Draft output
+    Critic->>Critic: Evaluate
+    Critic->>Proposer: Structured feedback
+    Proposer->>Proposer: Revise
+    Proposer->>Critic: Revised output
+    Critic->>Output: Accept or loop
+  </div>
+  <div class="when-beats"><strong>Beats fan-out when:</strong> output correctness is paramount and one-shot agents drift toward confident wrongness through pattern-matching.</div>
+  <div class="use-case"><strong>Use case:</strong> your blind Phase-3 validator already <em>is</em> this pattern's single-pass variant. The frontier move: loop it. Let the proposer revise after critique, then re-validate. Multi-round adversarial validation is how Anthropic ships Constitutional AI training.</div>
+</div>
+
+<div class="topology">
+  <h3>2.4 Competitive Ensembles (Best-of-N + Judge)</h3>
+  <p class="desc">N agents (different models or prompt variants) solve the same problem in parallel. An independent judge agent ranks outputs and selects the best.</p>
+  <div class="mermaid">
+flowchart TD
+    Input["Input"]
+    A["Agent A"]
+    B["Agent B"]
+    C["Agent C"]
+    Judge["Judge<br/>Evaluator"]
+    Output["Best Output"]
+    Input -->|route| A
+    Input -->|route| B
+    Input -->|route| C
+    A -->|result| Judge
+    B -->|result| Judge
+    C -->|result| Judge
+    Judge -->|rank| Output
+  </div>
+  <div class="when-beats"><strong>Beats fan-out when:</strong> output quality varies with model/prompt and you have budget for N+1 calls but need reliability guarantees.</div>
+  <div class="use-case"><strong>Use case:</strong> draft three competing investment recommendations (bullish / bearish / contrarian Opus instances) on the same target; let a fourth Opus judge rank them. Surfaces the strongest argument rather than the average one.</div>
+</div>
+
+<div class="topology">
+  <h3>2.5 Hub-Spoke Routing</h3>
+  <p class="desc">A coordinator agent owns full context and routes requests to specialist agents based on input type. Spokes never communicate directly; coordination flows through the hub.</p>
+  <div class="mermaid">
+flowchart TD
+    Input["Input"]
+    Hub["Coordinator<br/>Hub"]
+    S1["Technical<br/>Specialist"]
+    S2["Billing<br/>Specialist"]
+    S3["Account<br/>Specialist"]
+    Output["Final Response"]
+    Input -->|route| Hub
+    Hub -->|delegate| S1
+    Hub -->|delegate| S2
+    Hub -->|delegate| S3
+    S1 -->|summary| Hub
+    S2 -->|summary| Hub
+    S3 -->|summary| Hub
+    Hub -->|synthesize| Output
+  </div>
+  <div class="when-beats"><strong>Beats fan-out when:</strong> routing is deterministic (if intent=X → dispatch to Y specialist) and a single traceable control flow matters more than parallel throughput.</div>
+  <div class="use-case"><strong>Use case:</strong> <code>/78-multi-agent-qc</code> already runs this — one router per nav hub node. Generalisable to a customer-support skill: classifier picks the specialist; specialist responds; hub stitches.</div>
+</div>
+
+<div class="topology">
+  <h3>2.6 Recursive Sub-Agents</h3>
+  <p class="desc">An agent decides at runtime how many and which sub-agents to spawn, inducing an execution tree. Sub-agents may spawn further children based on complexity signals.</p>
+  <div class="mermaid">
+flowchart TD
+    Root["Agent<br/>(Top Task)"]
+    A["Sub-Agent 1<br/>(Subtask A)"]
+    B["Sub-Agent 2<br/>(Subtask B)"]
+    C["Sub-Agent 1.1<br/>(A.1)"]
+    D["Sub-Agent 1.2<br/>(A.2)"]
+    Root -->|spawn| A
+    Root -->|spawn| B
+    A -->|spawn| C
+    A -->|spawn| D
+    C -->|result| A
+    D -->|result| A
+    A -->|result| Root
+    B -->|result| Root
+  </div>
+  <div class="when-beats"><strong>Beats fan-out when:</strong> task decomposition is unknown upfront and the count + content of children must be chosen by policy at runtime.</div>
+  <div class="use-case"><strong>Use case:</strong> a Science skill where the reviewer agent decides mid-run that a methods claim warrants spawning a sub-reviewer to fetch the cited paper and re-evaluate. Depth is policy-driven, not hard-coded.</div>
+</div>
+
+<div class="topology">
+  <h3>2.7 MCP-Mediated Cross-Agent State</h3>
+  <p class="desc">Agents coordinate via an MCP server acting as a versioned event bus. They publish state changes and subscribe to others — no direct messaging, full auditability.</p>
+  <div class="mermaid">
+flowchart TD
+    A["Agent A"]
+    B["Agent B"]
+    C["Agent C"]
+    MCP["MCP Server<br/>(Versioned State Bus)"]
+    A -->|publish| MCP
+    B -->|publish| MCP
+    C -->|publish| MCP
+    MCP -->|subscribe| A
+    MCP -->|subscribe| B
+    MCP -->|subscribe| C
+  </div>
+  <div class="when-beats"><strong>Beats fan-out when:</strong> agents are heterogeneous, state must be durable, and auditability matters — or when stateful bottlenecks need horizontal scaling.</div>
+  <div class="use-case"><strong>Use case:</strong> a multi-day DD where parser, classifier, enrichment, and validator agents publish to a shared MCP bus. The whole pipeline can pause, resume, and replay from any version checkpoint.</div>
+</div>
+
+<div class="topology">
+  <h3>2.8 Swarm + Voting (Large-N Consensus)</h3>
+  <p class="desc">Dozens to hundreds of agents solve the same problem with slight variation (prompt, temperature). Majority or weighted vote determines the output — no judge.</p>
+  <div class="mermaid">
+flowchart TD
+    Input["Input"]
+    A["Agent 1"]
+    B["Agent 2"]
+    C["Agent ..."]
+    D["Agent N"]
+    V["Voting<br/>Aggregator"]
+    Output["Consensus"]
+    Input -->|broadcast| A
+    Input -->|broadcast| B
+    Input -->|broadcast| C
+    Input -->|broadcast| D
+    A -->|vote| V
+    B -->|vote| V
+    C -->|vote| V
+    D -->|vote| V
+    V -->|majority| Output
+  </div>
+  <div class="when-beats"><strong>Beats fan-out when:</strong> N is large enough that majority vote is statistically robust and accuracy through consensus outweighs cost.</div>
+  <div class="use-case"><strong>Use case:</strong> fact-checking a regulatory claim with 30 Haiku agents using different search strategies; high consensus (25+ agree) flags as verified. Affordable because Haiku.</div>
+</div>
+
+<div class="topology">
+  <h3>2.9 Long-Running Agents with Checkpoints</h3>
+  <p class="desc">An agent executes a multi-hour or multi-day workflow, writing checkpoints after each logical unit. On failure, resumes from last checkpoint. Tool calls must be idempotent.</p>
+  <div class="mermaid">
+flowchart LR
+    S["Start"]
+    W1["Work 1"]
+    C1["CP 1"]
+    W2["Work 2"]
+    C2["CP 2"]
+    W3["Work 3"]
+    C3["CP 3"]
+    E["Complete"]
+    S --> W1 --> C1 --> W2 --> C2 --> W3 --> C3 --> E
+  </div>
+  <div class="when-beats"><strong>Beats fan-out when:</strong> work spans hours, requires human-in-the-loop review mid-run, or crosses infrastructure boundaries where failures are expected.</div>
+  <div class="use-case"><strong>Use case:</strong> Anthropic's own long-running-agents pattern: initializer creates 200+ test cases + feature list JSON + <code>init.sh</code>; subsequent sessions read git history as memory and pick up where left off. Multi-day feature development without a single 8-hour context.</div>
+</div>
+
+<div class="topology">
+  <h3>2.10 Pipeline with Mid-Stream Branching</h3>
+  <p class="desc">Sequential pipeline where early stages produce inputs for later stages, but at decision points the pipeline splits into parallel sub-branches, then reconverges.</p>
+  <div class="mermaid">
+flowchart TD
+    A["Stage 1<br/>Input Processing"]
+    B["Stage 2<br/>Analysis"]
+    C1["Branch 2a<br/>Path A"]
+    C2["Branch 2b<br/>Path B"]
+    D["Stage 3<br/>Synthesis"]
+    A --> B
+    B -->|split| C1
+    B -->|split| C2
+    C1 --> D
+    C2 --> D
+  </div>
+  <div class="when-beats"><strong>Beats fan-out when:</strong> early-stage decisions determine which parallel subproblems to solve. Static fan-out wastes effort on irrelevant branches.</div>
+  <div class="use-case"><strong>Use case:</strong> a Science reviewer that reads a manuscript, decides at the discussion section to spawn parallel sub-reviewers for (a) figure extraction (b) statistics validation (c) claims cross-reference, then reconverges. Different manuscripts trigger different branching.</div>
+</div>
+
+<p class="section-intro" style="margin-top:24px;"><a href="research/02_topologies.md">→ Full Haiku-2 report with topology selector decision tree</a></p>
+</section>
+
+<!-- ========== SECTION 3: SHIPMENTS ========== -->
+
+<section id="shipments">
+<h2>3 · Anthropic shipments, Oct 2025 → May 2026</h2>
+<p class="section-intro">Eight months of shipments that matter for agentic-systems builders. Verified by Haiku-3 against primary sources. The throughline: agents graduated from "can Claude do this task?" to "can Claude regulate itself within budget and learn from experience?"</p>
+
+<div class="timeline">
+
+  <div class="timeline-quarter">Q2 2026 — last 30 days</div>
+
+  <div class="timeline-entry">
+    <div class="timeline-date">2026-05-06</div>
+    <div class="timeline-ship">Managed Agents "dreaming" — self-improving memory</div>
+    <div class="timeline-unlock">Autonomous agents reason about their own decision patterns across multi-session traces without human annotation. First step toward production meta-learning. <a href="https://releasebot.io/updates/anthropic/claude" target="_blank">source</a></div>
+  </div>
+
+  <div class="timeline-entry">
+    <div class="timeline-date">2026-05-02</div>
+    <div class="timeline-ship">Prompt-caching TTL tiers ship (5-min + 1-hour)</div>
+    <div class="timeline-unlock">1-hour cache costs 2× to write, still 0.1× to read; break-even at 2 hits. Long-context RAG pipelines now affordable at commodity cost. <a href="https://www.finout.io/blog/anthropic-api-pricing" target="_blank">source</a></div>
+  </div>
+
+  <div class="timeline-entry">
+    <div class="timeline-date">2026-04-22</div>
+    <div class="timeline-ship">MCP official registry crosses 800 servers</div>
+    <div class="timeline-unlock">Table-stakes ecosystem size reached; third-party middleware (gateways, auth brokers) now viable. 10,000+ public + 3,000+ private servers in the broader space. <a href="https://www.qcode.cc/mcp-servers-ecosystem-2026" target="_blank">source</a></div>
+  </div>
+
+  <div class="timeline-entry">
+    <div class="timeline-date">2026-04-16</div>
+    <div class="timeline-ship">Claude Opus 4.7 — 1M context, native pixel coords, task budgets</div>
+    <div class="timeline-unlock">Computer-use workflows manipulate screenshots at native resolution. Task budgets (beta) let agents self-regulate spend per loop. New tokenizer adds ~35% tokens vs 4.6. Sampling parameters removed. <a href="https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-7" target="_blank">source</a></div>
+  </div>
+
+  <div class="timeline-entry">
+    <div class="timeline-date">2026-04-08</div>
+    <div class="timeline-ship">Claude Managed Agents — production launch</div>
+    <div class="timeline-unlock">Cloud-hosted stateful sessions with persistent filesystems and secure containers. Notion / Rakuten / Asana ship production agents 10× faster than self-hosted. <a href="https://www.anthropic.com/news/managing-agents" target="_blank">source</a></div>
+  </div>
+
+  <div class="timeline-quarter">Q1 2026 (January–March)</div>
+
+  <div class="timeline-entry">
+    <div class="timeline-date">2026-03-02</div>
+    <div class="timeline-ship">Claude Memory — chat-based memory becomes free-tier</div>
+    <div class="timeline-unlock">Persistent context across turns without subscribing to Team or hand-managing markdown. Memory compaction automatic during storage. <a href="https://releasebot.io/updates/anthropic/claude" target="_blank">source</a></div>
+  </div>
+
+  <div class="timeline-entry">
+    <div class="timeline-date">2026-02-17</div>
+    <div class="timeline-ship">Claude Sonnet 4.6 — adaptive thinking + 1M context</div>
+    <div class="timeline-unlock">Cost-aware reasoning depth per task; Opus-class coding at Sonnet price ($3/$15 per MTok). Per-token ROI optimization for batch and scheduled agents. <a href="https://www.anthropic.com/news/claude-opus-4-6" target="_blank">source</a></div>
+  </div>
+
+  <div class="timeline-entry">
+    <div class="timeline-date">2026-02-04</div>
+    <div class="timeline-ship">Claude Opus 4.6 + structured output GA</div>
+    <div class="timeline-unlock">Adaptive thinking replaces fixed extended-thinking budgets. Schema enforcement shifts from prompting guarantee to compiler guarantee. <a href="https://www.anthropic.com/news/claude-opus-4-6" target="_blank">source</a></div>
+  </div>
+
+  <div class="timeline-entry">
+    <div class="timeline-date">2026-02 (late)</div>
+    <div class="timeline-ship">Claude Code Hooks become production-ready</div>
+    <div class="timeline-unlock">5 hook types × 25+ lifecycle points. Shell, HTTP, MCP-tool, prompt, and agent hooks. Deterministic linters, approval gates, and cost-tracking run outside the model's control flow. <a href="https://code.claude.com/docs/en/hooks" target="_blank">source</a></div>
+  </div>
+
+  <div class="timeline-entry">
+    <div class="timeline-date">2026-01 (late)</div>
+    <div class="timeline-ship">Claude Code Plan Mode (<code>/plan</code>)</div>
+    <div class="timeline-unlock">Three permission modes (Default / Auto-Accept / Plan), Shift+Tab cycles. Complex refactors separate analysis from execution. <a href="https://www.getaiperks.com/en/ai/claude-code-plan-mode" target="_blank">source</a></div>
+  </div>
+
+  <div class="timeline-entry">
+    <div class="timeline-date">2026-01 (early)</div>
+    <div class="timeline-ship">Workspace-level prompt-cache isolation</div>
+    <div class="timeline-unlock">Multi-tenant SaaS can cache per-customer context without cross-tenant leakage. Shared billing no longer forces shared cache scope. <a href="https://www.finout.io/blog/anthropic-api-pricing" target="_blank">source</a></div>
+  </div>
+
+  <div class="timeline-quarter">Q4 2025 (October–December)</div>
+
+  <div class="timeline-entry">
+    <div class="timeline-date">2025-12-18</div>
+    <div class="timeline-ship">Agent Skills open standard at agentskills.io</div>
+    <div class="timeline-unlock">SKILL.md becomes an interoperable convention across Claude, Cursor, Codex, Gemini CLI. Skills become portable like npm packages. <a href="https://www.verdent.ai/guides/claude-skills-announcement-news" target="_blank">source</a></div>
+  </div>
+
+  <div class="timeline-entry">
+    <div class="timeline-date">2025-12-17</div>
+    <div class="timeline-ship">Message Batches API — GA</div>
+    <div class="timeline-unlock">50% discount on input and output for 24-hour-latency workloads. Cost-sensitive bulk inference shifts from bespoke to standard. <a href="https://www.anthropic.com/news/message-batches-api" target="_blank">source</a></div>
+  </div>
+
+  <div class="timeline-entry">
+    <div class="timeline-date">2025-11-24</div>
+    <div class="timeline-ship">Claude Opus 4.5 — flagship; 200k context, extended thinking</div>
+    <div class="timeline-unlock">Sustained reasoning on long-horizon tasks. Extended thinking enables first-principles problem solving without intermediate API calls. <a href="https://medium.com/@ZombieCodeKill/claude-opus-4-5-released-9e9bd9a32ad9" target="_blank">source</a></div>
+  </div>
+
+  <div class="timeline-entry">
+    <div class="timeline-date">2025-10-22</div>
+    <div class="timeline-ship">Claude Code on the web</div>
+    <div class="timeline-unlock">Browser-native agentic workflows at claude.com. Skills, hooks, plan mode, slash commands, MCP — all surfaces now equivalent. <a href="https://mlq.ai/news/anthropic-launches-claude-code-on-the-web/" target="_blank">source</a></div>
+  </div>
+
+  <div class="timeline-entry">
+    <div class="timeline-date">2025-10-16</div>
+    <div class="timeline-ship">Claude Code Skills launch</div>
+    <div class="timeline-unlock">Custom markdown workflows with triggers, examples, and tool allowlists. Prompt engineering becomes declarative. Non-engineers can define workflows without writing Python. <a href="https://simonwillison.net/2025/Oct/16/claude-skills/" target="_blank">source</a></div>
+  </div>
+
+  <div class="timeline-entry">
+    <div class="timeline-date">2025-10-15</div>
+    <div class="timeline-ship">Claude Haiku 4.5 — $1/$5 per MTok</div>
+    <div class="timeline-unlock">One-third Sonnet 4.5 cost at 73.3% SWE-bench. High-volume classification, routing, and summarisation at &lt; $0.001 per task. <a href="https://medium.com/@leucopsis/claude-haiku-4-5-review-4ac12a103275" target="_blank">source</a></div>
+  </div>
+
+  <div class="timeline-entry">
+    <div class="timeline-date">2025-09-29</div>
+    <div class="timeline-ship">Claude Sonnet 4.5 — best-in-class coding agent</div>
+    <div class="timeline-unlock">Industry-standard benchmarks reachable at half Opus cost. Coding agents pivot from Opus-only to Sonnet-affordable. Default on Claude.ai and Claude Code. <a href="https://max-productive.ai/blog/claude-sonnet-4-5-announcement-2025/" target="_blank">source</a></div>
+  </div>
+
+</div>
+
+<p class="section-intro" style="margin-top:32px;"><a href="research/03_shipments.md">→ Full Haiku-3 timeline with 17+ entries and key sources</a></p>
+</section>
+
+<!-- ========== SECTION 4: AMBIENT AUTOMATION ========== -->
+
+<section id="ambient">
+<h2>4 · Ambient automation: hooks, MCP, settings</h2>
+<p class="section-intro">The layer under your IDE — scripts and servers that fire silently before, during, and after every turn. Your <code>resume_checkpoint.sh</code> and <code>stop_checkpoint.sh</code> are the entry point; this is the rest of the room.</p>
+
+<h3>Hook types worth wiring</h3>
+
+<p>Hooks receive JSON on stdin and emit decisions or context on stdout. Five core events:</p>
+
+<ul>
+  <li><code>SessionStart</code> — boot-time context injection, MCP cache priming</li>
+  <li><code>UserPromptSubmit</code> — block dangerous prompts, warn on main branch, inject project state</li>
+  <li><code>PreToolUse</code> — deny <code>rm -rf /</code>, <code>git push --force</code>, secrets exfil</li>
+  <li><code>PostToolUse</code> — auto-format after Edit/Write, lint, type-check, run tests</li>
+  <li><code>Stop</code> — checkpoint to memory, verify git clean, notify external systems</li>
+</ul>
+
+<h4 style="margin-top:24px;">Block force-push and hard reset before they fire</h4>
+<pre><code># PreToolUse hook
+TOOL=$(jq -r '.tool_name' &lt;&lt;&lt; "$HOOK_PAYLOAD")
+CMD=$(jq -r '.tool_input.command // empty' &lt;&lt;&lt; "$HOOK_PAYLOAD")
+if [[ "$TOOL" == "Bash" ]] &amp;&amp; [[ "$CMD" =~ ^git.*(reset|push).*(--force|--hard) ]]; then
+  echo '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":"Force push/reset requires manual confirmation"}}'
+fi</code></pre>
+
+<h4 style="margin-top:24px;">Auto-format Python files after every Write</h4>
+<pre><code># PostToolUse hook, matcher: "Write"
+FILE=$(jq -r '.tool_input.file_path')
+case "$FILE" in
+  *.py) ruff check --fix "$FILE" 2&gt;&amp;1; black "$FILE" 2&gt;&amp;1 ;;
+  *.ts|*.tsx|*.js) npx prettier --write "$FILE" 2&gt;&amp;1 ;;
+esac</code></pre>
+
+<h4 style="margin-top:24px;">Auto-checkpoint at session Stop</h4>
+<pre><code>{
+  "hooks": {
+    "Stop": {
+      "command": "/usr/local/bin/post-session.sh",
+      "timeout": 30000
+    },
+    "PostToolUse": {
+      "command": "bash -c 'npm run lint:fix || true'",
+      "matcher": "Edit|Write",
+      "timeout": 60000
+    }
+  }
+}</code></pre>
+
+<h3 style="margin-top:32px;">MCP servers worth installing</h3>
+
+<p>Browse <a href="https://claude.ai/directory" target="_blank">claude.ai/directory</a>. Current recommended tier for your workflows:</p>
+
+<ul>
+  <li><strong>GitHub</strong> — implement features from issues, review PRs without leaving the session</li>
+  <li><strong>Slack</strong> — read threads, post status, surface messages as resources</li>
+  <li><strong>Sentry</strong> — analyse production errors during debugging</li>
+  <li><strong>PostgreSQL</strong> — query data and inspect schemas (read-only role recommended)</li>
+  <li><strong>Figma</strong> — reference design tokens as resources, generate CSS from specs</li>
+  <li><strong>PubMed / FactSet / S&amp;P</strong> — domain data for your Clinical Evidence and DD skills</li>
+</ul>
+
+<pre><code># Install GitHub MCP (HTTP, PAT-authenticated, user scope)
+claude mcp add --scope user --transport http github \
+  https://api.githubcopilot.com/mcp/ \
+  --header "Authorization: Bearer ${GITHUB_TOKEN}"
+
+# Custom stdio server (your own Python tool)
+claude mcp add --transport stdio my-tool -- python3 /path/to/server.py</code></pre>
+
+<h3 style="margin-top:32px;">settings.json power keys</h3>
+
+<pre><code>{
+  "permissions": {
+    "allow": ["Bash:grep", "Bash:find", "Bash:git status", "Read", "Edit"],
+    "deny": ["Bash:rm", "Bash:git push --force", "Bash:sudo"]
+  },
+  "env": {
+    "GITHUB_TOKEN": "ghp_...",
+    "MAX_MCP_OUTPUT_TOKENS": "50000",
+    "ENABLE_TOOL_SEARCH": "auto:5"
+  },
+  "effortLevel": "high",
+  "model": "claude-opus-4-7",
+  "hooks": { /* ... */ }
+}</code></pre>
+
+<div class="callout">
+  <div class="callout-title">5 ambient automations to add today</div>
+  <ol>
+    <li><strong>SessionStart logger</strong> — log every session boot to <code>~/.claude/session-log.jsonl</code> (model, cwd, sessionTitle). Enables "resume last Friday's work" and audit trails.</li>
+    <li><strong>PreToolUse git guard</strong> — deny force-push and hard-reset; prompt only for genuinely dangerous commands.</li>
+    <li><strong>PostToolUse Python linter</strong> — auto-run <code>ruff check --fix</code> and <code>mypy</code> on every <code>.py</code> Write. Catches type errors mid-turn.</li>
+    <li><strong>User-scoped MCP trio</strong> — GitHub + Slack + Sentry at <code>scope: user</code> means every project gets them without per-project setup.</li>
+    <li><strong>Auto-format on Edit/Write</strong> — prettier (JS/TS) or black (Python) on every file edit. Keeps style consistent without per-turn nudges.</li>
+  </ol>
+</div>
+
+<p class="section-intro" style="margin-top:24px;"><a href="research/04_ambient.md">→ Full Haiku-4 deep dive on hooks, MCP, and settings.json</a></p>
+</section>
+
+<!-- ========== SECTION 5: OPTIMIZATION ========== -->
+
+<section id="optimization">
+<h2>5 · Cost &amp; speed optimization patterns</h2>
+<p class="section-intro">The levers, ordered by impact. Pattern-level only — no Tim-specific numbers because we have no live billing telemetry. Sources verified against May 2026 pricing pages.</p>
+
+<div class="opt-pattern">
+  <div class="opt-name"><span class="opt-num">Lever 1</span>Model selection</div>
+  <div class="opt-body">
+    <div class="opt-pays">Three-tier routing (Haiku 70% / Sonnet 20% / Opus 10%) delivers 50–80% cost reduction vs uniform Opus. Sonnet sits 1.2 pts below Opus on SWE-bench at 40% cheaper and 2× faster. Use Haiku for classification, routing, linting, scaffolding; Sonnet for implementation and review; Opus for multi-file refactors, architecture, deep reasoning (GPQA Diamond: Opus 91.3% vs Sonnet 74.1%).</div>
+    <div class="opt-not">Haiku for multi-file refactors or security review — reasoning falls off sharply at distance.</div>
+  </div>
+</div>
+
+<div class="opt-pattern">
+  <div class="opt-name"><span class="opt-num">Lever 2</span>Prompt caching</div>
+  <div class="opt-body">
+    <div class="opt-pays">Cache writes cost 1.25× (5-min) or 2× (1-hour); cache reads 0.1×. Break-even at 1 hit (5-min) or 2 hits (1-hour). On a 100K-token system prompt: $0.625 to write, $0.05 per hit — 92% saving. Cacheable: system prompts, tool definitions, document blocks, tool-use results. Place <code>cache_control</code> on the last stable block.</div>
+    <div class="opt-not">Caching content that changes per-request (timestamps, user input, per-call params) — the hash invalidates and you pay write cost with zero hits.</div>
+  </div>
+</div>
+
+<div class="opt-pattern">
+  <div class="opt-name"><span class="opt-num">Lever 3</span>Batch API</div>
+  <div class="opt-body">
+    <div class="opt-pays">50% off input and output for any workload tolerating 24-hour latency. Stacks with caching to ~95% combined savings. Bulk document review, dataset labeling, model eval, historical analysis, report synthesis. 10M/2M tokens on Sonnet: $60 standard → $30 batch.</div>
+    <div class="opt-not">Realtime chat, interactive agents, gating logic where the next step depends on the previous output.</div>
+  </div>
+</div>
+
+<div class="opt-pattern">
+  <div class="opt-name"><span class="opt-num">Lever 4</span>Parallel fan-out</div>
+  <div class="opt-body">
+    <div class="opt-pays">Independent subagent tasks — five Haiku triage agents at $5 total beat one sequential Opus at $25 per query. Wall-clock latency drops N-fold. Your Phase-1 A/B/C spawn already does this; extend to ingestion (Phases 0.5–0.7) and optional Phase 1.5 specialists.</div>
+    <div class="opt-not">Sequential dependencies — when agent-A's output is agent-B's required input, parallel wastes cost on agents that block waiting.</div>
+  </div>
+</div>
+
+<div class="opt-pattern">
+  <div class="opt-name"><span class="opt-num">Lever 5</span>Context-window consolidation</div>
+  <div class="opt-body">
+    <div class="opt-pays">1M-context Opus 4.7 wins when >100K tokens must stay coherent (legal review across 500 pages, full DD case file). Cache the shared prefix (regulations, methodology) across reviews. One coherent call beats N chunks that lose cross-reference.</div>
+    <div class="opt-not">Independent small documents — separate calls cost less and don't suffer the 1M-context per-token premium. Empirical coherence degrades past ~200K tokens.</div>
+  </div>
+</div>
+
+<div class="opt-pattern">
+  <div class="opt-name"><span class="opt-num">Lever 6</span>Deferred tool loading (ToolSearch)</div>
+  <div class="opt-body">
+    <div class="opt-pays">When 20+ tools live in the session but the model calls 2–3. Schemas hydrate on demand. Critical for skills that should expose every market-data vendor, every internal API, without context bloat.</div>
+    <div class="opt-not">Small tool lists (&lt; 5 tools, &lt; 10K tokens of schemas) — the routing round-trip costs more than the schema savings.</div>
+  </div>
+</div>
+
+<div class="opt-pattern">
+  <div class="opt-name"><span class="opt-num">Lever 7</span>Background execution</div>
+  <div class="opt-body">
+    <div class="opt-pays">Truly parallel subagent orchestration, long-running offline tasks, batch submissions. Notification-driven continuation avoids polling and keeps the main agent responsive. This primer's 7-Haiku fan-out ran in background.</div>
+    <div class="opt-not">When the next routing or gating decision needs the result immediately.</div>
+  </div>
+</div>
+
+<div class="opt-pattern">
+  <div class="opt-name"><span class="opt-num">Lever 8</span>Haiku-as-pre-filter</div>
+  <div class="opt-body">
+    <div class="opt-pays">Route every incoming request through Haiku classification first. Routine queries (60–70% of volume) handled by Haiku; mid-complexity to Sonnet; hard escalated to Opus. On a million-request stream, ~$1K vs full-Opus $5M. Filter overhead amortizes to &lt; 1% on high volume.</div>
+    <div class="opt-not">Low request volume (&lt; 1K/month) — overhead exceeds savings. Or when Haiku misroutes hard tasks back to Opus, doubling cost on the worst cases.</div>
+  </div>
+</div>
+
+<p class="section-intro" style="margin-top:24px;"><a href="research/05_optimization.md">→ Full Haiku-5 report with verified pricing sources</a></p>
+</section>
+
+<!-- ========== SECTION 6: CASE STUDIES ========== -->
+
+<section id="cases">
+<h2>6 · Push-the-limit case studies</h2>
+<p class="section-intro">Twelve production deployments and frontier experiments from Nov 2025 – May 2026. Each verified against a primary URL. Picked for what they reveal about the pattern space.</p>
+
+<div class="case-study">
+  <h4>Ramp · 300+ daily financial agents in production</h4>
+  <div class="case-meta">2026-02 → 2026-04 · fintech · production scale</div>
+  <p class="case-what">Single unified agent with thousands of fine-grained skills (replacing hundreds of specialized agents) automates expense classification, invoice matching, policy enforcement, month-end close — &gt; 99% accuracy across anomaly detection. Procurement and accounting agent fleets shipped in Feb and Apr.</p>
+  <div class="case-primitive"><strong>Primitives:</strong> Skills (thousands, fine-grained, contextually loaded) + MCP integrations for live policy/transaction data + month-over-month iteration. <a href="https://cfotech.news/story/ramp-unveils-ai-accounting-agent-to-speed-month-end-close" target="_blank">source</a></div>
+</div>
+
+<div class="case-study">
+  <h4>Notion · 2.8M custom agents deployed</h4>
+  <div class="case-meta">2026-02 → 2026-05 · workspace tool · 1M+ user-built</div>
+  <p class="case-what">Custom Agents shipped Feb 2026; within two months teams built &gt; 1M agents. Notion runs 2,800 internally — more agents than employees. Customers report 3× faster velocity, 70% cost reduction, ticket resolution from hours to minutes.</p>
+  <div class="case-primitive"><strong>Primitives:</strong> declarative no-code agent definition + tight document/database/view API integration + Slack/Notion bidirectional sync + task routing between agents. <a href="https://www.notion.com/releases/2026-02-24" target="_blank">source</a></div>
+</div>
+
+<div class="case-study">
+  <h4>Zapier · 800+ internal agents, 89% org adoption</h4>
+  <div class="case-meta">2026-Q2 · distributed-org deployment</div>
+  <p class="case-what">Agents across engineering, marketing, customer success, HR. 10× productivity on specific workflows. Continuous background execution via Zapier's scheduled-execution infra.</p>
+  <div class="case-primitive"><strong>Primitives:</strong> MCP integration + Claude Skills as pattern libraries + background task execution + Slack/GitHub/CRM API wiring. <a href="https://claude.com/customers/zapier" target="_blank">source</a></div>
+</div>
+
+<div class="case-study">
+  <h4>Anthropic · Agent Skills three-tier architecture</h4>
+  <div class="case-meta">2026-Q2 · engineering blog · architecture pattern</div>
+  <p class="case-what">Three-tier capability bundling: (1) YAML metadata + description, (2) full SKILL.md loaded on relevance, (3) contextually-loaded reference assets (PDFs, scripts, forms). PDF skill case study demonstrates capability expansion without system-prompt bloat.</p>
+  <div class="case-primitive"><strong>Primitives:</strong> dynamic YAML discovery + code-execution sandbox (scripts run without loading into context) + progressive disclosure + evaluation-first methodology. <a href="https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills" target="_blank">source</a></div>
+</div>
+
+<div class="case-study">
+  <h4>Anthropic · Long-running multi-session agent harness</h4>
+  <div class="case-meta">2026-Q2 · engineering pattern</div>
+  <p class="case-what">Two-phase architecture for agents that span multi-day work: (1) Initializer creates 200+ test cases, feature list JSON, and <code>init.sh</code>, commits baseline; (2) Coding Agent in subsequent sessions reads git history + progress files as memory, picks one feature, runs E2E tests via browser automation, commits incrementally. Git + structured progress files <em>are</em> the agent's memory across context windows.</p>
+  <div class="case-primitive"><strong>Primitives:</strong> 1-hour prompt-cache TTL + git history as deterministic context + Puppeteer for E2E validation + strongly-worded guards ("It is unacceptable to edit tests"). <a href="https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents" target="_blank">source</a></div>
+</div>
+
+<div class="case-study">
+  <h4>Claude Managed Agents · production launch</h4>
+  <div class="case-meta">2026-04-08 · cloud platform</div>
+  <p class="case-what">Cloud-hosted agentic service. Early adopters (Notion, Rakuten, Asana) ship production agents 10× faster than self-hosted. Stateful sessions, persistent filesystems, secure containers, multi-minute → multi-hour task execution.</p>
+  <div class="case-primitive"><strong>Primitives:</strong> server-managed session persistence + uniform harness interface stable across model updates + rate limiting + cost controls + background task continuation across multiple LLM calls. <a href="https://www.anthropic.com/news/managing-agents" target="_blank">source</a></div>
+</div>
+
+<div class="case-study">
+  <h4>Anthropic · 10-agent financial-services template suite</h4>
+  <div class="case-meta">2026-05 · vertical templates</div>
+  <p class="case-what">10 production-ready agents for pitchbook gen, KYC screening, month-end close, regulatory submissions, market research, risk assessment. Ship as Claude Code plugins, Cowork apps, or Managed Agent cookbooks. Pre-built MCP servers for FactSet, S&amp;P Capital IQ, MSCI, PitchBook, Morningstar, LSEG, Daloopa.</p>
+  <div class="case-primitive"><strong>Primitives:</strong> templated agent configs + pre-built MCP servers per vendor + prompt caching for multi-call sessions + PwC partnership for compliance/auditability + governed access controls. <a href="https://www.anthropic.com/news/finance-agents" target="_blank">source</a></div>
+</div>
+
+<div class="case-study">
+  <h4>GitHub · 100+ subagent libraries cross-framework</h4>
+  <div class="case-meta">2026-Q1 → Q2 · open-source ecosystem</div>
+  <p class="case-what">wshobson/agents (82 plugins, 191 agents, 155 skills, 102 commands) — now consumed natively by Cursor, Codex CLI, Gemini CLI, OpenCode. VoltAgent/awesome-claude-code-subagents (100+ specialised subagents). awesome-claude-code-toolkit (#1 trending Feb 2026) aggregates 135 agents + 35 skills + 42 commands + 176+ plugins.</p>
+  <div class="case-primitive"><strong>Primitives:</strong> SKILL.md as cross-framework convention + reusable subagent prompt format + GitHub Actions hooks for execution + community evaluation rubrics. <a href="https://github.com/wshobson/agents" target="_blank">source</a></div>
+</div>
+
+<div class="case-study">
+  <h4>X/Twitter algorithm scoring subagent</h4>
+  <div class="case-meta">2026-Q1 · solo developer · 4-day build</div>
+  <p class="case-what">Developer reverse-engineered the X algorithm source over 4 days, built a Claude Code subagent that reads a draft tweet and scores it against algorithmic engagement patterns (reach, virality, platform friction) before posting. Wraps domain expertise (social-media strategy + algorithm behaviour) as a reusable subagent.</p>
+  <div class="case-primitive"><strong>Primitives:</strong> Claude Code subagent (reusable prompt + skill bundle) + MCP server for Twitter API (Composio) + multi-page algorithm doc in context + iterative refinement loop. <a href="https://dev.to/septim_labs/i-read-the-x-twitter-algorithm-source-for-4-days-and-built-a-claude-code-sub-agent-that-scores-1ipb" target="_blank">source</a></div>
+</div>
+
+<div class="case-study">
+  <h4>Ruflo · community multi-agent orchestration platform</h4>
+  <div class="case-meta">2026-Q1 → Q2 · open-source · 100K+ MAU</div>
+  <p class="case-what">Routes tasks across a swarm: simple ops (&lt; 1ms) to WebAssembly transforms, mid-complexity to Haiku/Sonnet, hard problems to Opus with multi-agent recursion. 250% improvement in effective token budget; 30–50% cost reduction. 100,000+ MAU across 80+ countries.</p>
+  <div class="case-primitive"><strong>Primitives:</strong> heuristic-based triage before LLM invocation + MCP server architecture for plugin agents + structured shared context + recursive sub-agent spawning + WebAssembly tier for zero-LLM-cost deterministic ops. <a href="https://github.com/ruvnet/ruflo" target="_blank">source</a></div>
+</div>
+
+<div class="case-study">
+  <h4>Prompt caching as silent backbone (and TTL shock)</h4>
+  <div class="case-meta">2026-01 baseline → 2026-03 TTL change → 2026-05 AWS counter</div>
+  <p class="case-what">Anthropic reduced default cache TTL from 60 minutes (Jan) to 5 minutes (Mar), increasing real-world costs 30–60% for production agentic deployments. AWS Bedrock responded by offering 1-hour TTL as an option. The episode revealed how infrastructure decisions at Anthropic ripple through the entire ecosystem.</p>
+  <div class="case-primitive"><strong>Primitives:</strong> prefix-based cache matching + cost-accounting transparency + ecosystem competition (AWS counter-positioning on TTL). <a href="https://claude.com/blog/lessons-from-building-claude-code-prompt-caching-is-everything" target="_blank">source</a></div>
+</div>
+
+<div class="case-study">
+  <h4>Ramp procurement agent fleet</h4>
+  <div class="case-meta">2026-04 · purpose-built agent swarm</div>
+  <p class="case-what">Specialised agents triage employee requests, source vendors via web search + internal databases, review contracts against policy templates, flag compliance issues. Communicate via a shared task queue; escalate ambiguous decisions to humans. Processing time from days to hours.</p>
+  <div class="case-primitive"><strong>Primitives:</strong> multi-agent orchestration (one agent per workflow step) + shared memory across steps + human-in-the-loop escalation + spend-management API integration + web search for vendor discovery. <a href="https://www.prnewswire.com/news-releases/ramp-launches-fleet-of-ai-agents-across-its-procurement-platform-302756657.html" target="_blank">source</a></div>
+</div>
+
+<div class="callout">
+  <div class="callout-title">Patterns repeating across the case studies</div>
+  <ol>
+    <li><strong>From many specialized agents to one agent with thousands of skills.</strong> Ramp's pivot reflects a broader shift — agents are more navigable when skills are fine-grained, discoverable, and contextually loaded rather than burning context on static tool lists.</li>
+    <li><strong>Prompt caching is the silent multiplier.</strong> Every long-running production system depends on it. The March 2026 TTL change rippled through deployments, AWS competed on TTL, documentation of cache behaviour became critical.</li>
+    <li><strong>Multi-session architecture requires deterministic memory.</strong> Agents spanning multiple context windows use git history, structured progress files, and JSON feature lists as ground truth — not embeddings or chat history.</li>
+    <li><strong>Skills are cross-framework currency.</strong> SKILL.md works in Claude Code, Cursor, Codex, Gemini CLI. Standardised YAML metadata + shared evaluation rubrics make agent libraries portable.</li>
+    <li><strong>Production agents need human-in-the-loop escalation.</strong> Every large deployment includes an escalation path for ambiguous decisions. Not a limitation — a design choice that prevents silent failure.</li>
+    <li><strong>MCP is the production-data layer.</strong> 100M → 300M MCP downloads in 2025 reflect this: agents are only useful when they can read and write real systems.</li>
+  </ol>
+</div>
+
+<p class="section-intro" style="margin-top:24px;"><a href="research/06_case_studies.md">→ Full Haiku-6 report with 12 case studies</a></p>
+</section>
+
+<!-- ========== SECTION 7: AUDIT ========== -->
+
+<section id="audit">
+<h2>7 · Your existing pipelines, audited</h2>
+<p class="section-intro">Haiku-7 read all five SKILL.md files and surfaced three things per skill: where parallelism could be unlocked, where Opus could downgrade without quality loss, and where a phase could be skipped or merged. Pattern-level recommendations only — no diffs. The blind validator is explicitly off-limits everywhere.</p>
+
+<div class="audit-block">
+  <h3>/48-dd-multi-agent</h3>
+  <div class="audit-item"><strong>(a) Parallelism unlock:</strong> Phases 0.5, 0.6, 0.7 run sequentially despite zero interdependencies — interview synth, data fetcher, ingestion waves are independent. Collapse into a single parallel spawn. Saves ~3–5 min wall-clock per engagement.</div>
+  <div class="audit-item"><strong>(b) Model downgrade:</strong> Phase 0 calls Opus with max thinking for scope/brand/mode setup — mechanical work. Downgrade to Sonnet. Reserve Opus for Phase 2a/2b synthesis and Phase 3 validation (load-bearing).</div>
+  <div class="audit-item"><strong>(c) Phase skip/merge:</strong> Phase 0.6 and 0.7 both produce lightweight JSON consumed immediately in Phase 1. Consider merging into a single Data Fetcher with optional customer-context sub-task gated by engagement flag.</div>
+</div>
+
+<div class="audit-block">
+  <h3>/42-askeras-ai-enablement</h3>
+  <div class="audit-item"><strong>(a) Parallelism unlock:</strong> Phase 0.5 ingestion and Phase 0.7 data fetcher run sequentially, but feed different knowledge pools and have zero mutual dependency — spawn both in the same message. Phase 1.5 specialists (EU AI Act, Vendor TCO, Sector benchmark) wait for Phase 1a/b/c to finish, but only depend on Phase 0 — start them in a wave-2 message alongside Phase 1.</div>
+  <div class="audit-item"><strong>(b) Model downgrade:</strong> Phase 0 (orchestrator model, mechanical setup) → Sonnet. Phase 2a fit-matrix and Phase 2b wave-plan stay Opus (genuine synthesis + scenario stress-testing). Validator never downgrades.</div>
+  <div class="audit-item"><strong>(c) Phase skip/merge:</strong> For non-regulator sides, Phase 1.5 Vendor TCO and Sector benchmark are truly optional — document the condition so they can be skipped for lean engagements without orchestrator overhead.</div>
+</div>
+
+<div class="audit-block">
+  <h3>/49-multi-agent-science</h3>
+  <div class="audit-item"><strong>(a) Parallelism unlock:</strong> Phase 0.5 ingestion blocks Phase 1 — fire it as async/fire-and-forget while orchestrator prefills Phase 1a/b/c prompts in parallel, then await both. Phase 1 starts earlier and overlaps 0.5's runtime.</div>
+  <div class="audit-item"><strong>(b) Model downgrade:</strong> Model assignment is already near-optimal for reasoning load. Phase 0 Opus + max thinking is justified (it shapes all downstream work). Phase 1a/b/c Sonnet is correct. Phases 2a/2b and 3 (reviewer) and 4 (synthesis) all earn Opus + max thinking. No downgrades available without quality cost.</div>
+  <div class="audit-item"><strong>(c) Phase skip/merge:</strong> Phase 0.5 exists for messy inputs. For a clean drop (polished preprint + data summary), gate it explicitly — skip 0.5 when <code>inputs/</code> has &lt; 5 files. Saves 30–60 sec on clean engagements.</div>
+</div>
+
+<div class="audit-block">
+  <h3>/78-multi-agent-qc</h3>
+  <div class="audit-item"><strong>(a) Parallelism unlock:</strong> Already maximised. Fan-out step 1 dispatches one Sonnet Explore per nav hub node in a single message; verification step 3 dispatches one Opus verifier per theme group, also single-message. No additional parallelism available within this topology.</div>
+  <div class="audit-item"><strong>(b) Model downgrade:</strong> Correct as-is. Sonnet for breadth, Opus only for verification ("a false-positive bug report is costly; pay for proof exactly where it matters"). Confirm theme-group aggregation is aggressive enough to avoid N Opus agents for N claims — for 100+ findings, target 5–8 verification agents.</div>
+  <div class="audit-item"><strong>(c) Phase skip/merge:</strong> The synchronous triage between fan-out and verification adds a prose round-trip. For large engagements, consider collapsing triage into verification — let the Opus verifier consume raw Sonnet findings and emit triage+verification in one pass. Trade-off: longer Opus prompt vs one fewer round-trip.</div>
+</div>
+
+<div class="audit-block">
+  <h3>/71-llm-coding-radar</h3>
+  <div class="audit-item"><strong>(a) Parallelism unlock:</strong> Already maximised. Six cluster agents (Anthropic, OpenAI, Google, open-source, IDE/MCP, research) spawn in a single message. No additional fan-out available.</div>
+  <div class="audit-item"><strong>(b) Model downgrade:</strong> Fan-out agents use <code>subagent_type=general-purpose</code> with no explicit model. Confirm Sonnet, not Opus — for curation/research (WebSearch + WebFetch), Sonnet is sufficient. If accidentally Opus, downgrade.</div>
+  <div class="audit-item"><strong>(c) Phase skip/merge:</strong> For high-velocity weeks (100+ items), have one agent do synthesis directly from raw fan-out results, skipping the separate triage pass. 30 sec vs 3–5 min. Document as an option, not the default.</div>
+</div>
+
+<div class="callout">
+  <div class="callout-title">Cross-skill patterns to standardise</div>
+  <ol>
+    <li><strong>Phase-0 Opus is overkill across DD / Askera / Science.</strong> "Restate target name, set env vars, confirm font choice" is mechanical. Push Phase-0 to Sonnet; reserve Opus for Phase 2a onward. Estimated ~15–20% reduction in Opus token budget per engagement.</li>
+    <li><strong>Sequential Phase 0.X across DD / Askera is independent work.</strong> Single-message parallel spawn saves 2–5 min per engagement. Science Phase 0.5 should gate on input messiness.</li>
+    <li><strong>Blind validators are load-bearing — never downgrade them.</strong> Three skills run Opus + max thinking for the Phase 3 validator; this is the single most consequential Opus call in each pipeline.</li>
+    <li><strong>JSON schema duplication across DD / Askera / Science.</strong> facts / assumptions / interpretations / key_risks / open_questions / confidence — nearly identical. Centralise in <code>_assets/schemas/multi-agent-shared.schema.json</code>; validate all three against it.</li>
+    <li><strong>Ingestion as optional gate.</strong> Science already has this candidate; DD and Askera could adopt the same pattern. Skip Phase 0.5 for thin drops; spawn async when present.</li>
+  </ol>
+</div>
+
+<p class="section-intro" style="margin-top:24px;"><a href="research/07_audit.md">→ Full Haiku-7 audit with per-phase references</a></p>
+</section>
+
+<!-- ========== SECTION 8: CHEATSHEET ========== -->
+
+<section id="cheatsheet" class="cheatsheet">
+<h2>8 · Frontier cheatsheet</h2>
+<p class="section-intro">When you want edge case X, reach for primitive Y + topology Z. Synthesized from all seven research streams.</p>
+
+<div class="cheat-row">
+  <div class="want">I want a DD pipeline that survives my laptop sleeping for the whole 5-day engagement.</div>
+  <div class="reach"><strong>Managed Agents</strong> (cloud-hosted sessions) + <strong>Long-running with checkpoints topology</strong> + <strong>1-hour prompt cache</strong> for the firm-context prefix.</div>
+</div>
+
+<div class="cheat-row">
+  <div class="want">I want every clinical claim my Underwriting skill makes to be auto-cited to the source PDF page.</div>
+  <div class="reach"><strong>Files API</strong> (upload PDFs once) + <strong>Citations API</strong> (per-block attribution) + <strong>Structured Output</strong> (JSON schema with citation fields).</div>
+</div>
+
+<div class="cheat-row">
+  <div class="want">I want <code>/71-llm-coding-radar</code> to run every Monday at 06:00 without my laptop being open.</div>
+  <div class="reach"><strong>CronCreate</strong> (scheduled remote agents) + <strong>Managed Agents</strong> (server-side execution) + existing radar fan-out.</div>
+</div>
+
+<div class="cheat-row">
+  <div class="want">I want a Science manuscript audit where the reviewer can spawn sub-reviewers mid-run when a claim warrants deeper verification.</div>
+  <div class="reach"><strong>Recursive sub-agents topology</strong> + <strong>Background tasks</strong> (so the parent doesn't block) + <strong>Tool Search</strong> (so the sub-reviewer can hydrate the right MCP tools on demand).</div>
+</div>
+
+<div class="cheat-row">
+  <div class="want">I want to automate a manual SaaS workflow — say, bulk uploading underwriting decisions to the Allianz portal.</div>
+  <div class="reach"><strong>Computer Use</strong> (Opus 4.7 native pixel coords) + <strong>Hub-spoke topology</strong> (one coordinator dispatches per-record agents) + <strong>Background tasks</strong>.</div>
+</div>
+
+<div class="cheat-row">
+  <div class="want">I want overnight processing of 1,000 underwriting case files at minimum cost.</div>
+  <div class="reach"><strong>Batch API</strong> (50% discount, 24h latency) + <strong>Prompt caching</strong> (the shared methodology prefix) + <strong>Haiku-as-pre-filter</strong> (route only ambiguous cases to Sonnet/Opus).</div>
+</div>
+
+<div class="cheat-row">
+  <div class="want">I want the highest-quality recommendation on a controversial DD call.</div>
+  <div class="reach"><strong>Competitive ensembles topology</strong> (bullish / bearish / contrarian Opus instances) + a fourth Opus <strong>judge</strong>. N+1 cost for verified strongest argument.</div>
+</div>
+
+<div class="cheat-row">
+  <div class="want">I want my DD pipeline's Phase 0.5 / 0.6 / 0.7 ingestion to stop adding 3–5 minutes of wall-clock per engagement.</div>
+  <div class="reach"><strong>Parallel fan-out</strong> in a single message (the audit's #2 cross-skill pattern). No new primitives needed — just collapse three sequential spawns into one.</div>
+</div>
+
+<div class="cheat-row">
+  <div class="want">I want a multi-day pipeline where parser, classifier, enrichment, and validator agents share state durably and the whole workflow is pause/resume/replay-able.</div>
+  <div class="reach"><strong>MCP-mediated cross-agent state</strong> (versioned event bus) + <strong>Long-running checkpoints</strong> + <strong>Managed Agents</strong> for the cloud-hosted persistence.</div>
+</div>
+
+<div class="cheat-row">
+  <div class="want">I want to stop accidentally running <code>git push --force</code> or accidentally reading <code>.env</code> from a target's codebase.</div>
+  <div class="reach"><strong>PreToolUse hook</strong> (denial logic) + <strong>Permission deny rules</strong> in settings.json (glob/regex on file patterns). Zero AI judgment — deterministic enforcement.</div>
+</div>
+
+<div class="cheat-row">
+  <div class="want">I want every Phase-1/2/3 JSON artefact in my skills to be parseable on the first try, every time.</div>
+  <div class="reach"><strong>Structured Output</strong> with JSON schema enforcement. Becomes a compiler guarantee, not a prompting guarantee. Removes "if parse fails then retry" logic from every skill.</div>
+</div>
+
+<div class="cheat-row">
+  <div class="want">I want my next Science skill to learn from its own past sessions — patterns of what worked, what got revised.</div>
+  <div class="reach"><strong>Managed Agents "dreaming"</strong> (self-improving memory, May 2026) + <strong>file-system memory</strong> + a Stop hook that writes structured retro notes to memory after every run.</div>
+</div>
+
+</section>
+
+<footer>
+  <p><strong>Provenance.</strong> This primer was produced 2026-05-23 by Opus 4.7 synthesizing 7 Haiku 4.5 research agents running in parallel via <code>Agent</code> calls in a single message. Each Haiku wrote its findings to <code>agentic_systems/research/</code>; this page is the only synthesis pass. Total wall-clock from spawn to render: ~6 minutes. Architecture is the demonstration.</p>
+  <p class="research-links">
+    Source reports:
+    <a href="research/01_primitives.md">01_primitives.md</a> ·
+    <a href="research/02_topologies.md">02_topologies.md</a> ·
+    <a href="research/03_shipments.md">03_shipments.md</a> ·
+    <a href="research/04_ambient.md">04_ambient.md</a> ·
+    <a href="research/05_optimization.md">05_optimization.md</a> ·
+    <a href="research/06_case_studies.md">06_case_studies.md</a> ·
+    <a href="research/07_audit.md">07_audit.md</a>
+  </p>
+</footer>
+
+</div>
+
+<script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'base',
+  themeVariables: {
+    background: '#FCFAF7',
+    primaryColor: '#F5E8DC',
+    primaryTextColor: '#1F1F1F',
+    primaryBorderColor: '#C4794A',
+    secondaryColor: '#E8D4C0',
+    secondaryTextColor: '#1F1F1F',
+    secondaryBorderColor: '#C4794A',
+    tertiaryColor: '#FFFFFF',
+    tertiaryTextColor: '#1F1F1F',
+    tertiaryBorderColor: '#C4794A',
+    lineColor: '#6B3A1C',
+    edgeLabelBackground: '#FCFAF7',
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '14px',
+    nodeBorder: '#C4794A',
+    clusterBkg: '#FAF9F7',
+    clusterBorder: '#C4794A',
+    titleColor: '#6B3A1C'
+  }
+});
+</script>
+
+</body>
+</html>

@@ -104,6 +104,14 @@ nodes:
     reads_for: "LLM TCO, pricing comparisons, Monte Carlo sensitivity, ROI modelling"
     edges: [ai-deployment-readiness, llm-eval]
 
+  - id: agentic-systems
+    title: Agentic Frontier Primer
+    group: "AI deployment strategy"
+    globs: ["agentic_systems/**"]
+    summary: Briefing on the Claude agentic-systems frontier — primitives, topologies, Anthropic shipments, ambient automation, optimization patterns, push-the-limit case studies, and a candid audit of the existing Askeras orchestrator skills. Produced by 7 Haiku 4.5 subagents fanned out in parallel, synthesized by Opus 4.7 — the architecture is the demonstration.
+    reads_for: "agentic primitives map, topology patterns, ambient automation, cost/speed optimization, Askeras orchestrator audit"
+    edges: [company_askeras, ai-deployment-readiness, llm-cost-calculator, multi-agent-dd]
+
   # --- Outbreak dashboards --------------------------------------------------
   - id: ebola
     title: Ebola 2026 Tracker

@@ -10,6 +10,8 @@ function renderMeta(data) {
   document.getElementById('last-updated').textContent = 'Updated ' + data.last_updated;
   var r = document.getElementById('methodology-reviewed');
   if (r) r.textContent = data.last_updated;
+  var f = document.getElementById('footer-updated');
+  if (f) f.textContent = 'Last updated: ' + data.last_updated;
 }
 
 var sevLabels = { alert: 'Alert', advisory: 'Advisory', update: 'Update', background: 'Info' };

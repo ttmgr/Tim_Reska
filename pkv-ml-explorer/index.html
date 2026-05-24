@@ -3022,7 +3022,7 @@ const LSTMModule = {
     el.innerHTML = steps.map(s => `<div class="timeline-cell${s.isEvent ? ' event-cell' : ''}">
       <div class="cell-year">${s.year} &middot; t=${s.t}</div>
       <div style="font-size:0.75rem;color:var(--text-secondary)">V:${s.v} BMI:${s.bmi} KH:${s.kh}</div>
-      ${s.isEvent ? `<div style="font-size:0.72rem;color:var(--accent-ag);font-weight:600;margin:4px 0">⚡ ${s.eventName}</div>` : ''}
+      ${s.isEvent ? `<div style="font-size:0.72rem;color:var(--accent-ag);font-weight:600;margin:4px 0">EVENT &middot; ${s.eventName}</div>` : ''}
       <div class="gate-bar-wrap"><span style="min-width:14px;color:var(--accent-lstm)">f</span><div class="gate-bar-track"><div class="gate-bar-fill" style="width:${s.forget*100}%;background:var(--accent-lstm)"></div></div><span>${(s.forget).toFixed(2)}</span></div>
       <div class="gate-bar-wrap"><span style="min-width:14px;color:var(--accent-ae)">i</span><div class="gate-bar-track"><div class="gate-bar-fill" style="width:${s.input*100}%;background:var(--accent-ae)"></div></div><span>${(s.input).toFixed(2)}</span></div>
       <div class="gate-bar-wrap"><span style="min-width:14px;color:var(--accent-sa)">o</span><div class="gate-bar-track"><div class="gate-bar-fill" style="width:${s.output*100}%;background:var(--accent-sa)"></div></div><span>${(s.output).toFixed(2)}</span></div>
@@ -4195,22 +4195,22 @@ const SAModule = {
    ═══════════════════════════════════════════ */
 const AgentModule = {
   agents: [
-    { id:'orch', icon:'🧠', name:'ORCHESTRATOR', type:'PLANNER · ROUTER', color:'var(--accent-ag)',
+    { id:'orch', icon:'OR', name:'ORCHESTRATOR', type:'PLANNER · ROUTER', color:'var(--accent-ag)',
       tools:['task_decompose','agent_dispatch','result_merge','memory_write'],
       desc:'Decomposes actuarial tasks into a directed sub-task graph. Routes each node to optimal sub-agents, monitors completion, handles failures via retry, synthesises final output.' },
-    { id:'rf', icon:'🌲', name:'RF AGENT', type:'RISK CLASSIFIER', color:'var(--accent-rf)',
+    { id:'rf', icon:'RF', name:'RF AGENT', type:'RISK CLASSIFIER', color:'var(--accent-rf)',
       tools:['python_exec','db_query','feature_store','shap_explain'],
       desc:'Applies the Random Forest classification pipeline to new applicant profiles. Runs sklearn inference, queries the policy database, returns structured risk report with SHAP explanation.' },
-    { id:'lstm', icon:'⚡', name:'LSTM AGENT', type:'SEQUENCE MODELLER', color:'var(--accent-lstm)',
+    { id:'lstm', icon:'LS', name:'LSTM AGENT', type:'SEQUENCE MODELLER', color:'var(--accent-lstm)',
       tools:['ts_db_query','lstm_inference','trend_detect','alert_trigger'],
       desc:'Retrieves longitudinal patient history and runs LSTM inference to generate 12-, 24-, and 36-month premium trajectories with confidence intervals.' },
-    { id:'ae', icon:'🔍', name:'AE AGENT', type:'ANOMALY DETECTOR', color:'var(--accent-ae)',
+    { id:'ae', icon:'AE', name:'AE AGENT', type:'ANOMALY DETECTOR', color:'var(--accent-ae)',
       tools:['ae_inference','threshold_adapt','fraud_queue','audit_log'],
       desc:'Screens all active policy profiles daily. Profiles exceeding adaptive threshold τ are queued for fraud investigation and flagged in the audit log.' },
-    { id:'surv', icon:'📉', name:'SURV AGENT', type:'CHURN ANALYST', color:'var(--accent-sa)',
+    { id:'surv', icon:'SA', name:'SURV AGENT', type:'CHURN ANALYST', color:'var(--accent-sa)',
       tools:['cox_fit','km_estimate','retention_api','email_alert'],
       desc:'Fits the Cox PH model on the current cohort, estimates per-policyholder churn hazard ratios, triggers retention workflow for high-risk contracts approaching renewal.' },
-    { id:'report', icon:'📋', name:'REPORT AGENT', type:'NARRATIVE GENERATOR', color:'#9B9A9F',
+    { id:'report', icon:'RP', name:'REPORT AGENT', type:'NARRATIVE GENERATOR', color:'#9B9A9F',
       tools:['pdf_render','chart_generate','audit_trail','email_dispatch'],
       desc:'Consumes structured outputs from all sub-agents and generates a BaFin-compliant actuarial report: executive summary, risk heatmap, statistical annexes, audit trail.' },
   ],
@@ -4236,7 +4236,7 @@ const AgentModule = {
         { agent:'lstm', type:'thinking', text:'Running LSTM trajectory forecast...', code:'lstm.predict(history_48mo)\n# hidden_dim: 128\n# cell_state: 1.847\n# seq_len: 48', result:'12-mo premium: €548 ± 23\n24-mo: €601 ± 41\n36-mo: €668 ± 67\nTrend: STEIGEND (+21.9%)', delay:1600 },
         { agent:'ae', type:'thinking', text:'Running anomaly screening...', code:'ae.reconstruct(x_weber)\n# latent_z: [0.412, 0.589]\n# recon_loss: 0.089\n# threshold τ: 0.250', result:'Reconstruction MSE: 0.089\nStatus: NORMAL (below τ=0.25)\nNo anomaly flag.', delay:1600 },
         { agent:'orch', type:'action', text:'All sub-agents completed. Aggregating outputs. Dispatching to REPORT_AGENT.', delay:900 },
-        { agent:'report', type:'thinking', text:'Generating actuarial report...', code:'render_report(\n  risk="MITTEL",\n  premium_36mo=668,\n  anomaly=False,\n  format="PDF/A-3"\n)', result:'Report: Weber_K_2026-04.pdf\nPages: 12 | Audit trail: ✓\nDispatched: underwriting@pkv.de', delay:1600 },
+        { agent:'report', type:'thinking', text:'Generating actuarial report...', code:'render_report(\n  risk="MITTEL",\n  premium_36mo=668,\n  anomaly=False,\n  format="PDF/A-3"\n)', result:'Report: Weber_K_2026-04.pdf\nPages: 12 | Audit trail: OK\nDispatched: underwriting@pkv.de', delay:1600 },
         { agent:'orch', type:'action', text:'Task complete. Accept at Komfort tarif. Flag for review at month 12. No fraud. Decision logged.', delay:900 },
       ]},
       { name: 'Portfolio Churn: Retention Intervention', steps: [
@@ -4244,11 +4244,11 @@ const AgentModule = {
         { agent:'surv', type:'thinking', text:'Fitting Cox PH model on full portfolio...', code:'cox.fit(cohort_18450)\n# concordance: 0.74\n# log-likelihood: -4821.3\n# n_events: 1,203', result:'High-risk (HR>2.0): 847\nMedium-risk (1.2–2.0): 2,341\nAt renewal ≤60d: 312', delay:1600 },
         { agent:'lstm', type:'thinking', text:'Batch premium trajectory for renewal cohort...', code:'lstm.batch_predict(renewal_312)\n# mean premium Δ: +8.3%\n# shock cases (>15%): 41', result:'Premium shock policies: 41\nMean trajectory: +8.3%/yr\nHighest Δ: +34% (Policy 7,291)', delay:1600 },
         { agent:'orch', type:'action', text:'Cross-referencing survival risk with premium shocks. 28 policies meet joint criteria: HR>1.8 AND Δ>12%. Triggering retention workflow.', delay:1600 },
-        { agent:'report', type:'thinking', text:'Creating intervention cases...', code:'retention_api.create_cases(28)\nemail.dispatch(team="retention")', result:'28 intervention cases created\nEst. retention value: €184,000/yr\nEmail: ✓', delay:900 },
+        { agent:'report', type:'thinking', text:'Creating intervention cases...', code:'retention_api.create_cases(28)\nemail.dispatch(team="retention")', result:'28 intervention cases created\nEst. retention value: €184,000/yr\nEmail: OK', delay:900 },
       ]},
       { name: 'Fraud Alert: Deep Anomaly Investigation', steps: [
         { agent:'orch', type:'thinking', text:'Fraud alert from AE_AGENT daily screening. Policy 9,847 (Fuchs, A.) flagged: MSE=0.506. Initiating deep investigation.', delay:1600 },
-        { agent:'ae', type:'thinking', text:'Running detailed anomaly explanation...', code:'ae.explain(policy_9847)\n# z: [-1.84, 2.31] — off-manifold\n# mse: 0.506 > τ=0.250', result:'KH-Aufenthalte: err=0.31 ⚠\nBMI: err=0.18 ⚠\nProfile inconsistency: EXTREME', delay:1600 },
+        { agent:'ae', type:'thinking', text:'Running detailed anomaly explanation...', code:'ae.explain(policy_9847)\n# z: [-1.84, 2.31] — off-manifold\n# mse: 0.506 > τ=0.250', result:'KH-Aufenthalte: err=0.31 [WARN]\nBMI: err=0.18 [WARN]\nProfile inconsistency: EXTREME', delay:1600 },
         { agent:'lstm', type:'thinking', text:'Running temporal anomaly analysis...', code:'lstm.anomaly_temporal(policy_9847)\n# claim spike month 31\n# pattern break: p<0.001', result:'Month 31: KH spike +400%\nBilling: irregular\nCross-insurer check: FLAGGED', delay:1600 },
         { agent:'orch', type:'action', text:'Escalating to fraud queue with HIGH severity.', code:'fraud_queue.escalate(9847, severity="HIGH")\naudit_log.write(action="SUSPEND")', delay:900 },
         { agent:'report', type:'thinking', text:'Generating fraud dossier...', code:'pdf_render(fraud_dossier_9847)', result:'Dossier: FraudInvestigation_9847.pdf\nSeverity: HIGH\nBilling: SUSPENDED', delay:1600 },
@@ -4258,14 +4258,14 @@ const AgentModule = {
         { agent:'lstm', type:'thinking', text:'Batch forecasting cost trajectories...', code:'lstm.batch_forecast(n=18450, horizon=12)\n# mean cost Δ: +6.8%\n# p95: +14.2%', result:'Mean Δ: +6.8%\nMedical inflation: +4.1%\nAge factor: +2.7%', delay:1600 },
         { agent:'surv', type:'thinking', text:'Simulating lapse elasticity...', code:'cox.simulate_elasticity(delta_pct=5)\n# Basis lapse: +3.2%\n# Komfort: +1.8%', result:'Basis: +3.2% lapse/5%Δ\nKomfort: +1.8%\nPremium: +0.9%', delay:1600 },
         { agent:'orch', type:'action', text:'Optimising adjustments. Recommended: Basis +5.5%, Komfort +7.2%, Premium +8.9%. Sending to REPORT_AGENT for §203 notification package.', delay:1600 },
-        { agent:'report', type:'thinking', text:'Generating §203 VVG notification letters...', code:'pdf_render(notifications=18450, format="§203_VVG")', result:'18,450 letters generated\n§203 compliant: ✓\nBaFin notification: filed', delay:1600 },
+        { agent:'report', type:'thinking', text:'Generating §203 VVG notification letters...', code:'pdf_render(notifications=18450, format="§203_VVG")', result:'18,450 letters generated\n§203 compliant: OK\nBaFin notification: filed', delay:1600 },
       ]},
       { name: 'Regulatory Compliance Audit (BaFin)', steps: [
         { agent:'orch', type:'thinking', text:'BaFin audit request. Scope: §203 VVG documentation 2022–2024. Coordinating audit extraction and compliance analysis.', delay:1600 },
-        { agent:'rf', type:'thinking', text:'Querying reclassification records...', code:'db_query(\n  scope="reclassifications",\n  years=[2022,2023,2024]\n)\n# records: 4,821', result:'Records: 4,821\nModel docs: 100% ✓\nActuary sign-off: 97.3% ✓\nGap: 130 missing', delay:1600 },
-        { agent:'surv', type:'thinking', text:'Running compliance check...', code:'compliance_check(regulation="§203_VVG")', result:'Premium adjustments: 3 cycles ✓\nActuarial certs: 3/3 ✓\nPublic disclosure: 3/3 ✓', delay:1600 },
+        { agent:'rf', type:'thinking', text:'Querying reclassification records...', code:'db_query(\n  scope="reclassifications",\n  years=[2022,2023,2024]\n)\n# records: 4,821', result:'Records: 4,821\nModel docs: 100% OK\nActuary sign-off: 97.3% OK\nGap: 130 missing', delay:1600 },
+        { agent:'surv', type:'thinking', text:'Running compliance check...', code:'compliance_check(regulation="§203_VVG")', result:'Premium adjustments: 3 cycles OK\nActuarial certs: 3/3 OK\nPublic disclosure: 3/3 OK', delay:1600 },
         { agent:'orch', type:'action', text:'Flagging 130 records with missing sign-off. Notifying compliance officer.', code:'audit_log.flag(records=130, severity="MEDIUM")\ncompliance.notify(officer="Dr. Maier")', delay:900 },
-        { agent:'report', type:'thinking', text:'Generating BaFin response document...', code:'pdf_render(bafin_response, pages=47)', result:'BaFin Response: 47 pages\nGap remediation: included\nFiled: BaFin portal ✓', delay:1600 },
+        { agent:'report', type:'thinking', text:'Generating BaFin response document...', code:'pdf_render(bafin_response, pages=47)', result:'BaFin Response: 47 pages\nGap remediation: included\nFiled: BaFin portal OK', delay:1600 },
       ]},
     ];
   },
@@ -4323,12 +4323,12 @@ const AgentModule = {
 
     /* D: Beyond cards */
     const beyondData = [
-      { icon:'🔄', name:'Closed-Loop Retraining', type:'CONTINUOUS LEARNING', tags:['drift_detect','auto_retrain','model_registry','A/B_test'], desc:'Monitors model drift (PSI, KS-test) on live prediction streams. When degradation exceeds threshold, autonomously triggers retraining pipeline.' },
-      { icon:'📡', name:'Real-Time Data Integration', type:'MULTI-SOURCE FUSION', tags:['claims_api','pharmacy_feed','wearable_iot','drg_codes'], desc:'Integrates live data streams: hospital claims APIs, pharmacy dispensing records, wearable device feeds — triggering incremental model updates.' },
-      { icon:'🗣️', name:'Natural Language Interface', type:'ACTUARY CO-PILOT', tags:['nl_to_query','structured_output','explainability','voice_ready'], desc:'"Which policies have churn probability >40% and Hoch risk?" → translates to analytical tasks, returns plain-language summaries.' },
-      { icon:'⚖️', name:'Regulatory Compliance Engine', type:'BAFIN · §203 VVG', tags:['§203_VVG','bafin_api','audit_trail','gdpr_check'], desc:'Proactively monitors all premium adjustments against §203 VVG, generates mandatory actuarial justification, maintains tamper-evident audit log.' },
-      { icon:'🧩', name:'Counterfactual Reasoning', type:'WHAT-IF SIMULATION', tags:['counterfactual','causal_inference','simulation','revenue_model'], desc:'"What if we reduced premium by €50/month?" → re-runs Cox model with counterfactual, returns comparative risk/revenue report.' },
-      { icon:'🌐', name:'Cross-Portfolio Intelligence', type:'SYSTEMIC RISK DETECTION', tags:['cusum','ewma','portfolio_test','cohort_analysis'], desc:'Detects portfolio-level structural risks invisible to individual models: correlated claim spikes, adverse selection, systemic billing fraud.' },
+      { icon:'CL', name:'Closed-Loop Retraining', type:'CONTINUOUS LEARNING', tags:['drift_detect','auto_retrain','model_registry','A/B_test'], desc:'Monitors model drift (PSI, KS-test) on live prediction streams. When degradation exceeds threshold, autonomously triggers retraining pipeline.' },
+      { icon:'RT', name:'Real-Time Data Integration', type:'MULTI-SOURCE FUSION', tags:['claims_api','pharmacy_feed','wearable_iot','drg_codes'], desc:'Integrates live data streams: hospital claims APIs, pharmacy dispensing records, wearable device feeds — triggering incremental model updates.' },
+      { icon:'NL', name:'Natural Language Interface', type:'ACTUARY CO-PILOT', tags:['nl_to_query','structured_output','explainability','voice_ready'], desc:'"Which policies have churn probability >40% and Hoch risk?" → translates to analytical tasks, returns plain-language summaries.' },
+      { icon:'RC', name:'Regulatory Compliance Engine', type:'BAFIN · §203 VVG', tags:['§203_VVG','bafin_api','audit_trail','gdpr_check'], desc:'Proactively monitors all premium adjustments against §203 VVG, generates mandatory actuarial justification, maintains tamper-evident audit log.' },
+      { icon:'CF', name:'Counterfactual Reasoning', type:'WHAT-IF SIMULATION', tags:['counterfactual','causal_inference','simulation','revenue_model'], desc:'"What if we reduced premium by €50/month?" → re-runs Cox model with counterfactual, returns comparative risk/revenue report.' },
+      { icon:'CP', name:'Cross-Portfolio Intelligence', type:'SYSTEMIC RISK DETECTION', tags:['cusum','ewma','portfolio_test','cohort_analysis'], desc:'Detects portfolio-level structural risks invisible to individual models: correlated claim spikes, adverse selection, systemic billing fraud.' },
     ];
     let beyondCards = '<h3 style="margin-bottom:12px">Beyond: Agentic Capabilities</h3><div class="card-grid card-grid-3">';
     beyondData.forEach(b => {
@@ -4404,13 +4404,13 @@ const AgentModule = {
 
     // Node positions
     const nodes = {
-      orch: { x: w/2, y: 50, label: 'ORCHESTRATOR', icon: '🧠', color: 'var(--accent-ag)', c: '#b5334d' },
-      rf: { x: w*0.12, y: 180, label: 'RF AGENT', icon: '🌲', color: 'var(--accent-rf)', c: '#1a8a3e' },
-      lstm: { x: w*0.32, y: 180, label: 'LSTM AGENT', icon: '⚡', color: 'var(--accent-lstm)', c: '#1a6fb5' },
-      ae: { x: w*0.52, y: 180, label: 'AE AGENT', icon: '🔍', color: 'var(--accent-ae)', c: '#b5750d' },
-      surv: { x: w*0.72, y: 180, label: 'SURV AGENT', icon: '📉', color: 'var(--accent-sa)', c: '#6b4faa' },
-      report: { x: w*0.9, y: 180, label: 'REPORT', icon: '📋', color: '#9B9A9F', c: '#9B9A9F' },
-      memory: { x: w/2, y: 320, label: 'MEMORY STORE', icon: '💾', color: 'var(--accent-lstm)', c: '#1a6fb5' },
+      orch: { x: w/2, y: 50, label: 'ORCHESTRATOR', icon: 'OR', color: 'var(--accent-ag)', c: '#b5334d' },
+      rf: { x: w*0.12, y: 180, label: 'RF AGENT', icon: 'RF', color: 'var(--accent-rf)', c: '#1a8a3e' },
+      lstm: { x: w*0.32, y: 180, label: 'LSTM AGENT', icon: 'LS', color: 'var(--accent-lstm)', c: '#1a6fb5' },
+      ae: { x: w*0.52, y: 180, label: 'AE AGENT', icon: 'AE', color: 'var(--accent-ae)', c: '#b5750d' },
+      surv: { x: w*0.72, y: 180, label: 'SURV AGENT', icon: 'SA', color: 'var(--accent-sa)', c: '#6b4faa' },
+      report: { x: w*0.9, y: 180, label: 'REPORT', icon: 'RP', color: '#9B9A9F', c: '#9B9A9F' },
+      memory: { x: w/2, y: 320, label: 'MEMORY STORE', icon: 'MS', color: 'var(--accent-lstm)', c: '#1a6fb5' },
     };
     const tools = [
       { x: w*0.08, y: 400, label: 'DB Query' },
@@ -4538,12 +4538,11 @@ const AgentModule = {
         ctx.fill();
         ctx.stroke();
         ctx.shadowBlur = 0;
-        ctx.fillStyle = '#dde8f4';
-        ctx.font = '13px sans-serif';
+        ctx.fillStyle = n.c;
+        ctx.font = 'bold 12px JetBrains Mono';
         ctx.textAlign = 'center';
         ctx.fillText(n.icon, n.x - 30, n.y + 4);
         ctx.font = '10px JetBrains Mono';
-        ctx.fillStyle = n.c;
         ctx.fillText(n.label, n.x + 10, n.y + 4);
       });
 

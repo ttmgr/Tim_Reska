@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sample Lesson: How LLMs Work and Fail &mdash; Askeras AI Academy</title>
+<meta name="description" content="A sanitized sample lesson from the Askeras AI Academy Tier 1 curriculum. Mental models for how large language models work and the failure modes professionals need to recognise.">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<script src="../../assets/js/nav-manifest.js" defer></script>
+<script src="../../assets/js/nav.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/teaser.css">
+<style>
+.container{max-width:720px}
+.lead{font-size:17px;color:var(--text-secondary);line-height:1.75;margin-bottom:24px}
+.priority{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent-text);font-weight:500;margin-bottom:32px}
+
+.lesson-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.lesson-meta span{font-size:12px;background:var(--tag-bg);color:var(--tag-text);padding:4px 12px;border-radius:20px}
+
+.lesson-body h2{margin-top:40px;margin-bottom:14px}
+.lesson-body h3{margin-top:28px;margin-bottom:10px;font-size:17px}
+.lesson-body p{margin-bottom:16px;line-height:1.75}
+.lesson-body ul,.lesson-body ol{margin:0 0 18px 22px;line-height:1.75}
+.lesson-body li{margin-bottom:8px}
+.lesson-body li > ul{margin-top:6px}
+.lesson-body strong{color:var(--text);font-weight:600}
+.lesson-body em{font-style:italic}
+
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius);padding:18px 22px;margin:24px 0}
+.callout p:last-child{margin-bottom:0}
+.callout .callout-tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent-text);margin-bottom:8px}
+
+.exercise{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin:24px 0}
+.exercise h3{margin-top:0}
+
+.refs{font-size:13px;color:var(--text-secondary);line-height:1.7;border-top:1px solid var(--border);padding-top:20px;margin-top:32px}
+.refs p{margin-bottom:8px}
+.refs code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--tag-bg);padding:1px 6px;border-radius:4px;color:var(--tag-text)}
+
+.cta-section{text-align:center;padding:48px 0;border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+
+<section style="padding-top:72px;">
+  <div class="container">
+    <p class="eyebrow">Askeras AI Academy &mdash; Sample Lesson</p>
+    <h1>How Large Language Models Work &mdash; and How They Fail</h1>
+    <p class="lead">This lesson establishes the mental model that the rest of the Tier 1 programme builds on: large language models predict the next token, which means they are optimised for plausibility rather than truth. Everything that follows &mdash; capabilities, failure modes, verification workflows &mdash; flows from this single mechanism.</p>
+    <div class="lesson-meta">
+      <span>Tier 1 &mdash; Week 1, Session 1</span>
+      <span>Foundations</span>
+      <span>All roles</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="lesson-body">
+
+      <h2>Learning objectives</h2>
+      <p>By the end of this session, participants can:</p>
+      <ul>
+        <li>Explain what generative AI does mechanistically &mdash; next-token prediction &mdash; without jargon.</li>
+        <li>Name three categories of AI failure mode relevant to professional knowledge work.</li>
+        <li>Distinguish between &ldquo;AI as calculator&rdquo; and &ldquo;AI as intern&rdquo; mental models, and explain why the distinction matters for verification.</li>
+        <li>Recognise the &ldquo;plausible but wrong&rdquo; failure pattern in their own domain.</li>
+      </ul>
+
+      <h2>Part 1: The prediction machine</h2>
+
+      <p>Large language models generate text by predicting the next most probable token given everything that came before it. This means they are optimised for <strong>plausibility</strong>, not <strong>truth</strong>. The output always sounds reasonable &mdash; that is by design, not a sign of accuracy.</p>
+
+      <p>The &ldquo;stochastic parrot&rdquo; framing is incomplete but useful as a starting point: these systems compress patterns from training data and recombine them. They do not retrieve facts from a database. When you ask &ldquo;What is the revenue of Company X?&rdquo;, the model is not looking it up &mdash; it is generating what a plausible answer would look like.</p>
+
+      <p>Capabilities are real but bounded. The following are reliable today:</p>
+      <ul>
+        <li>Summarisation of text you provide.</li>
+        <li>Translation between languages.</li>
+        <li>Restructuring and reformatting of structured input.</li>
+        <li>Pattern extraction from provided text.</li>
+        <li>Code generation from clear specifications.</li>
+      </ul>
+
+      <p>The boundary is consistent: anything requiring grounding in current facts or domain-specific precision outside the training distribution is where the failure modes begin.</p>
+
+      <div class="callout">
+        <div class="callout-tag">Mental model</div>
+        <p>The most useful framing is not &ldquo;AI is a calculator&rdquo; (always right) but &ldquo;AI is an extremely well-read intern who has never worked a day in your industry.&rdquo; This captures both the capability &mdash; broad knowledge, fast synthesis &mdash; and the limitation: no judgment, no domain experience, confident even when wrong. You would never send an intern&rsquo;s memo to a client unchecked. The same standard applies here, regardless of how polished the output looks.</p>
+      </div>
+
+      <h3>Why &ldquo;next-token prediction&rdquo; matters in practice</h3>
+
+      <p>The architecture guarantees that wrong outputs will sound just as convincing as correct ones. Two paragraphs &mdash; one factually accurate, one containing a subtle error &mdash; will be indistinguishable in tone, structure, and confidence. You cannot tell from style which one is wrong. External verification is the only reliable signal.</p>
+
+      <p>Common participant question: <em>&ldquo;But ChatGPT gave me the correct answer last week.&rdquo;</em> Yes, often. The problem is you cannot distinguish correct from incorrect without independent verification. A calculator is always right; an LLM is right often enough to be dangerous when it is wrong.</p>
+
+      <p>Another common question: <em>&ldquo;Will it get better?&rdquo;</em> Yes, consistently. But the failure mode of plausible-sounding errors is structural to the architecture, not a temporary bug. Better models make subtler errors, not fewer categories of error.</p>
+
+      <h2>Part 2: The failure landscape</h2>
+
+      <p>AI failure is not random. It follows predictable patterns. The first habit of a professional user is learning to recognise them.</p>
+
+      <p>Three categories matter most for knowledge work:</p>
+      <ol>
+        <li><strong>Factual fabrication</strong> &mdash; the model invents facts, citations, or sources that do not exist but sound authoritative.</li>
+        <li><strong>Reasoning chain breaks</strong> &mdash; the model produces a confident final answer that is internally inconsistent with its own intermediate steps.</li>
+        <li><strong>Source confabulation</strong> &mdash; the model attributes real claims to the wrong paper or report, or invents citations that look credible but do not exist.</li>
+      </ol>
+
+      <p>A related but distinct problem is <strong>confidence without calibration</strong>. When a model says &ldquo;I am 90% sure,&rdquo; the actual accuracy is systematically lower. Research measures the Expected Calibration Error (ECE) of self-reported LLM confidence at roughly 0.166 &mdash; meaning stated confidence overstates actual accuracy by approximately 16.6 percentage points on average. Never use the model&rsquo;s own confidence statement as evidence of correctness; the confidence expression is itself generated text, subject to the same plausibility optimisation as everything else.</p>
+
+      <!-- TIM-REVIEW: The two arXiv references in the source guide (2603.10072 and 2603.29559) both have 2603 prefixes, which would correspond to March 2026. I kept the ECE figure (0.166 / 16.6 pp) as it is a defensible-sounding magnitude, but stripped the specific arXiv ID since I cannot independently verify the paper exists. If these are real, you may want to restore the citations. If they were placeholder/illustrative numbers in the trainer guide, leaving the magnitude without the precise paper attribution is safer. -->
+
+      <div class="callout">
+        <div class="callout-tag">Key insight</div>
+        <p>Surface-level plausibility &mdash; code that compiles, prose that flows, citations that look formatted correctly &mdash; does not indicate correctness. AI outputs in your domain will look professional, address the right question, use the expected formatting, and still contain material errors. The &ldquo;looks right&rdquo; test is insufficient.</p>
+      </div>
+
+      <h2>Part 3: What this means for your workflow</h2>
+
+      <p>The implication is operational, not philosophical. If you accept that:</p>
+      <ul>
+        <li>The model predicts plausible text rather than retrieving verified facts.</li>
+        <li>Wrong outputs are indistinguishable from correct ones at the surface level.</li>
+        <li>The model&rsquo;s own confidence is unreliable.</li>
+      </ul>
+
+      <p>Then a small number of habits follow:</p>
+      <ul>
+        <li><strong>Never trust unverified factual claims.</strong> Every number, citation, or attribution that matters needs independent confirmation against a primary source.</li>
+        <li><strong>Treat the output as a draft, not an answer.</strong> The model accelerates the first 60% of the work; the verification step is where professional value is added.</li>
+        <li><strong>Match the task to the architecture.</strong> Summarisation, restructuring, and formatting are reliable. Factual generation and reasoning under uncertainty are not.</li>
+        <li><strong>Use the &ldquo;extremely well-read intern&rdquo; rule of thumb.</strong> If you would not let an intern send the output unchecked, do not let the model send it either.</li>
+      </ul>
+
+      <p>The rest of the Tier 1 programme operationalises these habits: structured prompting (Week 2), source verification workflows (Week 2), workflow design with deliberate human checkpoints (Week 3), and team-level governance (Week 4).</p>
+
+      <h2>Discussion prompts</h2>
+
+      <div class="exercise">
+        <h3>Exercise 1: Predict the output</h3>
+        <p>Take a prompt you would realistically use this week. Before running it, write down in two or three sentences what you expect the model to produce. Then run it. The gap between expectation and reality is the most direct way to internalise how the prediction mechanism actually behaves.</p>
+      </div>
+
+      <div class="exercise">
+        <h3>Exercise 2: Find the error</h3>
+        <p>Ask a model to generate a one-page brief on a topic where you have genuine domain expertise. Read it critically. How many factual errors can you identify? How many would a non-expert reader catch? The obvious errors are easy; the subtle ones &mdash; where the risk lies &mdash; require deliberate verification, not careful reading.</p>
+      </div>
+
+      <h2>Reflection</h2>
+
+      <p>You now know what an LLM is &mdash; a prediction machine &mdash; and why that means its failures are structurally invisible at the surface. The remaining sessions build the practical skills that make this insight actionable: structured prompting, layered verification, and workflow design that places human attention where it adds the most value.</p>
+
+      <div class="refs">
+        <p><strong>Background reading referenced in this lesson:</strong></p>
+        <p>ErrorAtlas taxonomy of LLM failure categories &mdash; <code>emergentmind.com/topics/erroratlas</code></p>
+        <p>DAIR-AI Prompt Engineering Guide &mdash; <code>promptingguide.ai</code></p>
+        <!-- TIM-REVIEW: I removed the arXiv IDs from the public version because their date prefixes (2603) look unusual and I cannot verify them independently. If they are real and you want them cited, the source guide has them in trainer_guide_tier1.md around the Topic B / Slide 7 and Slide 8 blocks. -->
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="cta-section">
+  <div class="container">
+    <h2>This is one session of 21.</h2>
+    <p>The full Tier 1 sprint is four weeks: foundations, structured prompting and verification, workflow design, and a team AI playbook capstone. Tiers 2 through 4 build on it through workflow accelerator, sector delivery lab, and an internal AI trainer programme.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="../" class="cta-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        Back to the Academy
+      </a>
+      <a href="mailto:timreska@gmail.com" class="cta-link" style="background:var(--surface);color:var(--text);border:1px solid var(--border);">Programme enquiry &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<div class="attr">
+  <div class="container">From the Askeras AI Academy Tier 1 curriculum. Full programme: timreska.github.io/academy.</div>
+</div>
+
+</body>
+</html>
