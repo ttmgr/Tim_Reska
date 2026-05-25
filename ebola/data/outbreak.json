@@ -156,7 +156,14 @@
     { "date": "2026-05-21", "event": "Community protests in Rwampara HZ; police fire tear gas; two treatment tents burned", "severity": "alert" },
     { "date": "2026-05-22", "event": "WHO IHR Emergency Committee issues first temporary recommendations; national risk VERY HIGH, regional HIGH, global LOW", "severity": "alert" },
     { "date": "2026-05-22", "event": "WHO R&D Blueprint recommends two monoclonal antibodies + obeldesivir for prioritized Bundibugyo clinical trials", "severity": "response" },
-    { "date": "2026-05-22", "event": "Second American (high-risk contact) transferred to Czech Republic for monitoring", "severity": "response" }
+    { "date": "2026-05-22", "event": "Second American (high-risk contact) transferred to Czech Republic for monitoring", "severity": "response" },
+    { "date": "2026-05-23", "event": "Uganda confirms 3 new Ebola cases (driver, HCW, DRC traveler); Uganda total now 5", "severity": "alert" },
+    { "date": "2026-05-23", "event": "Africa CDC warns 10 additional countries at risk: Angola, Burundi, CAR, Rep. Congo, Ethiopia, Kenya, Rwanda, South Sudan, Tanzania, Zambia", "severity": "alert" },
+    { "date": "2026-05-23", "event": "Second MSF treatment tent burned in Mongbwalu; 18 suspected patients flee into community", "severity": "alert" },
+    { "date": "2026-05-23", "event": "Three Red Cross volunteers revealed to have died May 5-16 after contracting Ebola during body management on March 27 — pre-declaration transmission", "severity": "death" },
+    { "date": "2026-05-24", "event": "DRC confirmed cases surpass 100 (101 confirmed, 904 suspected); WHO national risk VERY HIGH", "severity": "alert" },
+    { "date": "2026-05-24", "event": "US demands DRC World Cup team maintain 21-day isolation bubble in Belgium before US entry", "severity": "response" },
+    { "date": "2026-05-25", "event": "ECDC updates: DRC 101 confirmed + 904 suspected, Uganda 7 confirmed; combined 108 confirmed, 11 deaths confirmed", "severity": "alert" }
   ],
   "key_metrics": {
     "hcw_deaths": 4,

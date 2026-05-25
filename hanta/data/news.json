@@ -1,6 +1,41 @@
 {
-  "last_updated": "2026-05-22",
+  "last_updated": "2026-05-25",
   "articles": [
+    {
+      "date": "2026-05-25",
+      "source": "media",
+      "title": "Health Ministry updates hantavirus outbreak protocol and introduces supervised home quarantine",
+      "url": "https://www.thursdaydailybulletin.es/en/2026/05/25/health-ministry-updates-hantavirus-outbreak-protocol-and-introduces-supervised-home-quarantine/",
+      "summary": "Spain's Ministry of Health updated its hantavirus monitoring protocol: contacts who remain asymptomatic with negative PCR results through 28 days of hospital quarantine may complete the remaining 14 days at home under daily health staff checks."
+    },
+    {
+      "date": "2026-05-24",
+      "source": "ECDC",
+      "title": "Andes hantavirus outbreak in cruise ship, 24 May 2026",
+      "url": "https://www.ecdc.europa.eu/en/infectious-disease-topics/hantavirus-infection/surveillance-and-updates/andes-hantavirus-outbreak",
+      "summary": "ECDC updated surveillance: 12 total cases (10 confirmed, 2 probable), one new case since previous update, no new deaths. Ship undergoing sanitation in Rotterdam. Risk to EU/EEA general population remains very low."
+    },
+    {
+      "date": "2026-05-23",
+      "source": "NBC News",
+      "title": "Hantavirus cases linked to cruise ship rise to 12 after crew member tests positive",
+      "url": "https://www.nbcnews.com/health/health-news/hantavirus-cases-linked-cruise-ship-rise-12-crew-member-tests-positive-rcna346481",
+      "summary": "WHO DG Tedros confirmed the 12th case: a Dutch crew member repatriated from Tenerife to the Netherlands who tested positive during quarantine. Total: 12 cases, 3 deaths. More than 600 contacts monitored across 30 countries."
+    },
+    {
+      "date": "2026-05-22",
+      "source": "WOWT",
+      "title": "Hantavirus update: Nebraska officials awaiting CDC guidance on passengers' release",
+      "url": "https://www.wowt.com/2026/05/22/hantavirus-update-nebraska-officials-awaiting-cdc-guidance-passengers-release/",
+      "summary": "Nebraska officials briefed alongside Gov. Pillen: 18 US passengers at Nebraska NQU in their 12th day of isolation. Two passengers under CDC quarantine order; remaining 16 requested to stay through May 31 (21-day mark). Officials awaiting CDC release guidance."
+    },
+    {
+      "date": "2026-05-22",
+      "source": "NL Times",
+      "title": "All Hondius crew members in Rotterdam test negative for hantavirus",
+      "url": "https://nltimes.nl/2026/05/22/hondius-crew-members-rotterdam-test-negative-hantavirus",
+      "summary": "All 27 people aboard Hondius when it docked in Rotterdam on May 18 (25 crew + 1 doctor + 1 nurse) tested negative for Andes virus. Dutch crew in home quarantine; foreign crew unable to travel home staying in quarantine cabins in Rotterdam port."
+    },
     {
       "date": "2026-05-22",
       "source": "Al Jazeera",
