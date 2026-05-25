@@ -1,6 +1,69 @@
 {
-  "last_updated": "2026-05-22",
+  "last_updated": "2026-05-25",
   "articles": [
+    {
+      "date": "2026-05-25",
+      "source": "ECDC",
+      "title": "Ebola virus disease outbreak in the Democratic Republic of the Congo and Uganda",
+      "url": "https://www.ecdc.europa.eu/en/ebola-virus-disease-outbreak-democratic-republic-congo-and-uganda",
+      "summary": "ECDC updated monitoring page with data as of May 23: DRC has 101 confirmed and 904 suspected cases with 10 confirmed and 119 suspected deaths; Uganda has 7 confirmed cases including 1 death. Risk to EU/EEA population remains very low."
+    },
+    {
+      "date": "2026-05-24",
+      "source": "ABC News",
+      "title": "Ebola outbreak in DRC spreads, with more than 900 reported cases: Officials",
+      "url": "https://abcnews.com/Health/ebola-outbreak-drc-spreading-rapidly-750-suspected-cases/story?id=133219863",
+      "summary": "WHO upgraded DRC national risk level from 'high' to 'very high,' with more than 900 suspected cases and 115 deaths. Response hampered by armed conflict, security incidents targeting medical operations, and low contact-tracing rates."
+    },
+    {
+      "date": "2026-05-24",
+      "source": "CBS News",
+      "title": "Second Ebola treatment center set on fire in epicenter of disease's outbreak",
+      "url": "https://www.cbsnews.com/news/ebola-congo-epicenter-treatment-center-set-on-fire/",
+      "summary": "Residents in Mongbwalu burned an MSF treatment tent, causing 18 suspected Ebola patients to flee the facility. Second attack on a treatment center in one week, driven by community resistance to burial protocols restricting family involvement in funeral rites."
+    },
+    {
+      "date": "2026-05-24",
+      "source": "CNN",
+      "title": "Inside the epicenter of the Ebola outbreak in DRC as the virus spreads",
+      "url": "https://www.cnn.com/2026/05/24/africa/ebola-outbreak-view-from-drc-congo-intl",
+      "summary": "On-the-ground reporting from eastern DRC covering the spread to Bunia and Goma across three provinces (Ituri, North Kivu, South Kivu), with WHO raising national risk to 'very high' and 220 deaths now linked to the outbreak."
+    },
+    {
+      "date": "2026-05-24",
+      "source": "UPI",
+      "title": "3 Red Cross volunteers among suspected Ebola deaths",
+      "url": "https://www.upi.com/Top_News/World-News/2026/05/24/democratic-republic-congo-ebola-red-cross/5531779633412/",
+      "summary": "Three Red Cross volunteers from the Mongbwalu branch died after contracting Ebola during body management activities on March 27, before the outbreak was publicly identified — among the earliest known victims."
+    },
+    {
+      "date": "2026-05-23",
+      "source": "Al Jazeera",
+      "title": "Uganda confirms 3 new Ebola cases, as 10 more countries 'at risk' of virus",
+      "url": "https://www.aljazeera.com/news/2026/5/23/uganda-confirms-three-new-ebola-cases-bringing-total-to-five",
+      "summary": "Uganda announced 3 additional confirmed Bundibugyo cases (a driver, a healthcare worker, and a DRC traveler), bringing Uganda's total to 5. Africa CDC warned 10 additional countries are at risk including Angola, Burundi, CAR, Republic of Congo, Ethiopia, Kenya, Rwanda, South Sudan, Tanzania, and Zambia."
+    },
+    {
+      "date": "2026-05-23",
+      "source": "PBS",
+      "title": "Eighteen suspected Ebola patients escape after treatment tent is set on fire for a second time in Congo",
+      "url": "https://www.pbs.org/newshour/world/eighteen-suspected-ebola-patients-escape-after-treatment-tent-is-set-on-fire-for-a-second-time-in-congo",
+      "summary": "Eighteen suspected Ebola patients fled after angry residents burned an MSF tent in Mongbwalu, the second arson in a week. Growing community tensions over burial practices and disease control measures are undermining containment efforts."
+    },
+    {
+      "date": "2026-05-23",
+      "source": "CBS News",
+      "title": "Ebola kills 3 Red Cross workers in the Congo, organization says",
+      "url": "https://www.cbsnews.com/news/congo-ebola-outbreak-red-cross-workers/",
+      "summary": "Three Red Cross volunteers died between May 5-16 after contracting Ebola during body management duties on March 27 in Mongbwalu, before the outbreak was recognized — suggesting the virus circulated in the community well before the May 15 official declaration."
+    },
+    {
+      "date": "2026-05-23",
+      "source": "Al Jazeera",
+      "title": "DR Congo will not change World Cup preparations despite US Ebola warning",
+      "url": "https://www.aljazeera.com/sports/2026/5/23/dr-congo-will-not-change-world-cup-preparations-despite-us-warning",
+      "summary": "DRC's football federation declined to modify its World Cup preparation schedule despite US demands for a 21-day isolation bubble in Belgium, stating 'No player in the squad has come from DR Congo.' The US warned the team could be denied entry without compliance."
+    },
     {
       "date": "2026-05-22",
       "source": "ABC News",

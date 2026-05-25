@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-05-22",
+  "last_updated": "2026-05-25",
   "summary": {
-    "total_confirmed": 84,
-    "total_suspected": 744,
-    "deaths_confirmed": 8,
-    "deaths_suspected": 176,
-    "total_deaths_all": 184,
+    "total_confirmed": 108,
+    "total_suspected": 904,
+    "deaths_confirmed": 11,
+    "deaths_suspected": 119,
+    "total_deaths_all": 130,
     "countries_affected": 2,
     "health_zones_affected": 11,
     "who_risk_global": "MODERATE",
@@ -16,8 +16,8 @@
     "pheic_date": "2026-05-17",
     "vaccine_available": false,
     "virus": "Bundibugyo ebolavirus",
-    "weekly_delta": { "confirmed": 74, "suspected": 498, "deaths": 107 },
-    "note_sub_zones": "Topline reflects WHO 2026-05-22 figures (DG briefing + CDC situation summary). Province-level breakdowns updated where ECDC sub-attribution exists (Ituri, North Kivu, South Kivu); individual health-zone counts below remain at 2026-05-18 attribution pending the next detailed MoH bulletin."
+    "weekly_delta": { "confirmed": 24, "suspected": 160, "deaths": 0 },
+    "note_sub_zones": "Topline reflects ECDC 2026-05-25 figures (DRC: 101 confirmed + 904 suspected, 10+119 deaths; Uganda: 7 confirmed, 1 death). Province-level breakdowns updated where ECDC sub-attribution exists; individual health-zone counts below remain at 2026-05-18 attribution pending the next detailed MoH bulletin."
   },
   "regions": [
     {
@@ -87,13 +87,13 @@
       "iso": "UG",
       "lat": 0.31,
       "lon": 32.58,
-      "confirmed": 2,
+      "confirmed": 7,
       "suspected": 4,
       "deaths_confirmed": 1,
       "deaths_suspected": 1,
       "health_areas": null,
       "role": "Cross-border importation",
-      "notes": "Two lab-confirmed cases among travelers from DRC. One death. No apparent epi link between the two cases. Fort Portal (western Uganda) has symptomatic individuals under observation from a burial-linked cluster."
+      "notes": "Seven lab-confirmed cases among travelers from DRC and contacts. One death. Three new cases announced May 23: a driver who transported the first patient, a healthcare worker, and a woman who traveled from DRC."
     },
     {
       "name": "Kinshasa",
@@ -167,6 +167,7 @@
     { "date": "2026-05-17", "confirmed": 12, "suspected": 336, "deaths": 89 },
     { "date": "2026-05-18", "confirmed": 14, "suspected": 395, "deaths": 100 },
     { "date": "2026-05-19", "confirmed": 66, "suspected": 650, "deaths": 167 },
-    { "date": "2026-05-22", "confirmed": 84, "suspected": 744, "deaths": 184 }
+    { "date": "2026-05-22", "confirmed": 84, "suspected": 744, "deaths": 184 },
+    { "date": "2026-05-25", "confirmed": 108, "suspected": 904, "deaths": 130, "note": "ECDC methodology revision reduced suspected death attribution" }
   ]
 }
