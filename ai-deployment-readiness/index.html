@@ -8,9 +8,7 @@
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <script src="../assets/js/nav-manifest.js" defer></script>
 <script src="../assets/js/nav.js" defer></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/fonts.css">
 <link rel="stylesheet" href="../assets/css/tokens.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -168,6 +166,22 @@ h3{font-size:14px;font-weight:600;margin-bottom:8px;color:var(--text)}
   </div>
 </div>
 
+<!-- EMAIL GATE -->
+<div id="screen-email" class="screen">
+  <div class="container" style="text-align:center;padding-top:80px">
+    <div class="eyebrow">ASSESSMENT COMPLETE</div>
+    <h2 style="margin-bottom:8px">Your results are ready</h2>
+    <p style="color:var(--text-secondary);margin-bottom:32px;max-width:440px;margin-left:auto;margin-right:auto">Enter your email to see your AI readiness score, dimension breakdown, sector benchmarks, and prioritised recommendations.</p>
+    <form id="email-gate-form" onsubmit="submitEmail(event)" style="max-width:400px;margin:0 auto">
+      <input type="email" id="gate-email" placeholder="you@company.com" required
+        style="width:100%;padding:14px 18px;font:inherit;font-size:15px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);margin-bottom:12px">
+      <button type="submit" class="btn btn-primary" style="width:100%;padding:14px">See my results</button>
+    </form>
+    <p style="font-size:12px;color:var(--text-secondary);margin-top:16px">No spam. We may reach out with a free Compass Call offer.</p>
+    <button onclick="skipEmail()" style="background:none;border:none;font:inherit;font-size:13px;color:var(--text-secondary);cursor:pointer;margin-top:12px;text-decoration:underline">Skip and see results</button>
+  </div>
+</div>
+
 <!-- RESULTS -->
 <div id="screen-results" class="screen">
   <div class="container">
@@ -191,6 +205,13 @@ h3{font-size:14px;font-weight:600;margin-bottom:8px;color:var(--text)}
       <div class="tier-def"><span class="tier-range">2.0–3.0</span><span class="tier-name">Piloting</span><span class="tier-desc">Isolated experiments; not yet embedded in operations.</span></div>
       <div class="tier-def"><span class="tier-range">3.0–4.0</span><span class="tier-name">Scaling</span><span class="tier-desc">AI in production for select use cases; governance emerging.</span></div>
       <div class="tier-def"><span class="tier-range">4.0–5.0</span><span class="tier-name">Optimizing</span><span class="tier-desc">AI integrated across the organisation with mature governance.</span></div>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;margin:32px 0;text-align:center">
+      <div class="eyebrow">NEXT STEP</div>
+      <h3 style="margin-bottom:6px">Free 30-minute Compass Call</h3>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">Discuss your results with an AI deployment specialist. No commitment, no sales pitch -- just your top 3 opportunities and top 2 risks.</p>
+      <a href="mailto:timreska@gmail.com?subject=Compass%20Call%20Request&body=I%20just%20completed%20the%20AI%20Readiness%20Assessment%20and%20would%20like%20to%20book%20a%20Compass%20Call." class="btn btn-primary" style="display:inline-block;padding:12px 28px;text-decoration:none">Book a Compass Call</a>
     </div>
 
     <div class="result-actions">
@@ -366,7 +387,17 @@ function scoreColor(score){
   return 'var(--red)';
 }
 
+function submitEmail(e){
+  e.preventDefault();
+  const email = document.getElementById('gate-email').value;
+  if(email) localStorage.setItem('askeras_lead_email', email);
+  revealResults();
+}
+function skipEmail(){ revealResults(); }
 function showResults(){
+  showScreen('screen-email');
+}
+function revealResults(){
   const {dimScores,overall,tier} = computeScores();
   showScreen('screen-results');
 

@@ -8,7 +8,7 @@ it answers. Mirrors the structure in `.nav/INDEX.md`; refresh both
 systems after any structural change. For the human-oriented narrative
 see `STRUCTURE.md`.
 
-*22 nodes · 342 files mapped · ⚠ 2 unmapped.*
+*22 nodes · 351 files mapped · ⚠ 3 unmapped.*
 
 ## Quick lookup — read when…
 
@@ -133,9 +133,9 @@ Nanopore pipeline advisor — protocol/parameter recommendation wizard.
 
 ## Infrastructure · non-published
 
-### `assets` · Shared site assets  (6 files)
+### `assets` · Shared site assets  (15 files)
 Site-wide shared resources — css/tokens.css (brand tokens), css/outbreak.css, js/nav.js, js/outbreak-common.js. Register new showcases in js/nav.js.
-**Files:** `assets/css/outbreak.css` · `assets/css/teaser.css` · `assets/css/tokens.css` · `assets/js/nav-manifest.js` · `assets/js/nav.js` · `assets/js/outbreak-common.js`
+**Files:** `assets/css/fonts.css` · `assets/css/outbreak.css` · `assets/css/teaser.css` · `assets/css/tokens.css` · `assets/fonts/Inter-400-normal.woff2` · `assets/fonts/Inter-500-normal.woff2` · `assets/fonts/Inter-600-normal.woff2` · `assets/fonts/JetBrainsMono-400-normal.woff2` · `assets/fonts/JetBrainsMono-500-normal.woff2` · `assets/fonts/SourceSerif4-400-italic.woff` · `assets/fonts/SourceSerif4-400-normal.woff2` · `assets/fonts/SourceSerif4-600-normal.woff2` · `assets/js/nav-manifest.js` · `assets/js/nav.js` · …(+1)
 **Related:** [[ebola]] · [[hanta]] · [[academy]]
 **Read when:** shared brand tokens, outbreak-common factories, nav registration
 
@@ -180,5 +180,6 @@ Two navigation layers — (1) HUB.html / INDEX.html / INDEX.md, the auto-generat
 
 ## ⚠ Unmapped files (not in any node — add a glob in index_nodes.yaml)
 
+- `HUB.md`
 - `robots.txt`
 - `sitemap.xml`
