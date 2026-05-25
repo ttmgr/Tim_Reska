@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate docs/INDEX.md — the CureApp repo "node map".
+"""Generate docs/INDEX.md — a repo-wide "node map".
 
 Structure + file lists are derived from a live repo scan (git-tracked + untracked,
 gitignore-respecting) so the map is always real and complete; the *meaning* (node

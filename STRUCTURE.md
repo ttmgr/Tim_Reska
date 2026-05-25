@@ -28,6 +28,7 @@ If you're looking for a file: first decide which *showcase/project* it belongs t
 **AI deployment strategy**
 - `ai-deployment-readiness/` — maturity self-assessment.
 - `llm-cost-calculator/` — cost modeling + ROI.
+- `agentic_systems/` — Agentic Frontier Primer.
 
 **Outbreak dashboards** *(twin pair — identical shape: `data/*.json` + `js/{app,charts,map}.js` + `index.html`)*
 - `ebola/`, `hanta/` (the latter also has a German `de/` page). Their **shared** CSS/JS lives in `assets/css/outbreak.css` and `assets/js/outbreak-common.js`; only per-disease logic stays in each dir's `js/`. Edit shared behaviour in `assets/`, not in one twin.

@@ -39,5 +39,30 @@ window.TR_NAV_LINKS = [
     "slug": "academy",
     "label": "AI Academy",
     "path": "academy/"
+  },
+  {
+    "slug": "ebola",
+    "label": "Ebola Tracker",
+    "path": "ebola/"
+  },
+  {
+    "slug": "hanta",
+    "label": "Hanta Tracker",
+    "path": "hanta/"
+  },
+  {
+    "slug": "medrisk",
+    "label": "MedRisk",
+    "path": "medrisk/"
+  },
+  {
+    "slug": "agent-skill-pack",
+    "label": "Skill Pack",
+    "path": "agent-skill-pack/"
+  },
+  {
+    "slug": "nanopore-advisor",
+    "label": "Nanopore Advisor",
+    "path": "nanopore-advisor/"
   }
 ];

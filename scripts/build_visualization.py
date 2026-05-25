@@ -28,21 +28,31 @@ ROOT = Path(__file__).resolve().parent.parent
 CONFIG = ROOT / "docs" / "index_nodes.yaml"
 OUT = ROOT / "docs" / "INDEX.html"
 
-# Project-specific group palette — mirrors the warm-terracotta family of
-# assets/css/tokens.css plus a green (for the outbreak/health semantic) and
-# slate (for infrastructure). Skill's authoritative copy stays vanilla;
-# only this project's copy is tuned to .nav/INDEX.md's 7 groups + Meta.
-GROUP_COLOR = {
-    "Applied ML · healthcare":         "#9A5A2E",  # deep terracotta — clinical
-    "LLM evaluation":                  "#C4794A",  # signature terracotta — academic showcase
-    "AI deployment strategy":          "#D29066",  # lighter terracotta — business/strategy
-    "Outbreak dashboards":             "#2D8659",  # forest green — epidemic/dashboard semantic
-    "Other showcases":                 "#B5651D",  # burnt orange — mixed bag
-    "Infrastructure · non-published":  "#6B7280",  # slate — infra
-    "Local-only / private":            "#B0AFA8",  # warm grey — dim/private
-    "Meta & tooling":                  "#1F8A70",  # teal — tool/system
-}
+# Hub palette — abstract earth+sky tokens. Assigned to the project's actual
+# `group:` values in arrival order at build time (project-agnostic; the skill
+# must never hardcode one project's group names).
+PALETTE = [
+    "#316D33",  # forest green
+    "#2563EB",  # water blue
+    "#C4794A",  # terracotta
+    "#92400E",  # amber
+    "#6B7280",  # slate
+    "#7C3AED",  # violet
+    "#0891B2",  # cyan
+    "#DC2626",  # red
+]
 FALLBACK_COLOR = "#94A3B8"
+
+
+def build_group_color(nodes: list[dict]) -> dict[str, str]:
+    """Map every distinct group: in the YAML to a colour from PALETTE, in the
+    order the groups first appear. Project-agnostic — no project-specific keys."""
+    seen: list[str] = []
+    for n in nodes:
+        g = (n.get("group") or "").strip()
+        if g and g not in seen:
+            seen.append(g)
+    return {g: PALETTE[i % len(PALETTE)] for i, g in enumerate(seen)}
 
 
 # --- file-scan (matches build_index.py; small enough to duplicate over coupling)
@@ -106,6 +116,8 @@ def assign_files(cfg: dict) -> tuple[dict[str, list[str]], list[str]]:
 
 def render(cfg: dict, assigned: dict[str, list[str]]) -> str:
     nodes_data = []
+    group_color = build_group_color(cfg["nodes"])
+
     for n in cfg["nodes"]:
         nid = n["id"]
         files = assigned.get(nid, [])
@@ -118,14 +130,14 @@ def render(cfg: dict, assigned: dict[str, list[str]]) -> str:
             "files": files,
             "edges": n.get("edges", []),
             "note": (n.get("note") or "").strip(),
-            "color": GROUP_COLOR.get(n.get("group", ""), FALLBACK_COLOR),
+            "color": group_color.get(n.get("group", ""), FALLBACK_COLOR),
         })
 
     payload = {
         "title": cfg.get("title", "Repo Node Map"),
         "root_abs": str(ROOT),
         "groups": cfg.get("groups", []),
-        "group_color": GROUP_COLOR,
+        "group_color": group_color,
         "fallback_color": FALLBACK_COLOR,
         "nodes": nodes_data,
     }
@@ -141,14 +153,14 @@ def render(cfg: dict, assigned: dict[str, list[str]]) -> str:
 <title>{payload['title']}</title>
 <style>
   :root {{
-    --bg: #FAF9F7;
-    --panel: #FFFFFF;
-    --ink: #1A1A2E;
-    --muted: #6B6A73;
-    --border: rgba(26,26,46,0.10);
-    --edge: rgba(26,26,46,0.22);
-    --edge-hi: #C4794A;
-    --selected: #9A5A2E;
+    --bg: #fafafa;
+    --panel: #ffffff;
+    --ink: #111827;
+    --muted: #6b7280;
+    --border: rgba(17,24,39,0.08);
+    --edge: rgba(17,24,39,0.18);
+    --edge-hi: #f59e0b;
+    --selected: #316D33;
   }}
   html, body {{ margin: 0; height: 100%; background: var(--bg); color: var(--ink);
     font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif; }}
@@ -194,10 +206,10 @@ def render(cfg: dict, assigned: dict[str, list[str]]) -> str:
     color: var(--muted); margin: 18px 0 6px; }}
   #panel ul {{ margin: 0; padding: 0; list-style: none; }}
   #panel li {{ padding: 3px 0; }}
-  #panel a {{ color: #9A5A2E; text-decoration: none; word-break: break-all; }}
+  #panel a {{ color: #2563EB; text-decoration: none; word-break: break-all; }}
   #panel a:hover {{ text-decoration: underline; }}
   #panel .edges a {{ display: inline-block; padding: 3px 8px; margin: 2px 4px 2px 0;
-    background: rgba(196,121,74,0.10); border-radius: 6px; cursor: pointer; }}
+    background: rgba(37,99,235,0.08); border-radius: 6px; cursor: pointer; }}
   #panel .empty {{ color: var(--muted); }}
   .nofile {{ color: var(--muted); }}
 </style>
