@@ -1,13 +1,13 @@
 {
-  "last_updated": "2026-05-25",
+  "last_updated": "2026-06-01",
   "summary": {
-    "total_confirmed": 108,
-    "total_suspected": 904,
-    "deaths_confirmed": 11,
-    "deaths_suspected": 119,
-    "total_deaths_all": 130,
+    "total_confirmed": 134,
+    "total_suspected": 906,
+    "deaths_confirmed": 18,
+    "deaths_suspected": 223,
+    "total_deaths_all": 241,
     "countries_affected": 2,
-    "health_zones_affected": 11,
+    "health_zones_affected": 13,
     "who_risk_global": "MODERATE",
     "who_risk_national": "VERY HIGH",
     "who_risk_regional": "HIGH",
@@ -16,8 +16,8 @@
     "pheic_date": "2026-05-17",
     "vaccine_available": false,
     "virus": "Bundibugyo ebolavirus",
-    "weekly_delta": { "confirmed": 24, "suspected": 160, "deaths": 0 },
-    "note_sub_zones": "Topline reflects ECDC 2026-05-25 figures (DRC: 101 confirmed + 904 suspected, 10+119 deaths; Uganda: 7 confirmed, 1 death). Province-level breakdowns updated where ECDC sub-attribution exists; individual health-zone counts below remain at 2026-05-18 attribution pending the next detailed MoH bulletin."
+    "weekly_delta": { "confirmed": 6, "suspected": -171, "deaths": -15 },
+    "note_sub_zones": "Topline reflects WHO DON605 (data as of 2026-05-29) and ECDC: DRC 125 confirmed + 906 suspected (17 + 223 deaths); Uganda 9 confirmed (1 death). On 2026-05-28 the DRC revised its figures — removing non-cases and reclassifying some suspected cases as confirmed — so suspected cases and suspected deaths fell while confirmed rose. Cases span 13 health zones (7 in Ituri, 5 in North Kivu, 1 in South Kivu). Province- and health-zone-level breakdowns below remain at earlier attribution pending the next detailed MoH bulletin."
   },
   "regions": [
     {
@@ -168,6 +168,8 @@
     { "date": "2026-05-18", "confirmed": 14, "suspected": 395, "deaths": 100 },
     { "date": "2026-05-19", "confirmed": 66, "suspected": 650, "deaths": 167 },
     { "date": "2026-05-22", "confirmed": 84, "suspected": 744, "deaths": 184 },
-    { "date": "2026-05-25", "confirmed": 108, "suspected": 904, "deaths": 130, "note": "ECDC methodology revision reduced suspected death attribution" }
+    { "date": "2026-05-25", "confirmed": 108, "suspected": 904, "deaths": 130, "note": "ECDC methodology revision reduced suspected death attribution" },
+    { "date": "2026-05-27", "confirmed": 128, "suspected": 1077, "deaths": 256, "note": "DRC MoH 2026-05-26 report via ECDC: 121 confirmed + 1,077 suspected; Uganda 7 confirmed. Suspected-death attribution reconciled upward." },
+    { "date": "2026-05-29", "confirmed": 134, "suspected": 906, "deaths": 241, "note": "WHO DON605: DRC revised figures on 2026-05-28 (removed non-cases, reclassified some suspected as confirmed); suspected cases and deaths fell while confirmed rose." }
   ]
 }

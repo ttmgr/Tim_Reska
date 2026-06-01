@@ -1,6 +1,41 @@
 {
-  "last_updated": "2026-05-25",
+  "last_updated": "2026-06-01",
   "articles": [
+    {
+      "date": "2026-05-29",
+      "source": "WHO",
+      "title": "Ebola disease caused by Bundibugyo virus – Democratic Republic of the Congo & Uganda",
+      "url": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON605",
+      "summary": "WHO's latest Disease Outbreak News reports 134 confirmed cases (18 deaths among confirmed) across DRC and Uganda as of 29 May, plus 906 suspected cases (223 suspected deaths) in DRC after a 28 May data revision. Cases span 13 health zones; the WHO Director-General visited the DRC on 28 May."
+    },
+    {
+      "date": "2026-05-28",
+      "source": "ECDC",
+      "title": "Ebola outbreak in DRC and Uganda: DRC revises case figures",
+      "url": "https://www.ecdc.europa.eu/en/ebola-virus-disease-outbreak-democratic-republic-congo-and-uganda",
+      "summary": "ECDC reported that the DRC Ministry of Health revised its figures on 28 May — removing non-cases and reclassifying some suspected cases as confirmed — bringing DRC to 125 confirmed (17 deaths) and 906 suspected (223 deaths). Uganda has 9 confirmed cases (1 death). Risk to the EU/EEA population remains very low."
+    },
+    {
+      "date": "2026-05-27",
+      "source": "ECDC",
+      "title": "ECDC increases activities as Ebola outbreak in DRC and Uganda intensifies",
+      "url": "https://www.ecdc.europa.eu/en/news-events/ecdc-increases-activities-ebola-outbreak-drc-and-uganda-intensifies",
+      "summary": "ECDC reported that on 26 May the DRC Ministry of Health logged 121 confirmed cases (17 deaths) and 1,077 suspected cases (238 deaths) across Ituri, North Kivu and South Kivu; Uganda has 7 confirmed cases and 1 death. ECDC is deploying experts via the EU Health Task Force and modelling EU/EEA importation risk, which it still assesses as very low."
+    },
+    {
+      "date": "2026-05-27",
+      "source": "PBS News",
+      "title": "Uganda closes its border with Congo, where suspected cases of rare Ebola type are surging",
+      "url": "https://www.pbs.org/newshour/health/uganda-closes-its-border-with-congo-where-suspected-cases-of-rare-ebola-type-are-surging",
+      "summary": "Uganda ordered the immediate closure of its border with the DRC for at least four weeks after health workers were infected by Congolese patients; people entering under emergency circumstances face mandatory 21-day self-isolation. The measure runs counter to WHO advice. Uganda has 7 confirmed cases and 1 death."
+    },
+    {
+      "date": "2026-05-27",
+      "source": "NPR",
+      "title": "Congo's Ebola outbreak is spiraling, with health workers struggling to contain the virus",
+      "url": "https://www.npr.org/2026/05/27/nx-s1-5834940/ebola-outbreak-congo",
+      "summary": "On-the-ground reporting from eastern DRC: confirmed cases have passed 120 and suspected cases exceed 1,000, with community distrust, attacks on treatment centers and an active armed-conflict zone hampering containment of the Bundibugyo virus, for which no licensed vaccine or treatment exists."
+    },
     {
       "date": "2026-05-25",
       "source": "ECDC",
