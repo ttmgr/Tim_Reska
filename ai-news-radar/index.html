@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI News Radar &mdash; Tim Reska</title>
+  <meta name="description"
+    content="A weekly multi-agent scan of the LLM coding-agent ecosystem — Claude Code, Codex, Gemini CLI, open-source agents, IDEs, MCP, and arXiv. Reports only what changed since the last run, curated to a working stack.">
+  <link rel="icon" href="../favicon.svg">
+  <link rel="stylesheet" href="../assets/css/fonts.css">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="styles.css?v=20260528">
+  <script defer src="../assets/js/nav-manifest.js"></script>
+  <script defer src="../assets/js/nav.js"></script>
+</head>
+
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">AI News Radar</p>
+        <h1>The LLM coding ecosystem, distilled weekly</h1>
+        <p class="hero-text">
+          A weekly multi-agent web scan of the coding-agent landscape &mdash; Claude Code, Codex,
+          Gemini CLI, the open-source agents, IDE integrations, MCP, and arXiv. Each run fans out
+          parallel research agents over a fixed set of source clusters, compares against an
+          append-only ledger of what has already been reported, and writes up <em>only what is
+          new</em> &mdash; with an action title, the practical implication, and a primary-source link
+          for every item.
+        </p>
+        <p class="hero-link-row">
+          <a href="../index.html">&larr; Tim Reska &mdash; Portfolio</a>
+        </p>
+      </div>
+      <div class="hero-meta">
+        <div class="meta-card">
+          <p class="meta-label">Cadence</p>
+          <p class="meta-value">Weekly, delta-only since the last run</p>
+        </div>
+        <div class="meta-card">
+          <p class="meta-label">Coverage</p>
+          <p class="meta-value">Six source clusters, A&ndash;F</p>
+        </div>
+        <div class="meta-card">
+          <p class="meta-label">Method</p>
+          <p class="meta-value">Parallel research agents, primary sources, action-titled items</p>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- ── What it is ────────────────────────────────────── -->
+      <section class="content-section" id="overview">
+        <p class="eyebrow">What it is</p>
+        <h2 class="section-heading">Signal, not a feed</h2>
+        <p class="section-text">
+          The coding-agent ecosystem moves faster than any changelog can be read by hand: models,
+          CLIs, IDE plugins, the Model Context Protocol, and a steady stream of arXiv papers all
+          ship weekly. The radar collapses that into a short, curated digest aimed at one question
+          &mdash; <em>what changed that should change how I work?</em> Items lead with an action
+          title and the practical implication, and every claim carries a link to its primary source
+          (a release page, a spec commit, or the paper itself).
+        </p>
+      </section>
+
+      <!-- ── Source clusters ───────────────────────────────── -->
+      <section class="content-section" id="clusters">
+        <p class="eyebrow">Coverage</p>
+        <h2 class="section-heading">Six source clusters</h2>
+        <p class="section-text">
+          Each run sweeps the same fixed clusters, so week-over-week deltas are comparable rather
+          than dependent on whatever happened to surface in a search.
+        </p>
+        <div class="cluster-grid">
+          <article class="cluster-card">
+            <p class="meta-label">Cluster A</p>
+            <h3>Anthropic &amp; Claude Code</h3>
+            <p>Claude Code releases, the Agent SDKs, model and pricing changes, security fixes.</p>
+          </article>
+          <article class="cluster-card">
+            <p class="meta-label">Cluster B</p>
+            <h3>OpenAI &amp; Codex</h3>
+            <p>Codex CLI, model updates, tool-use and sandboxing changes.</p>
+          </article>
+          <article class="cluster-card">
+            <p class="meta-label">Cluster C</p>
+            <h3>Google &amp; Gemini</h3>
+            <p>Gemini CLI, the Antigravity transition, model and quota changes.</p>
+          </article>
+          <article class="cluster-card">
+            <p class="meta-label">Cluster D</p>
+            <h3>Open-source agents</h3>
+            <p>Cline, OpenCode, Kilo Code, Goose and peers &mdash; the fast-moving long tail.</p>
+          </article>
+          <article class="cluster-card">
+            <p class="meta-label">Cluster E</p>
+            <h3>IDEs &amp; MCP</h3>
+            <p>Cursor, Windsurf, Zed, Copilot, and the Model Context Protocol spec.</p>
+          </article>
+          <article class="cluster-card">
+            <p class="meta-label">Cluster F</p>
+            <h3>Research &amp; arXiv</h3>
+            <p>Agent evaluation, reliability, and software-engineering papers worth acting on.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ── How an issue is built ─────────────────────────── -->
+      <section class="content-section" id="method">
+        <p class="eyebrow">How an issue is built</p>
+        <h2 class="section-heading">Parallel scan, deduplicated, curated</h2>
+        <ol class="steps">
+          <li>
+            <span class="n">1</span>
+            <div>
+              <strong>Fan out.</strong>
+              <p>Parallel research agents sweep the six clusters at once, each scoped to its own
+                set of primary sources.</p>
+            </div>
+          </li>
+          <li>
+            <span class="n">2</span>
+            <div>
+              <strong>Deduplicate against the ledger.</strong>
+              <p>An append-only "seen" ledger is read first, so each issue reports deltas rather
+                than re-surfacing last week's items.</p>
+            </div>
+          </li>
+          <li>
+            <span class="n">3</span>
+            <div>
+              <strong>Curate to a working stack.</strong>
+              <p>What survives is filtered to what actually affects day-to-day agent-assisted
+                engineering &mdash; not every release, only the ones that change a decision.</p>
+            </div>
+          </li>
+          <li>
+            <span class="n">4</span>
+            <div>
+              <strong>Write action titles with sources.</strong>
+              <p>Every item leads with the takeaway and the practical implication, and links to its
+                primary source for verification.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ── Sample issue ──────────────────────────────────── -->
+      <section class="content-section" id="sample">
+        <p class="eyebrow">Sample issue</p>
+        <h2 class="section-heading">A recent edition, in full</h2>
+        <p class="section-text">
+          A public sample of one weekly digest, lightly edited. Links go to the primary sources.
+        </p>
+
+        <article class="issue">
+          <header class="issue-head">
+            <h3>AI News Radar &mdash; 2026-05-25</h3>
+            <span class="issue-window">Window: 2026-05-22 &rarr; 2026-05-25 &middot; clusters A&ndash;F</span>
+          </header>
+          <div class="issue-body">
+            <p class="lede">
+              A deliberately short cycle, so the issue is thin by design. The signal worth pulling
+              forward: Claude Code can now attribute spend per category, and two arXiv papers landed
+              in the same week that together undercut two common agent-safety habits &mdash; letting
+              an agent grade its own tests, and letting it self-review its own diff.
+            </p>
+
+            <p class="kicker">The three worth your attention</p>
+            <ul class="headline-list">
+              <li>
+                <strong>You can now see which Skill, subagent, plugin, or MCP server is burning your
+                  tokens.</strong> <code>/usage</code> in Claude Code v2.1.149 splits costs by
+                category.
+                <a class="src" href="https://github.com/anthropics/claude-code/releases" target="_blank" rel="noreferrer">github.com/anthropics/claude-code/releases &middot; 2026-05-22</a>
+              </li>
+              <li>
+                <strong>Don't let an agent grade its own tests or self-review its own refactor.</strong>
+                SWE-Mutation shows LLM-generated test suites detect only ~40% of realistic mutations;
+                Articulate-but-Wrong shows 32% of silent semantic changes pass the model's own review.
+                <a class="src" href="https://arxiv.org/abs/2605.22175" target="_blank" rel="noreferrer">arXiv:2605.22175</a>
+                <a class="src" href="https://arxiv.org/abs/2605.21537" target="_blank" rel="noreferrer">arXiv:2605.21537 &middot; 2026-05-21/22</a>
+              </li>
+              <li>
+                <strong>Gemini CLI's final stable shipped &mdash; Antigravity cutover still
+                  2026-06-18.</strong> v0.43.0 is the last hardening pass before the transition.
+                <a class="src" href="https://github.com/google-gemini/gemini-cli/releases/tag/v0.43.0" target="_blank" rel="noreferrer">github.com/google-gemini/gemini-cli &middot; 2026-05-22</a>
+              </li>
+            </ul>
+
+            <div class="cluster-block">
+              <h4>Claude Code &amp; Anthropic</h4>
+              <ul class="feed">
+                <li>
+                  <span class="t"><code>/usage</code> now breaks costs down by Skills / subagents / plugins / MCP servers</span>
+                  <span class="d"> (Claude Code v2.1.149). Also: <code>/diff</code> gains keyboard
+                  scrolling, markdown renders <code>- [ ]</code>/<code>- [x]</code> task lists,
+                  enterprise gains an <code>allowAllClaudeAiMcps</code> managed setting, and security
+                  fixes land for a PowerShell <code>cd</code> bypass, the worktree sandbox write
+                  allowlist, and a macOS <code>find</code> vnode-exhaustion bug on large trees.</span>
+                  <a class="src" href="https://github.com/anthropics/claude-code/releases" target="_blank" rel="noreferrer">Release notes &middot; v2.1.149</a>
+                </li>
+                <li>
+                  <span class="t">Agent SDK (TypeScript) v0.3.149 clarifies that <code>options.env</code> <em>replaces</em> the subprocess env</span>
+                  <span class="d"> rather than merging with <code>process.env</code>. Anyone spawning
+                  Claude Code as a child process was silently launching without
+                  <code>PATH</code>/<code>HOME</code> &mdash; audit any such wrapper and pass
+                  <code>{...process.env, ...overrides}</code> unless nuking the env was intended.</span>
+                  <a class="src" href="https://github.com/anthropics/claude-agent-sdk-typescript/releases" target="_blank" rel="noreferrer">Release notes &middot; v0.3.149</a>
+                </li>
+                <li>
+                  <span class="t">Agent SDK (Python) v0.2.87 switched CI auth to Workload Identity Federation</span>
+                  <span class="d"> &mdash; short-lived tokens, no long-lived API-key secret. A clean
+                  pattern to borrow for any CI that drives agents.</span>
+                  <a class="src" href="https://github.com/anthropics/claude-agent-sdk-python/releases" target="_blank" rel="noreferrer">Release notes &middot; v0.2.87</a>
+                </li>
+                <li>
+                  <span class="t">Project Glasswing's first one-month update</span>
+                  <span class="d"> reports Claude finding &gt;10,000 high/critical vulnerabilities
+                  across widely-used software; ~2,000 surfaced at Cloudflare alone, at a 90.6%
+                  true-positive rate across 1,000+ scanned open-source projects.</span>
+                  <a class="src" href="https://www.anthropic.com/research/glasswing-initial-update" target="_blank" rel="noreferrer">anthropic.com/research &middot; 2026-05-22</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="cluster-block">
+              <h4>Other agents &amp; IDEs</h4>
+              <ul class="feed">
+                <li>
+                  <span class="t">Gemini CLI v0.43.0 (stable) + v0.44.0-preview.0</span>
+                  <span class="d"> &mdash; final hardening pass before the 2026-06-18 Antigravity
+                  cutover; collapses the multiple "Auto" modes into one and improves
+                  OAuth/headless auth. The last version to pin a comparison harness to.</span>
+                  <a class="src" href="https://github.com/google-gemini/gemini-cli/releases/tag/v0.43.0" target="_blank" rel="noreferrer">Release &middot; v0.43.0</a>
+                </li>
+                <li>
+                  <span class="t">OpenCode v1.15.9 redesigned the diff viewer</span>
+                  <span class="d"> with a file tree and refreshed layout; v1.15.10 restored a desktop
+                  production flow that v1.15.9 broke. Worth watching as diff-UX competition.</span>
+                  <a class="src" href="https://github.com/sst/opencode/releases" target="_blank" rel="noreferrer">Release notes</a>
+                </li>
+                <li>
+                  <span class="t">Kilo Code v7.3.9 added tracked background processes</span>
+                  <span class="d"> in the CLI and the VS Code TUI &mdash; long-running dev servers get
+                  status, logs, and detected ports in the sidebar.</span>
+                  <a class="src" href="https://github.com/Kilo-Org/kilocode/releases/tag/v7.3.9" target="_blank" rel="noreferrer">Release &middot; v7.3.9</a>
+                </li>
+                <li>
+                  <span class="t">Cline CLI v3.0.12/.13</span>
+                  <span class="d"> added loading dialogs for session resume and provider/model
+                  transitions, plus <code>cline update</code> for in-place upgrades. Quality-of-life
+                  only.</span>
+                  <a class="src" href="https://github.com/cline/cline/releases" target="_blank" rel="noreferrer">Release notes</a>
+                </li>
+                <li>
+                  <span class="t">Codex: no published changelog entries in window</span>
+                  <span class="d"> &mdash; alpha builds shipped without release notes; merged-but-
+                  unannounced commits will likely surface next cycle.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="cluster-block">
+              <h4>MCP &amp; tooling</h4>
+              <ul class="feed">
+                <li>
+                  <span class="t">MCP spec PR #2769 (SEP-2576) merged</span>
+                  <span class="d"> &mdash; documentation alignment across Transports, Completions,
+                  Prompts, and Resources on top of the 2026-07-28 release candidate. No behavior
+                  change yet; signals the RC is in clean-up mode.</span>
+                  <a class="src" href="https://github.com/modelcontextprotocol/specification/commits/main" target="_blank" rel="noreferrer">spec commits &middot; 2026-05-22</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="cluster-block">
+              <h4>Research &mdash; two papers dismantle two common safety habits</h4>
+              <ul class="feed">
+                <li>
+                  <span class="t">SWE-Mutation: LLMs cannot reliably generate test suites</span>
+                  <span class="d"> &mdash; a mutation-based benchmark where even strong models reach
+                  only ~36% detection, and realistic mutations drop detection from 71% to 40%. The
+                  strongest evidence yet that "an agent wrote a passing test &rArr; the behavior is
+                  correct" is unsafe; pair generated tests with a mutation step or an independent
+                  oracle.</span>
+                  <a class="src" href="https://arxiv.org/abs/2605.22175" target="_blank" rel="noreferrer">arXiv:2605.22175 &middot; 2026-05-21</a>
+                </li>
+                <li>
+                  <span class="t">Articulate but Wrong: self-review fails on code modernization</span>
+                  <span class="d"> &mdash; across 1,980 Python 2&rarr;3 migrations and 11 production
+                  models, 39.7% silently change semantics and 31.7% of those failures pass the
+                  model's own self-review. It does not improve with capability tier, which kills
+                  "ask the model to review its own diff" as a safety net for refactors.</span>
+                  <a class="src" href="https://arxiv.org/abs/2605.21537" target="_blank" rel="noreferrer">arXiv:2605.21537 &middot; 2026-05-20</a>
+                </li>
+                <li>
+                  <span class="t">Co-ReAct: per-step rubrics beat free-form ReAct</span>
+                  <span class="d"> &mdash; a rubric generator injects per-step rubrics into a ReAct
+                  loop, with consistent gains on research and coding benchmarks across model sizes.
+                  A practical pattern for tightening subagents.</span>
+                  <a class="src" href="https://arxiv.org/abs/2605.23590" target="_blank" rel="noreferrer">arXiv:2605.23590 &middot; 2026-05-25</a>
+                </li>
+                <li>
+                  <span class="t">The Impact of AI Coding Assistants &mdash; a 6-month longitudinal study</span>
+                  <span class="d"> &mdash; 82% of developers spend less time writing code as work
+                  shifts to verification and "supervisory engineering"; perceived productivity stays
+                  stable (84% report gains) while developer-experience scores degrade (27% poor vs
+                  14% baseline) &mdash; the experience tax to budget for.</span>
+                  <a class="src" href="https://arxiv.org/abs/2605.23135" target="_blank" rel="noreferrer">arXiv:2605.23135 &middot; 2026-05-22</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="cluster-block">
+              <h4>Still developing</h4>
+              <ul class="feed">
+                <li><span class="t">Gemini CLI &rarr; Antigravity CLI cutover 2026-06-18.</span> <span class="d">v0.43 is the final stable.</span></li>
+                <li><span class="t">MCP 2026-07-28 spec final.</span> <span class="d">The release candidate is in documentation clean-up.</span></li>
+              </ul>
+            </div>
+
+            <p class="note">
+              This is a public sample of a private weekly digest, curated to a working
+              engineering stack. Issues are produced with a multi-agent web scan; every item links
+              to its primary source so claims can be checked at the source.
+            </p>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+</body>
+
+</html>
