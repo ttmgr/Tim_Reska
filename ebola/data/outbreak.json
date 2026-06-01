@@ -163,7 +163,13 @@
     { "date": "2026-05-23", "event": "Three Red Cross volunteers revealed to have died May 5-16 after contracting Ebola during body management on March 27 — pre-declaration transmission", "severity": "death" },
     { "date": "2026-05-24", "event": "DRC confirmed cases surpass 100 (101 confirmed, 904 suspected); WHO national risk VERY HIGH", "severity": "alert" },
     { "date": "2026-05-24", "event": "US demands DRC World Cup team maintain 21-day isolation bubble in Belgium before US entry", "severity": "response" },
-    { "date": "2026-05-25", "event": "ECDC updates: DRC 101 confirmed + 904 suspected, Uganda 7 confirmed; combined 108 confirmed, 11 deaths confirmed", "severity": "alert" }
+    { "date": "2026-05-25", "event": "ECDC updates: DRC 101 confirmed + 904 suspected, Uganda 7 confirmed; combined 108 confirmed, 11 deaths confirmed", "severity": "alert" },
+    { "date": "2026-05-26", "event": "DRC Ministry of Health reports 121 confirmed (incl. 17 deaths) and 1,077 suspected cases (incl. 238 deaths) across Ituri, North Kivu and South Kivu", "severity": "alert" },
+    { "date": "2026-05-27", "event": "Uganda orders immediate closure of its border with DRC for at least four weeks; emergency arrivals face mandatory 21-day isolation (against WHO advice)", "severity": "alert" },
+    { "date": "2026-05-27", "event": "ECDC scales up its response via the EU Health Task Force as the outbreak intensifies; EU/EEA risk remains very low", "severity": "response" },
+    { "date": "2026-05-28", "event": "DRC Ministry of Health revises figures: 125 confirmed (17 deaths) and 906 suspected (223 deaths) — non-cases removed and some suspected reclassified as confirmed", "severity": "alert" },
+    { "date": "2026-05-28", "event": "WHO Director-General travels to the DRC to support the outbreak response", "severity": "response" },
+    { "date": "2026-05-29", "event": "WHO DON605: 134 confirmed cases (18 deaths) across DRC and Uganda; cases span 13 health zones (7 Ituri, 5 North Kivu, 1 South Kivu)", "severity": "alert" }
   ],
   "key_metrics": {
     "hcw_deaths": 4,

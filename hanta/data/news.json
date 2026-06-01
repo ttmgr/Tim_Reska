@@ -1,6 +1,13 @@
 {
-  "last_updated": "2026-05-25",
+  "last_updated": "2026-06-01",
   "articles": [
+    {
+      "date": "2026-05-26",
+      "source": "ECDC",
+      "title": "Andes hantavirus outbreak in cruise ship, 26 May 2026",
+      "url": "https://www.ecdc.europa.eu/en/infectious-disease-topics/hantavirus-infection/surveillance-and-updates/andes-hantavirus-outbreak",
+      "summary": "ECDC reported 13 cases in total (11 confirmed, 2 probable) with 3 deaths — one new case since the 24 May update and no new deaths. The MV Hondius is undergoing sanitation in Rotterdam and the risk to the EU/EEA general population remains very low."
+    },
     {
       "date": "2026-05-25",
       "source": "media",

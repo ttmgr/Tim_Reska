@@ -25,4 +25,4 @@ The page also works opened directly (`open index.html`), but the Leaflet tiles w
 
 ## Last refresh
 
-2026-05-23.
+2026-06-01.
