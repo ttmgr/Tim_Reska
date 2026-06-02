@@ -71,7 +71,7 @@ From here you can:
 | Credentials | `askeras-v2/credentials.html` | Full track record |
 | Shared chrome | `askeras-v2/chrome.css` | Shared brand CSS for all 11 pages |
 | Tim CV | `askeras-v2/tim-reska.html` | Founder CV |
-| Minas CV | `askeras-v2/minas-schwager.html` | Co-Founder CV |
+| Minas CV | `askeras-v2/minas-schwager.html` | Archived — incoming co-founder, not active (solo for now) |
 | --- | --- | --- |
 | **Askeras generators** (private, `company_askeras/`) | | |
 | Build orchestrator | `company_askeras/src/askeras/shared/run_all.py` | Drives 100+ generators via `make build` |
@@ -130,8 +130,7 @@ From here you can:
 
 ## :collaborators
 
-- **Tim Reska** — Everything. PhD Helmholtz AI / TU Munich. 8 publications incl. Nature Communications. All code, all content.
-- **Minas Schwager** — Co-Founder Askeras (joining). PhD computational biology Helmholtz / TUM. Single-cell multi-omics, LLM deployment in patent law.
+- **Tim Reska** — Everything. Dr. rer. nat., Helmholtz AI / TU Munich. 7 publications incl. Nature Communications. All code, all content. Solo founder of Askeras.
 
 ## :superseded
 
