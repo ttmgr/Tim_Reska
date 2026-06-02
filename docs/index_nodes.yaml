@@ -112,6 +112,14 @@ nodes:
     reads_for: "agentic primitives map, topology patterns, ambient automation, cost/speed optimization, Askeras orchestrator audit"
     edges: [company_askeras, ai-deployment-readiness, llm-cost-calculator, multi-agent-dd]
 
+  - id: ai-news-radar
+    title: AI News Radar
+    group: "AI deployment strategy"
+    globs: ["ai-news-radar/**"]
+    summary: 'Static showcase — "The LLM coding ecosystem, distilled weekly." Public-facing face of the /llm-coding-radar weekly digests (Anthropic/Claude Code, OpenAI/Codex, Gemini CLI, open-source agents, IDEs, MCP, arXiv).'
+    reads_for: "LLM coding ecosystem digest, weekly model/pricing/tooling changes, public radar showcase"
+    edges: [llm-coding-radar, llm-cost-calculator, ai-deployment-readiness]
+
   # --- Outbreak dashboards --------------------------------------------------
   - id: ebola
     title: Ebola 2026 Tracker
