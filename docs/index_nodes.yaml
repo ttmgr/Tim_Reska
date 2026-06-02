@@ -232,7 +232,9 @@ nodes:
       - ".nojekyll"
       - "CITATION.cff"
       - "LICENSE"
-    summary: Top-level site files — homepage, README, structure doc, license, citation, deployment config. (favicon.svg exists but is excluded from the file map by the **/*.svg ignore rule.)
+      - "robots.txt"
+      - "sitemap.xml"
+    summary: Top-level site files — homepage, README, structure doc, license, citation, SEO (robots/sitemap), deployment config. (favicon.svg exists but is excluded from the file map by the **/*.svg ignore rule.)
     reads_for: "homepage layout, site structure map, deployment config"
     edges: [academy, ebola, hanta, assets]
 
@@ -247,7 +249,7 @@ nodes:
       - "docs/INDEX.md"
       - "docs/INDEX.html"
       - "docs/HUB.html"
-      - "docs/hub.yaml"
+      - "HUB.md"
     summary: Two navigation layers — (1) HUB.html / INDEX.html / INDEX.md, the auto-generated project dashboard + interactive code graph; (2) .nav/ (gitignored, local-only), the Markdown node map agents read at session start.
     reads_for: "how navigation works, refreshing the views, adding new nodes"
     edges: []

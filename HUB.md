@@ -1,6 +1,6 @@
 # Tim Reska — Project Hub
 
-**Status:** ACTIVE · Askeras v3.0.0 buildout, site architecture deepening, academy PWA live
+**Status:** ACTIVE · Honesty pass shipped (solo founder, claims scrubbed); going to market
 
 Personal portfolio site + the Askeras AI Enablement venture. The published site showcases applied ML, LLM evaluation, outbreak dashboards, and genomics pipelines. The private `company_askeras/` layer generates every Askeras deliverable (100+ generators, 40+ PDF/DOCX/PPTX outputs). Both surfaces share fonts, tokens, and the terracotta design language.
 
@@ -8,9 +8,13 @@ Personal portfolio site + the Askeras AI Enablement venture. The published site 
 
 Portfolio of applied ML, LLM evaluation, and AI deployment work — plus the full Askeras AI Enablement venture (Academy curriculum, Due Diligence pipeline, legal/sales generators).
 
+## :next
+
+Land the first paying customer. Book one warm-lead Compass Call from `company_askeras/outreach/` before building any new asset.
+
 ## :status
 
-The published site is stable. Current energy is on the Askeras buildout: v3.0.0 deliverables shipping, academy PWA installable offline, enterprise pitch materials complete, starter packs per-recipient, legal generators production-ready.
+The published site is stable and was just scrubbed for accuracy (2026-06-02): every unverifiable "in active use under NDA" / pilot-partner / co-founder claim removed, repositioned as **solo founder** (Dr. rer. nat., 7 publications), and the three "Consulting — NDA" cards reframed as self-built projects. Askeras v3.0.0 deliverables are built and regenerated from the corrected sources; references list captured privately in `company_askeras/outreach/references.md`. The build is done — focus has shifted from building to **selling**: landing the first paying customer.
 
 From here you can:
 - Open the [published site](index.html) for the portfolio landing page
