@@ -8,7 +8,7 @@ it answers. Mirrors the structure in `.nav/INDEX.md`; refresh both
 systems after any structural change. For the human-oriented narrative
 see `STRUCTURE.md`.
 
-*23 nodes · 352 files mapped · ⚠ 3 unmapped.*
+*23 nodes · 355 files mapped.*
 
 ## Quick lookup — read when…
 
@@ -174,19 +174,13 @@ Personal weekly digests of the LLM-coding ecosystem (output of the /llm-coding-r
 
 ## Meta & tooling
 
-### `site-root` · Site root + homepage  (7 files)
-Top-level site files — homepage, README, structure doc, license, citation, deployment config. (favicon.svg exists but is excluded from the file map by the **/*.svg ignore rule.)
-**Files:** `.gitignore` · `.nojekyll` · `CITATION.cff` · `LICENSE` · `README.md` · `STRUCTURE.md` · `index.html`
+### `site-root` · Site root + homepage  (9 files)
+Top-level site files — homepage, README, structure doc, license, citation, SEO (robots/sitemap), deployment config. (favicon.svg exists but is excluded from the file map by the **/*.svg ignore rule.)
+**Files:** `.gitignore` · `.nojekyll` · `CITATION.cff` · `LICENSE` · `README.md` · `STRUCTURE.md` · `index.html` · `robots.txt` · `sitemap.xml`
 **Related:** [[academy]] · [[ebola]] · [[hanta]] · [[assets]]
 **Read when:** homepage layout, site structure map, deployment config
 
-### `node-system` · Project hub + nav node system (self)  (7 files)
+### `node-system` · Project hub + nav node system (self)  (8 files)
 Two navigation layers — (1) HUB.html / INDEX.html / INDEX.md, the auto-generated project dashboard + interactive code graph; (2) .nav/ (gitignored, local-only), the Markdown node map agents read at session start.
-**Files:** `docs/HUB.html` · `docs/INDEX.html` · `docs/INDEX.md` · `docs/index_nodes.yaml` · `scripts/build_hub.py` · `scripts/build_index.py` · `scripts/build_visualization.py`
+**Files:** `HUB.md` · `docs/HUB.html` · `docs/INDEX.html` · `docs/INDEX.md` · `docs/index_nodes.yaml` · `scripts/build_hub.py` · `scripts/build_index.py` · `scripts/build_visualization.py`
 **Read when:** how navigation works, refreshing the views, adding new nodes
-
-## ⚠ Unmapped files (not in any node — add a glob in index_nodes.yaml)
-
-- `HUB.md`
-- `robots.txt`
-- `sitemap.xml`
