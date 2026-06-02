@@ -8,7 +8,7 @@ it answers. Mirrors the structure in `.nav/INDEX.md`; refresh both
 systems after any structural change. For the human-oriented narrative
 see `STRUCTURE.md`.
 
-*22 nodes · 351 files mapped · ⚠ 3 unmapped.*
+*23 nodes · 352 files mapped · ⚠ 3 unmapped.*
 
 ## Quick lookup — read when…
 
@@ -22,6 +22,7 @@ see `STRUCTURE.md`.
 | AI readiness self-assessment, sector benchmarking | [[ai-deployment-readiness]] |
 | LLM TCO, pricing comparisons, Monte Carlo sensitivity, ROI modelling | [[llm-cost-calculator]] |
 | agentic primitives map, topology patterns, ambient automation, cost/speed optimization, Askeras orchestrator audit | [[agentic-systems]] |
+| LLM coding ecosystem digest, weekly model/pricing/tooling changes, public radar showcase | [[ai-news-radar]] |
 | outbreak dashboard pattern, timeline visualisation, regional breakdown | [[ebola]] |
 | outbreak dashboard pattern, German localisation, ship-cluster narrative | [[hanta]] |
 | academy public positioning, tier descriptions, NDA pilot framing | [[academy]] |
@@ -91,6 +92,12 @@ Briefing on the Claude agentic-systems frontier — primitives, topologies, Anth
 **Related:** [[company_askeras]] · [[ai-deployment-readiness]] · [[llm-cost-calculator]] · [[multi-agent-dd]]
 **Read when:** agentic primitives map, topology patterns, ambient automation, cost/speed optimization, Askeras orchestrator audit
 
+### `ai-news-radar` · AI News Radar  (2 files)
+Static showcase — "The LLM coding ecosystem, distilled weekly." Public-facing face of the /llm-coding-radar weekly digests (Anthropic/Claude Code, OpenAI/Codex, Gemini CLI, open-source agents, IDEs, MCP, arXiv).
+**Files:** `ai-news-radar/index.html` · `ai-news-radar/styles.css`
+**Related:** [[llm-coding-radar]] · [[llm-cost-calculator]] · [[ai-deployment-readiness]]
+**Read when:** LLM coding ecosystem digest, weekly model/pricing/tooling changes, public radar showcase
+
 ## Outbreak dashboards
 
 ### `ebola` · Ebola 2026 Tracker  (9 files)
@@ -99,9 +106,9 @@ Ebola 2026 outbreak tracker dashboard; consumes WHO/CDC/Africa CDC reporting.
 **Related:** [[hanta]] · [[assets]]
 **Read when:** outbreak dashboard pattern, timeline visualisation, regional breakdown
 
-### `hanta` · Hantavirus 2026 Tracker  (11 files)
+### `hanta` · Hantavirus 2026 Tracker  (10 files)
 Hantavirus 2026 outbreak tracker dashboard; has a German page under de/ and a ship-narrative (MV Hondius) layer.
-**Files:** `hanta/README.md` · `hanta/data/cases.json` · `hanta/data/epidemiology.json` · `hanta/data/historical.json` · `hanta/data/hondius.json` · `hanta/data/news.json` · `hanta/de/index.html` · `hanta/index.html` · `hanta/js/app.js` · `hanta/js/charts.js` · `hanta/js/map.js`
+**Files:** `hanta/README.md` · `hanta/data/cases.json` · `hanta/data/historical.json` · `hanta/data/hondius.json` · `hanta/data/news.json` · `hanta/de/index.html` · `hanta/index.html` · `hanta/js/app.js` · `hanta/js/charts.js` · `hanta/js/map.js`
 **Related:** [[ebola]] · [[assets]]
 **Read when:** outbreak dashboard pattern, German localisation, ship-cluster narrative
 

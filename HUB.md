@@ -46,6 +46,7 @@ From here you can:
 | AI Deployment Readiness | `ai-deployment-readiness/index.html` | 25-question maturity self-assessment |
 | LLM Cost Calculator | `llm-cost-calculator/index.html` | Pricing DB, Monte Carlo sensitivity, ROI modeling |
 | Agentic Systems | `agentic_systems/AGENTIC_FRONTIER_PRIMER.html` | Agentic AI primer |
+| AI News Radar | `ai-news-radar/index.html` | LLM coding ecosystem, distilled weekly |
 | --- | --- | --- |
 | **Outbreak dashboards** | | |
 | Ebola tracker | `ebola/index.html` | 2026 Ebola outbreak dashboard |

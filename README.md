@@ -179,6 +179,18 @@ cd llm-cost-calculator && python -m src.calculator --compare mistral-large-lates
 
 Links: [`llm-cost-calculator/`](./llm-cost-calculator/)
 
+### Agentic Frontier Primer
+
+Briefing on the Claude agentic-systems frontier — primitives, topologies, ambient automation, and optimization patterns — produced by seven Haiku 4.5 subagents fanned out in parallel and synthesized by Opus 4.7. The architecture is the demonstration.
+
+Links: [`agentic_systems/`](./agentic_systems/)
+
+### AI News Radar
+
+Weekly digest of the LLM-coding ecosystem (Anthropic/Claude Code, OpenAI/Codex, Gemini CLI, open-source agents, IDEs, MCP, arXiv), curated to what is new since the last run. The public face of the `/llm-coding-radar` workflow.
+
+Links: [`ai-news-radar/`](./ai-news-radar/)
+
 ---
 
 ## Repository structure
@@ -208,7 +220,9 @@ Tim_Reska/
 │   ├── wetland-surveillance/
 │   └── listeria-adaptive-sampling/
 ├── ai-deployment-readiness/   AI maturity self-assessment (25 questions, 5 dimensions)
-└── llm-cost-calculator/       LLM deployment cost + ROI modeling (13 models)
+├── llm-cost-calculator/       LLM deployment cost + ROI modeling (13 models)
+├── agentic_systems/           Claude agentic-systems frontier primer
+└── ai-news-radar/             LLM-coding ecosystem weekly digest
 ```
 
 ## Selected publications
