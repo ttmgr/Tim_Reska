@@ -111,9 +111,7 @@
         <li><strong>Source confabulation</strong> &mdash; the model attributes real claims to the wrong paper or report, or invents citations that look credible but do not exist.</li>
       </ol>
 
-      <p>A related but distinct problem is <strong>confidence without calibration</strong>. When a model says &ldquo;I am 90% sure,&rdquo; the actual accuracy is systematically lower. Research measures the Expected Calibration Error (ECE) of self-reported LLM confidence at roughly 0.166 &mdash; meaning stated confidence overstates actual accuracy by approximately 16.6 percentage points on average. Never use the model&rsquo;s own confidence statement as evidence of correctness; the confidence expression is itself generated text, subject to the same plausibility optimisation as everything else.</p>
-
-      <!-- TIM-REVIEW: The two arXiv references in the source guide (2603.10072 and 2603.29559) both have 2603 prefixes, which would correspond to March 2026. I kept the ECE figure (0.166 / 16.6 pp) as it is a defensible-sounding magnitude, but stripped the specific arXiv ID since I cannot independently verify the paper exists. If these are real, you may want to restore the citations. If they were placeholder/illustrative numbers in the trainer guide, leaving the magnitude without the precise paper attribution is safer. -->
+      <p>A related but distinct problem is <strong>confidence without calibration</strong>. When a model says &ldquo;I am 90% sure,&rdquo; the actual accuracy is systematically lower. Studies of self-reported LLM confidence find it is systematically overstated: a model&rsquo;s stated confidence runs higher than its measured accuracy. Never use the model&rsquo;s own confidence statement as evidence of correctness; the confidence expression is itself generated text, subject to the same plausibility optimisation as everything else.</p>
 
       <div class="callout">
         <div class="callout-tag">Key insight</div>
@@ -159,7 +157,6 @@
         <p><strong>Background reading referenced in this lesson:</strong></p>
         <p>ErrorAtlas taxonomy of LLM failure categories &mdash; <code>emergentmind.com/topics/erroratlas</code></p>
         <p>DAIR-AI Prompt Engineering Guide &mdash; <code>promptingguide.ai</code></p>
-        <!-- TIM-REVIEW: I removed the arXiv IDs from the public version because their date prefixes (2603) look unusual and I cannot verify them independently. If they are real and you want them cited, the source guide has them in trainer_guide_tier1.md around the Topic B / Slide 7 and Slide 8 blocks. -->
       </div>
 
     </div>
