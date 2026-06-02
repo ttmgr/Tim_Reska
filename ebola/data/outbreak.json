@@ -169,7 +169,11 @@
     { "date": "2026-05-27", "event": "ECDC scales up its response via the EU Health Task Force as the outbreak intensifies; EU/EEA risk remains very low", "severity": "response" },
     { "date": "2026-05-28", "event": "DRC Ministry of Health revises figures: 125 confirmed (17 deaths) and 906 suspected (223 deaths) — non-cases removed and some suspected reclassified as confirmed", "severity": "alert" },
     { "date": "2026-05-28", "event": "WHO Director-General travels to the DRC to support the outbreak response", "severity": "response" },
-    { "date": "2026-05-29", "event": "WHO DON605: 134 confirmed cases (18 deaths) across DRC and Uganda; cases span 13 health zones (7 Ituri, 5 North Kivu, 1 South Kivu)", "severity": "alert" }
+    { "date": "2026-05-29", "event": "WHO DON605: 134 confirmed cases (18 deaths) across DRC and Uganda; cases span 13 health zones (7 Ituri, 5 North Kivu, 1 South Kivu)", "severity": "alert" },
+    { "date": "2026-05-29", "event": "Confirmed cases reported in Beni (North Kivu), a city that was an epicentre of the 2018-2020 Kivu Ebola epidemic", "severity": "alert" },
+    { "date": "2026-05-31", "event": "DRC Ministry of Health update: confirmed cases more than double to 282 (42 deaths) as the diagnostic backlog clears — Ituri 264 (14 health zones), North Kivu 15, South Kivu 3; Uganda holds at 9 (1 death). Cumulative suspected passes 1,100", "severity": "alert" },
+    { "date": "2026-06-01", "event": "CEPI commits up to ~$62M to fast-track three Bundibugyo-specific vaccine candidates: Moderna ($50M), Oxford/Serum Institute of India ($8.6M), IAVI ($3.2M); CEPI says trial-ready doses possible within months", "severity": "response" },
+    { "date": "2026-06-01", "event": "First cohort of Ebola survivors discharged from treatment centres in DRC as confirmed cases near 300; contact tracing still reaches under half of listed contacts", "severity": "response" }
   ],
   "key_metrics": {
     "hcw_deaths": 4,

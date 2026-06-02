@@ -1,6 +1,34 @@
 {
-  "last_updated": "2026-06-01",
+  "last_updated": "2026-06-02",
   "articles": [
+    {
+      "date": "2026-06-01",
+      "source": "NPR",
+      "title": "Confirmed Ebola cases in Congo near 300 as survivors describe their recoveries",
+      "url": "https://www.npr.org/2026/06/01/g-s1-125143/ebola-updates",
+      "summary": "NPR reports DRC confirmed cases have climbed toward 300 (282 confirmed, 42 deaths in DRC; 9 confirmed and 1 death in Uganda) as the first cohort of survivors is discharged from Ebola treatment centres. Contact tracing still reaches under half of listed contacts amid insecurity and population displacement in eastern DRC."
+    },
+    {
+      "date": "2026-06-01",
+      "source": "STAT",
+      "title": "Three experimental Ebola vaccines get $62 million in fast-track funding",
+      "url": "https://www.statnews.com/2026/06/01/ebola-bundibugyo-vaccine-studies-cepi-62-million-funding/",
+      "summary": "CEPI committed roughly $62 million to fast-track three Bundibugyo-specific vaccine candidates — Moderna (up to $50M), the University of Oxford with the Serum Institute of India (up to $8.6M), and IAVI ($3.2M). CEPI chief Richard Hatchett said trial-ready doses could be possible within a couple of months; no licensed Bundibugyo vaccine currently exists."
+    },
+    {
+      "date": "2026-06-01",
+      "source": "CEPI",
+      "title": "CEPI fast-tracks three Bundibugyo ebolavirus vaccine candidates",
+      "url": "https://cepi.net/cepi-fast-tracks-three-bundibugyo-ebolavirus-vaccine-candidates",
+      "summary": "CEPI announced it will urgently accelerate development of three investigational vaccines against the Bundibugyo ebolavirus driving the DRC and Uganda epidemic, prioritising candidates that could enter clinical trials during the outbreak. There is no approved vaccine or therapeutic for the Bundibugyo species."
+    },
+    {
+      "date": "2026-05-31",
+      "source": "ECDC",
+      "title": "Ebola outbreak in DRC and Uganda: confirmed cases double to 282",
+      "url": "https://www.ecdc.europa.eu/en/ebola-virus-disease-outbreak-democratic-republic-congo-and-uganda",
+      "summary": "ECDC's monitoring page reported DRC Ministry of Health figures published on 31 May: 282 confirmed cases and 42 confirmed deaths in the DRC (264 in Ituri across 14 health zones, 15 in North Kivu, 3 in South Kivu), plus 9 confirmed cases and 1 death in Uganda. Confirmed cases roughly doubled from 29 May as the diagnostic backlog cleared; risk to the EU/EEA population remains very low."
+    },
     {
       "date": "2026-05-29",
       "source": "WHO",
