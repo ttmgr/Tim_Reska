@@ -1,6 +1,34 @@
 {
-  "last_updated": "2026-06-02",
+  "last_updated": "2026-06-07",
   "articles": [
+    {
+      "date": "2026-06-05",
+      "source": "NPR",
+      "title": "CDC report: Ebola outbreak could rival the worst on record unless world acts",
+      "url": "https://www.npr.org/2026/06/05/nx-s1-5848082/ebola-virus-cdc-outbreak-democratic-republic-congo-uganda",
+      "summary": "NPR reports on new US CDC modelling that describes the DRC/Uganda epidemic as the largest Bundibugyo outbreak on record and warns that, without stronger intervention, it could rival or exceed the 2014-2016 West Africa outbreak — with scenarios exceeding 20,000 cases over three months. CDC officials urged urgent action while noting general US public risk remains low."
+    },
+    {
+      "date": "2026-06-05",
+      "source": "CDC",
+      "title": "Update on Ebola Outbreak in the Democratic Republic of the Congo and Uganda",
+      "url": "https://www.cdc.gov/media/releases/2026/update-on-ebola-outbreak-in-the-democratic-republic-of-the-congo-and-uganda-6-5-2026.html",
+      "summary": "In a media briefing the CDC called this the largest Bundibugyo outbreak on record and presented modelling in which, absent strong interventions, the epidemic could approach or exceed the 2014-2016 West Africa scale. Since mid-May, CDC, DHS and partner agencies have enforced entry restrictions and public-health screening at four US airports; CDC maintains rapid-deployment and laboratory testing capacity across 41 states."
+    },
+    {
+      "date": "2026-06-05",
+      "source": "ECDC",
+      "title": "Ebola disease outbreak in the DRC and Uganda — weekly monitoring update",
+      "url": "https://www.ecdc.europa.eu/en/ebola-virus-disease-outbreak-democratic-republic-congo-and-uganda",
+      "summary": "ECDC's monitoring page reports, as of 5 June: DRC 381 confirmed cases, 64 deaths and 233 patients hospitalised in isolation (Ituri 359 across 17 health zones, North Kivu 19 across 7, South Kivu 3 in 1); Uganda 19 confirmed cases and 2 deaths (8 in Kampala, 1 in Wakiso). Risk to EU/EEA residents remains very low; the next epidemiological update is due 8 June."
+    },
+    {
+      "date": "2026-06-03",
+      "source": "WHO",
+      "title": "WHO Director-General's opening remarks at the media briefing — 3 June 2026",
+      "url": "https://www.who.int/news-room/speeches/item/who-director-general-s-opening-remarks-at-the-media-briefing---3-june-2026",
+      "summary": "The WHO Director-General reported DRC 344 confirmed cases (60 deaths) across 24 health zones in three provinces and Uganda 15 confirmed cases (1 death), with suspected cases reclassified down to 116 from over 1,000 after additional testing. He stressed the outbreak is being fought 'without vaccines or therapeutics' — trials are being advanced — and that only about 45% of contacts are being followed up against a >90% target."
+    },
     {
       "date": "2026-06-01",
       "source": "NPR",

@@ -1,6 +1,34 @@
 {
-  "last_updated": "2026-06-02",
+  "last_updated": "2026-06-07",
   "articles": [
+    {
+      "date": "2026-06-05",
+      "source": "ECDC",
+      "title": "Communicable disease threats report, Week 23 (30 May – 5 June 2026)",
+      "url": "https://www.ecdc.europa.eu/en/publications-data/communicable-disease-threats-report-30-may-5-june-2026-week-23",
+      "summary": "ECDC's weekly threats report reiterates the MV Hondius Andes-virus cluster at 13 cases (11 confirmed, 2 probable) with no new deaths since the previous update. Risk to the EU/EEA general population remains very low; additional cases remain possible given the up-to-45-day incubation window."
+    },
+    {
+      "date": "2026-06-03",
+      "source": "RIVM",
+      "title": "Current information about hantavirus",
+      "url": "https://www.rivm.nl/en/hantavirus/current-information",
+      "summary": "RIVM reports that a contact in home quarantine returned a weak-positive test, but subsequent retests were clearly negative and the person remained symptom-free — so the case is not counted. The Dutch toll holds at 3 cases and 2 deaths; the national cluster figures are unchanged."
+    },
+    {
+      "date": "2026-06-02",
+      "source": "Washington Post",
+      "title": "Five people have left hantavirus quarantine facility in Nebraska",
+      "url": "https://www.washingtonpost.com/health/2026/06/02/five-people-have-left-hantavirus-quarantine-facility-nebraska/",
+      "summary": "Five of the 18 repatriated MV Hondius passengers were released from the Nebraska National Quarantine Unit to home monitoring; 13 remain at the NQU, all symptom-free. No US passenger has tested positive for hantavirus."
+    },
+    {
+      "date": "2026-06-02",
+      "source": "CDC",
+      "title": "Andes Virus Outbreak on a Cruise Ship: Current Situation",
+      "url": "https://www.cdc.gov/hantavirus/situation-summary/index.html",
+      "summary": "CDC's situation summary states 13 people remain at the Nebraska National Quarantine Unit and 5 are now home under monitoring, all symptom-free, with no confirmed US cases. The risk to the US general public is described as extremely low."
+    },
     {
       "date": "2026-05-26",
       "source": "ECDC",

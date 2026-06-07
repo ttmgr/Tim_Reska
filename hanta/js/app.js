@@ -4,7 +4,7 @@ function renderHeroStats(data, hondius) {
     { val: h.total_cases || '--', label: 'Ship cases', sub: 'MV Hondius cluster', cls: 'blue' },
     { val: h.total_deaths || '--', label: 'Ship deaths', sub: 'All passengers aged 57-68', cls: 'red' },
     { val: (h.cfr_percent || '--') + '%', label: 'Ship CFR', sub: 'Case fatality rate', cls: 'red' },
-    { val: 'Quarantined', label: 'Status', sub: 'En route Tenerife', cls: 'default' }
+    { val: 'Monitoring', label: 'Status', sub: 'Ship cleared · Rotterdam', cls: 'default' }
   ]);
 }
 
@@ -26,7 +26,7 @@ function renderClusterMetrics(h) {
     { l: 'Ship CFR', v: h.cfr_percent + '%' },
     { l: 'Attack rate', v: h.attack_rate_percent + '%' },
     { l: 'R₀ estimate', v: h.r0_estimate },
-    { l: 'Status', v: 'Quarantined' }
+    { l: 'Status', v: 'Monitoring' }
   ]);
 }
 
