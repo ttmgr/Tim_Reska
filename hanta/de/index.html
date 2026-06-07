@@ -38,7 +38,7 @@
       </div>
       <h2 class="hero-headline">Kreuzfahrt-assoziiertes Andes-Virus-Cluster</h2>
       <p class="hero-summary">
-        Elf schiffsassoziierte Faelle (8 bestaetigt, 1 nicht eindeutig, 2 wahrscheinlich), drei toedlich. Evakuierung abgeschlossen — alle 147 Passagiere und Besatzungsmitglieder bis 11. Mai ueber ca. 10 Fluege von Teneriffa repatriiert. Zwei neue bestaetigte Faelle nach Evakuierung: franzoesische Passagierin auf Intensivstation (Zustand verschlechtert sich), spanischer Passagier asymptomatisch (im Gomez-Ulla-Krankenhaus Madrid entdeckt). Ehemalige Passagiere in 12 Laendern in Quarantaene. USA: 41 ueberwacht, keine positiven Faelle; UK: 22 in 42-taegiger Heimisolation nach Arrowe Park; Kanada: 36 Kontakte, Flugverbot. WHO warnt: weitere Faelle bis Anfang Juni moeglich (45-Tage-Inkubationszeit). Keine anhaltende Bevoelkerungsuebertragung. WHO-Risiko global: NIEDRIG.
+        Dreizehn schiffsassoziierte Faelle (11 bestaetigt, 2 wahrscheinlich), drei toedlich — keine neuen Faelle oder Todesfaelle Ende Mai oder Anfang Juni gemeldet (ECDC, 5. Juni). Die MV Hondius lag seit 18. Mai zur Dekontamination in Rotterdam und wurde inzwischen freigegeben; das Schiff soll Mitte Juni den Expeditionsbetrieb wieder aufnehmen. In den USA wurden 5 von 18 repatriierten Passagieren aus der National Quarantine Unit in Nebraska in die Heimueberwachung entlassen; 13 verbleiben, alle symptomfrei, keine US-Faelle. UK-Rueckkehrer bleiben in 42-taegiger Heimisolation. WHO warnt: weitere Faelle wegen der bis zu 45-taegigen Inkubationszeit weiterhin moeglich. Keine anhaltende Bevoelkerungsuebertragung. WHO-Risiko global: NIEDRIG; ECDC-Risiko EU/EWR: sehr niedrig.
       </p>
       <div class="hero-stats" id="hero-stats"></div>
     </div>
@@ -167,7 +167,7 @@
       {v:h.total_cases||'--',l:'Schiffsfaelle',sub:'MV Hondius Cluster',c:'blue',sc:''},
       {v:h.total_deaths||'--',l:'Schiffstote',sub:'Alle Passagiere 57-68 J.',c:'red',sc:''},
       {v:(h.cfr_percent||'--')+'%',l:'Schiffs-CFR',sub:'Letalitaetsrate',c:'red',sc:''},
-      {v:'Quarantaene',l:'Status',sub:'Unterwegs Teneriffa',c:'default',sc:''}
+      {v:'Ueberwachung',l:'Status',sub:'Schiff freigegeben · Rotterdam',c:'default',sc:''}
     ].map(function(x){return '<div class="stat-chip '+x.c+'"><span class="stat-value">'+x.v.toLocaleString('de-DE')+'</span><span class="stat-label">'+x.l+'</span>'+(x.sub?'<span class="stat-sub '+x.sc+'">'+x.sub+'</span>':'')+'</div>'}).join('');
   }
 
@@ -193,7 +193,7 @@
   function renderClusterMetrics(h){
     document.getElementById('cluster-metrics').innerHTML=[
       {l:'Schiffsfaelle',v:h.total_cases},{l:'Todesfaelle',v:h.total_deaths},{l:'Schiffs-CFR',v:h.cfr_percent+'%'},
-      {l:'Befallsrate',v:h.attack_rate_percent+'%'},{l:'R₀',v:h.r0_estimate},{l:'Status',v:'Quarantaene'}
+      {l:'Befallsrate',v:h.attack_rate_percent+'%'},{l:'R₀',v:h.r0_estimate},{l:'Status',v:'Ueberwachung'}
     ].map(function(s){return '<div class="metric"><span class="metric-val">'+s.v+'</span><span class="metric-lbl">'+s.l+'</span></div>'}).join('');
   }
 

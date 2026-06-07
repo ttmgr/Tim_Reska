@@ -1,13 +1,13 @@
 {
-  "last_updated": "2026-06-02",
+  "last_updated": "2026-06-07",
   "summary": {
-    "total_confirmed": 291,
-    "total_suspected": 1100,
-    "deaths_confirmed": 43,
-    "deaths_suspected": 246,
-    "total_deaths_all": 289,
+    "total_confirmed": 400,
+    "total_suspected": 116,
+    "deaths_confirmed": 66,
+    "deaths_suspected": 0,
+    "total_deaths_all": 66,
     "countries_affected": 2,
-    "health_zones_affected": 14,
+    "health_zones_affected": 25,
     "who_risk_global": "MODERATE",
     "who_risk_national": "VERY HIGH",
     "who_risk_regional": "HIGH",
@@ -16,8 +16,8 @@
     "pheic_date": "2026-05-17",
     "vaccine_available": false,
     "virus": "Bundibugyo ebolavirus",
-    "weekly_delta": { "confirmed": 157, "suspected": 194, "deaths": 48 },
-    "note_sub_zones": "Topline as of 2026-06-01 (DRC MoH / Africa CDC, via ECDC and NPR): DRC 282 confirmed (42 deaths) — Ituri 264 across 14 health zones, North Kivu 15, South Kivu 3; Uganda 9 confirmed (1 death) — combined 291 confirmed and 43 confirmed deaths. Cumulative suspected passed 1,100 (246 suspected deaths); ECDC separately lists 220 cases actively under investigation. Confirmed cases more than doubled from 134 on 2026-05-29 as the diagnostic backlog was processed. The province- and health-zone-level breakdown below remains at earlier attribution pending the next detailed MoH bulletin with health-zone splits."
+    "weekly_delta": { "confirmed": 109, "suspected": -984, "deaths": 23 },
+    "note_sub_zones": "Topline as of 2026-06-05 (DRC MoH / ECDC / WHO / CDC): DRC 381 confirmed and 64 confirmed deaths, with 233 patients hospitalised in isolation (figures as of 2026-06-03, published 4 June) — Ituri 359 across 17 health zones, North Kivu 19 across 7, South Kivu 3 in 1; Uganda 19 confirmed and 2 deaths (as of 5 June; 8 in Kampala, 1 in Wakiso, 7 local transmission and 5 travel-linked to DRC). Combined 400 confirmed and 66 confirmed deaths across 25 health zones. After additional testing, WHO and the DRC reclassified the suspected backlog: only 116 of the previous ~1,000+ suspected cases remain pending — the rest were either confirmed (driving the confirmed total up) or discarded — so the earlier 1,100-suspected / 289-total-death figures have been superseded and reporting is now confirmed-focused. On 5 June the US CDC warned this is the largest Bundibugyo outbreak on record and, without stronger intervention, could rival the 2014-2016 West Africa epidemic. The province- and health-zone-level map breakdown below remains at earlier attribution pending the next detailed MoH bulletin with health-zone splits."
   },
   "regions": [
     {
@@ -171,6 +171,8 @@
     { "date": "2026-05-25", "confirmed": 108, "suspected": 904, "deaths": 130, "note": "ECDC methodology revision reduced suspected death attribution" },
     { "date": "2026-05-27", "confirmed": 128, "suspected": 1077, "deaths": 256, "note": "DRC MoH 2026-05-26 report via ECDC: 121 confirmed + 1,077 suspected; Uganda 7 confirmed. Suspected-death attribution reconciled upward." },
     { "date": "2026-05-29", "confirmed": 134, "suspected": 906, "deaths": 241, "note": "WHO DON605: DRC revised figures on 2026-05-28 (removed non-cases, reclassified some suspected as confirmed); suspected cases and deaths fell while confirmed rose." },
-    { "date": "2026-06-01", "confirmed": 291, "suspected": 1100, "deaths": 289, "note": "DRC MoH figures as of 2026-05-31 (Africa CDC, NPR, ECDC): DRC 282 confirmed (42 deaths) across Ituri (264, 14 health zones), North Kivu (15) and South Kivu (3); Uganda 9 confirmed (1 death). Confirmed cases more than doubled as the diagnostic backlog cleared; cumulative suspected passed 1,100 with 246 suspected deaths." }
+    { "date": "2026-06-01", "confirmed": 291, "suspected": 1100, "deaths": 289, "note": "DRC MoH figures as of 2026-05-31 (Africa CDC, NPR, ECDC): DRC 282 confirmed (42 deaths) across Ituri (264, 14 health zones), North Kivu (15) and South Kivu (3); Uganda 9 confirmed (1 death). Confirmed cases more than doubled as the diagnostic backlog cleared; cumulative suspected passed 1,100 with 246 suspected deaths." },
+    { "date": "2026-06-03", "confirmed": 359, "suspected": 116, "deaths": 61, "note": "WHO Director-General media briefing: DRC 344 confirmed (60 deaths) across 24 health zones in three provinces; Uganda 15 confirmed (1 death). After additional testing, suspected cases were reclassified down to 116 from over 1,000 — the earlier suspected backlog resolved into confirmed cases or was discarded. Only ~45% of listed contacts are being followed up (target >90%)." },
+    { "date": "2026-06-05", "confirmed": 400, "suspected": 116, "deaths": 66, "note": "DRC MoH (published 4 June, as of 3 June): 381 confirmed, 64 deaths, 233 hospitalised in isolation — Ituri 359 (17 health zones), North Kivu 19 (7), South Kivu 3 (1). Uganda 19 confirmed, 2 deaths (as of 5 June). CDC modelling warns the outbreak could rival or exceed the 2014-2016 West Africa epidemic without stronger intervention; ECDC keeps EU/EEA risk very low." }
   ]
 }

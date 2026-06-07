@@ -156,43 +156,46 @@
 
         <article class="issue">
           <header class="issue-head">
-            <h3>AI News Radar &mdash; 2026-06-02</h3>
-            <span class="issue-window">Window: 2026-05-25 &rarr; 2026-06-02 &middot; clusters A&ndash;F</span>
+            <h3>AI News Radar &mdash; 2026-06-07</h3>
+            <span class="issue-window">Window: 2026-06-02 &rarr; 2026-06-07 &middot; clusters A&ndash;F</span>
           </header>
           <div class="issue-body">
             <p class="lede">
-              A heavy week after a thin one. Opus 4.8 shipped as the new default model, Claude Code
-              gained native multi-agent <em>dynamic workflows</em>, GitHub Copilot flipped its entire
-              base to usage-metered billing, Google killed the Gemini 2.0 Flash model IDs, and four
-              empirical papers landed in 48 hours all pointing the same way &mdash; agent-written code
-              now outpaces human review, and the emerging answer is risk-calibrated triage, not better
-              single-model safety scores.
+              A quieter week after a heavy one &mdash; no new frontier models and no pricing moves, just
+              steady tooling cadence. Claude Code shipped multi-model <em>fallback</em> and managed
+              version-pinning, Codex cut a 0.137 stable, the Gemini CLI reached 0.45.x ahead of its
+              2026-06-18 Antigravity cutover, Cursor launched a point-and-voice <em>Design Mode</em>, and
+              a cluster of agent-reliability benchmarks landed all circling the same gap: agents still
+              misjudge when a task is actually <em>done</em>.
             </p>
 
             <p class="kicker">The three worth your attention</p>
             <ul class="headline-list">
               <li>
-                <strong>Opus 4.8 is live and the new default &mdash; and Claude Code can now
-                  orchestrate hundreds of agents natively.</strong> 1M-token context by default,
-                $5/$25 per MTok (held flat from 4.7). Claude Code v2.1.154 adds dynamic workflows that
-                "orchestrate work across tens to hundreds of agents in the background," viewable with
-                <code>/workflows</code>.
-                <a class="src" href="https://www.anthropic.com/news/claude-opus-4-8" target="_blank" rel="noreferrer">anthropic.com/news &middot; 2026-05-28</a>
+                <strong>Claude Code gets multi-model fallback &mdash; sessions can now survive an Opus
+                  capacity crunch.</strong> v2.1.166 adds a <code>fallbackModel</code> setting that tries
+                up to three models in order when the primary is overloaded (and retries the turn once on
+                the fallback). v2.1.163 adds managed <code>requiredMinimumVersion</code>/<code>requiredMaximumVersion</code>
+                pinning and <code>/plugin list</code>; v2.1.160 renamed the dynamic-workflow trigger
+                <code>workflow</code> &rarr; <code>ultracode</code>.
+                <a class="src" href="https://github.com/anthropics/claude-code/releases" target="_blank" rel="noreferrer">Release notes &middot; v2.1.166 &middot; 2026-06-06</a>
               </li>
               <li>
-                <strong>Agent code now exceeds human review capacity &mdash; the answer is
-                  risk-calibrated triage, not better safety scores.</strong> Meta's RADAR auto-reviewed
-                535K+ diffs (agentic AI is now &gt;80% of its code growth) at ~1/3 the revert rate;
-                a 20,574-session study found 91% of agent "resolutions" still need user correction.
-                <a class="src" href="https://arxiv.org/abs/2605.30208" target="_blank" rel="noreferrer">arXiv:2605.30208</a>
-                <a class="src" href="https://arxiv.org/abs/2605.29442" target="_blank" rel="noreferrer">arXiv:2605.29442 &middot; 2026-05-28</a>
+                <strong>The "is it done?" gap gets a benchmark &mdash; agents deploy real artifacts at
+                  only 7.8&ndash;51% success.</strong> DeployBench runs 51 research-artifact deployment
+                tasks (multi-language toolchains, GPU/CUDA, legacy deps) verified by a hidden execution
+                pipeline; most failures come from agents wrongly judging the task complete. Pair it with
+                a network-leak warning for your own evals.
+                <a class="src" href="https://arxiv.org/abs/2606.05238" target="_blank" rel="noreferrer">arXiv:2606.05238</a>
+                <a class="src" href="https://arxiv.org/abs/2606.05241" target="_blank" rel="noreferrer">arXiv:2606.05241 &middot; 2026-06-03</a>
               </li>
               <li>
-                <strong>The meter-everything week: Copilot goes usage-based, Gemini 2.0 Flash dies,
-                  Codex hits Bedrock GA.</strong> GitHub Copilot now bills all plans by "AI Credits"
-                consumed; Google hard-shut-down the <code>gemini-2.0-flash*</code> IDs &mdash; any
-                still-live baseline is erroring.
-                <a class="src" href="https://github.blog/changelog/2026-06-01-updates-to-github-copilot-billing-and-plans/" target="_blank" rel="noreferrer">github.blog/changelog &middot; 2026-06-01</a>
+                <strong>Steady tooling cadence: Codex 0.137 stable, Cursor 3.7 Design Mode, Gemini CLI
+                  0.45.x.</strong> Codex adds enterprise/admin credit limits and remote-control pairing;
+                Cursor ships point-and-voice UI editing; the Gemini CLI reaches stable 0.45.x carrying the
+                3.5-Flash GA routing &mdash; 11 days before the 2026-06-18 Antigravity cutover.
+                <a class="src" href="https://github.com/openai/codex/releases" target="_blank" rel="noreferrer">Codex v0.137.0 &middot; 2026-06-04</a>
+                <a class="src" href="https://cursor.com/changelog" target="_blank" rel="noreferrer">cursor.com/changelog &middot; 2026-06-05</a>
               </li>
             </ul>
 
@@ -200,51 +203,44 @@
               <h4>Claude Code &amp; Anthropic</h4>
               <ul class="feed">
                 <li>
-                  <span class="t">Opus 4.8 is the new most-capable default</span>
-                  <span class="d"> &mdash; 1M context, 128k max output, adaptive thinking, effort
-                  defaults to <code>high</code> everywhere including the Messages API; pricing held at
-                  $5/$25 per MTok (fast mode $10/$50). Shipped alongside <em>mid-conversation system
-                  messages</em> (<code>role:"system"</code> at non-first positions, cache-preserving)
-                  and refusal categories in <code>stop_details</code>.</span>
-                  <a class="src" href="https://platform.claude.com/docs/en/release-notes/overview" target="_blank" rel="noreferrer">Release notes &middot; 2026-05-28</a>
+                  <span class="t">Multi-model fallback (v2.1.166) &mdash; sessions survive an overload</span>
+                  <span class="d"> &mdash; the new <code>fallbackModel</code> setting tries up to three
+                  models in order when the primary is overloaded or unavailable, and Claude Code now
+                  retries a turn once on the fallback after an unexpected non-retryable API error.
+                  <code>--fallback-model</code> also applies to interactive sessions now. Same release adds
+                  glob support in deny-rule tool-name position and hardens cross-session messaging.</span>
+                  <a class="src" href="https://github.com/anthropics/claude-code/releases" target="_blank" rel="noreferrer">Release notes &middot; v2.1.166 &middot; 2026-06-06</a>
                 </li>
                 <li>
-                  <span class="t">Dynamic workflows land in Claude Code (v2.1.154) &mdash; native
-                  multi-agent orchestration</span>
-                  <span class="d"> across tens to hundreds of background agents, viewable with
-                  <code>/workflows</code>. Heads-up: v2.1.160 (2026-06-02) renamed the trigger keyword
-                  <code>workflow</code> &rarr; <code>ultracode</code>.</span>
-                  <a class="src" href="https://github.com/anthropics/claude-code/releases" target="_blank" rel="noreferrer">Release notes &middot; v2.1.154</a>
+                  <span class="t">Managed version pinning (v2.1.163)</span>
+                  <span class="d"> &mdash; <code>requiredMinimumVersion</code> / <code>requiredMaximumVersion</code>
+                  managed settings make Claude Code refuse to start outside an approved range and point the
+                  user to a sanctioned build; plus a <code>/plugin list</code> command (with
+                  <code>--enabled</code>/<code>--disabled</code> filters) and hook/skill improvements.</span>
+                  <a class="src" href="https://github.com/anthropics/claude-code/releases" target="_blank" rel="noreferrer">Release notes &middot; v2.1.163 &middot; 2026-06-04</a>
                 </li>
                 <li>
-                  <span class="t"><code>.claude/skills</code> plugins now auto-load &mdash; no
-                  marketplace required (v2.1.157)</span>
-                  <span class="d"> &mdash; plus a <code>claude plugin init</code> scaffolder,
-                  <code>EnterWorktree</code> mid-session worktree switching, and
-                  <code>tool_parameters</code> telemetry under <code>OTEL_LOG_TOOL_DETAILS=1</code>.</span>
-                  <a class="src" href="https://github.com/anthropics/claude-code/releases" target="_blank" rel="noreferrer">Release notes &middot; v2.1.157</a>
+                  <span class="t">Trigger rename + safer edits (v2.1.160)</span>
+                  <span class="d"> &mdash; the dynamic-workflow trigger keyword <code>workflow</code> became
+                  <code>ultracode</code> (asking in your own words still works; the keyword highlights in
+                  violet). Claude Code now also prompts before writing to shell startup files and before
+                  <code>acceptEdits</code> writes build-tool config files.</span>
+                  <a class="src" href="https://github.com/anthropics/claude-code/releases" target="_blank" rel="noreferrer">Release notes &middot; v2.1.160 &middot; 2026-06-02</a>
                 </li>
                 <li>
-                  <span class="t">Security hardening in v2.1.160</span>
-                  <span class="d"> &mdash; Claude Code now prompts before writing to shell startup
-                  files (<code>.zshenv</code>, <code>.zlogin</code>) and before <code>acceptEdits</code>
-                  writes code-execution-granting build configs (<code>.npmrc</code>,
-                  <code>.pre-commit-config.yaml</code>, <code>.devcontainer/</code>, &hellip;). Auto
-                  mode also reached Bedrock/Vertex/Foundry in v2.1.158.</span>
-                  <a class="src" href="https://github.com/anthropics/claude-code/releases" target="_blank" rel="noreferrer">Release notes &middot; v2.1.160</a>
+                  <span class="t">Reliability rollups v2.1.161&ndash;.168</span>
+                  <span class="d"> &mdash; OpenTelemetry improvements and parallel-tool-call resilience (a
+                  failed Bash no longer cancels its siblings), an <code>/effort</code> confirmation step,
+                  better autocomplete, plus assorted terminal and background-session fixes across
+                  2026-06-02 &rarr; 06-06.</span>
+                  <a class="src" href="https://github.com/anthropics/claude-code/releases" target="_blank" rel="noreferrer">Release notes &middot; v2.1.168</a>
                 </li>
                 <li>
-                  <span class="t">Agent SDK (TypeScript) v0.3.152&ndash;.160 adds a
-                  <code>MessageDisplay</code> hook</span>
-                  <span class="d"> (transform or hide assistant text as displayed) and
-                  <code>SessionStart</code> hooks returning <code>reloadSkills</code>, plus
-                  stdio-MCP-restart and abort-signal fixes. Python SDK unchanged (still v0.2.87).</span>
-                  <a class="src" href="https://github.com/anthropics/claude-agent-sdk-typescript/releases" target="_blank" rel="noreferrer">Release notes &middot; v0.3.160</a>
-                </li>
-                <li>
-                  <span class="t">Corporate: $65B Series H at ~$965B post-money; confidential S-1 filed</span>
-                  <span class="d"> with the SEC on 2026-06-01 (IPO as early as October) &mdash; a
-                  platform-continuity signal for anyone building a business on the Claude stack.</span>
+                  <span class="t">Model, pricing &amp; corporate: nothing new in-window</span>
+                  <span class="d"> &mdash; Opus 4.8 ($5/$25 per MTok; fast mode $10/$50) and the
+                  confidential S-1 filing both landed on or before 2026-06-01 and belong to the prior
+                  edition. The IPO track (filing 2026-06-01, possible October) is the one item still worth
+                  watching for platform-continuity.</span>
                   <a class="src" href="https://www.anthropic.com/news/confidential-draft-s1-sec" target="_blank" rel="noreferrer">anthropic.com/news &middot; 2026-06-01</a>
                 </li>
               </ul>
@@ -254,18 +250,13 @@
               <h4>Models &amp; pricing</h4>
               <ul class="feed">
                 <li>
-                  <span class="t">Gemini 2.0 Flash model IDs hard-shut-down (June 1)</span>
-                  <span class="d"> &mdash; <code>gemini-2.0-flash{,-001,-lite,-lite-001}</code> now
-                  error; Google points to <code>gemini-3.5-flash</code> / <code>gemini-3.1-flash-lite</code>.
-                  Any comparison harness still pinned to a 2.0-Flash baseline broke as of June 1.</span>
-                  <a class="src" href="https://ai.google.dev/gemini-api/docs/changelog" target="_blank" rel="noreferrer">Gemini API changelog &middot; 2026-06-01</a>
-                </li>
-                <li>
-                  <span class="t">Codex + GPT-5.5/5.4 reach GA on Amazon Bedrock (June 1)</span>
-                  <span class="d"> &mdash; inference stays inside an AWS boundary/billing; pricing
-                  matches OpenAI first-party. Removes the "can't send code to a third party" objection
-                  for AWS-committed shops (Claude was already on Bedrock; Codex now matches).</span>
-                  <a class="src" href="https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-openai-models-codex-generally-available/" target="_blank" rel="noreferrer">aws.amazon.com &middot; 2026-06-01</a>
+                  <span class="t">A genuinely quiet window &mdash; no new models or pricing moves</span>
+                  <span class="d"> &mdash; the headline shifts of late May (the Gemini 2.0 Flash ID
+                  hard-shutdown and Codex + GPT-5.5/5.4 reaching GA on Amazon Bedrock) both dated
+                  2026-06-01 and shipped in the prior edition. Nothing new landed 06-02 &rarr; 06-07.
+                  Reminder: any harness still pinned to a <code>gemini-2.0-flash*</code> ID remains
+                  broken &mdash; move to <code>gemini-3.5-flash</code>.</span>
+                  <a class="src" href="https://ai.google.dev/gemini-api/docs/changelog" target="_blank" rel="noreferrer">Gemini API changelog</a>
                 </li>
               </ul>
             </div>
@@ -274,44 +265,52 @@
               <h4>Other agents &amp; IDEs</h4>
               <ul class="feed">
                 <li>
-                  <span class="t">GitHub Copilot flips to usage-based "AI Credits" billing (June 1)</span>
-                  <span class="d"> &mdash; every plan now meters consumption with overage charges; a
-                  new Copilot Max tier; signups paused. Code review now burns both Actions minutes and
-                  AI Credits &mdash; a structural cost shift for the largest IDE-agent base versus
-                  Claude Code's subscription model.</span>
-                  <a class="src" href="https://github.blog/changelog/2026-06-01-updates-to-github-copilot-billing-and-plans/" target="_blank" rel="noreferrer">github.blog/changelog &middot; 2026-06-01</a>
+                  <span class="t">Codex <code>rust-v0.137.0</code> stable</span>
+                  <span class="d"> &mdash; the substantive additions are enterprise/admin monthly credit
+                  limits with cloud-managed config bundles and remote-control client pairing (via
+                  app-server v2 RPCs) plus machine-readable JSON plugin output; the rest is TUI polish
+                  (F13&ndash;F24 keybindings, paste-in-menu). 0.138 alphas are already rolling.</span>
+                  <a class="src" href="https://github.com/openai/codex/releases" target="_blank" rel="noreferrer">Release &middot; v0.137.0 &middot; 2026-06-04</a>
                 </li>
                 <li>
-                  <span class="t">Cursor 3.6 ships an Auto-review Run Mode</span>
-                  <span class="d"> that routes Shell/MCP/Fetch calls three ways &mdash; allowlisted run
-                  immediately, sandboxable run isolated, the rest pass through a classifier subagent.
-                  MCP tool calls are now first-class in the trust router.</span>
-                  <a class="src" href="https://cursor.com/changelog" target="_blank" rel="noreferrer">cursor.com/changelog &middot; 2026-05-29</a>
+                  <span class="t">Gemini CLI reaches stable v0.45.x &mdash; 3.5-Flash GA routing</span>
+                  <span class="d"> &mdash; the CLI now routes to the GA Gemini 3.5 Flash model (behind an
+                  experiment flag) and respects 3.5-Flash backend definitions, with EBUSY-fallback and
+                  TOML-parsing fixes. This is the final stable line before the 2026-06-18 Gemini CLI
+                  &rarr; Antigravity cutover &mdash; 11 days out.</span>
+                  <a class="src" href="https://github.com/google-gemini/gemini-cli/releases" target="_blank" rel="noreferrer">Release &middot; v0.45.2 &middot; 2026-06-05</a>
                 </li>
                 <li>
-                  <span class="t">Codex CLI 0.135/0.136</span>
-                  <span class="d"> add session archiving (<code>/archive</code>),
-                  <code>codex doctor</code> env diagnostics, named permission profiles, and
-                  <code>CODEX_API_KEY</code> + short-lived remote tokens; plus Windows computer-use and
-                  phone remote control.</span>
-                  <a class="src" href="https://github.com/openai/codex/releases/tag/rust-v0.136.0" target="_blank" rel="noreferrer">Release &middot; v0.136.0</a>
+                  <span class="t">Cursor 3.7 ships "Design Mode"</span>
+                  <span class="d"> &mdash; point- and voice-driven UI edits in the browser and on canvases
+                  (select-and-annotate instead of describing changes in text). The Cursor SDK adds custom
+                  tools, auto-review routing for local tool calls and nested subagents to any depth;
+                  Enterprise "Organizations" (multi-team hierarchy, per-team budgets) reached GA.</span>
+                  <a class="src" href="https://cursor.com/changelog" target="_blank" rel="noreferrer">cursor.com/changelog &middot; 2026-06-05</a>
                 </li>
                 <li>
-                  <span class="t">Open-source agents converge on ACP</span>
-                  <span class="d"> &mdash; Goose v1.36.0 adds "summon subagent instructions" + recipes
-                  over its ACP server; OpenCode v1.15.11&ndash;.13 make background agents push (no
-                  polling) and drive slash-commands over <code>acp-next</code>; Kilo Code shipped a
-                  <code>kilo console</code> daemon UI and its first JetBrains plugin. Roo Code was
-                  archived (points users to Kilo/Cline).</span>
-                  <a class="src" href="https://github.com/block/goose/releases/tag/v1.36.0" target="_blank" rel="noreferrer">Goose v1.36.0 &middot; 2026-05-27</a>
+                  <span class="t">OpenCode v1.16.x &mdash; workspace cloning + session mobility</span>
+                  <span class="d"> &mdash; managed workspace cloning preserves uncommitted files, sessions
+                  move across workspaces, plus skill discovery, file-based agent loading,
+                  <code>run --replay</code> and background subagents. A real workflow feature, not just
+                  fixes.</span>
+                  <a class="src" href="https://github.com/sst/opencode/releases" target="_blank" rel="noreferrer">Release &middot; v1.16.2 &middot; 2026-06-05</a>
                 </li>
                 <li>
-                  <span class="t">Gemini CLI v0.44.0 is the final stable before the 2026-06-18
-                  Antigravity cutover</span>
-                  <span class="d"> &mdash; collapses the Auto modes into one (a behavior change for any
-                  benchmark harness) and adds Local/RemoteSessionInvocation. 16 days to cutover; no new
-                  migration doc landed this week.</span>
-                  <a class="src" href="https://github.com/google-gemini/gemini-cli/releases/tag/v0.44.0" target="_blank" rel="noreferrer">Release &middot; v0.44.0</a>
+                  <span class="t">Busy open-source week: Goose 1.37, Cline 3.88, Kilo 7.3.x</span>
+                  <span class="d"> &mdash; Goose v1.37.0 adds xAI SuperGrok OAuth, new providers
+                  (Qwen/DashScope, Databricks AI Gateway) and an in-session <code>/model</code> switch;
+                  Cline v3.88 flips its default model to Kimi K2.6 and the CLI gains official-plugin
+                  install-by-slug and Slack socket mode; Kilo Code 7.3.x is incremental (JetBrains
+                  stability, Apple-Silicon startup fix).</span>
+                  <a class="src" href="https://github.com/block/goose/releases" target="_blank" rel="noreferrer">Goose v1.37.0 &middot; 2026-06-03</a>
+                  <a class="src" href="https://github.com/cline/cline/releases" target="_blank" rel="noreferrer">Cline v3.88 &middot; 2026-06-05</a>
+                </li>
+                <li>
+                  <span class="t">Zed v1.5.3 stable + 1.6-pre</span>
+                  <span class="d"> &mdash; per-file git-diff tabs, a "Fast mode" toggle for Anthropic /
+                  OpenAI models, and shareable agent-skill links.</span>
+                  <a class="src" href="https://github.com/zed-industries/zed/releases" target="_blank" rel="noreferrer">Release &middot; 2026-06-06</a>
                 </li>
               </ul>
             </div>
@@ -320,58 +319,49 @@
               <h4>MCP &amp; tooling</h4>
               <ul class="feed">
                 <li>
-                  <span class="t">MCP Python SDK v1.27.2 tightens auth ahead of the 2026-07-28 final</span>
-                  <span class="d"> &mdash; <code>AccessToken</code> now carries subject + claims,
-                  transport sessions bind to the authenticated principal, and experimental Tasks are
-                  scoped to their originating session.</span>
-                  <a class="src" href="https://github.com/modelcontextprotocol/python-sdk/releases" target="_blank" rel="noreferrer">Release &middot; v1.27.2</a>
-                </li>
-                <li>
-                  <span class="t">Spec PR SEP-2322 makes <code>ResultType</code> an extensible
-                  discriminated union</span>
-                  <span class="d"> with fail-closed semantics for unknown types; the "Server Identity
-                  WG" was renamed "Server Card WG" &mdash; watch "Server Card" as the emerging
-                  server-identity/discovery primitive.</span>
-                  <a class="src" href="https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2773" target="_blank" rel="noreferrer">spec PR #2773 &middot; 2026-05-28</a>
+                  <span class="t">No confirmed in-window MCP announcement</span>
+                  <span class="d"> &mdash; nothing published 06-02 &rarr; 06-07 could be verified against a
+                  primary source this run. The work that matters is still ahead of us: the 2026-07-28 spec
+                  final carries a batch of auth-hardening SEPs (issuer/<code>iss</code> validation, DCR
+                  <code>application_type</code>, credential-issuer binding, refresh-token scope
+                  clarifications), with the SDKs tracking it. Flagged as unverified rather than padded.</span>
+                  <a class="src" href="https://modelcontextprotocol.io/specification" target="_blank" rel="noreferrer">MCP specification</a>
                 </li>
               </ul>
             </div>
 
             <div class="cluster-block">
-              <h4>Research &mdash; agent code outpaces review; risk-calibrated triage is the answer</h4>
+              <h4>Research &mdash; agents still misjudge when a task is "done"</h4>
               <ul class="feed">
                 <li>
-                  <span class="t">Meta's RADAR: risk-calibrated review automation at scale</span>
-                  <span class="d"> &mdash; 535K+ diffs reviewed, 331K+ landed, at ~1/3 the revert rate
-                  and ~1/50 the production-incident rate of conventional review. Motivation: agentic AI
-                  is now &gt;80% of code growth at Meta. The pattern: auto-approve the low-risk tail,
-                  route humans to the rest.</span>
-                  <a class="src" href="https://arxiv.org/abs/2605.30208" target="_blank" rel="noreferrer">arXiv:2605.30208 &middot; 2026-05-28</a>
+                  <span class="t">DeployBench: agents deploy real artifacts at only 7.8&ndash;51%</span>
+                  <span class="d"> &mdash; 51 research-artifact deployment tasks spanning multi-language
+                  toolchains, system deps beyond containers (GPU/CUDA, kernel config) and legacy
+                  compatibility, each verified by a hidden pipeline that runs the paper's experiment.
+                  Four SOTA models with OpenHands pass 7.8&ndash;51.0%; most failures come from wrongly
+                  judging the task complete.</span>
+                  <a class="src" href="https://arxiv.org/abs/2606.05238" target="_blank" rel="noreferrer">arXiv:2606.05238 &middot; 2026-06-03</a>
                 </li>
                 <li>
-                  <span class="t">Agents misreport "done"</span>
-                  <span class="d"> &mdash; across 20,574 real sessions, 91.49% of visible resolutions
-                  still needed explicit user correction, with constraint violations and inaccurate
-                  self-reporting rising as a share. Treat "done" as a claim, not a fact.</span>
-                  <a class="src" href="https://arxiv.org/abs/2605.29442" target="_blank" rel="noreferrer">arXiv:2605.29442 &middot; 2026-05-28</a>
+                  <span class="t">Search-time contamination inflates deep-research scores</span>
+                  <span class="d"> &mdash; letting an agent search the web during evaluation leaks
+                  benchmark answers and inflates scores by ~4%. Eval-hygiene takeaway: sandbox the network
+                  when scoring web-enabled agents, and discount leaderboard numbers that don't.</span>
+                  <a class="src" href="https://arxiv.org/abs/2606.05241" target="_blank" rel="noreferrer">arXiv:2606.05241 &middot; 2026-06-03</a>
                 </li>
                 <li>
-                  <span class="t">SABER: stateful workspaces break single-turn safety</span>
-                  <span class="d"> &mdash; even the best model had a harmful-violation rate &gt;54% in
-                  realistic state-mutating workspaces. Don't give an agent unsupervised write access to
-                  a DB / prod config / shared FS yet. (Companion taxonomy: &gt;65% of incidents occur
-                  during bug-fixing and setup.)</span>
-                  <a class="src" href="https://arxiv.org/abs/2606.01317" target="_blank" rel="noreferrer">arXiv:2606.01317 &middot; 2026-05-31</a>
-                  <a class="src" href="https://arxiv.org/abs/2605.30777" target="_blank" rel="noreferrer">arXiv:2605.30777</a>
+                  <span class="t">Agent Planning Benchmark (APB)</span>
+                  <span class="d"> &mdash; multimodal agents show systematic weakness in extended planning,
+                  tool robustness, and calibrated task refusal; a diagnostic for where multi-step agents
+                  break before you wire them into anything load-bearing.</span>
+                  <a class="src" href="https://arxiv.org/abs/2606.04874" target="_blank" rel="noreferrer">arXiv:2606.04874 &middot; 2026-06-03</a>
                 </li>
                 <li>
-                  <span class="t">Two review-workflow papers reframe how to read agent diffs</span>
-                  <span class="d"> &mdash; multi-file review as a trust-calibration problem (structure
-                  top-down by risk-per-file/line, not linear diffing); and "Monitoring Agentic Systems
-                  Before They're Reliable" finds structural/integration defects dominate task-level
-                  errors early &mdash; instrument handoffs and tool-wiring from day one.</span>
-                  <a class="src" href="https://arxiv.org/abs/2606.01969" target="_blank" rel="noreferrer">arXiv:2606.01969</a>
-                  <a class="src" href="https://arxiv.org/abs/2606.02494" target="_blank" rel="noreferrer">arXiv:2606.02494 &middot; 2026-06-01</a>
+                  <span class="t">ADK Arena: framework choice is a real cost/quality lever</span>
+                  <span class="d"> &mdash; across 51 agent frameworks, no single kit dominates and
+                  generation cost spans a 5.6&times; range for comparable work. Treat framework selection as
+                  an explicit decision, not a wash.</span>
+                  <a class="src" href="https://arxiv.org/abs/2606.05548" target="_blank" rel="noreferrer">arXiv:2606.05548 &middot; 2026-06-04</a>
                 </li>
               </ul>
             </div>
@@ -379,8 +369,9 @@
             <div class="cluster-block">
               <h4>Still developing</h4>
               <ul class="feed">
-                <li><span class="t">Gemini CLI &rarr; Antigravity CLI cutover 2026-06-18.</span> <span class="d">v0.44 is the final stable; no new migration doc this week.</span></li>
-                <li><span class="t">MCP 2026-07-28 spec final.</span> <span class="d">SDK auth tightening + <code>ResultType</code> extensibility merging; "Server Card" identity work consolidating.</span></li>
+                <li><span class="t">Gemini CLI &rarr; Antigravity CLI cutover 2026-06-18.</span> <span class="d">v0.45.x is the final stable line; 11 days out, still no migration doc.</span></li>
+                <li><span class="t">MCP 2026-07-28 spec final.</span> <span class="d">Auth-hardening SEPs (issuer validation, DCR <code>application_type</code>, credential-issuer binding) and SDK tracking.</span></li>
+                <li><span class="t">Anthropic IPO track.</span> <span class="d">Confidential S-1 filed 2026-06-01; an IPO as early as October would be a platform-continuity signal for the Claude stack.</span></li>
               </ul>
             </div>
 

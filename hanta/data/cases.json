@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-02",
+  "last_updated": "2026-06-07",
   "summary": {
     "total_cases_2026": 114,
     "total_deaths_2026": 3,
@@ -39,7 +39,7 @@
       "risk_level": "LOW",
       "case_classification": { "confirmed": 3, "probable": 0, "suspected": 0 },
       "virus": "Andes virus (ANDV)",
-      "notes": "Dutch couple infected during MV Hondius shore excursion in Argentina (both deceased). Third case (2026-05-22): Dutch crew member previously evacuated from the ship in Tenerife and in home quarantine, tested positive after symptom onset and was admitted to hospital. Confirmed by RIVM and Erasmus MC. Source: Al Jazeera, DutchNews.nl, RIVM (2026-05-22)."
+      "notes": "Dutch couple infected during MV Hondius shore excursion in Argentina (both deceased). Third case (2026-05-22): Dutch crew member previously evacuated from the ship in Tenerife and in home quarantine, tested positive after symptom onset and was admitted to hospital. On 2026-06-03 RIVM reported a home-quarantine contact whose weak-positive test was followed by clearly negative retests and no symptoms — not counted as a case, so the Dutch toll holds at 3 cases / 2 deaths. Confirmed by RIVM and Erasmus MC. Source: Al Jazeera, DutchNews.nl, RIVM (2026-05-22, 2026-06-03)."
     },
     {
       "name": "Germany",
@@ -67,7 +67,7 @@
       "risk_level": "LOW",
       "case_classification": { "confirmed": 1, "probable": 1, "suspected": 0 },
       "virus": "Sin Nombre virus (SNV)",
-      "notes": "Sporadic cases in southwestern states. 41 people under CDC monitoring: 16 at Nebraska NQU, 2 at Emory (Atlanta), 7 former passengers already home, plus flight contacts. No Americans currently positive for hantavirus (Dr. Kornfeld's inconclusive test confirmed negative May 13). Quarantine voluntary — no federal or state orders. Illinois investigating separate potential case in Winnebago County (rodent exposure, NOT linked to cruise)."
+      "notes": "Sporadic cases in southwestern states. No Americans positive for hantavirus from the cruise cluster (Dr. Kornfeld's inconclusive test confirmed negative May 13). On 2026-06-01/02, 5 of the 18 repatriated passengers were released from the Nebraska National Quarantine Unit to home monitoring; 13 remain at the NQU, all symptom-free, with the 42-day monitoring period ending ~21-22 June (CDC, Washington Post). Quarantine voluntary — no federal or state orders. Illinois investigating separate potential case in Winnebago County (rodent exposure, NOT linked to cruise)."
     },
     {
       "name": "Spain",
@@ -220,6 +220,7 @@
     { "date": "2026-05-22", "cumulative_cases": 114, "cumulative_deaths": 3 },
     { "date": "2026-05-26", "cumulative_cases": 114, "cumulative_deaths": 3 },
     { "date": "2026-05-28", "cumulative_cases": 114, "cumulative_deaths": 3 },
-    { "date": "2026-06-01", "cumulative_cases": 114, "cumulative_deaths": 3 }
+    { "date": "2026-06-01", "cumulative_cases": 114, "cumulative_deaths": 3 },
+    { "date": "2026-06-05", "cumulative_cases": 114, "cumulative_deaths": 3 }
   ]
 }
