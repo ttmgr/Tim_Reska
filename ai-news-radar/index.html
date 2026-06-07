@@ -10,7 +10,7 @@
   <link rel="icon" href="../favicon.svg">
   <link rel="stylesheet" href="../assets/css/fonts.css">
   <link rel="stylesheet" href="../assets/css/tokens.css">
-  <link rel="stylesheet" href="styles.css?v=20260602">
+  <link rel="stylesheet" href="styles.css?v=20260607b">
   <script defer src="../assets/js/nav-manifest.js"></script>
   <script defer src="../assets/js/nav.js"></script>
 </head>
@@ -157,16 +157,25 @@
         <article class="issue">
           <header class="issue-head">
             <h3>AI News Radar &mdash; 2026-06-07</h3>
-            <span class="issue-window">Window: 2026-06-02 &rarr; 2026-06-07 &middot; clusters A&ndash;F</span>
+            <span class="issue-window">Window: 2026-06-02 &rarr; 2026-06-07 &middot; clusters A&ndash;F + under-the-radar</span>
           </header>
           <div class="issue-body">
+            <div class="issue-stats">
+              <div class="kpi"><span class="kpi-n">7</span><span class="kpi-l">Sections</span></div>
+              <div class="kpi"><span class="kpi-n">25</span><span class="kpi-l">Items curated</span></div>
+              <div class="kpi"><span class="kpi-n">5</span><span class="kpi-l">Under the radar</span></div>
+              <div class="kpi"><span class="kpi-n">0</span><span class="kpi-l">New models / pricing</span></div>
+            </div>
             <p class="lede">
               A quieter week after a heavy one &mdash; no new frontier models and no pricing moves, just
               steady tooling cadence. Claude Code shipped multi-model <em>fallback</em> and managed
               version-pinning, Codex cut a 0.137 stable, the Gemini CLI reached 0.45.x ahead of its
               2026-06-18 Antigravity cutover, Cursor launched a point-and-voice <em>Design Mode</em>, and
               a cluster of agent-reliability benchmarks landed all circling the same gap: agents still
-              misjudge when a task is actually <em>done</em>.
+              misjudge when a task is actually <em>done</em>. And below the vendor headlines, the indie
+              layer kept compounding &mdash; a new <em>Under the radar</em> section tracks the
+              OpenClaw-style sleepers: self-improving agents, agent control planes, and the memory layer
+              quietly becoming infrastructure.
             </p>
 
             <p class="kicker">The three worth your attention</p>
@@ -199,8 +208,8 @@
               </li>
             </ul>
 
-            <div class="cluster-block">
-              <h4>Claude Code &amp; Anthropic</h4>
+            <div class="cluster-block kind-anthropic">
+              <h4><span>Claude Code &amp; Anthropic</span><span class="sec-count">5 items</span></h4>
               <ul class="feed">
                 <li>
                   <span class="t">Multi-model fallback (v2.1.166) &mdash; sessions survive an overload</span>
@@ -246,8 +255,8 @@
               </ul>
             </div>
 
-            <div class="cluster-block">
-              <h4>Models &amp; pricing</h4>
+            <div class="cluster-block kind-models">
+              <h4><span>Models &amp; pricing</span><span class="sec-count">1 item</span></h4>
               <ul class="feed">
                 <li>
                   <span class="t">A genuinely quiet window &mdash; no new models or pricing moves</span>
@@ -261,8 +270,8 @@
               </ul>
             </div>
 
-            <div class="cluster-block">
-              <h4>Other agents &amp; IDEs</h4>
+            <div class="cluster-block kind-agents">
+              <h4><span>Other agents &amp; IDEs</span><span class="sec-count">6 items</span></h4>
               <ul class="feed">
                 <li>
                   <span class="t">Codex <code>rust-v0.137.0</code> stable</span>
@@ -315,8 +324,58 @@
               </ul>
             </div>
 
-            <div class="cluster-block">
-              <h4>MCP &amp; tooling</h4>
+            <div class="cluster-block kind-sleeper">
+              <h4><span>Under the radar &mdash; the indie layer vendor coverage misses</span><span class="sec-count">5 items</span></h4>
+              <ul class="feed">
+                <li>
+                  <span class="t">Hermes Agent &mdash; the self-improving agent that curates its own skills</span>
+                  <span class="d"> &mdash; Nous Research's MIT-licensed "agent that grows with you" compiles
+                  successful task trajectories into a permanent skill library, then runs an autonomous
+                  Curator that grades, consolidates and prunes it over time. Local-first, full TUI, and it
+                  runs on a $5 VPS so you can drive it from Telegram while it works on a cloud box &mdash;
+                  the OpenClaw lineage, pointed squarely at engineering.</span>
+                  <a class="src" href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noreferrer">NousResearch/hermes-agent</a>
+                </li>
+                <li>
+                  <span class="t">DeepSeek-Reasonix &mdash; cache stability as a design invariant</span>
+                  <span class="d"> &mdash; a single static Go binary tuned end-to-end around DeepSeek's
+                  prefix cache so token costs stay low across long, leave-it-running sessions. The idea
+                  worth stealing isn't the model &mdash; it's treating byte-stable prefix caching as an
+                  invariant the whole agent loop is built around, not a flag you toggle.</span>
+                  <a class="src" href="https://github.com/esengine/DeepSeek-Reasonix" target="_blank" rel="noreferrer">esengine/DeepSeek-Reasonix</a>
+                </li>
+                <li>
+                  <span class="t">cc-switch &mdash; a control plane for the agents you already run</span>
+                  <span class="d"> &mdash; a cross-platform desktop "all-in-one" that switches and manages
+                  Claude Code, Codex, OpenCode, OpenClaw, Gemini CLI and Hermes Agent from one tray, with
+                  50+ provider presets, shared MCP/prompt/skill config and a local proxy with auto-failover.
+                  The unglamorous orchestration layer that release-note coverage skips entirely.</span>
+                  <a class="src" href="https://github.com/farion1231/cc-switch" target="_blank" rel="noreferrer">farion1231/cc-switch</a>
+                </li>
+                <li>
+                  <span class="t">The agent-memory layer quietly became a category</span>
+                  <span class="d"> &mdash; three independent persistent-memory projects converged at once:
+                  mem0 (universal memory layer), agentmemory (coding-agent-specific, claims ~92% fewer
+                  tokens than full-context via BM25 + vector + graph over 53 MCP tools), and a local-first
+                  Rust/SQLite "Mnemo" on Show HN. Independent convergence on the same primitive is usually a
+                  real demand signal.</span>
+                  <a class="src" href="https://github.com/mem0ai/mem0" target="_blank" rel="noreferrer">mem0ai/mem0</a>
+                  <a class="src" href="https://github.com/rohitg00/agentmemory" target="_blank" rel="noreferrer">rohitg00/agentmemory</a>
+                </li>
+                <li>
+                  <span class="t">Strix &mdash; "open-source AI hackers" for your own app</span>
+                  <span class="d"> &mdash; an autonomous security agent that dynamically executes code to
+                  surface injection, access-control, XSS and SSRF flaws, validates each with a
+                  proof-of-concept instead of a static guess, and can draft the fix. Apache-2.0 and
+                  CI/CD-friendly &mdash; the agent-for-AppSec niche, moving fast and barely covered in
+                  coding-agent roundups.</span>
+                  <a class="src" href="https://github.com/usestrix/strix" target="_blank" rel="noreferrer">usestrix/strix</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="cluster-block kind-mcp">
+              <h4><span>MCP &amp; tooling</span><span class="sec-count">1 item</span></h4>
               <ul class="feed">
                 <li>
                   <span class="t">No confirmed in-window MCP announcement</span>
@@ -330,8 +389,8 @@
               </ul>
             </div>
 
-            <div class="cluster-block">
-              <h4>Research &mdash; agents still misjudge when a task is "done"</h4>
+            <div class="cluster-block kind-research">
+              <h4><span>Research &mdash; agents still misjudge when a task is "done"</span><span class="sec-count">4 items</span></h4>
               <ul class="feed">
                 <li>
                   <span class="t">DeployBench: agents deploy real artifacts at only 7.8&ndash;51%</span>
@@ -366,8 +425,8 @@
               </ul>
             </div>
 
-            <div class="cluster-block">
-              <h4>Still developing</h4>
+            <div class="cluster-block kind-watch">
+              <h4><span>Still developing</span><span class="sec-count">3 items</span></h4>
               <ul class="feed">
                 <li><span class="t">Gemini CLI &rarr; Antigravity CLI cutover 2026-06-18.</span> <span class="d">v0.45.x is the final stable line; 11 days out, still no migration doc.</span></li>
                 <li><span class="t">MCP 2026-07-28 spec final.</span> <span class="d">Auth-hardening SEPs (issuer validation, DCR <code>application_type</code>, credential-issuer binding) and SDK tracking.</span></li>
