@@ -4,7 +4,7 @@ Public landing for the Askeras AI Academy four-tier competence programme (AI lit
 
 ## Teaser only
 
-Only `index.html` and one sample lesson (`sample-lesson/`) ship from this directory. The full curriculum, lesson generators, evaluation harness, and PWA infrastructure live in a private repo (`company_askeras/`, gitignored — see `.gitignore` entries for `company_askeras/` and `academy_data_do_not_touch_if_not_prompted/`).
+Only `index.html` and one sample lesson (`sample-lesson/`) ship from this directory. The full curriculum, lesson generators, evaluation harness, and PWA infrastructure live in a separate private repo (`~/Documents/New_project/askeras`, `ttmgr/RESKA-AI-ENABLEMENT`).
 
 The published page is for prospect orientation; the operational Academy is delivered through the private codebase and is currently in pilot with two enterprise partners under NDA.
 
