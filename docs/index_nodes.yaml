@@ -205,11 +205,11 @@ nodes:
     edges: [company_askeras, academy]
 
   - id: company_askeras
-    title: Askeras venture monorepo (gitignored)
+    title: Askeras business repo (separate, external)
     group: "Local-only / private"
-    globs: ["company_askeras/**"]
-    summary: Askeras — AI Enablement & Academy venture's full Python monorepo (src/askeras/ — brand, clients, academy, slides, DD reports, 5 bible generators).
-    reads_for: "Askeras methodology, 5 bibles (internal/external/SME-DE/student/teacher), DD pipeline, brand module"
+    globs: []
+    summary: "Askeras — AI Enablement & Academy venture's full Python monorepo (src/askeras/ — brand, clients, academy, slides, DD reports, bible generators). Split out of this repo on 2026-06-09 to a separate private repo: ~/Documents/New_project/askeras (ttmgr/RESKA-AI-ENABLEMENT)."
+    reads_for: "Askeras methodology, bibles (internal/external/SME-DE/student/teacher), DD pipeline, brand module — in the separate repo"
     edges: [academy, askeras-v2, multi-agent-dd, llm-eval, ai-deployment-readiness]
 
   - id: llm-coding-radar

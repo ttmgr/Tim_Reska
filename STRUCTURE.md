@@ -49,7 +49,7 @@ If you're looking for a file: first decide which *showcase/project* it belongs t
 
 - `archive/` — old working files.
 - `*_data_do_not_touch_if_not_prompted/` — staging holding folders, reviewed before promotion.
-- `company_askeras/`, `askeras-v1/`, `askeras-v2/` — the Askeras venture (own domain / future GmbH); lives here locally but is published from its own repo.
+- `askeras-v1/`, `askeras-v2/` — the Askeras venture's public marketing pages (own domain / future GmbH). `askeras-v2/` is the current working source; a curated subset publishes to a tracked `askeras/` directory once the Impressum address is in place. The Askeras business codebase and deliverable generators were split out on 2026-06-09 to a separate private repo, `~/Documents/New_project/askeras` (`ttmgr/RESKA-AI-ENABLEMENT`); the former local `company_askeras/` copy has been removed.
 - `medrisk/` (all except `index.html`) — the underwriting platform code, methodology, and data adapters (sellable IP).
 - `multi-agent-dd/` build internals (`build_*.py`, `SKILL.md`, `docs/`, `outputs/`, `workings/`, `templates/`) — only the teaser `index.html` is published.
 - `llm-coding-radar/` — personal weekly digests of the LLM-coding ecosystem (output of the `/llm-coding-radar` skill); local-only, not a showcase.

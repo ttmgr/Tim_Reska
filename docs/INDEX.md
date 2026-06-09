@@ -33,7 +33,7 @@ see `STRUCTURE.md`.
 | Snakemake pipeline structure, One Health genomics, AMR surveillance | [[pipelines]] |
 | (nothing committed) | [[archive]] |
 | Askeras marketing positioning | [[askeras-v2]] |
-| Askeras methodology, 5 bibles (internal/external/SME-DE/student/teacher), DD pipeline, brand module | [[company_askeras]] |
+| Askeras methodology, bibles (internal/external/SME-DE/student/teacher), DD pipeline, brand module — in the separate repo | [[company_askeras]] |
 | weekly ecosystem digest, model/pricing changes, agent tooling | [[llm-coding-radar]] |
 | homepage layout, site structure map, deployment config | [[site-root]] |
 | how navigation works, refreshing the views, adding new nodes | [[node-system]] |
@@ -163,10 +163,10 @@ ASKERAS marketing site (v2) — "AI Deployment Due Diligence & AI Academy". Publ
 **Related:** [[company_askeras]] · [[academy]]
 **Read when:** Askeras marketing positioning
 
-### `company_askeras` · Askeras venture monorepo (gitignored)  (0 files)
-Askeras — AI Enablement & Academy venture's full Python monorepo (src/askeras/ — brand, clients, academy, slides, DD reports, 5 bible generators).
+### `company_askeras` · Askeras business repo (separate, external)
+Askeras — AI Enablement & Academy venture's full Python monorepo (src/askeras/ — brand, clients, academy, slides, DD reports, bible generators). Split out of this repo on 2026-06-09 to a separate private repo: ~/Documents/New_project/askeras (ttmgr/RESKA-AI-ENABLEMENT).
 **Related:** [[academy]] · [[askeras-v2]] · [[multi-agent-dd]] · [[llm-eval]] · [[ai-deployment-readiness]]
-**Read when:** Askeras methodology, 5 bibles (internal/external/SME-DE/student/teacher), DD pipeline, brand module
+**Read when:** Askeras methodology, bibles (internal/external/SME-DE/student/teacher), DD pipeline, brand module — in the separate repo
 
 ### `llm-coding-radar` · LLM coding radar (gitignored)  (0 files)
 Personal weekly digests of the LLM-coding ecosystem (output of the /llm-coding-radar skill).
