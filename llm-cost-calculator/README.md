@@ -4,7 +4,7 @@
 
 A Python library and CLI for estimating the total cost of deploying LLM-powered workflows in production. Takes a workload specification (model, tokens per request, daily volume) and returns cost projections with Monte Carlo sensitivity analysis and ROI calculation against manual baselines.
 
-Built by Tim Reska ([Helmholtz AI / TU Munich](https://www.helmholtz.ai/))
+Built by Tim Reska ([Helmholtz AI / Pioneer Campus / TU Munich](https://www.helmholtz.ai/))
 
 ---
 
