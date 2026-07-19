@@ -2,7 +2,7 @@
 
 **Research Scientist · LLM Evaluation · AI Deployment Strategy · Production ML for Regulated Industries**
 
-Dr. rer. nat. in Genomics & Bioinformatics from Helmholtz Munich and the Technical University of Munich. 3 years evaluating LLMs across 28 models and three major families. Builder of production AI systems for medical underwriting with EU AI Act governance. 7 peer-reviewed publications including *Nature Communications*.
+Dr. rer. nat. in Biochemistry & Bioinformatics from Helmholtz Munich and the Technical University of Munich. 3 years evaluating LLMs across 28 models and three major families. Builder of production AI systems for medical underwriting with EU AI Act governance. 7 peer-reviewed publications including *Nature Communications*.
 
 I know where AI works, where it fails, and how to help organisations deploy it.
 
