@@ -96,7 +96,7 @@ From here you can:
 
 ## :collaborators
 
-- **Tim Reska** — Everything. Dr. rer. nat., Helmholtz AI / TU Munich. 7 publications incl. Nature Communications. All code, all content. Solo founder of Askeras.
+- **Tim Reska** — Everything. Dr. rer. nat., Helmholtz AI / Pioneer Campus / TU Munich. 7 publications incl. Nature Communications. All code, all content. Solo founder of Askeras.
 
 ## :superseded
 

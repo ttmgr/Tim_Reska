@@ -81,4 +81,4 @@ MIT. See [LICENSE](LICENSE).
 
 For comprehensive AI deployment due diligence with governance mapping and implementation roadmaps, engage a specialist firm.
 
-Built by Tim Reska (Helmholtz AI / TU Munich).
+Built by Tim Reska (Helmholtz AI / Pioneer Campus / TU Munich).
