@@ -2,7 +2,7 @@
 
 **Research Scientist · LLM Evaluation · AI Deployment Strategy · Production ML for Regulated Industries**
 
-Dr. rer. nat. in Biochemistry & Bioinformatics from Helmholtz AI, the Helmholtz Pioneer Campus, and the Technical University of Munich. 3 years evaluating LLMs across 28 models and three major families. Builder of production AI systems for medical underwriting with EU AI Act governance. 7 peer-reviewed publications including *Nature Communications*.
+Dr. rer. nat. in Biochemistry & Bioinformatics from Helmholtz AI, the Helmholtz Pioneer Campus, and the Technical University of Munich. 3 years evaluating LLMs across 28 models and three major families. Builder of clinical AI systems with EU AI Act governance. 7 peer-reviewed publications including *Nature Communications*.
 
 I know where AI works, where it fails, and how to help organisations deploy it.
 
@@ -27,12 +27,10 @@ flowchart TB
         E["<b>Against Plausibility</b><br/>28 models · 476 step-results<br/>KW + LMM + flagship comparison"]
     end
 
-    subgraph T["Applied ML · Healthcare & Underwriting"]
+    subgraph T["Applied ML · Healthcare"]
         direction LR
         DP["disease-progression<br/>survival + multistate"]
         DN["disease-network<br/>D3.js clinical atlas"]
-        MR["<b>MedRisk</b><br/>underwriting platform<br/>with PBW detection"]
-        PKV["pkv-ml-explorer<br/>PKV methods catalog"]
     end
 
     subgraph D["AI Deployment Strategy"]
@@ -49,17 +47,12 @@ flowchart TB
 
     A -. ground truth .-> E
     W -. ground truth .-> E
-    E == PBW thesis ==> MR
 
-    DP --> MR
-    DN --> MR
-    PKV -.- MR
+    DP --- DN
 
     E -. deployment lessons .-> ADR
     E -. pricing analysis .-> LCC
-    MR -. regulated deployment .-> ADR
     ADR -. enablement .-> ACA
-    MR -. advisory method .-> MAD
 
     classDef helm fill:#e8f4fd,stroke:#1a73e8,color:#0b1b2b
     classDef ind fill:#fef7e0,stroke:#f9ab00,color:#2b1b00
@@ -68,7 +61,7 @@ flowchart TB
     classDef cons fill:#f3e8fd,stroke:#a142f4,color:#1f0b2b
     class A,W,L helm
     class E ind
-    class DP,DN,MR,PKV appl
+    class DP,DN appl
     class ADR,LCC depl
     class MAD,ACA cons
 ```
@@ -121,19 +114,7 @@ Links: [Full evaluation](./llm-eval/) · [Evaluation framework](./llm-eval/metho
 
 ---
 
-## Production AI · Healthcare & Underwriting
-
-### MedRisk — AI underwriting with failure mode detection
-
-Automated underwriting AI fails most dangerously not when it is obviously wrong — but when it is **confidently wrong on low-quality data**. MedRisk computes a Data Quality Score for each patient before inference, then flags cases where model confidence exceeds what the input data can support.
-
-Three risk models (XGBoost + Platt calibration, Cox PH survival, continuous-time Markov chain disease progression), a validation layer (DQS, calibration-confidence mismatch, epistemic uncertainty, PBW detection, conformal prediction), an underwriting decision engine with clinical-rule checks, and a governance layer with audit logging and human-override workflow.
-
-GDPR-safe multi-market synthetic cohort generator (DE/FR/ES/INT profiles). 9 external cohort adapters (NHANES, UK Biobank, BioLinCC, CDC PLACES, Zenodo). SHAP explainability. EU AI Act article mapping. **442 tests.**
-
-Stack: Python 3.11+, XGBoost, lifelines, SHAP, Streamlit, reportlab.
-
-Links: [`medrisk/`](./medrisk/)
+## Applied ML · Healthcare
 
 ### Disease progression modeling
 
@@ -143,15 +124,9 @@ Links: [`disease-progression/`](./disease-progression/)
 
 ### Interactive clinical atlas
 
-D3.js browser dashboard for visualising disease state transitions and comparing intervention scenarios in a medical underwriting context. Eight disease nodes, evidence-linked uncertainty bands, patient profile controls. No framework dependencies.
+D3.js browser dashboard for visualising disease state transitions and comparing intervention scenarios across a patient trajectory. Eight disease nodes, evidence-linked uncertainty bands, patient profile controls. No framework dependencies.
 
 Links: [`disease-network/`](./disease-network/)
-
-### PKV ML framework explorer
-
-Self-contained browser catalog of ML and actuarial methods for German private health insurance. Covers logistic regression, random forest, LSTM, autoencoder, survival analysis, and agentic AI orchestration.
-
-Links: [`pkv-ml-explorer/`](./pkv-ml-explorer/)
 
 ---
 
@@ -205,10 +180,8 @@ Tim_Reska/
 │   ├── evaluations/           scored evaluations by step and by model
 │   ├── results/               figures, tables, scoring matrix
 │   └── scripts/               heatmap, radar, statistical analysis generators
-├── medrisk/                   medical underwriting AI platform (public teaser; platform code private)
 ├── disease-progression/       survival + transformer models on FHIR/OMOP data
 ├── disease-network/           D3.js interactive clinical atlas
-├── pkv-ml-explorer/           PKV ML methods reference catalog
 ├── nanopore-advisor/          Nanopore protocol recommendation wizard
 ├── agent-skill-pack/          agent skill showcase
 ├── multi-agent-dd/            multi-agent due-diligence showcase (public teaser)

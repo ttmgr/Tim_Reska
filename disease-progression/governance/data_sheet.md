@@ -3,7 +3,7 @@
 ## Motivation
 
 ### Purpose
-This dataset was generated to support the development and validation of multistate disease progression models for cardiovascular disease (CVD) and type 2 diabetes (T2D). The models are intended as research prototypes for DACH insurance underwriting applications.
+This dataset was generated to support the development and validation of multistate disease progression models for cardiovascular disease (CVD) and type 2 diabetes (T2D). The models are intended as research prototypes for clinical risk stratification in the DACH region.
 
 ### Creator
 The dataset was generated using Synthea, an open-source synthetic patient generator developed by the MITRE Corporation. The generation configuration and cohort selection were performed by the Disease Progression Modelling Team.
@@ -41,7 +41,7 @@ No real patient data is included. All records are algorithmically generated. How
 Synthea generates data based on US population demographics and healthcare utilisation patterns. The synthetic population does not represent DACH populations in terms of:
 - Disease prevalence and incidence rates
 - Treatment protocols and prescribing patterns
-- Healthcare system structure (e.g., German DMP, Swiss mandatory insurance)
+- Healthcare system structure (e.g., German DMP, Swiss mandatory health coverage)
 - Coding practices (SNOMED CT vs ICD-10-GM)
 
 ## Collection Process
@@ -78,11 +78,11 @@ Synthetic records span from approximately 1920 to 2024, covering full patient li
 ### Intended Uses
 - Training and evaluating multistate survival models.
 - Developing and testing data pipelines for disease progression analysis.
-- Prototyping underwriting risk stratification approaches.
+- Prototyping clinical risk stratification approaches.
 
 ### Not Suitable For
 - Clinical decision support (synthetic data does not reflect real patient outcomes).
-- Actuarial pricing (prevalence and cost figures are US-based and synthetic).
+- Health-economic cost estimates (prevalence and cost figures are US-based and synthetic).
 - Epidemiological studies (disease patterns are algorithmically generated, not observed).
 
 ## Distribution

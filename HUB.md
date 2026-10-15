@@ -42,8 +42,6 @@ From here you can:
 | **Applied ML / Healthcare** | | |
 | Disease Network | `disease-network/index.html` | D3.js comorbidity atlas (German UI) |
 | Disease Progression | `disease-progression/index.html` | Survival and multistate models (Cox PH, CTMC, DeepSurv) |
-| MedRisk teaser | `medrisk/index.html` | Medical underwriting platform (public teaser only) |
-| PKV ML Explorer | `pkv-ml-explorer/index.html` | ML methods catalog for private health insurance |
 | --- | --- | --- |
 | **AI deployment strategy** | | |
 | AI Deployment Readiness | `ai-deployment-readiness/index.html` | 25-question maturity self-assessment |

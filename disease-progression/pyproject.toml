@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "disease-progression"
 version = "0.1.0"
-description = "Disease progression modeling for medical underwriting — survival analysis, multistate models, and transformer architectures on longitudinal EHR/claims data."
+description = "Disease progression modeling for clinical risk prediction — survival analysis, multistate models, and transformer architectures on longitudinal EHR data."
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.10"
@@ -16,7 +16,7 @@ keywords = [
     "survival-analysis",
     "disease-progression",
     "deep-learning",
-    "medical-underwriting",
+    "clinical-risk-prediction",
     "ehr",
     "transformer",
     "competing-risks",

@@ -30,9 +30,9 @@ HbA1c is modelled as a time-varying covariate via the GRU encoder in Dynamic-Dee
 
 ## Intended Use
 
-- **Primary use**: Research prototype for diabetes progression modelling in DACH insurance contexts.
-- **Users**: Data scientists and actuaries evaluating survival-based risk stratification for diabetes.
-- **Out of scope**: Clinical decision-making, automated underwriting, patient-facing tools.
+- **Primary use**: Research prototype for diabetes progression modelling in DACH clinical contexts.
+- **Users**: Data scientists and clinical researchers evaluating survival-based risk stratification for diabetes.
+- **Out of scope**: Clinical decision-making, automated treatment decisions, patient-facing tools.
 
 ## Training Data
 
@@ -107,4 +107,4 @@ HbA1c is modelled as a time-varying covariate via the GRU encoder in Dynamic-Dee
 2. **Recalibrate HbA1c trajectory model.** Measurement frequency and baseline levels differ between US and DACH populations.
 3. **Consider DMP participation.** German Disease Management Programmes (DMPs) for T2D significantly affect progression; include as a feature when real data is available.
 4. **Account for treatment advances.** SGLT2 inhibitors and GLP-1 receptor agonists have changed T2D prognosis substantially since 2015.
-5. **Separate T1D and T2D.** Current model does not distinguish between diabetes types; this is a significant limitation for underwriting.
+5. **Separate T1D and T2D.** Current model does not distinguish between diabetes types; this is a significant limitation for clinical use.

@@ -534,7 +534,7 @@ footer a:hover { color: var(--accent); }
     <span class="tag unused">Unused</span>
     <h4>Batch API</h4>
     <p class="what">Queue requests, get 50% discount on input and output. Stacks with caching for ~95% combined savings on offline work.</p>
-    <p class="edge"><strong>Unlocks:</strong> overnight processing of 1,000 underwriting case files at half-price while you sleep.</p>
+    <p class="edge"><strong>Unlocks:</strong> overnight processing of 1,000 clinical case files at half-price while you sleep.</p>
   </div>
 
   <div class="card unused">
@@ -646,7 +646,7 @@ flowchart TD
     D -->|trigger| C
   </div>
   <div class="when-beats"><strong>Beats fan-out when:</strong> agent execution order depends on what is already known, and agents should self-activate based on preconditions — adaptive, decoupled problem-solving.</div>
-  <div class="use-case"><strong>Use case:</strong> medical underwriting where cardiology / nephrology / endocrine specialists each read a shared patient record and fire only when their domain constraints match.</div>
+  <div class="use-case"><strong>Use case:</strong> multi-specialty case review where cardiology / nephrology / endocrine specialists each read a shared patient record and fire only when their domain constraints match.</div>
 </div>
 
 <div class="topology">
@@ -1296,7 +1296,7 @@ claude mcp add --transport stdio my-tool -- python3 /path/to/server.py</code></p
 </div>
 
 <div class="cheat-row">
-  <div class="want">I want every clinical claim my Underwriting skill makes to be auto-cited to the source PDF page.</div>
+  <div class="want">I want every clinical claim my clinical-evidence skill makes to be auto-cited to the source PDF page.</div>
   <div class="reach"><strong>Files API</strong> (upload PDFs once) + <strong>Citations API</strong> (per-block attribution) + <strong>Structured Output</strong> (JSON schema with citation fields).</div>
 </div>
 
@@ -1311,12 +1311,12 @@ claude mcp add --transport stdio my-tool -- python3 /path/to/server.py</code></p
 </div>
 
 <div class="cheat-row">
-  <div class="want">I want to automate a manual SaaS workflow — say, bulk uploading underwriting decisions to a web portal.</div>
+  <div class="want">I want to automate a manual SaaS workflow — say, bulk uploading case decisions to a web portal.</div>
   <div class="reach"><strong>Computer Use</strong> (Opus 4.7 native pixel coords) + <strong>Hub-spoke topology</strong> (one coordinator dispatches per-record agents) + <strong>Background tasks</strong>.</div>
 </div>
 
 <div class="cheat-row">
-  <div class="want">I want overnight processing of 1,000 underwriting case files at minimum cost.</div>
+  <div class="want">I want overnight processing of 1,000 clinical case files at minimum cost.</div>
   <div class="reach"><strong>Batch API</strong> (50% discount, 24h latency) + <strong>Prompt caching</strong> (the shared methodology prefix) + <strong>Haiku-as-pre-filter</strong> (route only ambiguous cases to Sonnet/Opus).</div>
 </div>
 

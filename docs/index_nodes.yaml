@@ -50,9 +50,9 @@ nodes:
     title: Disease Network v3
     group: "Applied ML · healthcare"
     globs: ["disease-network/**"]
-    summary: D3.js clinical comorbidity atlas for medical underwriting; German UI.
-    reads_for: "clinical comorbidity visualisation, underwriting risk graph"
-    edges: [medrisk, disease-progression]
+    summary: D3.js clinical comorbidity atlas; German UI.
+    reads_for: "clinical comorbidity visualisation, disease risk graph"
+    edges: [disease-progression]
 
   - id: disease-progression
     title: Disease Progression Models
@@ -60,23 +60,7 @@ nodes:
     globs: ["disease-progression/**"]
     summary: Survival and multistate disease-progression models (Cox PH, CTMC, DeepSurv/DeepHit, SurvTRACE) on FHIR/OMOP data.
     reads_for: "survival modelling, multistate disease progression, FHIR/OMOP pipelines, feature leakage tests"
-    edges: [medrisk, disease-network]
-
-  - id: medrisk
-    title: Medrisk underwriting platform
-    group: "Applied ML · healthcare"
-    globs: ["medrisk/**"]
-    summary: Medical-underwriting platform — risk classification and debit/credit rating from clinical and lab inputs. Public teaser only; platform code private.
-    reads_for: "underwriting risk rating, debit/credit logic, public teaser"
-    edges: [disease-progression, disease-network, pkv-ml-explorer]
-
-  - id: pkv-ml-explorer
-    title: PKV ML Explorer
-    group: "Applied ML · healthcare"
-    globs: ["pkv-ml-explorer/**"]
-    summary: Catalog of ML methods for PKV (private health insurance) — logistic regression, RF, LSTM, autoencoder, survival, agentic AI.
-    reads_for: "ML method survey for German PKV, side-by-side comparison"
-    edges: [medrisk]
+    edges: [disease-network]
 
   # --- LLM evaluation -------------------------------------------------------
   - id: llm-eval

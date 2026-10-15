@@ -28,9 +28,9 @@ Death acts as an absorbing state reachable from any transient state (competing r
 
 ## Intended Use
 
-- **Primary use**: Research prototype exploring disease progression modelling for DACH insurance underwriting.
-- **Users**: Data scientists and actuaries evaluating feasibility of survival-based risk stratification.
-- **Out of scope**: Clinical decision-making, automated underwriting decisions, patient-facing applications.
+- **Primary use**: Research prototype exploring disease progression modelling for clinical risk stratification in the DACH region.
+- **Users**: Data scientists and clinical researchers evaluating feasibility of survival-based risk stratification.
+- **Out of scope**: Clinical decision-making, automated treatment or triage decisions, patient-facing applications.
 
 ## Training Data
 
@@ -85,7 +85,7 @@ Calibration assessed via:
 
 - The model must not systematically disadvantage any demographic group in risk prediction accuracy.
 - Subgroup C-index differences exceeding 0.05 should trigger review.
-- Age-based risk differentiation is actuarially justified but must comply with anti-discrimination law (AGG in Germany, GlBG in Austria).
+- Age is a strong clinical risk factor, but any use of age-based risk scores must comply with anti-discrimination law (AGG in Germany, GlBG in Austria).
 
 ### Privacy
 
@@ -95,8 +95,8 @@ Calibration assessed via:
 
 ### Potential Harms
 
-- Miscalibrated predictions could lead to unfair premium loading or coverage denial.
-- Over-reliance on model outputs without clinical context may produce inappropriate underwriting decisions.
+- Miscalibrated predictions could lead to over- or under-treatment, or to patients being missed for follow-up.
+- Over-reliance on model outputs without clinical context may produce inappropriate care decisions.
 - Historical care inequalities embedded in training data may perpetuate bias.
 
 ## Caveats and Recommendations
@@ -104,5 +104,5 @@ Calibration assessed via:
 1. **Do not deploy without validation on real DACH population data.** Synthea-trained models are proof-of-concept only.
 2. **Recalibrate before use.** Base hazard rates will differ between US synthetic and DACH real populations.
 3. **Monitor for drift.** Coding practices (ICD-10-GM vs ICD-10-CM), treatment guidelines, and population demographics change over time.
-4. **Ensemble with actuarial judgement.** Model outputs should inform, not replace, underwriter decisions.
-5. **Document all overrides.** When underwriters deviate from model recommendations, log the reason for audit trails.
+4. **Combine with clinical judgement.** Model outputs should inform, not replace, clinician decisions.
+5. **Document all overrides.** When clinicians deviate from model recommendations, log the reason for audit trails.

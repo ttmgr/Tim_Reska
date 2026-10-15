@@ -1,4 +1,4 @@
-/* Shared shell for portfolio teaser pages (academy, multi-agent-dd, medrisk).
+/* Shared shell for portfolio teaser pages (academy, multi-agent-dd).
    Holds the reset + typography + layout rules that were byte-identical across
    the three teasers' inline <style> blocks. Each teaser still owns the page-
    specific extensions (grids, cards, .priority, .disclaimer, etc.).

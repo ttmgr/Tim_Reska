@@ -87,7 +87,7 @@ A frontier primer documenting every Claude Code and Claude agentic primitive cur
 
 **Extended Thinking**
 - What it is: Claude's internal reasoning step before responding; models like Opus 4.6 use adaptive thinking, deciding dynamically when and how much to think based on the effort parameter and task complexity.
-- Edge case it unlocks: For complex medical underwriting decisions, enable extended thinking so Claude reasons through differential diagnoses and risk factors privately before writing the assessment—no training wheels, pure structured thinking.
+- Edge case it unlocks: For complex clinical assessments, enable extended thinking so Claude reasons through differential diagnoses and risk factors privately before writing the assessment—no training wheels, pure structured thinking.
 - Source: [Building with extended thinking](https://docs.anthropic.com/en/docs/build-with-claude/extended-thinking)
 
 **Structured Output (JSON Schema Validation)**

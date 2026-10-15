@@ -3,7 +3,7 @@
 This repo is two things at once, which is why the root looks busy:
 
 1. **A GitHub Pages portfolio site** — the root `index.html` is the hub, and **each top-level kebab-case directory is a self-contained showcase published at `https://ttmgr.github.io/Tim_Reska/<dir>/`** and linked from the homepage.
-2. **A monorepo of real project codebases** — some of those directories (`medrisk`, `llm-eval`, `pipelines`) are full projects with their own internal `src/`, `tests/`, etc.
+2. **A monorepo of real project codebases** — some of those directories (`llm-eval`, `pipelines`, `disease-progression`) are full projects with their own internal `src/`, `tests/`, etc.
 
 If you're looking for a file: first decide which *showcase/project* it belongs to (top-level dir), then navigate inside — each project owns its own structure.
 
@@ -17,10 +17,8 @@ If you're looking for a file: first decide which *showcase/project* it belongs t
 ## Published showcases (each = a `/<dir>/` route)
 
 **Applied ML · healthcare**
-- `medrisk/` — medical-underwriting platform. **Published as a teaser only** (`index.html`); the platform code, methodology, and data adapters are private (gitignored, sellable IP).
 - `disease-progression/` — survival + multistate progression models.
 - `disease-network/` — D3.js clinical comorbidity atlas.
-- `pkv-ml-explorer/` — PKV ML methods catalog.
 
 **LLM evaluation**
 - `llm-eval/` — "Against Plausibility": 28-model evaluation (`evaluations/ responses/ results/ prompts/ methodology/ scripts/`).
@@ -50,6 +48,5 @@ If you're looking for a file: first decide which *showcase/project* it belongs t
 - `archive/` — old working files.
 - `*_data_do_not_touch_if_not_prompted/` — staging holding folders, reviewed before promotion.
 - `askeras-v1/`, `askeras-v2/` — the Askeras venture's public marketing pages (own domain / future GmbH). `askeras-v2/` is the current working source; a curated subset publishes to a tracked `askeras/` directory once the Impressum address is in place. The Askeras business codebase and deliverable generators were split out on 2026-06-09 to a separate private repo, `~/Documents/New_project/askeras` (`ttmgr/RESKA-AI-ENABLEMENT`); the former local `company_askeras/` copy has been removed.
-- `medrisk/` (all except `index.html`) — the underwriting platform code, methodology, and data adapters (sellable IP).
 - `multi-agent-dd/` build internals (`build_*.py`, `SKILL.md`, `docs/`, `outputs/`, `workings/`, `templates/`) — only the teaser `index.html` is published.
 - `llm-coding-radar/` — personal weekly digests of the LLM-coding ecosystem (output of the `/llm-coding-radar` skill); local-only, not a showcase.

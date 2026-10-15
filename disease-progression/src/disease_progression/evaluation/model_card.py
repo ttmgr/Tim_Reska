@@ -3,8 +3,7 @@ disease_progression.evaluation.model_card - Automated model card generation.
 
 Generates a structured model card in Markdown format following the
 template proposed by Mitchell et al. (2019, "Model Cards for Model
-Reporting").  Tailored for survival analysis models in clinical /
-health-insurance contexts.
+Reporting").  Tailored for survival analysis models in clinical contexts.
 
 Sections:
     1. Model Details (name, version, type, framework)

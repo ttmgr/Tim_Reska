@@ -89,7 +89,7 @@ Upload PDFs once, reuse across calls with verbatim source citations anchored to 
 
 Queue requests, get 50% discount on input and output. Stacks with caching for ~95% combined savings on offline work.
 
-**Unlocks:** overnight processing of 1,000 underwriting case files at half-price while you sleep.
+**Unlocks:** overnight processing of 1,000 clinical case files at half-price while you sleep.
 
 #### Scheduled Routines (Cron)
 
@@ -192,7 +192,7 @@ flowchart TD
 
 **Beats fan-out when:** agent execution order depends on what is already known, and agents should self-activate based on preconditions — adaptive, decoupled problem-solving.
 
-**Use case:** medical underwriting where cardiology / nephrology / endocrine specialists each read a shared patient record and fire only when their domain constraints match.
+**Use case:** multi-specialty case review where cardiology / nephrology / endocrine specialists each read a shared patient record and fire only when their domain constraints match.
 
 ### 2.3 Adversarial Pairs (Proposer / Critic)
 
@@ -836,7 +836,7 @@ I want a DD pipeline that survives my laptop sleeping for the whole 5-day engage
 
 **Managed Agents** (cloud-hosted sessions) + **Long-running with checkpoints topology** + **1-hour prompt cache** for the firm-context prefix.
 
-I want every clinical claim my Underwriting skill makes to be auto-cited to the source PDF page.
+I want every clinical claim my clinical-evidence skill makes to be auto-cited to the source PDF page.
 
 **Files API** (upload PDFs once) + **Citations API** (per-block attribution) + **Structured Output** (JSON schema with citation fields).
 
@@ -848,11 +848,11 @@ I want a Science manuscript audit where the reviewer can spawn sub-reviewers mid
 
 **Recursive sub-agents topology** + **Background tasks** (so the parent doesn't block) + **Tool Search** (so the sub-reviewer can hydrate the right MCP tools on demand).
 
-I want to automate a manual SaaS workflow — say, bulk uploading underwriting decisions to a web portal.
+I want to automate a manual SaaS workflow — say, bulk uploading case decisions to a web portal.
 
 **Computer Use** (Opus 4.7 native pixel coords) + **Hub-spoke topology** (one coordinator dispatches per-record agents) + **Background tasks**.
 
-I want overnight processing of 1,000 underwriting case files at minimum cost.
+I want overnight processing of 1,000 clinical case files at minimum cost.
 
 **Batch API** (50% discount, 24h latency) + **Prompt caching** (the shared methodology prefix) + **Haiku-as-pre-filter** (route only ambiguous cases to Sonnet/Opus).
 

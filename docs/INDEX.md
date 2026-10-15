@@ -8,16 +8,14 @@ it answers. Mirrors the structure in `.nav/INDEX.md`; refresh both
 systems after any structural change. For the human-oriented narrative
 see `STRUCTURE.md`.
 
-*23 nodes · 355 files mapped.*
+*21 nodes · 352 files mapped · ⚠ 58 unmapped.*
 
 ## Quick lookup — read when…
 
 | When you need… | → node |
 |---|---|
-| clinical comorbidity visualisation, underwriting risk graph | [[disease-network]] |
+| clinical comorbidity visualisation, disease risk graph | [[disease-network]] |
 | survival modelling, multistate disease progression, FHIR/OMOP pipelines, feature leakage tests | [[disease-progression]] |
-| underwriting risk rating, debit/credit logic, public teaser | [[medrisk]] |
-| ML method survey for German PKV, side-by-side comparison | [[pkv-ml-explorer]] |
 | LLM error taxonomy, plausible-but-wrong benchmark, scoring rubric, evaluation methodology | [[llm-eval]] |
 | AI readiness self-assessment, sector benchmarking | [[ai-deployment-readiness]] |
 | LLM TCO, pricing comparisons, Monte Carlo sensitivity, ROI modelling | [[llm-cost-calculator]] |
@@ -41,28 +39,16 @@ see `STRUCTURE.md`.
 ## Applied ML · healthcare
 
 ### `disease-network` · Disease Network v3  (11 files)
-D3.js clinical comorbidity atlas for medical underwriting; German UI.
+D3.js clinical comorbidity atlas; German UI.
 **Files:** `disease-network/README.md` · `disease-network/assets/css/styles.css` · `disease-network/assets/js/data.mjs` · `disease-network/assets/js/main.mjs` · `disease-network/assets/js/model.mjs` · `disease-network/assets/js/state.mjs` · `disease-network/assets/js/ui.mjs` · `disease-network/diseases.json` · `disease-network/index.html` · `disease-network/tests/scenario-checks.mjs` · `disease-network/tests/validate-data.mjs`
-**Related:** [[medrisk]] · [[disease-progression]]
-**Read when:** clinical comorbidity visualisation, underwriting risk graph
+**Related:** [[disease-progression]]
+**Read when:** clinical comorbidity visualisation, disease risk graph
 
-### `disease-progression` · Disease Progression Models  (45 files)
+### `disease-progression` · Disease Progression Models  (42 files)
 Survival and multistate disease-progression models (Cox PH, CTMC, DeepSurv/DeepHit, SurvTRACE) on FHIR/OMOP data.
-**Files:** `disease-progression/.github/workflows/ci.yml` · `disease-progression/LICENSE` · `disease-progression/Makefile` · `disease-progression/README.md` · `disease-progression/configs/default.yaml` · `disease-progression/conftest.py` · `disease-progression/docs/dach_regulatory.md` · `disease-progression/docs/underwriting_context.md` · `disease-progression/governance/data_sheet.md` · `disease-progression/governance/model_card_cvd.md` · `disease-progression/governance/model_card_diabetes.md` · `disease-progression/governance/risk_register.md` · `disease-progression/index.html` · `disease-progression/notebooks/00_data_quality.ipynb` · …(+31)
-**Related:** [[medrisk]] · [[disease-network]]
+**Files:** `disease-progression/.github/workflows/ci.yml` · `disease-progression/LICENSE` · `disease-progression/Makefile` · `disease-progression/README.md` · `disease-progression/configs/default.yaml` · `disease-progression/conftest.py` · `disease-progression/governance/data_sheet.md` · `disease-progression/governance/model_card_cvd.md` · `disease-progression/governance/model_card_diabetes.md` · `disease-progression/governance/risk_register.md` · `disease-progression/index.html` · `disease-progression/notebooks/00_data_quality.ipynb` · `disease-progression/notebooks/01_cvd_progression.ipynb` · `disease-progression/notebooks/02_diabetes_progression.ipynb` · …(+28)
+**Related:** [[disease-network]]
 **Read when:** survival modelling, multistate disease progression, FHIR/OMOP pipelines, feature leakage tests
-
-### `medrisk` · Medrisk underwriting platform  (1 file)
-Medical-underwriting platform — risk classification and debit/credit rating from clinical and lab inputs. Public teaser only; platform code private.
-**Files:** `medrisk/index.html`
-**Related:** [[disease-progression]] · [[disease-network]] · [[pkv-ml-explorer]]
-**Read when:** underwriting risk rating, debit/credit logic, public teaser
-
-### `pkv-ml-explorer` · PKV ML Explorer  (2 files)
-Catalog of ML methods for PKV (private health insurance) — logistic regression, RF, LSTM, autoencoder, survival, agentic AI.
-**Files:** `pkv-ml-explorer/README.md` · `pkv-ml-explorer/index.html`
-**Related:** [[medrisk]]
-**Read when:** ML method survey for German PKV, side-by-side comparison
 
 ## LLM evaluation
 
@@ -92,9 +78,9 @@ Briefing on the Claude agentic-systems frontier — primitives, topologies, Anth
 **Related:** [[company_askeras]] · [[ai-deployment-readiness]] · [[llm-cost-calculator]] · [[multi-agent-dd]]
 **Read when:** agentic primitives map, topology patterns, ambient automation, cost/speed optimization, Askeras orchestrator audit
 
-### `ai-news-radar` · AI News Radar  (2 files)
+### `ai-news-radar` · AI News Radar  (4 files)
 Static showcase — "The LLM coding ecosystem, distilled weekly." Public-facing face of the /llm-coding-radar weekly digests (Anthropic/Claude Code, OpenAI/Codex, Gemini CLI, open-source agents, IDEs, MCP, arXiv).
-**Files:** `ai-news-radar/index.html` · `ai-news-radar/styles.css`
+**Files:** `ai-news-radar/index.html` · `ai-news-radar/radar-print-2026-06-07.html` · `ai-news-radar/radar-print-2026-06-15.html` · `ai-news-radar/styles.css`
 **Related:** [[llm-coding-radar]] · [[llm-cost-calculator]] · [[ai-deployment-readiness]]
 **Read when:** LLM coding ecosystem digest, weekly model/pricing/tooling changes, public radar showcase
 
@@ -114,9 +100,9 @@ Hantavirus 2026 outbreak tracker dashboard; has a German page under de/ and a sh
 
 ## Other showcases
 
-### `academy` · Askeras AI Academy (public)  (3 files)
+### `academy` · Askeras AI Academy (public)  (4 files)
 Askeras AI Academy — public teaser for the AI-enablement curriculum (4 tiers, 21 lessons, 4 sector variants live).
-**Files:** `academy/README.md` · `academy/index.html` · `academy/sample-lesson/index.html`
+**Files:** `academy/README.md` · `academy/bebob/README.md` · `academy/index.html` · `academy/sample-lesson/index.html`
 **Related:** [[company_askeras]] · [[multi-agent-dd]]
 **Read when:** academy public positioning, tier descriptions, NDA pilot framing
 
@@ -184,3 +170,64 @@ Top-level site files — homepage, README, structure doc, license, citation, SEO
 Two navigation layers — (1) HUB.html / INDEX.html / INDEX.md, the auto-generated project dashboard + interactive code graph; (2) .nav/ (gitignored, local-only), the Markdown node map agents read at session start.
 **Files:** `HUB.md` · `docs/HUB.html` · `docs/INDEX.html` · `docs/INDEX.md` · `docs/index_nodes.yaml` · `scripts/build_hub.py` · `scripts/build_index.py` · `scripts/build_visualization.py`
 **Read when:** how navigation works, refreshing the views, adding new nodes
+
+## ⚠ Unmapped files (not in any node — add a glob in index_nodes.yaml)
+
+- `CONTEXT.md`
+- `LEARNINGS.md`
+- `nanopore_agentic_system/README.md`
+- `nanopore_agentic_system/adapters/claude_code/CLAUDE.md`
+- `nanopore_agentic_system/adapters/claude_code/README.md`
+- `nanopore_agentic_system/adapters/claude_code/settings.hooks.sample.json`
+- `nanopore_agentic_system/core/AGENTS.md`
+- `nanopore_agentic_system/core/__init__.py`
+- `nanopore_agentic_system/core/eval/__init__.py`
+- `nanopore_agentic_system/core/eval/run_harness_checks.py`
+- `nanopore_agentic_system/core/hooks/__init__.py`
+- `nanopore_agentic_system/core/hooks/audit.py`
+- `nanopore_agentic_system/core/hooks/command_builder.py`
+- `nanopore_agentic_system/core/hooks/parsers.py`
+- `nanopore_agentic_system/core/hooks/preflight.py`
+- `nanopore_agentic_system/core/hooks/validation.py`
+- `nanopore_agentic_system/core/memory/README.md`
+- `nanopore_agentic_system/core/prompts/extract_new_skill.md`
+- `nanopore_agentic_system/core/prompts/validate_skill.md`
+- `nanopore_agentic_system/core/schemas/skill.schema.json`
+- `nanopore_agentic_system/evals/run_benchmarks.py`
+- `nanopore_agentic_system/examples/01_nanopore_qc.md`
+- `nanopore_agentic_system/examples/02_environmental_metagenomics_contamination.md`
+- `nanopore_agentic_system/examples/03_taxonomic_classification.md`
+- `nanopore_agentic_system/examples/04_amr_virulence_screening.md`
+- `nanopore_agentic_system/examples/05_plasmid_profiling.md`
+- `nanopore_agentic_system/hooks/__init__.py`
+- `nanopore_agentic_system/hooks/parsers.py`
+- `nanopore_agentic_system/hooks/validation.py`
+- `nanopore_agentic_system/manual/build_manual.py`
+- `nanopore_agentic_system/memory/MEMORY.md`
+- `nanopore_agentic_system/memory/architecture-decisions-index.md`
+- `nanopore_agentic_system/memory/harness-operating-contract.md`
+- `nanopore_agentic_system/memory/layered-harness-architecture.md`
+- `nanopore_agentic_system/memory/run-history.md`
+- `nanopore_agentic_system/project/__init__.py`
+- `nanopore_agentic_system/project/eval/__init__.py`
+- `nanopore_agentic_system/project/eval/benchmark_tasks.yaml`
+- `nanopore_agentic_system/project/eval/fixtures.py`
+- `nanopore_agentic_system/project/hooks/__init__.py`
+- `nanopore_agentic_system/project/hooks/parsers_genomics.py`
+- `nanopore_agentic_system/project/hooks/validation_genomics.py`
+- `nanopore_agentic_system/project/prompts/use_skill_pack.md`
+- `nanopore_agentic_system/references/external_nanopore_epi2me_inventory.md`
+- `nanopore_agentic_system/skills/README.md`
+- `nanopore_agentic_system/skills/air_metagenomics.yaml`
+- `nanopore_agentic_system/skills/amr_nanopore.yaml`
+- `nanopore_agentic_system/skills/avian_influenza_profiling.yaml`
+- `nanopore_agentic_system/skills/cre_plasmid_clustering.yaml`
+- `nanopore_agentic_system/skills/from_feather_to_fur.yaml`
+- `nanopore_agentic_system/skills/listeria_adaptive_sampling.yaml`
+- `nanopore_agentic_system/skills/nanopore_amr_host_association.yaml`
+- `nanopore_agentic_system/skills/squiggle4viability.yaml`
+- `nanopore_agentic_system/skills/wetland_12s_vertebrate_metabarcoding.yaml`
+- `nanopore_agentic_system/skills/wetland_aiv_rna_consensus.yaml`
+- `nanopore_agentic_system/skills/wetland_dna_shotgun_metagenomics.yaml`
+- `nanopore_agentic_system/skills/wetland_viral_metagenomics.yaml`
+- `nanopore_agentic_system/skills/zambia_edna_metabarcoding.yaml`

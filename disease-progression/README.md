@@ -1,6 +1,6 @@
 # Disease Progression Modeling
 
-> Disease progression modeling for medical underwriting -- survival analysis, multistate models, and transformer architectures on longitudinal EHR/claims data.
+> Disease progression modeling for clinical risk prediction -- survival analysis, multistate models, and transformer architectures on longitudinal EHR data.
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
@@ -10,9 +10,9 @@
 
 ## About
 
-This project brings together **clinical disease progression modeling** and **actuarial risk quantification** into a single, reproducible framework. It was built by a researcher with a PhD in AI and metagenomics who is now applying deep sequence modeling, survival analysis, and probabilistic state machines to the healthcare and insurance domain.
+This project brings together **clinical disease progression modeling** and **patient-level risk quantification** into a single, reproducible framework. It was built by a researcher with a PhD in AI and metagenomics who is now applying deep sequence modeling, survival analysis, and probabilistic state machines to healthcare.
 
-The core question it answers: *Given a patient's longitudinal health record, how do we predict their trajectory through discrete disease states, estimate time to critical events, and translate those predictions into actionable risk scores for underwriting, pricing, and care management?*
+The core question it answers: *Given a patient's longitudinal health record, how do we predict their trajectory through discrete disease states, estimate time to critical events, and translate those predictions into actionable risk scores for clinical follow-up and care management?*
 
 The framework ingests synthetic FHIR bundles (via [Synthea](https://github.com/synthetichealth/synthea)), transforms them into an OMOP-lite analytic schema, engineers static, temporal, and tokenized feature sets, and benchmarks a suite of models ranging from classical Cox regression to transformer-based survival architectures.
 
@@ -113,14 +113,13 @@ stateDiagram-v2
 
 ## Notebooks
 
-Four self-contained notebooks, executable end-to-end on the synthetic cohort.
+Three self-contained notebooks, executable end-to-end on the synthetic cohort.
 
 | # | Notebook | What it demonstrates |
 |---|----------|----------------------|
 | 00 | [`00_data_quality.ipynb`](notebooks/00_data_quality.ipynb) | Synthea → OMOP-lite ETL, cohort characterization, missingness profile across CVD and T2D tracks |
 | 01 | [`01_cvd_progression.ipynb`](notebooks/01_cvd_progression.ipynb) | CVD multistate model end-to-end: Cox PH, DeepSurv, DeepHit, SurvTRACE benchmarked on the cardiovascular track |
 | 02 | [`02_diabetes_progression.ipynb`](notebooks/02_diabetes_progression.ipynb) | T2D progression from prediabetes through micro/macrovascular complications to ESRD |
-| 03 | [`03_business_view.ipynb`](notebooks/03_business_view.ipynb) | Translation layer: model outputs → underwriting scenarios, fairness audit, model card and risk-register artifacts |
 
 ---
 
@@ -207,9 +206,9 @@ disease-progression/
 This framework is designed with European regulatory requirements in mind:
 
 - **GDPR Article 9** -- Health data is a special category under GDPR. All modeling uses synthetic data (Synthea) or requires explicit consent and a Data Protection Impact Assessment (DPIA) before processing real patient records.
-- **GenDG (Gendiagnostikgesetz)** -- German law prohibits insurers from requesting or using genetic test results. The framework excludes genetic features by design and enforces this via feature-level access controls.
+- **GenDG (Gendiagnostikgesetz)** -- German law sets strict rules for genetic testing and the use of genetic results. The framework excludes genetic features by design and enforces this via feature-level access controls.
 - **Swiss DSG (Datenschutzgesetz)** -- Switzerland's revised data protection act (effective Sep 2023) imposes GDPR-equivalent obligations for health data processing, including data minimization and purpose limitation.
-- **EU AI Act** -- Medical underwriting models that influence access to insurance fall under high-risk AI systems (Annex III). The framework supports compliance through automated model cards, risk registers, fairness audits, and human-in-the-loop evaluation protocols.
+- **EU AI Act** -- Clinical risk models that qualify as medical devices under the MDR are high-risk AI systems (Article 6(1), Annex I). The framework supports compliance through automated model cards, risk registers, fairness audits, and human-in-the-loop evaluation protocols.
 
 See the [`governance/`](governance/) directory for model cards, the risk register, and the dataset data sheet.
 
@@ -221,4 +220,4 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 
 ---
 
-Built with clinical rigor and actuarial intent.
+Built with clinical rigor.

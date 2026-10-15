@@ -174,7 +174,7 @@ function buildScenarioNarrative(disease, stage, signal, confidence, riskDrivers,
   const leadDriver = riskDrivers[0];
   const topFuture = simulation.topFutureDiseases[0];
   return {
-    intro: `${disease.label} in Stage "${stage.label}" liefert aktuell ein ${signal.label}es Underwriting-Signal mit ${confidenceToLabel(confidence)}er Evidenzdichte.`,
+    intro: `${disease.label} in Stage "${stage.label}" liefert aktuell ein ${signal.label}es Risikosignal mit ${confidenceToLabel(confidence)}er Evidenzdichte.`,
     driver: leadDriver
       ? `${leadDriver.label} wirkt derzeit als staerkster Hazard-Verstaerker.`
       : "Aktuell dominiert der Stage-Status selbst das Risikoprofil.",
@@ -778,7 +778,7 @@ export function buildEvidencePayload(context, descriptor) {
       bullets: [
         `Praevalenz DE: ${(disease.prevalence_germany * 100).toFixed(1)}%`,
         `Nicht diagnostiziert: ${(disease.undiagnosed_fraction * 100).toFixed(0)}%`,
-        `Underwriting-Rolle: ${disease.underwriting_role}`
+        `Netzwerk-Rolle: ${disease.network_role}`
       ],
       rules: disease.supported_inputs.map((inputId) => ({ label: inputId, note: "relevanter Eingabekanal" }))
     };

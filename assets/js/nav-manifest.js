@@ -11,11 +11,6 @@ window.TR_NAV_LINKS = [
     "path": "disease-network/"
   },
   {
-    "slug": "pkv-ml-explorer",
-    "label": "PKV Explorer",
-    "path": "pkv-ml-explorer/"
-  },
-  {
     "slug": "disease-progression",
     "label": "Disease Progression",
     "path": "disease-progression/"
@@ -54,11 +49,6 @@ window.TR_NAV_LINKS = [
     "slug": "hanta",
     "label": "Hanta Tracker",
     "path": "hanta/"
-  },
-  {
-    "slug": "medrisk",
-    "label": "MedRisk",
-    "path": "medrisk/"
   },
   {
     "slug": "agent-skill-pack",

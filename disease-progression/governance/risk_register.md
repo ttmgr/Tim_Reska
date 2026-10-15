@@ -2,7 +2,7 @@
 
 ## Overview
 
-This risk register identifies and tracks risks associated with the development and potential deployment of multistate disease progression models for insurance underwriting in the DACH region. Each risk is assessed on likelihood (L) and impact (I) on a 1-5 scale, yielding a risk score (L x I).
+This risk register identifies and tracks risks associated with the development and potential deployment of multistate disease progression models for clinical risk stratification in the DACH region. Each risk is assessed on likelihood (L) and impact (I) on a 1-5 scale, yielding a risk score (L x I).
 
 ---
 
@@ -130,16 +130,16 @@ This risk register identifies and tracks risks associated with the development a
 | Field | Value |
 |---|---|
 | Risk ID | PRIV-002 |
-| Description | Health data is classified as special category data under GDPR Art. 9. Processing requires explicit consent or a specific legal basis (e.g., Art. 9(2)(g) substantial public interest, Art. 9(2)(j) scientific research). Insurance underwriting with health data must comply with member state derogations. |
+| Description | Health data is classified as special category data under GDPR Art. 9. Processing requires explicit consent or a specific legal basis (e.g., Art. 9(2)(g) substantial public interest, Art. 9(2)(j) scientific research). Processing for health research must also comply with member state derogations. |
 | Likelihood | 4 |
 | Impact | 5 |
 | Risk Score | 20 (Critical) |
 
 **Mitigation Strategies:**
 - Obtain legal review of the applicable legal basis in each DACH jurisdiction before processing real data.
-- In Germany: consider VVG (Insurance Contract Act) provisions for health data in underwriting.
+- In Germany: check BDSG §22 and the relevant state hospital and research laws.
 - In Switzerland: align with revDSG (revised Data Protection Act, effective September 2023).
-- In Austria: consult DSG and sector-specific insurance regulations.
+- In Austria: consult DSG and the Forschungsorganisationsgesetz (FOG) research provisions.
 - Implement data protection impact assessment (DPIA) as required by GDPR Art. 35.
 
 ### 3.3 Cross-Border Data Transfers
@@ -199,7 +199,7 @@ This risk register identifies and tracks risks associated with the development a
 | Field | Value |
 |---|---|
 | Risk ID | MODEL-003 |
-| Description | DeepSurv and Dynamic-DeepHit have many parameters relative to the number of events in typical insurance datasets. Overfitting may produce optimistic in-sample metrics that do not generalise. |
+| Description | DeepSurv and Dynamic-DeepHit have many parameters relative to the number of events in typical clinical datasets. Overfitting may produce optimistic in-sample metrics that do not generalise. |
 | Likelihood | 3 |
 | Impact | 3 |
 | Risk Score | 9 (Moderate) |
@@ -215,14 +215,14 @@ This risk register identifies and tracks risks associated with the development a
 | Field | Value |
 |---|---|
 | Risk ID | MODEL-004 |
-| Description | Survival models assume non-informative censoring (censoring is independent of the event process). In insurance data, lapse (policy termination) may be informative: sicker patients may be less likely to lapse. Similarly, missing lab values may correlate with disease severity. |
+| Description | Survival models assume non-informative censoring (censoring is independent of the event process). In clinical data, loss to follow-up may be informative: sicker patients may be more likely to drop out or switch providers. Similarly, missing lab values may correlate with disease severity. |
 | Likelihood | 4 |
 | Impact | 3 |
 | Risk Score | 12 (High) |
 
 **Mitigation Strategies:**
 - Test the non-informative censoring assumption using inverse probability of censoring weighting (IPCW).
-- Model lapse as a competing risk rather than treating it as non-informative censoring.
+- Model loss to follow-up as a competing risk rather than treating it as non-informative censoring.
 - Use multiple imputation (MICE) rather than single imputation for missing features.
 - Conduct sensitivity analyses under different censoring assumptions.
 
