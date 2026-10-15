@@ -321,8 +321,8 @@ select option {
 
 .segmented-group button[aria-pressed="true"],
 .scenario-toggle button[aria-pressed="true"] {
-  background: rgba(196, 121, 74, 0.14);
-  border-color: rgba(196, 121, 74, 0.30);
+  background: rgba(14, 122, 104, 0.14);
+  border-color: rgba(14, 122, 104, 0.30);
   color: var(--text);
 }
 
@@ -625,8 +625,8 @@ select option {
 }
 
 .stage-chip.current {
-  background: rgba(196, 121, 74, 0.10);
-  border-color: rgba(196, 121, 74, 0.30);
+  background: rgba(14, 122, 104, 0.10);
+  border-color: rgba(14, 122, 104, 0.30);
 }
 
 .stage-chip strong {
@@ -697,11 +697,11 @@ select option {
 }
 
 .network-edge.relevance-2 {
-  stroke: rgba(196, 121, 74, 0.80);
+  stroke: rgba(14, 122, 104, 0.80);
 }
 
 .network-edge.relevance-1 {
-  stroke: rgba(196, 121, 74, 0.45);
+  stroke: rgba(14, 122, 104, 0.45);
 }
 
 .network-edge.path-active {
@@ -755,11 +755,11 @@ select option {
 }
 
 .legend-line.current {
-  background: rgba(196, 121, 74, 0.80);
+  background: rgba(14, 122, 104, 0.80);
 }
 
 .legend-line.future {
-  background: rgba(196, 121, 74, 0.45);
+  background: rgba(14, 122, 104, 0.45);
 }
 
 .legend-line.muted {

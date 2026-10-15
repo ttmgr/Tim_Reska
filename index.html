@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tim Reska — Bioinformatician</title>
-    <meta name="description" content="Tim Reska — AI systems that know when they're wrong. 7 publications, 28 LLMs benchmarked, AI deployment due-diligence methodology. Dr. rer. nat. in Genomics and AI from TU Munich & Helmholtz AI.">
-    <meta property="og:title" content="Tim Reska — Bioinformatician">
-    <meta property="og:description" content="Bioinformatician who builds AI systems that know when they're wrong. LLM evaluation, genomics pipelines, production ML.">
+    <title>Dr. Tim Reska — Genomics and AI</title>
+    <meta name="description" content="Dr. rer. nat. Tim Reska, Genomics and AI, Technical University of Munich and Helmholtz AI (magna cum laude, 2026). Nanopore pipelines for pathogen surveillance, 7 publications, and a 28-model test of whether AI can build them.">
+    <meta property="og:title" content="Dr. Tim Reska — Genomics and AI">
+    <meta property="og:description" content="Nanopore sequencing pipelines for pathogen surveillance, and a 28-model test of whether AI can build them. Dr. rer. nat., TU Munich and Helmholtz AI.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ttmgr.github.io/Tim_Reska/">
     <link rel="canonical" href="https://ttmgr.github.io/Tim_Reska/">
@@ -15,8 +15,8 @@
     <meta property="og:image:height" content="630">
     <meta property="og:image:type" content="image/png">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Tim Reska — Bioinformatician">
-    <meta name="twitter:description" content="Bioinformatician who builds AI systems that know when they're wrong. LLM evaluation, genomics pipelines, production ML.">
+    <meta name="twitter:title" content="Dr. Tim Reska — Genomics and AI">
+    <meta name="twitter:description" content="Nanopore sequencing pipelines for pathogen surveillance, and a 28-model test of whether AI can build them. Dr. rer. nat., TU Munich and Helmholtz AI.">
     <meta name="twitter:image" content="https://ttmgr.github.io/Tim_Reska/og-image.png">
     <link rel="icon" type="image/svg+xml" href="./favicon.svg">
     <script type="application/ld+json">
@@ -24,1174 +24,454 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Tim Reska",
-      "jobTitle": "Bioinformatician, Dr. rer. nat.",
+      "honorificPrefix": "Dr. rer. nat.",
+      "jobTitle": "Scientist, Genomics and AI",
       "affiliation": [
-        {
-          "@type": "Organization",
-          "name": "Helmholtz AI"
-        },
         {
           "@type": "CollegeOrUniversity",
           "name": "Technical University of Munich"
+        },
+        {
+          "@type": "Organization",
+          "name": "Helmholtz AI"
         }
       ],
       "url": "https://ttmgr.github.io/Tim_Reska/",
-      "image": "https://ttmgr.github.io/Tim_Reska/og-image.svg",
       "email": "mailto:timreska@gmail.com",
-      "description": "Bioinformatician who builds AI systems that know when they're wrong. LLM evaluation, genomics pipelines, production ML.",
-      "knowsAbout": ["Bioinformatics", "LLM evaluation", "Genomics", "Machine learning", "Nanopore sequencing", "One Health"],
+      "description": "Nanopore sequencing pipelines for pathogen surveillance, and a 28-model test of whether AI can build them.",
       "sameAs": [
-        "https://github.com/ttmgr/Tim_Reska",
-        "https://linkedin.com/in/tim-r-ai"
-      ]
+        "https://github.com/ttmgr",
+        "https://linkedin.com/in/tim-r-ai",
+        "https://orcid.org/0009-0001-9700-5128"
+      ],
+      "knowsAbout": ["Genomics", "Nanopore sequencing", "Metagenomics", "LLM evaluation", "Machine learning", "One Health"]
     }
     </script>
     <link rel="stylesheet" href="assets/css/fonts.css">
     <link rel="stylesheet" href="assets/css/tokens.css">
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
         :root {
-            --max-width: 1140px;
+            --serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+            --sans: 'Inter', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+            --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+            --signal: #B8432F;
+            --measure: 66ch;
+            --gutter: 24px;
+            --label-col: 200px;
         }
-
-        html { scroll-behavior: smooth; }
-
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            margin: 0;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.7;
-            font-size: 16px;
+            font-family: var(--serif);
+            font-size: 19px;
+            line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
+        a { color: var(--accent-text); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+        a:hover { color: var(--accent-hover); text-decoration-thickness: 2px; }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+        .wrap { max-width: 1120px; margin: 0 auto; padding: 0 var(--gutter); }
 
-        a { color: var(--accent-text); text-decoration: none; transition: color 0.2s; }
-        a:hover { color: var(--accent-hover); }
+        /* Top bar */
+        .topbar { border-bottom: 1px solid var(--border); background: var(--bg); }
+        .topbar .wrap { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 18px; padding-bottom: 14px; }
+        .topbar .home { font-family: var(--serif); font-weight: 600; font-size: 18px; color: var(--text); text-decoration: none; }
+        .topbar ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 22px; flex-wrap: wrap; font-family: var(--sans); font-size: 14px; }
+        .topbar ul a { color: var(--text-secondary); text-decoration: none; }
+        .topbar ul a:hover { color: var(--text); text-decoration: underline; }
 
-        *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+        /* Title page */
+        .titlepage { padding-top: 72px; }
+        .honorific { font-family: var(--serif); font-size: clamp(26px, 3.6vw, 40px); font-weight: 400; letter-spacing: 0.01em; margin: 0; color: var(--text); }
+        .name { font-family: var(--serif); font-size: clamp(60px, 11vw, 132px); font-weight: 600; line-height: 0.95; letter-spacing: -0.025em; margin: 4px 0 0; }
+        .degree { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; margin-top: 48px; padding-top: 28px; border-top: 3px solid var(--text); }
+        .degree dl { margin: 0; font-family: var(--sans); font-size: 15px; line-height: 1.5; display: grid; grid-template-columns: max-content 1fr; gap: 10px 20px; }
+        .degree dt { color: var(--text-secondary); }
+        .degree dd { margin: 0; font-weight: 500; }
+        .degree .honours { color: var(--signal); font-weight: 600; }
+        .thesis { margin: 0; }
+        .thesis-kind { font-family: var(--sans); font-size: 15px; color: var(--text-secondary); margin: 0 0 8px; }
+        .thesis-title { font-family: var(--serif); font-style: italic; font-size: clamp(22px, 2.4vw, 28px); line-height: 1.3; margin: 0; }
 
-        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+        /* Nanopore signal */
+        .signal { margin: 56px 0 0; }
+        .signal svg { display: block; width: 100%; height: 96px; }
+        .signal path { fill: none; stroke: var(--accent); stroke-width: 1.3; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+        .signal figcaption { font-family: var(--sans); font-size: 13px; color: var(--text-secondary); margin-top: 8px; max-width: 70ch; }
 
-        /* --- NAV --- */
-        nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            background: rgba(250, 249, 247, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border);
-        }
-        nav .container {
-            display: flex; align-items: center; justify-content: space-between;
-            height: 64px;
-        }
-        nav .logo {
-            font-family: 'Source Serif 4', Georgia, serif;
-            font-size: 18px; font-weight: 600; color: var(--text);
-        }
-        nav ul { list-style: none; display: flex; gap: 28px; }
-        nav ul li a {
-            color: var(--text-secondary); font-size: 14px; font-weight: 500;
-            letter-spacing: 0.01em; transition: color 0.2s;
-            padding-bottom: 4px; border-bottom: 2px solid transparent;
-        }
-        nav ul li a:hover { color: var(--text); }
-        nav ul li a.active { color: var(--text); border-bottom-color: var(--accent-text); }
+        .lede { font-size: clamp(22px, 2.3vw, 27px); line-height: 1.45; max-width: 34em; margin: 56px 0 0; }
+        .lede p { margin: 0 0 0.7em; }
+        .contact { display: flex; flex-wrap: wrap; gap: 12px 28px; margin: 28px 0 0; padding: 0; list-style: none; font-family: var(--sans); font-size: 16px; }
+        .contact a { font-weight: 500; }
+        .contact .primary a { color: var(--surface); background: var(--text); text-decoration: none; padding: 10px 18px; border-radius: 4px; display: inline-block; }
+        .contact .primary a:hover { background: var(--accent-hover); color: var(--surface); }
+        .contact li { display: flex; align-items: center; }
 
-        .hamburger {
-            display: none; background: none; border: none; cursor: pointer; padding: 8px;
-        }
-        .hamburger span {
-            display: block; width: 20px; height: 2px; background: var(--text);
-            margin: 5px 0; transition: all 0.3s;
-        }
+        /* Sections: label column + content column */
+        section { padding: 96px 0 0; }
+        .row { display: grid; grid-template-columns: var(--label-col) minmax(0, 1fr); gap: 0 48px; }
+        .row > .side { font-family: var(--sans); font-size: 14px; color: var(--text-secondary); padding-top: 10px; }
+        h2 { font-family: var(--serif); font-size: clamp(30px, 3.4vw, 42px); font-weight: 600; line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 20px; max-width: 24em; }
+        h3 { font-family: var(--serif); font-size: 21px; font-weight: 600; line-height: 1.3; margin: 0; }
+        .intro { max-width: var(--measure); margin: 0 0 40px; }
+        .intro p { margin: 0 0 1em; }
 
-        /* --- HERO --- */
-        .hero { padding: 140px 0 48px; position: relative; overflow: hidden; }
-        .hero .container {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
-        }
-        .hero-text { position: relative; z-index: 2; min-width: 0; }
-        .hero h1 {
-            overflow-wrap: break-word;
-            font-family: 'Source Serif 4', Georgia, serif;
-            font-size: clamp(30px, 4.5vw, 52px);
-            font-weight: 600; line-height: 1.1; margin-bottom: 20px;
-            color: var(--text);
-        }
-        .hero h1 span { color: var(--accent); }
-        .hero p {
-            font-size: 17px; line-height: 1.8; color: var(--text-secondary);
-            margin-bottom: 20px; max-width: 520px;
-        }
-        .hero-subtitle {
-            font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
-            color: var(--text-secondary); margin-bottom: 32px;
-        }
-        .hero-subtitle span { display: inline-block; padding: 0 2px; }
-        .hero-subtitle span::after { content: ' · '; color: var(--border); }
-        .hero-subtitle span:last-child::after { content: ''; }
-        .hero-links { display: flex; gap: 12px; flex-wrap: wrap; }
-        .hero-links a {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 11px 22px; border-radius: 8px; font-size: 14px; font-weight: 500;
-            transition: all 0.2s;
-        }
-        .hero-links a.primary { background: var(--text); color: #fff; }
-        .hero-links a.primary:hover { background: var(--accent); color: #fff; }
-        .hero-links a.secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
-        .hero-links a.secondary:hover { border-color: var(--text-secondary); }
+        /* Publications */
+        .pubs { list-style: none; margin: 0 0 40px; padding: 0; }
+        .pubs li { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 0 20px; padding: 18px 0; border-top: 1px solid var(--border); }
+        .pubs .year { font-family: var(--sans); font-size: 15px; color: var(--text-secondary); padding-top: 3px; }
+        .pubs .title { font-size: 20px; line-height: 1.35; margin: 0 0 4px; }
+        .pubs .title a { color: var(--text); text-decoration: none; }
+        .pubs .title a:hover { color: var(--accent-text); text-decoration: underline; }
+        .pubs .meta { font-family: var(--sans); font-size: 14.5px; color: var(--text-secondary); margin: 0; }
+        .pubs .meta em { font-style: italic; color: var(--text); }
+        .pubs .meta strong { color: var(--text); font-weight: 600; }
+        .pubs .extra { font-family: var(--sans); font-size: 14.5px; margin: 6px 0 0; }
+        .pubgroup { font-family: var(--sans); font-size: 15px; font-weight: 600; margin: 0 0 4px; }
+        .pubs.lead .title { font-size: 22px; }
 
-        /* --- HERO VISUAL (terminal + DNA) --- */
-        .hero-visual {
-            position: relative; display: flex; align-items: center; justify-content: center;
-            min-height: 420px; min-width: 0;
-        }
-        .dna-svg { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); opacity: 0.1; }
-        .terminal {
-            position: relative; z-index: 3;
-            background: var(--text); border-radius: 12px; overflow: hidden;
-            width: 100%; max-width: 520px;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
-        }
-        .terminal-bar { background: var(--text); padding: 10px 16px; display: flex; gap: 8px; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
-        .terminal-dot.r { background: #fb7185; }
-        .terminal-dot.y { background: #fbbf24; }
-        .terminal-dot.g { background: #34d399; }
-        .terminal-title { font-size: 11px; color: #9b9aa3; margin-left: 12px; font-family: 'JetBrains Mono', monospace; }
-        .terminal-body {
-            padding: 18px 20px; font-family: 'JetBrains Mono', monospace; font-size: 13px;
-            line-height: 1.9; color: #94a3b8;
-        }
-        .terminal-body .prompt { color: var(--accent); }
-        .terminal-body .cmd { color: #f8fafc; }
-        .terminal-body .flag { color: #60a5fa; }
-        .terminal-body .output { color: #9aa6b8; }
-        .cursor {
-            display: inline-block; width: 7px; height: 14px; background: var(--accent);
-            animation: blink 1s step-end infinite; vertical-align: middle; margin-left: 2px;
-        }
-        @keyframes blink { 0%,50%{opacity:1} 51%,100%{opacity:0} }
-        .term-line { opacity: 0; transition: opacity 0.4s; }
-        .term-line.show { opacity: 1; }
+        /* Benchmark */
+        .findings { margin: 8px 0 36px; padding: 0; list-style: none; }
+        .findings li { font-size: clamp(23px, 2.5vw, 30px); line-height: 1.35; padding: 22px 0 22px 28px; border-left: 3px solid var(--accent); margin-bottom: 18px; max-width: 30em; }
+        .findings li span { display: block; font-family: var(--sans); font-size: 14.5px; line-height: 1.5; color: var(--text-secondary); margin-top: 10px; }
+        .links { font-family: var(--sans); font-size: 15.5px; display: flex; flex-wrap: wrap; gap: 10px 24px; margin: 20px 0 0; }
+        .toggle-btn { font-family: var(--sans); font-size: 15px; font-weight: 500; color: var(--text); background: var(--surface); border: 1px solid var(--border-strong); border-radius: 4px; padding: 9px 16px; cursor: pointer; }
+        .toggle-btn:hover { border-color: var(--text); }
+        .toggle-btn.active { background: var(--text); color: var(--surface); border-color: var(--text); }
+        #heatmap-interactive { margin-top: 12px; }
+        .legend { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-family: var(--sans); font-size: 12.5px; color: var(--text-secondary); margin-top: 12px; }
+        .legend i { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: -2px; margin-left: 8px; }
 
-        /* --- STATS RIBBON --- */
-        .ribbon {
-            background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-            padding: 36px 24px;
-        }
-        .ribbon-inner {
-            max-width: var(--max-width); margin: 0 auto;
-            display: flex; justify-content: center; gap: 56px; flex-wrap: wrap;
-        }
-        .ribbon-stat { text-align: center; }
-        .ribbon-val {
-            font-family: 'Source Serif 4', Georgia, serif;
-            font-size: 36px; font-weight: 600; color: var(--text); line-height: 1;
-        }
-        .ribbon-label { font-size: 13px; color: var(--text-secondary); margin-top: 6px; }
-        .ribbon-divider { width: 1px; background: var(--border); align-self: stretch; }
+        /* Projects index */
+        .group { margin: 0 0 36px; }
+        .group h3 { font-family: var(--sans); font-size: 15px; font-weight: 600; margin: 0 0 4px; color: var(--text); }
+        .group p.note { font-family: var(--sans); font-size: 14px; color: var(--text-secondary); margin: 0 0 8px; }
+        .items { list-style: none; margin: 0; padding: 0; }
+        .items li { display: grid; grid-template-columns: minmax(180px, 260px) minmax(0, 1fr); gap: 4px 28px; padding: 14px 0; border-top: 1px solid var(--border); }
+        .items .what { font-size: 19px; font-weight: 600; line-height: 1.35; }
+        .items .what a { color: var(--text); text-decoration-color: var(--border-strong); }
+        .items .what a:hover { color: var(--accent-text); text-decoration-color: currentColor; }
+        .items .desc { font-family: var(--sans); font-size: 15px; line-height: 1.55; color: var(--text-secondary); margin: 0; }
 
-        /* --- SECTIONS --- */
-        section { padding: 72px 0; }
-        section + section { border-top: 1px solid var(--border); }
+        /* Timeline */
+        .tl { list-style: none; margin: 0; padding: 0; }
+        .tl li { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 0 24px; padding: 16px 0; border-top: 1px solid var(--border); }
+        .tl .when { font-family: var(--sans); font-size: 15px; color: var(--text-secondary); padding-top: 2px; }
+        .tl p { font-family: var(--sans); font-size: 15px; color: var(--text-secondary); margin: 4px 0 0; max-width: var(--measure); }
+        .tl li.milestone h3 { font-size: 24px; }
+        .tl li.milestone .when { color: var(--text); font-weight: 600; }
 
-        .section-label {
-            font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
-            text-transform: uppercase; color: var(--accent-text); margin-bottom: 12px;
-        }
-        .section-title {
-            font-family: 'Source Serif 4', Georgia, serif;
-            font-size: clamp(28px, 3.5vw, 36px);
-            font-weight: 600; line-height: 1.25; margin-bottom: 16px;
-        }
-        .section-desc {
-            font-size: 17px; color: var(--text-secondary); max-width: 640px;
-            margin-bottom: 40px; line-height: 1.75; text-align: justify;
-        }
+        footer { margin-top: 120px; padding: 48px 0 64px; border-top: 3px solid var(--text); }
+        footer .row > div { font-family: var(--sans); font-size: 15px; }
+        footer .big { font-family: var(--serif); font-size: clamp(24px, 2.6vw, 32px); margin: 0 0 16px; }
+        footer ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px 24px; }
+        footer small { display: block; color: var(--text-secondary); margin-top: 32px; font-size: 13px; }
 
-        /* --- PROJECT CARDS --- */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+        @media (max-width: 860px) {
+            body { font-size: 18px; }
+            :root { --gutter: 16px; }
+            .titlepage { padding-top: 44px; }
+            .degree { grid-template-columns: 1fr; gap: 28px; }
+            .row { grid-template-columns: 1fr; }
+            .row > .side { padding: 0 0 8px; }
+            section { padding-top: 72px; }
+            .items li { grid-template-columns: 1fr; }
+            .tl li { grid-template-columns: 1fr; }
+            .pubs li { grid-template-columns: 1fr; }
+            .pubs .year { padding: 0 0 2px; }
+            .findings li { padding-left: 18px; }
         }
-        .research-grid { grid-template-columns: repeat(3, 1fr); }
-        .project-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 28px;
-            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-            display: flex; flex-direction: column;
-        }
-        .project-card:hover {
-            border-color: var(--border-strong);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-        }
-        .project-card .card-tag {
-            display: inline-block; font-size: 11px; font-weight: 600;
-            letter-spacing: 0.06em; text-transform: uppercase;
-            color: var(--accent-text); margin-bottom: 12px;
-        }
-        .project-card h3 {
-            font-family: 'Source Serif 4', Georgia, serif;
-            font-size: 20px; font-weight: 600; margin-bottom: 10px; line-height: 1.3;
-        }
-        .project-card p {
-            font-size: 15px; color: var(--text-secondary); line-height: 1.7;
-            margin-bottom: 16px; flex-grow: 1;
-        }
-        .project-card .card-meta {
-            display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px;
-        }
-        .project-card .card-meta span {
-            font-size: 12px; background: var(--tag-bg); color: var(--tag-text);
-            padding: 3px 10px; border-radius: 20px;
-        }
-        .project-card .card-links {
-            display: flex; gap: 16px; padding-top: 16px; border-top: 1px solid var(--border);
-            margin-top: auto;
-        }
-        .project-card .card-links a {
-            font-size: 13px; font-weight: 500;
-            display: inline-flex; align-items: center; gap: 4px;
-        }
-        .card-status { font-size: 13px; font-weight: 500; color: var(--text-secondary); }
-
-        /* --- FEATURED (full-width card) --- */
-        .featured-card {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 40px;
-        }
-        .featured-card .card-tag {
-            display: inline-block; font-size: 11px; font-weight: 600;
-            letter-spacing: 0.06em; text-transform: uppercase;
-            color: var(--accent-text); margin-bottom: 16px;
-        }
-        .featured-card h3 {
-            font-family: 'Source Serif 4', Georgia, serif;
-            font-size: 24px; font-weight: 600; margin-bottom: 12px;
-        }
-        .featured-card > p {
-            font-size: 16px; color: var(--text-secondary); line-height: 1.75;
-            max-width: 720px; margin-bottom: 24px; text-align: justify;
-        }
-        .featured-stats {
-            display: flex; gap: 40px; flex-wrap: wrap; margin-bottom: 24px;
-        }
-        .featured-stats .stat { text-align: left; }
-        .featured-stats .stat-value {
-            font-family: 'Source Serif 4', Georgia, serif;
-            font-size: 28px; font-weight: 600; color: var(--text);
-        }
-        .featured-stats .stat-label {
-            font-size: 13px; color: var(--text-secondary); margin-top: 2px;
-        }
-        .key-finding {
-            font-size: 15px; font-weight: 600; color: var(--text);
-            padding: 16px 20px; background: var(--tag-bg); border-radius: 8px;
-            margin-bottom: 16px; line-height: 1.6; text-align: justify;
-        }
-        .toggle-btn {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 500;
-            background: var(--surface); color: var(--text-secondary);
-            border: 1px solid var(--border); cursor: pointer; transition: all 0.2s;
-            font-family: inherit; margin-bottom: 20px;
-        }
-        .toggle-btn:hover { border-color: var(--text-secondary); color: var(--text); }
-        .featured-figure {
-            margin: 0 0 20px; border-radius: 8px; overflow: hidden;
-            border: 1px solid var(--border);
-        }
-        .featured-figure img {
-            width: 100%; display: block; background: #fff;
-        }
-        .featured-figure figcaption {
-            font-size: 13px; color: var(--text-secondary); padding: 12px 16px;
-            border-top: 1px solid var(--border); background: var(--bg);
-        }
-        .heatmap-wrap { overflow-x: auto; }
-        .heatmap-wrap img { min-width: 700px; }
-
-        /* --- SKILLS --- */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-        .skill-group {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 24px;
-        }
-        .skill-group h3 {
-            font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
-            text-transform: uppercase; color: var(--accent-text);
-            margin-bottom: 14px;
-        }
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 7px; }
-        .skill-tags span {
-            font-size: 14px; background: var(--tag-bg); color: var(--tag-text);
-            padding: 5px 14px; border-radius: 20px;
-        }
-
-        /* --- PUBLICATIONS --- */
-        .pub-list { list-style: none; }
-        .pub-list li {
-            padding: 16px 0; border-bottom: 1px solid var(--border);
-        }
-        .pub-list li:last-child { border-bottom: none; }
-        .pub-journal {
-            font-size: 12px; font-weight: 600; color: var(--accent-text);
-            text-transform: uppercase; letter-spacing: 0.04em;
-            margin-bottom: 2px;
-        }
-        .pub-title {
-            font-family: 'Source Serif 4', Georgia, serif;
-            font-size: 16px; font-weight: 600; line-height: 1.4;
-            margin-bottom: 2px;
-        }
-        .pub-title a { color: var(--text); }
-        .pub-title a:hover { color: var(--accent-text); }
-        .pub-authors {
-            font-size: 14px; color: var(--text-secondary); line-height: 1.5;
-        }
-        .pub-authors strong { color: var(--text); font-weight: 600; }
-        .pub-note {
-            font-size: 12px; color: var(--accent-text); font-weight: 500;
-            margin-top: 2px; display: inline-block;
-        }
-        .pub-more {
-            display: inline-block; margin-top: 16px; font-size: 14px; font-weight: 500;
-        }
-
-        /* --- VENTURE --- */
-        .venture-card {
-            background: var(--text);
-            border-radius: var(--radius);
-            padding: 48px;
-            color: #fff;
-        }
-        .venture-inner { max-width: 560px; }
-        .venture-text h3 {
-            font-family: 'Inter', -apple-system, sans-serif;
-            font-size: 32px; font-weight: 800; margin-bottom: 16px;
-            color: #fff; letter-spacing: 0.12em;
-        }
-        .venture-text p {
-            font-size: 16px; line-height: 1.75; color: rgba(255,255,255,0.75);
-            margin-bottom: 12px;
-        }
-        .venture-sub { font-size: 15px !important; }
-        .venture-cta {
-            display: inline-block; margin-top: 16px;
-            font-size: 14px; font-weight: 600;
-            color: var(--accent) !important; letter-spacing: 0.01em;
-        }
-        .venture-cta:hover { color: #e8a070 !important; }
-
-        /* --- FOOTER --- */
-        footer {
-            padding: 48px 0; border-top: 1px solid var(--border);
-            text-align: center;
-        }
-        footer p { font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; }
-        .footer-links {
-            display: flex; gap: 20px; justify-content: center; align-items: center;
-        }
-        .footer-links a {
-            color: var(--text-secondary); transition: color 0.2s;
-            display: flex; align-items: center;
-        }
-        .footer-links a:hover { color: var(--accent-text); }
-        .footer-links svg { width: 20px; height: 20px; }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 1024px) {
-            .projects-grid { grid-template-columns: repeat(2, 1fr); }
-            .research-grid { grid-template-columns: repeat(2, 1fr); }
-            .skills-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 900px) {
-            .hero .container { display: block; text-align: center; }
-            .hero-links { justify-content: center; }
-            .hero p { margin-left: auto; margin-right: auto; max-width: 100%; }
-            .hero-visual { min-height: 300px; margin-top: 16px; }
-            .terminal { margin: 0 auto; max-width: 100%; }
-            .terminal-body { font-size: 12px; padding: 14px 16px; overflow-x: auto; }
-            .dna-svg { display: none; }
-            .ribbon-inner { gap: 24px; }
-            .ribbon-divider { display: none; }
-            .ribbon-stat { min-width: 40%; }
-        }
-        @media (max-width: 768px) {
-            .hero { padding: 100px 0 36px; }
-            section { padding: 48px 0; }
-            .projects-grid { grid-template-columns: 1fr; }
-            .research-grid { grid-template-columns: 1fr; }
-            .skills-grid { grid-template-columns: 1fr; }
-            .featured-card { padding: 24px; }
-            .section-desc, .featured-card > p, .key-finding { text-align: left; }
-            .featured-stats { gap: 20px; }
-            .featured-stats .stat { min-width: 45%; }
-            .hero-visual { min-height: auto; }
-            .terminal-body { font-size: 11px; line-height: 1.7; }
-
-            nav ul { display: none; }
-            nav ul.open {
-                display: flex; flex-direction: column;
-                position: absolute; top: 64px; left: 0; right: 0;
-                background: rgba(250,249,247,0.98);
-                backdrop-filter: blur(16px);
-                padding: 16px 24px; gap: 16px;
-                border-bottom: 1px solid var(--border);
-            }
-            .hamburger { display: block; }
-        }
-
-        /* --- TIMELINE --- */
-        .timeline-track {
-            position: relative;
-            padding-left: 32px;
-        }
-        .timeline-track::before {
-            content: '';
-            position: absolute;
-            left: 7px;
-            top: 8px;
-            bottom: 8px;
-            width: 2px;
-            background: var(--border);
-        }
-        .tl-entry {
-            position: relative;
-            padding-bottom: 32px;
-            display: grid;
-            grid-template-columns: 120px 1fr;
-            gap: 20px;
-        }
-        .tl-entry:last-child { padding-bottom: 0; }
-        .tl-entry::before {
-            content: '';
-            position: absolute;
-            left: -29px;
-            top: 8px;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--accent);
-            border: 2px solid var(--bg);
-        }
-        .tl-date {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--accent-text);
-            padding-top: 2px;
-        }
-        .tl-content h3 {
-            font-family: 'Source Serif 4', Georgia, serif;
-            font-size: 17px;
-            font-weight: 600;
-            margin-bottom: 4px;
-            line-height: 1.35;
-        }
-        .tl-content p {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.65;
-        }
-        @media (max-width: 768px) {
-            .tl-entry { grid-template-columns: 1fr; gap: 4px; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            html { scroll-behavior: auto; }
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-            .cursor { animation: none; opacity: 1; }
+        @media (max-width: 420px) {
+            .degree dl { grid-template-columns: 1fr; gap: 2px; }
+            .degree dd { margin-bottom: 10px; }
+            .topbar ul { gap: 16px; }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="container">
-            <a href="#" class="logo">Tim Reska</a>
-            <button class="hamburger" aria-label="Menu" onclick="document.querySelector('nav ul').classList.toggle('open')">
-                <span></span><span></span><span></span>
-            </button>
-            <ul>
-                <li><a href="#research">Research</a></li>
-                <li><a href="#llm-eval">Evaluation</a></li>
-                <li><a href="#side-projects">Projects</a></li>
-                <li><a href="#timeline">Timeline</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <header class="hero">
-        <div class="container">
-            <div class="hero-text">
-                <h1>Bioinformatician who builds <span>AI systems that know when they're wrong</span></h1>
-                <p>Helping organisations figure out where AI fits and where it doesn't. 7 publications, 28 LLMs benchmarked. Dr. rer. nat. in Genomics and AI from TU Munich &amp; Helmholtz AI.</p>
-                <div class="hero-subtitle">
-                    <span>Bioinformatics</span>
-                    <span>Uncertainty-aware AI</span>
-                    <span>LLM evaluation</span>
-                    <span>Genomics</span>
-                    <span>One Health</span>
-                </div>
-                <div class="hero-links">
-                    <a href="#research" class="primary">View work &darr;</a>
-                    <a href="mailto:timreska@gmail.com" class="secondary">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                        Email
-                    </a>
-                    <a href="https://github.com/ttmgr/Tim_Reska" class="secondary" target="_blank" rel="noopener">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-                        GitHub
-                    </a>
-                    <a href="https://linkedin.com/in/tim-r-ai" class="secondary" target="_blank" rel="noopener">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M13.6 0H2.4C1.07 0 0 1.07 0 2.4v11.2C0 14.93 1.07 16 2.4 16h11.2c1.33 0 2.4-1.07 2.4-2.4V2.4C16 1.07 14.93 0 13.6 0zM4.75 13.6H2.4V6h2.35v7.6zM3.58 5.03c-.75 0-1.36-.62-1.36-1.37s.61-1.37 1.36-1.37 1.36.62 1.36 1.37-.61 1.37-1.36 1.37zM13.6 13.6h-2.35V9.92c0-.88-.02-2.01-1.22-2.01-1.23 0-1.41.96-1.41 1.95v3.74H6.27V6h2.26v1.04h.03c.31-.6 1.08-1.23 2.22-1.23 2.38 0 2.82 1.56 2.82 3.6v4.19z"/></svg>
-                        LinkedIn
-                    </a>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <svg class="dna-svg" width="320" height="640" viewBox="0 0 320 640" fill="none">
-                    <path d="M100 0 C100 32,220 32,220 64 C220 96,100 96,100 128 C100 160,220 160,220 192 C220 224,100 224,100 256 C100 288,220 288,220 320 C220 352,100 352,100 384 C100 416,220 416,220 448 C220 480,100 480,100 512 C100 544,220 544,220 576 C220 608,100 608,100 640" stroke="#C4794A" stroke-width="2.5" fill="none"/>
-                    <path d="M220 0 C220 32,100 32,100 64 C100 96,220 96,220 128 C220 160,100 160,100 192 C100 224,220 224,220 256 C220 288,100 288,100 320 C100 352,220 352,220 384 C220 416,100 416,100 448 C100 480,220 480,220 512 C220 544,100 544,100 576 C100 608,220 608,220 640" stroke="#1A1A2E" stroke-width="2.5" fill="none"/>
-                    <line x1="120" y1="16" x2="200" y2="16" stroke="#E8E6E1" stroke-width="1.5"/>
-                    <line x1="120" y1="80" x2="200" y2="80" stroke="#E8E6E1" stroke-width="1.5"/>
-                    <line x1="120" y1="144" x2="200" y2="144" stroke="#E8E6E1" stroke-width="1.5"/>
-                    <line x1="120" y1="208" x2="200" y2="208" stroke="#E8E6E1" stroke-width="1.5"/>
-                    <line x1="120" y1="272" x2="200" y2="272" stroke="#E8E6E1" stroke-width="1.5"/>
-                    <line x1="120" y1="336" x2="200" y2="336" stroke="#E8E6E1" stroke-width="1.5"/>
-                    <line x1="120" y1="400" x2="200" y2="400" stroke="#E8E6E1" stroke-width="1.5"/>
-                    <line x1="120" y1="464" x2="200" y2="464" stroke="#E8E6E1" stroke-width="1.5"/>
-                    <line x1="120" y1="528" x2="200" y2="528" stroke="#E8E6E1" stroke-width="1.5"/>
-                    <line x1="120" y1="592" x2="200" y2="592" stroke="#E8E6E1" stroke-width="1.5"/>
-                    <circle cx="120" cy="16" r="4" fill="#C4794A" opacity="0.4"/><circle cx="200" cy="16" r="4" fill="#1A1A2E" opacity="0.25"/>
-                    <circle cx="120" cy="80" r="4" fill="#C4794A" opacity="0.4"/><circle cx="200" cy="80" r="4" fill="#1A1A2E" opacity="0.25"/>
-                    <circle cx="120" cy="144" r="4" fill="#C4794A" opacity="0.4"/><circle cx="200" cy="144" r="4" fill="#1A1A2E" opacity="0.25"/>
-                    <circle cx="120" cy="208" r="4" fill="#C4794A" opacity="0.4"/><circle cx="200" cy="208" r="4" fill="#1A1A2E" opacity="0.25"/>
-                    <circle cx="120" cy="272" r="4" fill="#C4794A" opacity="0.4"/><circle cx="200" cy="272" r="4" fill="#1A1A2E" opacity="0.25"/>
-                    <circle cx="120" cy="336" r="4" fill="#C4794A" opacity="0.4"/><circle cx="200" cy="336" r="4" fill="#1A1A2E" opacity="0.25"/>
-                    <circle cx="120" cy="400" r="4" fill="#C4794A" opacity="0.4"/><circle cx="200" cy="400" r="4" fill="#1A1A2E" opacity="0.25"/>
-                    <circle cx="120" cy="464" r="4" fill="#C4794A" opacity="0.4"/><circle cx="200" cy="464" r="4" fill="#1A1A2E" opacity="0.25"/>
-                    <circle cx="120" cy="528" r="4" fill="#C4794A" opacity="0.4"/><circle cx="200" cy="528" r="4" fill="#1A1A2E" opacity="0.25"/>
-                    <circle cx="120" cy="592" r="4" fill="#C4794A" opacity="0.4"/><circle cx="200" cy="592" r="4" fill="#1A1A2E" opacity="0.25"/>
-                </svg>
-                <div class="terminal">
-                    <div class="terminal-bar">
-                        <div class="terminal-dot r"></div>
-                        <div class="terminal-dot y"></div>
-                        <div class="terminal-dot g"></div>
-                        <div class="terminal-title">ai-assisted-research</div>
-                    </div>
-                    <div class="terminal-body">
-                        <div class="term-line"><span class="prompt">$</span> <span class="cmd">claude</span> <span class="flag">--model opus-4-7 --think</span></div>
-                        <div class="term-line"><span class="output">Spawning 3 parallel agents (isolated contexts)</span></div>
-                        <div class="term-line"><span class="output">Agent A ✓ Agent B ✓ Agent C ✓ — 42s</span></div>
-                        <div class="term-line"><span class="prompt">$</span> <span class="cmd">python</span> <span class="cmd">train.py</span> <span class="flag">--model xgboost --cv 5</span></div>
-                        <div class="term-line"><span class="output">AUC 0.94 · Brier 0.031 · calibration drift &lt;2%</span></div>
-                        <div class="term-line"><span class="prompt">$</span> <span class="cmd">pytest</span> <span class="flag">tests/ -q</span></div>
-                        <div class="term-line"><span class="output">231 passed in 8.4s</span></div>
-                        <div class="term-line"><span class="prompt">$</span> <span class="cursor"></span></div>
-                    </div>
-                </div>
-            </div>
+    <header class="topbar">
+        <div class="wrap">
+            <a class="home" href="./">Tim Reska</a>
+            <nav aria-label="Sections">
+                <ul>
+                    <li><a href="#research">Research</a></li>
+                    <li><a href="#benchmark">AI benchmark</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#timeline">Timeline</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
-    <div class="ribbon">
-        <div class="ribbon-inner">
-            <div class="ribbon-stat"><div class="ribbon-val">28</div><div class="ribbon-label">LLMs evaluated</div></div>
-            <div class="ribbon-divider"></div>
-            <div class="ribbon-stat"><div class="ribbon-val">7</div><div class="ribbon-label">Publications</div></div>
-            <div class="ribbon-divider"></div>
-            <div class="ribbon-stat"><div class="ribbon-val">8</div><div class="ribbon-label">Live demos</div></div>
-            <div class="ribbon-divider"></div>
-            <div class="ribbon-stat"><div class="ribbon-val">7</div><div class="ribbon-label">International sites</div></div>
+    <main>
+    <div class="wrap titlepage">
+        <p class="honorific">Dr. rer. nat.</p>
+        <h1 class="name">Tim Reska</h1>
+
+        <div class="degree">
+            <dl>
+                <dt>Doctorate</dt><dd>Genomics and AI</dd>
+                <dt>Awarded by</dt><dd>Technical University of Munich and Helmholtz AI</dd>
+                <dt>Grade</dt><dd class="honours">Magna cum laude</dd>
+                <dt>Defended</dt><dd>15 July 2026</dd>
+            </dl>
+            <div class="thesis">
+                <p class="thesis-kind">Doctoral thesis</p>
+                <p class="thesis-title">Nanopore Environmental Metagenomics for One Health: A Tiered Framework for Detection and Attribution</p>
+            </div>
         </div>
+
+        <figure class="signal">
+            <svg viewBox="0 0 1200 96" preserveAspectRatio="none" role="img" aria-label="Illustration of a raw nanopore signal">
+                <path d="M0.0 40.4 L1.6 41.5 L3.2 41.5 L4.8 40.0 L6.4 36.1 L8.0 38.2 L9.6 41.2 L11.2 42.1 L12.8 39.3 L14.4 41.9 L16.0 40.1 L17.6 40.7 L19.2 35.2 L20.8 38.5 L22.4 38.7 L24.0 38.5 L25.6 12.3 L27.2 22.3 L28.8 22.9 L30.4 19.5 L32.0 17.6 L33.6 19.4 L35.2 19.6 L36.8 19.5 L38.4 18.7 L40.0 16.5 L41.6 14.8 L43.2 16.2 L44.8 40.2 L46.4 37.7 L48.0 38.8 L49.6 38.9 L51.2 36.6 L52.8 40.1 L54.4 49.9 L56.0 52.6 L57.6 53.1 L59.2 48.1 L60.8 52.1 L62.4 55.4 L64.0 46.8 L65.6 51.2 L67.2 51.7 L68.8 49.9 L70.4 53.3 L72.0 51.8 L73.6 48.7 L75.2 57.1 L76.8 46.1 L78.4 55.1 L80.0 54.9 L81.6 53.6 L83.2 53.2 L84.8 36.3 L86.4 38.2 L88.0 39.1 L89.6 36.2 L91.2 42.4 L92.8 43.8 L94.4 40.0 L96.0 40.5 L97.6 40.2 L99.2 39.9 L100.8 37.4 L102.4 45.8 L104.0 40.8 L105.6 42.8 L107.2 39.4 L108.8 43.3 L110.4 40.1 L112.0 38.7 L113.6 39.1 L115.2 41.4 L116.8 43.1 L118.4 40.8 L120.0 38.4 L121.6 43.6 L123.2 39.5 L124.8 42.3 L126.4 43.3 L128.0 43.2 L129.6 36.3 L131.2 40.5 L132.8 43.7 L134.4 37.6 L136.0 45.2 L137.6 42.4 L139.2 40.6 L140.8 41.8 L142.4 42.7 L144.0 41.3 L145.6 44.0 L147.2 39.3 L148.8 39.9 L150.4 14.5 L152.0 17.2 L153.6 17.4 L155.2 19.2 L156.8 22.0 L158.4 13.1 L160.0 15.6 L161.6 48.5 L163.2 53.0 L164.8 46.8 L166.4 52.8 L168.0 49.5 L169.6 51.0 L171.2 52.7 L172.8 51.4 L174.4 51.3 L176.0 53.6 L177.6 52.7 L179.2 53.2 L180.8 54.0 L182.4 52.1 L184.0 52.0 L185.6 52.7 L187.2 42.0 L188.8 42.6 L190.4 41.8 L192.0 38.4 L193.6 43.6 L195.2 44.4 L196.8 40.0 L198.4 39.7 L200.0 41.2 L201.6 33.8 L203.2 41.5 L204.8 38.8 L206.4 30.3 L208.0 28.9 L209.6 31.7 L211.2 30.7 L212.8 28.6 L214.4 36.3 L216.0 63.9 L217.6 60.9 L219.2 57.6 L220.8 63.1 L222.4 60.8 L224.0 62.3 L225.6 62.1 L227.2 64.8 L228.8 60.4 L230.4 30.6 L232.0 33.2 L233.6 26.3 L235.2 29.9 L236.8 26.5 L238.4 27.0 L240.0 30.1 L241.6 28.3 L243.2 30.2 L244.8 82.6 L246.4 77.6 L248.0 79.7 L249.6 80.6 L251.2 80.1 L252.8 79.6 L254.4 82.0 L256.0 77.7 L257.6 45.9 L259.2 51.6 L260.8 49.6 L262.4 53.1 L264.0 51.8 L265.6 54.3 L267.2 53.8 L268.8 50.4 L270.4 54.5 L272.0 55.6 L273.6 51.7 L275.2 57.7 L276.8 52.1 L278.4 49.9 L280.0 83.1 L281.6 83.8 L283.2 77.6 L284.8 80.0 L286.4 77.0 L288.0 82.0 L289.6 84.1 L291.2 77.7 L292.8 84.1 L294.4 82.6 L296.0 79.5 L297.6 74.9 L299.2 83.7 L300.8 74.6 L302.4 74.0 L304.0 71.6 L305.6 72.4 L307.2 72.0 L308.8 71.0 L310.4 71.6 L312.0 39.3 L313.6 40.5 L315.2 40.8 L316.8 42.3 L318.4 37.0 L320.0 44.5 L321.6 43.6 L323.2 33.4 L324.8 26.5 L326.4 30.5 L328.0 31.9 L329.6 29.5 L331.2 31.9 L332.8 28.3 L334.4 29.0 L336.0 28.8 L337.6 30.7 L339.2 70.7 L340.8 74.9 L342.4 76.2 L344.0 72.5 L345.6 76.7 L347.2 72.5 L348.8 70.9 L350.4 73.4 L352.0 76.8 L353.6 30.3 L355.2 30.2 L356.8 28.5 L358.4 32.3 L360.0 32.8 L361.6 30.7 L363.2 30.6 L364.8 28.7 L366.4 27.1 L368.0 25.5 L369.6 30.5 L371.2 30.7 L372.8 29.4 L374.4 30.4 L376.0 26.9 L377.6 25.9 L379.2 28.3 L380.8 32.4 L382.4 28.5 L384.0 27.7 L385.6 61.0 L387.2 62.5 L388.8 66.1 L390.4 64.1 L392.0 60.1 L393.6 63.0 L395.2 66.2 L396.8 42.4 L398.4 39.9 L400.0 38.4 L401.6 41.9 L403.2 39.2 L404.8 42.4 L406.4 39.7 L408.0 38.6 L409.6 41.5 L411.2 43.1 L412.8 44.2 L414.4 44.1 L416.0 44.5 L417.6 39.6 L419.2 39.7 L420.8 42.5 L422.4 31.2 L424.0 36.3 L425.6 27.6 L427.2 31.8 L428.8 34.9 L430.4 29.7 L432.0 31.5 L433.6 32.3 L435.2 27.6 L436.8 29.8 L438.4 30.8 L440.0 32.1 L441.6 29.9 L443.2 29.5 L444.8 27.4 L446.4 29.1 L448.0 15.8 L449.6 17.8 L451.2 19.2 L452.8 17.7 L454.4 19.6 L456.0 17.1 L457.6 18.8 L459.2 17.2 L460.8 17.2 L462.4 35.6 L464.0 31.9 L465.6 32.0 L467.2 34.1 L468.8 27.5 L470.4 29.9 L472.0 31.5 L473.6 33.0 L475.2 72.4 L476.8 73.2 L478.4 78.6 L480.0 76.2 L481.6 79.0 L483.2 73.9 L484.8 74.5 L486.4 75.7 L488.0 75.1 L489.6 67.7 L491.2 65.1 L492.8 60.7 L494.4 63.7 L496.0 57.4 L497.6 61.1 L499.2 62.8 L500.8 64.4 L502.4 61.1 L504.0 62.7 L505.6 64.2 L507.2 64.0 L508.8 64.7 L510.4 63.5 L512.0 62.2 L513.6 82.1 L515.2 76.3 L516.8 81.3 L518.4 79.4 L520.0 84.7 L521.6 80.7 L523.2 80.0 L524.8 16.4 L526.4 17.5 L528.0 12.0 L529.6 19.0 L531.2 21.8 L532.8 21.0 L534.4 15.2 L536.0 19.3 L537.6 19.3 L539.2 15.8 L540.8 14.0 L542.4 17.8 L544.0 20.4 L545.6 17.7 L547.2 79.8 L548.8 78.6 L550.4 87.3 L552.0 79.5 L553.6 80.2 L555.2 79.6 L556.8 76.2 L558.4 76.2 L560.0 79.2 L561.6 80.4 L563.2 78.7 L564.8 77.8 L566.4 73.1 L568.0 79.7 L569.6 76.8 L571.2 15.7 L572.8 19.6 L574.4 20.4 L576.0 17.4 L577.6 24.6 L579.2 21.2 L580.8 17.4 L582.4 18.2 L584.0 24.7 L585.6 17.1 L587.2 20.3 L588.8 19.8 L590.4 19.1 L592.0 16.9 L593.6 16.4 L595.2 18.2 L596.8 16.9 L598.4 18.6 L600.0 16.7 L601.6 65.2 L603.2 63.3 L604.8 63.4 L606.4 66.4 L608.0 58.7 L609.6 73.2 L611.2 74.7 L612.8 70.6 L614.4 74.4 L616.0 69.9 L617.6 71.9 L619.2 74.1 L620.8 72.9 L622.4 73.0 L624.0 75.9 L625.6 70.3 L627.2 71.3 L628.8 73.8 L630.4 73.1 L632.0 71.1 L633.6 58.7 L635.2 61.0 L636.8 66.9 L638.4 63.4 L640.0 64.2 L641.6 59.1 L643.2 66.6 L644.8 62.0 L646.4 63.7 L648.0 63.4 L649.6 58.7 L651.2 58.0 L652.8 61.0 L654.4 65.0 L656.0 15.2 L657.6 15.2 L659.2 17.8 L660.8 18.0 L662.4 19.3 L664.0 13.9 L665.6 14.8 L667.2 17.9 L668.8 17.5 L670.4 17.2 L672.0 17.8 L673.6 16.0 L675.2 18.4 L676.8 22.3 L678.4 18.5 L680.0 21.7 L681.6 13.1 L683.2 19.2 L684.8 23.1 L686.4 20.6 L688.0 17.8 L689.6 18.8 L691.2 16.8 L692.8 16.7 L694.4 16.1 L696.0 16.6 L697.6 15.7 L699.2 59.7 L700.8 63.9 L702.4 63.1 L704.0 62.5 L705.6 66.9 L707.2 61.6 L708.8 59.4 L710.4 62.2 L712.0 66.0 L713.6 60.2 L715.2 63.6 L716.8 67.0 L718.4 33.7 L720.0 32.5 L721.6 31.5 L723.2 29.7 L724.8 31.0 L726.4 21.6 L728.0 29.7 L729.6 32.6 L731.2 29.9 L732.8 33.6 L734.4 32.3 L736.0 29.8 L737.6 32.4 L739.2 27.1 L740.8 27.8 L742.4 40.5 L744.0 39.2 L745.6 43.4 L747.2 39.2 L748.8 41.2 L750.4 41.0 L752.0 38.2 L753.6 41.1 L755.2 40.5 L756.8 42.4 L758.4 39.7 L760.0 42.9 L761.6 41.1 L763.2 40.9 L764.8 41.0 L766.4 13.0 L768.0 18.1 L769.6 18.4 L771.2 17.9 L772.8 16.0 L774.4 20.4 L776.0 19.0 L777.6 18.7 L779.2 17.2 L780.8 21.9 L782.4 16.0 L784.0 19.3 L785.6 16.3 L787.2 21.6 L788.8 19.2 L790.4 17.0 L792.0 39.9 L793.6 39.2 L795.2 45.1 L796.8 41.6 L798.4 38.3 L800.0 45.3 L801.6 41.8 L803.2 36.7 L804.8 44.1 L806.4 39.3 L808.0 17.4 L809.6 17.7 L811.2 15.2 L812.8 18.1 L814.4 14.3 L816.0 43.8 L817.6 39.3 L819.2 42.3 L820.8 43.4 L822.4 40.6 L824.0 43.0 L825.6 40.7 L827.2 37.2 L828.8 39.4 L830.4 42.1 L832.0 37.2 L833.6 18.4 L835.2 18.9 L836.8 19.5 L838.4 20.5 L840.0 16.3 L841.6 19.1 L843.2 23.6 L844.8 81.1 L846.4 81.3 L848.0 82.0 L849.6 81.3 L851.2 81.6 L852.8 81.0 L854.4 79.8 L856.0 83.4 L857.6 83.3 L859.2 77.2 L860.8 52.0 L862.4 50.2 L864.0 51.4 L865.6 56.3 L867.2 48.6 L868.8 52.0 L870.4 49.5 L872.0 55.1 L873.6 47.5 L875.2 79.2 L876.8 79.7 L878.4 81.9 L880.0 77.7 L881.6 81.7 L883.2 84.8 L884.8 78.6 L886.4 81.9 L888.0 82.0 L889.6 80.4 L891.2 75.3 L892.8 83.0 L894.4 79.4 L896.0 85.4 L897.6 82.7 L899.2 82.9 L900.8 78.6 L902.4 77.2 L904.0 80.6 L905.6 80.4 L907.2 78.2 L908.8 84.0 L910.4 85.7 L912.0 17.3 L913.6 14.3 L915.2 18.3 L916.8 15.1 L918.4 17.3 L920.0 17.8 L921.6 18.4 L923.2 16.1 L924.8 21.3 L926.4 16.2 L928.0 17.5 L929.6 19.3 L931.2 18.0 L932.8 21.7 L934.4 17.6 L936.0 16.8 L937.6 19.6 L939.2 17.4 L940.8 17.7 L942.4 22.6 L944.0 21.2 L945.6 18.0 L947.2 20.1 L948.8 18.0 L950.4 43.2 L952.0 39.0 L953.6 41.2 L955.2 42.9 L956.8 44.9 L958.4 40.0 L960.0 40.8 L961.6 41.5 L963.2 37.1 L964.8 41.0 L966.4 39.2 L968.0 42.0 L969.6 38.1 L971.2 24.9 L972.8 28.6 L974.4 26.1 L976.0 28.3 L977.6 32.0 L979.2 32.2 L980.8 30.1 L982.4 30.5 L984.0 29.2 L985.6 28.3 L987.2 30.0 L988.8 80.2 L990.4 81.8 L992.0 80.1 L993.6 77.8 L995.2 82.9 L996.8 79.1 L998.4 80.7 L1000.0 81.7 L1001.6 76.7 L1003.2 81.9 L1004.8 81.4 L1006.4 79.5 L1008.0 78.6 L1009.6 81.1 L1011.2 81.4 L1012.8 17.8 L1014.4 19.1 L1016.0 20.6 L1017.6 17.5 L1019.2 15.8 L1020.8 18.8 L1022.4 18.7 L1024.0 18.9 L1025.6 19.5 L1027.2 16.2 L1028.8 15.4 L1030.4 15.8 L1032.0 18.5 L1033.6 72.4 L1035.2 75.7 L1036.8 74.1 L1038.4 74.2 L1040.0 73.5 L1041.6 76.4 L1043.2 75.3 L1044.8 73.6 L1046.4 75.7 L1048.0 40.6 L1049.6 39.3 L1051.2 45.4 L1052.8 44.5 L1054.4 43.1 L1056.0 42.1 L1057.6 44.1 L1059.2 38.8 L1060.8 41.8 L1062.4 40.8 L1064.0 38.1 L1065.6 39.7 L1067.2 39.6 L1068.8 39.1 L1070.4 50.1 L1072.0 57.4 L1073.6 54.2 L1075.2 51.8 L1076.8 56.3 L1078.4 62.1 L1080.0 69.5 L1081.6 61.5 L1083.2 61.6 L1084.8 62.5 L1086.4 60.8 L1088.0 63.0 L1089.6 63.2 L1091.2 63.2 L1092.8 68.2 L1094.4 78.5 L1096.0 75.9 L1097.6 77.2 L1099.2 76.6 L1100.8 69.6 L1102.4 75.0 L1104.0 75.4 L1105.6 68.4 L1107.2 74.5 L1108.8 72.7 L1110.4 73.7 L1112.0 74.0 L1113.6 76.0 L1115.2 73.1 L1116.8 73.5 L1118.4 28.6 L1120.0 29.0 L1121.6 32.2 L1123.2 30.2 L1124.8 29.0 L1126.4 31.4 L1128.0 34.1 L1129.6 30.0 L1131.2 31.0 L1132.8 16.5 L1134.4 17.6 L1136.0 16.9 L1137.6 18.5 L1139.2 21.3 L1140.8 19.6 L1142.4 18.7 L1144.0 20.6 L1145.6 24.9 L1147.2 17.5 L1148.8 18.6 L1150.4 53.2 L1152.0 50.0 L1153.6 48.2 L1155.2 54.2 L1156.8 48.8 L1158.4 55.6 L1160.0 55.4 L1161.6 51.1 L1163.2 55.2 L1164.8 49.0 L1166.4 55.0 L1168.0 52.6 L1169.6 31.9 L1171.2 28.9 L1172.8 35.6 L1174.4 30.4 L1176.0 30.9 L1177.6 30.0 L1179.2 32.0 L1180.8 26.3 L1182.4 17.4 L1184.0 19.2 L1185.6 17.9 L1187.2 13.3 L1188.8 18.8 L1190.4 21.1 L1192.0 13.1 L1193.6 20.1 L1195.2 18.5 L1196.8 19.2 L1198.4 19.1"/>
+            </svg>
+            <figcaption>A raw nanopore signal (illustration): the electrical current as one DNA strand moves through a protein pore. My pipelines turn millions of these traces into answers about which pathogens are in a sample of air, water or food.</figcaption>
+        </figure>
+
+        <div class="lede">
+            <p>I build sequencing pipelines that find pathogens and antibiotic resistance in the environment. Then I tested whether 28 AI models could build the same pipelines. Not one built the harder pipeline correctly, and many wrote code that looks right and is wrong.</p>
+            <p>I use that to help teams see where AI is reliable and where it is not.</p>
+        </div>
+        <ul class="contact">
+            <li class="primary"><a href="mailto:timreska@gmail.com">Email me</a></li>
+            <li><a href="https://linkedin.com/in/tim-r-ai" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://github.com/ttmgr" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://orcid.org/0009-0001-9700-5128" target="_blank" rel="noopener">ORCID</a></li>
+        </ul>
     </div>
 
-    <main>
-
     <section id="research">
-        <div class="container">
+        <div class="wrap row">
+            <div class="side">Doctoral research, 2022 to 2026</div>
             <div>
-                <div class="section-label">Dr. rer. nat. Research &mdash; TU Munich &amp; Helmholtz AI</div>
-                <h2 class="section-title">Genomics &amp; One Health</h2>
-                <p class="section-desc">Nanopore sequencing workflows for pathogen surveillance across air, water, food, and clinical settings. Founding member of an international research group spanning 7 sites. These peer-reviewed pipelines also serve as the validated ground truth for the LLM evaluation below.</p>
-            </div>
-            <div class="projects-grid research-grid">
-                <div class="project-card">
-                    <div class="card-tag">First Author &mdash; Published</div>
-                    <h3>Air Metagenomics</h3>
-                    <p>Long-read metagenomic characterization of bioaerosols. Published in <em>ISME Communications</em> (2024). Complete Snakemake pipeline for Oxford Nanopore data.</p>
-                    <div class="card-meta">
-                        <span>Snakemake</span>
-                        <span>Nanopore</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="https://github.com/ttmgr/Tim_Reska/tree/main/pipelines/aerobiome" target="_blank" rel="noopener">Overview &rarr;</a>
-                        <a href="https://doi.org/10.1093/ismeco/ycae058" target="_blank" rel="noopener">Paper</a>
-                    </div>
+                <h2>Genomic surveillance for One Health</h2>
+                <div class="intro">
+                    <p>Nanopore sequencing workflows that detect pathogens, resistance genes and their hosts in air, water, food and clinical samples. I was a founding member of an international research group that built its lab and computing setup from scratch across 7 sites. Seven publications came out of it, including one in <em>Nature Communications</em>.</p>
                 </div>
 
-                <div class="project-card">
-                    <div class="card-tag">First Author &mdash; Published</div>
-                    <h3>Wetland Multi-Omics</h3>
-                    <p>Multi-site surveillance integrating DNA metagenomics, RNA viromics, AIV whole-genome sequencing, and eDNA metabarcoding across 12 wetlands in 3 countries. Published in <em>AEM</em> (2025).</p>
-                    <div class="card-meta">
-                        <span>Snakemake</span>
-                        <span>Multi-omics</span>
-                        <span>3 countries</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="https://github.com/ttmgr/Tim_Reska/tree/main/pipelines/wetland-surveillance" target="_blank" rel="noopener">Overview &rarr;</a>
-                        <a href="https://doi.org/10.1101/2025.09.05.674394" target="_blank" rel="noopener">Paper</a>
-                    </div>
-                </div>
+                <p class="pubgroup">As first author</p>
+                <ul class="pubs lead">
+                    <li>
+                        <div class="year">2024</div>
+                        <div>
+                            <p class="title"><a href="https://doi.org/10.1093/ismeco/ycae058" target="_blank" rel="noopener">Air monitoring by nanopore sequencing</a></p>
+                            <p class="meta"><strong>Reska T</strong>, Pozdniakova S, Urban L. <em>ISME Communications</em></p>
+                            <p class="extra"><a href="https://github.com/ttmgr/Tim_Reska/tree/main/pipelines/aerobiome" target="_blank" rel="noopener">Pipeline code</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="year">2025</div>
+                        <div>
+                            <p class="title"><a href="https://doi.org/10.1101/2025.09.05.674394" target="_blank" rel="noopener">Real-time genomic pathogen, resistance, and host range characterization from passive water sampling</a></p>
+                            <p class="meta">Perlas A*, <strong>Reska T</strong>*, et al. <em>Applied and Environmental Microbiology</em>. *Shared first authors. 12 wetlands in 3 countries.</p>
+                            <p class="extra"><a href="https://github.com/ttmgr/Tim_Reska/tree/main/pipelines/wetland-surveillance" target="_blank" rel="noopener">Pipeline code</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="year">2026</div>
+                        <div>
+                            <p class="title"><a href="https://www.biorxiv.org/content/10.64898/2026.04.23.720354v1" target="_blank" rel="noopener">A metagenomic framework for rapid <em>Listeria monocytogenes</em> surveillance</a></p>
+                            <p class="meta">Muchaamba F, <strong>Reska T</strong>, Biggel M, et al. <em>bioRxiv</em> preprint</p>
+                        </div>
+                    </li>
+                </ul>
 
-                <div class="project-card">
-                    <div class="card-tag">Second Author &mdash; Published</div>
-                    <h3>Avian Influenza Sequencing</h3>
-                    <p>Rapid genetic characterization of avian influenza using DNA and RNA nanopore sequencing (R10 + RNA004 chemistry) from lab cultures and environmental samples. Published in <em>Virus Evolution</em> (2025).</p>
-                    <div class="card-meta">
-                        <span>Nanopore</span>
-                        <span>RNA004</span>
-                        <span>Avian influenza</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="https://academic.oup.com/ve/article/11/1/veaf010/8020575" target="_blank" rel="noopener">Paper</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="card-tag">Contributing Author &mdash; Published</div>
-                    <h3>Deep Learning on Raw Nanopore Signals</h3>
-                    <p>Viability assessment directly from raw electrical signals (POD5/FAST5) using ResNet models with explainable AI (Class Activation Maps). Published in <em>GigaScience</em> (2025).</p>
-                    <div class="card-meta">
-                        <span>Deep learning</span>
-                        <span>Explainable AI</span>
-                        <span>Nanopore</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="https://academic.oup.com/gigascience/article/doi/10.1093/gigascience/giaf100/8246397" target="_blank" rel="noopener">Paper</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="card-tag">Third Author &mdash; Published</div>
-                    <h3>Hidden Antibiotic Resistance</h3>
-                    <p>Detection of concealed AMR determinants through real-time nanopore sequencing. Published in <em>Nature Communications</em> (2024).</p>
-                    <div class="card-meta">
-                        <span>Nanopore</span>
-                        <span>AMR</span>
-                        <span>Real-time</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="https://www.nature.com/articles/s41467-024-49851-4" target="_blank" rel="noopener">Paper</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="card-tag">Interactive &mdash; Live Demo</div>
-                    <h3>Nanopore Pipeline Advisor</h3>
-                    <p>Browser tool that recommends an Oxford Nanopore kit, basecalling model, and analysis pipeline from a few questions &mdash; with rationale, alternatives, confidence scoring, and ready-to-run commands. Pure client-side JavaScript over the GenomicsForOneHealth workflow catalogue.</p>
-                    <div class="card-meta">
-                        <span>Vanilla JS</span>
-                        <span>Nanopore</span>
-                        <span>Recommender</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="./nanopore-advisor/">Live demo &rarr;</a>
-                        <a href="https://github.com/ttmgr/GenomicsForOneHealth" target="_blank" rel="noopener">Source</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="card-tag">Agent Tooling &mdash; Overview</div>
-                    <h3>Agent Skill Pack</h3>
-                    <p>A coding-agent skill pack over the GenomicsForOneHealth pipelines: 13 declarative skills with preflight, command-builder, parser, validation, and audit hooks. Builds commands only from declared templates &mdash; never invents tools or parameters. Plain Python, runs offline.</p>
-                    <div class="card-meta">
-                        <span>Python</span>
-                        <span>LLM agents</span>
-                        <span>Reproducibility</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="./agent-skill-pack/">Overview &rarr;</a>
-                        <a href="https://github.com/ttmgr/GenomicsForOneHealth/tree/main/agent_skills" target="_blank" rel="noopener">Source</a>
-                    </div>
-                </div>
+                <p class="pubgroup">As co-author</p>
+                <ul class="pubs">
+                    <li>
+                        <div class="year">2024</div>
+                        <div>
+                            <p class="title"><a href="https://www.nature.com/articles/s41467-024-49851-4" target="_blank" rel="noopener">Detection of hidden antibiotic resistance through real-time genomics</a></p>
+                            <p class="meta">Sauerborn E, Corredor NC, <strong>Reska T</strong>, et al. <em>Nature Communications</em></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="year">2025</div>
+                        <div>
+                            <p class="title"><a href="https://academic.oup.com/ve/article/11/1/veaf010/8020575" target="_blank" rel="noopener">Improvements in RNA and DNA nanopore sequencing allow for rapid genetic characterization of avian influenza</a></p>
+                            <p class="meta">Perlas A, <strong>Reska T</strong>, Croville G, et al. <em>Virus Evolution</em></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="year">2025</div>
+                        <div>
+                            <p class="title"><a href="https://academic.oup.com/gigascience/article/doi/10.1093/gigascience/giaf100/8246397" target="_blank" rel="noopener">Assessing microbial viability directly from raw nanopore signals using deep learning</a></p>
+                            <p class="meta">&Uuml;rel H, Sauerborn E, <strong>Reska T</strong>, et al. <em>GigaScience</em></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="year">2023</div>
+                        <div>
+                            <p class="title"><a href="https://doi.org/10.15252/msb.202311686" target="_blank" rel="noopener">Real-time genomics for One Health</a></p>
+                            <p class="meta">Urban L, Perlas A, Francino O, &hellip;, <strong>Reska T</strong>, et al. <em>Molecular Systems Biology</em></p>
+                        </div>
+                    </li>
+                </ul>
+                <p class="links"><a href="https://orcid.org/0009-0001-9700-5128" target="_blank" rel="noopener">Full list on ORCID</a></p>
             </div>
         </div>
     </section>
 
-    <section id="llm-eval">
-        <div class="container">
+    <section id="benchmark">
+        <div class="wrap row">
+            <div class="side">Independent study, 2024 to 2026</div>
             <div>
-                <div class="section-label">From pipelines to benchmarks</div>
-                <h2 class="section-title">LLM Evaluation &mdash; Against Plausibility</h2>
-                <p class="section-desc">The genomics pipelines above became ground truth for a question: can frontier LLMs actually build scientific workflows, or do they just produce code that <em>looks</em> right?</p>
-            </div>
+                <h2>Against Plausibility: can AI build a real genomics pipeline?</h2>
+                <div class="intro">
+                    <p>My published pipelines gave me something rare: a correct answer to check AI against. I asked 28 models, most of them from the OpenAI, Claude and Gemini families, to build two of them step by step: one that can be solved and one that cannot. I scored all 476 steps on tool choice, parameters, output compatibility, scientific validity and whether the code runs.</p>
+                </div>
+                <ul class="findings">
+                    <li>No model builds a fully correct 10-step wetland pipeline.<span>In three of its steps, not one of the 28 models gave a fully correct answer.</span></li>
+                    <li>GPT-5, Opus 4.5 and Gemini 3 Pro are the first in their families to complete the 7-step air pipeline.<span>9 of the 28 models got full marks on every step of this pipeline.</span></li>
+                </ul>
 
-            <div class="featured-card">
-                <div class="card-tag">28 Models &middot; 476 Scored Step-Results &middot; 2 Pipelines</div>
-                <h3>Against Plausibility</h3>
-                <p>A structured benchmark testing whether frontier LLMs can build real scientific workflows &mdash; not just produce locally plausible code. Two validated pipelines as ground truth: one solvable, one not.</p>
-                <div class="featured-stats">
-                    <div class="stat">
-                        <div class="stat-value">28</div>
-                        <div class="stat-label">Models evaluated</div>
+                <button class="toggle-btn" id="hm-toggle" type="button" aria-expanded="false" aria-controls="hm-collapsible" onclick="toggleHeatmap()">Show every score</button>
+                <div id="hm-collapsible" hidden>
+                    <div style="display:flex;gap:6px;margin:16px 0 0;flex-wrap:wrap;" id="hm-tabs">
+                        <button class="toggle-btn hm-tab active" type="button" data-pipeline="aerobiome">Air pipeline, 7 steps</button>
+                        <button class="toggle-btn hm-tab" type="button" data-pipeline="wetland">Wetland pipeline, 10 steps</button>
                     </div>
-                    <div class="stat">
-                        <div class="stat-value">476</div>
-                        <div class="stat-label">Scored step-results</div>
+                    <div id="heatmap-interactive" style="overflow-x:auto;border:1px solid var(--border);border-radius:6px;background:#fff;">
+                        <div id="hm-tooltip" style="display:none;position:fixed;z-index:200;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:12px 16px;box-shadow:0 4px 20px rgba(22,35,59,0.12);font-family:var(--sans);font-size:13px;pointer-events:none;max-width:260px;"></div>
+                        <table id="hm-table" style="border-collapse:collapse;width:100%;min-width:600px;font-family:var(--sans);"></table>
                     </div>
-                    <div class="stat">
-                        <div class="stat-value">3</div>
-                        <div class="stat-label">Families solve aerobiome</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value">0</div>
-                        <div class="stat-label">Families solve wetland</div>
+                    <div class="legend">Score:
+                        <i style="background:#0E7A68"></i> 1.0
+                        <i style="background:#7DB8A8"></i> 0.7 to 0.9
+                        <i style="background:#E2BE62"></i> 0.5 to 0.6
+                        <i style="background:#E09A7E"></i> 0.1 to 0.4
+                        <i style="background:#B8432F"></i> 0.0
                     </div>
                 </div>
-                <div class="key-finding" style="margin-bottom:8px;">GPT-5, Opus 4.5, and Gemini 3 Pro are the first models in their families to fully complete the 7-step aerobiome pipeline.</div>
-                <div class="key-finding">No model produces a fully correct 10-step wetland pipeline. Three steps have zero correct answers across all 28 entries.</div>
-
-                <button class="toggle-btn" id="hm-toggle" onclick="toggleHeatmap()" style="margin-top:16px;">Show scoring heatmap &darr;</button>
-                <div id="hm-collapsible" style="display:none;">
-                    <div style="display:flex;gap:4px;margin:12px 0;flex-wrap:wrap;" id="hm-tabs">
-                        <button class="toggle-btn hm-tab active" data-pipeline="aerobiome" style="margin:0;">Aerobiome (7 steps)</button>
-                        <button class="toggle-btn hm-tab" data-pipeline="wetland" style="margin:0;">Wetland (10 steps)</button>
-                    </div>
-
-                    <div id="heatmap-interactive" style="overflow-x:auto;border:1px solid var(--border);border-radius:8px;background:#fff;">
-                        <div id="hm-tooltip" style="display:none;position:fixed;z-index:200;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 16px;box-shadow:0 4px 20px rgba(0,0,0,0.1);font-size:13px;pointer-events:none;max-width:260px;">
-                        </div>
-                        <table id="hm-table" style="border-collapse:collapse;width:100%;min-width:600px;"></table>
-                    </div>
-
-                    <div style="display:flex;gap:16px;align-items:center;margin-top:12px;flex-wrap:wrap;">
-                        <div style="display:flex;gap:8px;align-items:center;font-size:12px;color:var(--text-secondary);">
-                            <span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#4A7C59;"></span> 1.0
-                            <span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#7BA882;"></span> 0.7&ndash;0.9
-                            <span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#C4794A;"></span> 0.5&ndash;0.6
-                            <span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#C48264;"></span> 0.1&ndash;0.4
-                            <span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#A85454;"></span> 0.0
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-links" style="padding-top:20px; border-top:1px solid var(--border);">
-                    <a href="https://github.com/ttmgr/Tim_Reska/tree/main/llm-eval" target="_blank" rel="noopener">Repository &rarr;</a>
-                    <a href="https://github.com/ttmgr/Tim_Reska/blob/main/llm-eval/methodology/evaluation_framework.md" target="_blank" rel="noopener">Methodology</a>
+                <p class="links">
                     <a href="https://github.com/ttmgr/Tim_Reska/blob/main/llm-eval/evaluations/summary.md" target="_blank" rel="noopener">Findings</a>
-                </div>
+                    <a href="https://github.com/ttmgr/Tim_Reska/blob/main/llm-eval/methodology/evaluation_framework.md" target="_blank" rel="noopener">Method</a>
+                    <a href="https://github.com/ttmgr/Tim_Reska/tree/main/llm-eval" target="_blank" rel="noopener">Data and code</a>
+                </p>
             </div>
         </div>
     </section>
 
-    <section id="side-projects">
-        <div class="container">
+    <section id="projects">
+        <div class="wrap row">
+            <div class="side">Built alongside the doctorate</div>
             <div>
-                <div class="section-label">Side Quests</div>
-                <h2 class="section-title">Independent Projects</h2>
-                <p class="section-desc">Interactive clinical tools and AI deployment strategy &mdash; built alongside the Dr. rer. nat.</p>
-            </div>
+                <h2>Tools and projects</h2>
+                <div class="intro"><p>Most of these run in the browser. Open one and try it.</p></div>
 
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="card-tag">AI Strategy &mdash; Weekly</div>
-                    <h3>AI News Radar</h3>
-                    <p>A weekly multi-agent scan of the LLM coding-agent ecosystem &mdash; Claude Code, Codex, Gemini CLI, open-source agents, IDEs, MCP, and arXiv. Reports only what changed since the last run, with a full sample issue.</p>
-                    <div class="card-meta">
-                        <span>Weekly digest</span>
-                        <span>Multi-agent</span>
-                        <span>LLM tooling</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="./ai-news-radar/">View &rarr;</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="card-tag">Interactive &mdash; Live Demo</div>
-                    <h3>AI Deployment Readiness</h3>
-                    <p>25-question self-assessment across five dimensions. Weighted scoring, maturity tier assignment, sector benchmarks, and prioritised recommendations.</p>
-                    <div class="card-meta">
-                        <span>25 questions</span>
-                        <span>5 dimensions</span>
-                        <span>Sector benchmarks</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="./ai-deployment-readiness/">Live demo &rarr;</a>
-                    </div>
+                <div class="group">
+                    <h3>Genomics</h3>
+                    <ul class="items">
+                        <li><div class="what"><a href="./nanopore-advisor/">Nanopore Pipeline Advisor</a></div><p class="desc">Answer a few questions and get an Oxford Nanopore kit, basecalling model and analysis pipeline, with reasons, alternatives and commands ready to run.</p></li>
+                        <li><div class="what"><a href="./agent-skill-pack/">Agent Skill Pack</a></div><p class="desc">13 skills that let a coding agent run the GenomicsForOneHealth pipelines. Commands come only from declared templates, so the agent cannot invent tools or parameters. Runs offline.</p></li>
+                    </ul>
                 </div>
 
-                <div class="project-card">
-                    <div class="card-tag">Methodology &mdash; Multi-Agent</div>
-                    <h3>Multi-Agent Due Diligence</h3>
-                    <p>A 6-phase pipeline that produces investment-grade AI deployment assessments. Three parallel agents in isolated contexts, a blind validator that cannot rationalise prior conclusions, and synthesis forced to honour every critique. Not a ChatGPT prompt &mdash; real subagent architecture.</p>
-                    <div class="card-meta">
-                        <span>6 phases</span>
-                        <span>3 parallel agents</span>
-                        <span>Blind validator</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="./multi-agent-dd/">Full showcase &rarr;</a>
-                    </div>
+                <div class="group">
+                    <h3>Outbreak dashboards</h3>
+                    <ul class="items">
+                        <li><div class="what"><a href="./hanta/">Hantavirus 2026</a></div><p class="desc">Map, epidemic curve and case timeline for the Andes virus cluster linked to the MV Hondius cruise ship, with 130+ news items from WHO, CDC and ECDC. English and German.</p></li>
+                        <li><div class="what"><a href="./ebola/">Ebola 2026</a></div><p class="desc">Case tracking for the Bundibugyo ebolavirus epidemic in Ituri Province, DRC and Uganda, from WHO, Africa CDC and ECDC sources.</p></li>
+                    </ul>
                 </div>
 
-                <div class="project-card">
-                    <div class="card-tag">AI Enablement &mdash; Curriculum</div>
-                    <h3>AI Academy</h3>
-                    <p>Four-tier AI competence programme from a 4-week literacy sprint to 12-month enterprise deployment with train-the-trainer. Provider-neutral. EU AI Act Article 4-aligned. Four sector variants live today (Finance, Healthcare, Manufacturing, Public Sector).</p>
-                    <div class="card-meta">
-                        <span>4 tiers</span>
-                        <span>21 modules</span>
-                        <span>EU AI Act Art. 4</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="./academy/">Curriculum overview &rarr;</a>
-                    </div>
+                <div class="group">
+                    <h3>Clinical models</h3>
+                    <ul class="items">
+                        <li><div class="what"><a href="./disease-network/">Clinical Atlas</a></div><p class="desc">How eight connected chronic diseases feed into each other over a patient's life, with evidence-linked uncertainty and patient profiles you can change. German interface.</p></li>
+                        <li><div class="what"><a href="./disease-progression/">Disease Progression</a></div><p class="desc">Survival and multistate models (Cox PH, DeepSurv, DeepHit, SurvTRACE) on synthetic patient records, for cardiovascular disease and type 2 diabetes.</p></li>
+                    </ul>
                 </div>
 
-                <div class="project-card">
-                    <div class="card-tag">Interactive &mdash; Live Demo</div>
-                    <h3>Hantavirus 2026 Outbreak Tracker</h3>
-                    <p>Surveillance dashboard for the MV Hondius cruise-linked Andes virus cluster. Leaflet map, epidemic curves, case timeline, and 130+ news items from WHO/CDC/ECDC sources. Bilingual EN/DE.</p>
-                    <div class="card-meta">
-                        <span>Leaflet.js</span>
-                        <span>Chart.js</span>
-                        <span>Bilingual EN/DE</span>
-                        <span>Epidemiology</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="./hanta/">Live demo &rarr;</a>
-                    </div>
+                <div class="group">
+                    <h3>Putting AI to work</h3>
+                    <ul class="items">
+                        <li><div class="what"><a href="./ai-deployment-readiness/">AI Deployment Readiness</a></div><p class="desc">25 questions across five areas. Gives a maturity level, a comparison with your sector and what to fix first.</p></li>
+                        <li><div class="what"><a href="./llm-cost-calculator/">LLM Cost Calculator</a></div><p class="desc">Prices for 13 models from 5 providers, and what a workflow costs done by hand versus with an LLM.</p></li>
+                        <li><div class="what"><a href="./multi-agent-dd/">Multi-Agent Due Diligence</a></div><p class="desc">A 6-phase review of where a company can use AI. Three agents work in separate contexts, and a blind validator checks their conclusions before the final report.</p></li>
+                        <li><div class="what"><a href="./academy/">AI Academy</a></div><p class="desc">A four-level AI training programme, from a 4-week basics course to a 12-month company rollout. Aligned with Article 4 of the EU AI Act.</p></li>
+                        <li><div class="what"><a href="./ai-news-radar/">AI News Radar</a></div><p class="desc">A weekly digest of AI coding tools: Claude Code, Codex, Gemini CLI, open-source agents and new research. Only what changed since last week.</p></li>
+                    </ul>
                 </div>
 
-                <div class="project-card">
-                    <div class="card-tag">Interactive &mdash; Live Demo</div>
-                    <h3>Ebola 2026 Outbreak Tracker</h3>
-                    <p>PHEIC surveillance dashboard for the Ituri Province Bundibugyo ebolavirus epidemic. DRC + Uganda case tracking, WHO/Africa CDC/ECDC sources. No vaccine exists for this strain.</p>
-                    <div class="card-meta">
-                        <span>Leaflet.js</span>
-                        <span>Chart.js</span>
-                        <span>PHEIC</span>
-                        <span>Epidemiology</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="./ebola/">Live demo &rarr;</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="card-tag">Interactive &mdash; Live Demo</div>
-                    <h3>LLM Cost Calculator</h3>
-                    <p>Cost modeling for LLM deployment decisions. Pricing database for 13 models across 5 providers, ROI calculator comparing manual vs LLM-augmented workflows.</p>
-                    <div class="card-meta">
-                        <span>13 models</span>
-                        <span>5 providers</span>
-                        <span>ROI analysis</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="./llm-cost-calculator/">Live demo &rarr;</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="card-tag">Interactive &mdash; Live Demo</div>
-                    <h3>Clinical Atlas</h3>
-                    <p>D3.js browser dashboard for disease-state transitions and intervention scenarios. Eight interconnected disease nodes, evidence-linked uncertainty bands, patient profile controls.</p>
-                    <div class="card-meta">
-                        <span>D3.js</span>
-                        <span>Chart.js</span>
-                        <span>ES6</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="./disease-network/">Live demo &rarr;</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="card-tag">Interactive &mdash; Live Demo</div>
-                    <h3>Disease Progression</h3>
-                    <p>Survival analysis and transformer-based patient trajectory prediction on synthetic FHIR/OMOP records. Cox PH, DeepSurv, DeepHit, Dynamic-DeepHit, SurvTRACE. Two clinical tracks: CVD and Type 2 diabetes.</p>
-                    <div class="card-meta">
-                        <span>PyTorch</span>
-                        <span>lifelines</span>
-                        <span>SurvTRACE</span>
-                        <span>FHIR</span>
-                    </div>
-                    <div class="card-links">
-                        <a href="./disease-progression/">Live demo &rarr;</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="card-tag">Applied project</div>
-                    <h3>Competitive Intelligence / OSINT Pipeline</h3>
-                    <p>Self-built OSINT pipeline mapping competitor product installations globally. 8 async web scrapers, pattern extraction with confidence scoring, 6,500 LOC, 96 verified sightings across 9 countries. Full pipeline from scraping to executive PDF.</p>
-                    <div class="card-meta">
-                        <span>Python</span>
-                        <span>Async</span>
-                        <span>NLP</span>
-                        <span>OSINT</span>
-                    </div>
-                    <div class="card-links">
-                        <span class="card-status">Self-built</span>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="card-tag">Applied project</div>
-                    <h3>PE Outreach Platform</h3>
-                    <p>Self-built outreach infrastructure for AI assessment mandates at mid/large-cap PE firms. Research covering 100 firms, 300 portfolio companies, 900 AI use cases. Standalone browser-based personalization tool, zero backend.</p>
-                    <div class="card-meta">
-                        <span>Vanilla JS</span>
-                        <span>Data engineering</span>
-                        <span>PE</span>
-                    </div>
-                    <div class="card-links">
-                        <span class="card-status">Self-built</span>
-                    </div>
+                <div class="group">
+                    <h3>Not public</h3>
+                    <p class="note">Self-built. Happy to walk through them in a call.</p>
+                    <ul class="items">
+                        <li><div class="what">Competitor mapping pipeline</div><p class="desc">8 web scrapers and pattern matching with confidence scores. Found 96 verified product installations in 9 countries and turns them into a PDF report.</p></li>
+                        <li><div class="what">PE outreach research tool</div><p class="desc">Research on 100 private equity firms, 300 portfolio companies and 900 possible AI uses, with a browser tool that writes tailored outreach. No server.</p></li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section id="skills">
-        <div class="container">
-            <div>
-                <div class="section-label">Expertise</div>
-                <h2 class="section-title" style="margin-bottom: 20px;">Skills &amp; Tools</h2>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-group">
-                    <h3>ML &amp; AI</h3>
-                    <div class="skill-tags">
-                        <span>Python</span>
-                        <span>PyTorch</span>
-                        <span>scikit-learn</span>
-                        <span>XGBoost</span>
-                        <span>Transformers</span>
-                        <span>Survival analysis</span>
-                        <span>SHAP</span>
-                        <span>Conformal prediction</span>
-                        <span>LLM benchmarking</span>
-                    </div>
-                </div>
-                <div class="skill-group">
-                    <h3>Genomics &amp; One Health</h3>
-                    <div class="skill-tags">
-                        <span>Nanopore</span>
-                        <span>Snakemake</span>
-                        <span>Nextflow</span>
-                        <span>Metagenomics</span>
-                        <span>AMR profiling</span>
-                        <span>Adaptive sampling</span>
-                    </div>
-                </div>
-                <div class="skill-group">
-                    <h3>Engineering</h3>
-                    <div class="skill-tags">
-                        <span>JavaScript</span>
-                        <span>D3.js</span>
-                        <span>Docker</span>
-                        <span>SQL</span>
-                    </div>
-                </div>
-                <div class="skill-group">
-                    <h3>Regulatory &amp; Health Data</h3>
-                    <div class="skill-tags">
-                        <span>EU AI Act</span>
-                        <span>GDPR</span>
-                        <span>FHIR / OMOP</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="publications">
-        <div class="container">
-            <div>
-                <div class="section-label">Research output</div>
-                <h2 class="section-title">Selected Publications</h2>
-            </div>
-            <ul class="pub-list">
-                <li>
-                    <div class="pub-journal">ISME Communications &middot; 2024</div>
-                    <div class="pub-title"><a href="https://doi.org/10.1093/ismeco/ycae058" target="_blank" rel="noopener">Air monitoring by nanopore sequencing</a></div>
-                    <div class="pub-authors"><strong>Reska T</strong>, Pozdniakova S, Urban L.</div>
-                    <div class="pub-note">First author</div>
-                </li>
-                <li>
-                    <div class="pub-journal">Applied and Environmental Microbiology &middot; 2025</div>
-                    <div class="pub-title"><a href="https://doi.org/10.1101/2025.09.05.674394" target="_blank" rel="noopener">Real-time genomic pathogen, resistance, and host range characterization from passive water sampling</a></div>
-                    <div class="pub-authors">Perlas A*, <strong>Reska T</strong>*, et al.</div>
-                    <div class="pub-note">First author</div>
-                </li>
-                <li>
-                    <div class="pub-journal">Virus Evolution &middot; 2025</div>
-                    <div class="pub-title"><a href="https://academic.oup.com/ve/article/11/1/veaf010/8020575" target="_blank" rel="noopener">Improvements in RNA and DNA nanopore sequencing allow for rapid genetic characterization of avian influenza</a></div>
-                    <div class="pub-authors">Perlas A, <strong>Reska T</strong>, Croville G, et al.</div>
-                    <div class="pub-note">Second author</div>
-                </li>
-                <li>
-                    <div class="pub-journal">Nature Communications &middot; 2024</div>
-                    <div class="pub-title"><a href="https://www.nature.com/articles/s41467-024-49851-4" target="_blank" rel="noopener">Detection of hidden antibiotic resistance through real-time genomics</a></div>
-                    <div class="pub-authors">Sauerborn E, Corredor NC, <strong>Reska T</strong>, et al.</div>
-                </li>
-                <li>
-                    <div class="pub-journal">bioRxiv Preprint &middot; 2026</div>
-                    <div class="pub-title"><a href="https://www.biorxiv.org/content/10.64898/2026.04.23.720354v1" target="_blank" rel="noopener">A metagenomic framework for rapid <em>Listeria monocytogenes</em> surveillance</a></div>
-                    <div class="pub-authors">Muchaamba F, <strong>Reska T</strong>, Biggel M, et al.</div>
-                    <div class="pub-note">First author</div>
-                </li>
-                <li>
-                    <div class="pub-journal">GigaScience &middot; 2025</div>
-                    <div class="pub-title"><a href="https://academic.oup.com/gigascience/article/doi/10.1093/gigascience/giaf100/8246397" target="_blank" rel="noopener">Assessing microbial viability directly from raw nanopore signals using deep learning</a></div>
-                    <div class="pub-authors">&Uuml;rel H, Sauerborn E, <strong>Reska T</strong>, et al.</div>
-                </li>
-                <li>
-                    <div class="pub-journal">Molecular Systems Biology &middot; 2023</div>
-                    <div class="pub-title"><a href="https://doi.org/10.15252/msb.202311686" target="_blank" rel="noopener">Real-time genomics for One Health</a></div>
-                    <div class="pub-authors">Urban L, Perlas A, Francino O, ..., <strong>Reska T</strong>, et al.</div>
-                </li>
-            </ul>
-            <a href="https://linkedin.com/in/tim-r-ai" class="pub-more" target="_blank" rel="noopener">View all publications &rarr;</a>
         </div>
     </section>
 
     <section id="timeline">
-        <div class="container">
+        <div class="wrap row">
+            <div class="side"></div>
             <div>
-                <div class="section-label">Journey</div>
-                <h2 class="section-title">Research Timeline</h2>
-            </div>
-            <div class="timeline-track">
-                <div class="tl-entry">
-                    <div class="tl-date">Jul 2022</div>
-                    <div class="tl-content">
-                        <h3>Dr. rer. nat. begins &mdash; TUM &amp; Helmholtz AI</h3>
-                        <p>Founding member of an international AI research group. Laboratory and computational infrastructure built from scratch across 7 sites.</p>
-                    </div>
-                </div>
-                <div class="tl-entry">
-                    <div class="tl-date">2023</div>
-                    <div class="tl-content">
-                        <h3>Molecular Systems Biology</h3>
-                        <p>Real-time genomics for One Health &mdash; collaborative review laying the framework for environmental surveillance genomics.</p>
-                    </div>
-                </div>
-                <div class="tl-entry">
-                    <div class="tl-date">2024</div>
-                    <div class="tl-content">
-                        <h3>ISME Communications + Nature Communications</h3>
-                        <p>First-author aerobiome pipeline published. Contributing author on detection of hidden antibiotic resistance through real-time genomics.</p>
-                    </div>
-                </div>
-                <div class="tl-entry">
-                    <div class="tl-date">2024&ndash;2026</div>
-                    <div class="tl-content">
-                        <h3>Against Plausibility</h3>
-                        <p>28-model LLM benchmark across GPT, Claude, and Gemini families. 476 scored step-results with statistical analysis (Kruskal-Wallis, LMM, flagship comparison).</p>
-                    </div>
-                </div>
-                <div class="tl-entry">
-                    <div class="tl-date">2025</div>
-                    <div class="tl-content">
-                        <h3>AEM + Virus Evolution</h3>
-                        <p>Shared first-author wetland multi-omics surveillance across 12 sites in 3 countries. Second author on avian influenza nanopore sequencing methodology.</p>
-                    </div>
-                </div>
-                <div class="tl-entry">
-                    <div class="tl-date">Jul 2026</div>
-                    <div class="tl-content">
-                        <h3>Dr. rer. nat. completed &mdash; magna cum laude</h3>
-                        <p>Nanopore Environmental Metagenomics for One Health: A Tiered Framework for Detection and Attribution. Defended 15 July 2026.</p>
-                    </div>
-                </div>
+                <h2>Timeline</h2>
+                <ul class="tl">
+                    <li class="milestone">
+                        <div class="when">Jul 2026</div>
+                        <div><h3>Dr. rer. nat., magna cum laude</h3><p>Defended 15 July 2026 at the Technical University of Munich and Helmholtz AI.</p></div>
+                    </li>
+                    <li>
+                        <div class="when">2025</div>
+                        <div><h3>AEM and Virus Evolution papers</h3><p>Shared first author on wetland surveillance across 12 sites in 3 countries. Second author on avian influenza sequencing.</p></div>
+                    </li>
+                    <li>
+                        <div class="when">2024 to 2026</div>
+                        <div><h3>Against Plausibility</h3><p>28 AI models tested on two genomics pipelines. 476 scored steps, analysed with Kruskal-Wallis tests and linear mixed models.</p></div>
+                    </li>
+                    <li>
+                        <div class="when">2024</div>
+                        <div><h3>ISME Communications and Nature Communications papers</h3><p>First author on air monitoring by nanopore sequencing. Co-author on hidden antibiotic resistance.</p></div>
+                    </li>
+                    <li>
+                        <div class="when">2023</div>
+                        <div><h3>Molecular Systems Biology review</h3><p>Real-time genomics for One Health, the framework for the group's surveillance work.</p></div>
+                    </li>
+                    <li>
+                        <div class="when">Jul 2022</div>
+                        <div><h3>Doctorate starts at TUM and Helmholtz AI</h3><p>Founding member of an international research group. Lab and computing setup built from scratch across 7 sites.</p></div>
+                    </li>
+                </ul>
             </div>
         </div>
     </section>
-
     </main>
 
-    <footer>
-        <div class="container">
-            <p>Tim Reska &middot; TU Munich &amp; Helmholtz AI &middot; 2022&ndash;2026</p>
-            <div class="footer-links">
-                <a href="mailto:timreska@gmail.com" aria-label="Email">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                </a>
-                <a href="https://linkedin.com/in/tim-r-ai" target="_blank" rel="noopener" aria-label="LinkedIn">
-                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.6 0H2.4C1.07 0 0 1.07 0 2.4v11.2C0 14.93 1.07 16 2.4 16h11.2c1.33 0 2.4-1.07 2.4-2.4V2.4C16 1.07 14.93 0 13.6 0zM4.75 13.6H2.4V6h2.35v7.6zM3.58 5.03c-.75 0-1.36-.62-1.36-1.37s.61-1.37 1.36-1.37 1.36.62 1.36 1.37-.61 1.37-1.36 1.37zM13.6 13.6h-2.35V9.92c0-.88-.02-2.01-1.22-2.01-1.23 0-1.41.96-1.41 1.95v3.74H6.27V6h2.26v1.04h.03c.31-.6 1.08-1.23 2.22-1.23 2.38 0 2.82 1.56 2.82 3.6v4.19z"/></svg>
-                </a>
-                <a href="https://github.com/ttmgr/Tim_Reska" target="_blank" rel="noopener" aria-label="GitHub">
-                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-                </a>
-                <a href="https://orcid.org/0009-0001-9700-5128" target="_blank" rel="noopener" aria-label="ORCID">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 0 1-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.025-5.325 5.025h-3.919V7.416zm1.444 1.303v7.444h2.297c3.272 0 4.022-2.484 4.022-3.722 0-1.444-.881-3.722-3.916-3.722h-2.403z"/></svg>
-                </a>
+    <footer id="contact">
+        <div class="wrap row">
+            <div class="side"></div>
+            <div>
+                <p class="big">Write to <a href="mailto:timreska@gmail.com">timreska@gmail.com</a></p>
+                <ul>
+                    <li><a href="https://linkedin.com/in/tim-r-ai" target="_blank" rel="noopener">LinkedIn</a></li>
+                    <li><a href="https://github.com/ttmgr" target="_blank" rel="noopener">GitHub</a></li>
+                    <li><a href="https://orcid.org/0009-0001-9700-5128" target="_blank" rel="noopener">ORCID</a></li>
+                </ul>
+                <small>Dr. rer. nat. Tim Reska, Technical University of Munich and Helmholtz AI</small>
             </div>
         </div>
     </footer>
 
     <script>
-        // Mobile nav close on link click
-        document.querySelectorAll('nav a[href^="#"]').forEach(link => {
-            link.addEventListener('click', () => {
-                document.querySelector('nav ul').classList.remove('open');
-            });
-        });
-
-        // Active nav highlight on scroll
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('nav ul li a');
-        function updateActiveNav() {
-            let current = '';
-            sections.forEach(section => {
-                const top = section.offsetTop - 120;
-                if (window.scrollY >= top) current = section.getAttribute('id');
-            });
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + current) link.classList.add('active');
-            });
-        }
-        window.addEventListener('scroll', updateActiveNav, { passive: true });
-        updateActiveNav();
-
-        // Terminal line animation
-        document.querySelectorAll('.term-line').forEach((line, i) => {
-            setTimeout(() => line.classList.add('show'), 500 + i * 650);
-        });
-
-        // Collapsible heatmap
+        // Show or hide the full score table
         function toggleHeatmap() {
             var c = document.getElementById('hm-collapsible');
             var btn = document.getElementById('hm-toggle');
-            if (c.style.display === 'none') {
-                c.style.display = 'block';
-                btn.textContent = 'Hide scoring heatmap ↑';
-            } else {
-                c.style.display = 'none';
-                btn.textContent = 'Show scoring heatmap ↓';
-            }
+            var opening = c.hidden;
+            c.hidden = !opening;
+            btn.setAttribute('aria-expanded', String(opening));
+            btn.textContent = opening ? 'Hide the scores' : 'Show every score';
         }
-
         // Interactive heatmap
         (function() {
             var hmData = null;
@@ -1199,27 +479,27 @@
             var tooltip = document.getElementById('hm-tooltip');
 
             function scoreColor(v) {
-                if (v === null || v === undefined || v < 0) return '#E8E6E1';
-                if (v >= 1.0) return '#4A7C59';
-                if (v >= 0.7) return '#7BA882';
-                if (v >= 0.5) return '#C4794A';
-                if (v > 0) return '#C48264';
-                return '#A85454';
+                if (v === null || v === undefined || v < 0) return '#E3E7E1';
+                if (v >= 1.0) return '#0E7A68';
+                if (v >= 0.7) return '#7DB8A8';
+                if (v >= 0.5) return '#E2BE62';
+                if (v > 0) return '#E09A7E';
+                return '#B8432F';
             }
             function textColor(v) {
-                if (v === null || v === undefined || v < 0) return '#9B9A94';
+                if (v === null || v === undefined || v < 0) return '#6F7889';
                 if (v >= 1.0 || v === 0) return '#fff';
-                return '#1A1A2E';
+                return '#16233B';
             }
 
             function render(pipeline) {
                 var p = hmData[pipeline];
                 var table = document.getElementById('hm-table');
-                var html = '<thead><tr><th style="position:sticky;left:0;z-index:2;background:#fff;padding:8px 12px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;color:var(--text-secondary);text-align:left;border-bottom:2px solid var(--border);min-width:120px;">Model</th>';
+                var html = '<thead><tr><th style="position:sticky;left:0;z-index:2;background:#fff;padding:8px 12px;font-size:11px;font-weight:600;color:var(--text-secondary);text-align:left;border-bottom:2px solid var(--border);min-width:120px;">Model</th>';
                 p.steps.forEach(function(s) {
-                    html += '<th style="padding:6px 4px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-secondary);text-align:center;border-bottom:2px solid var(--border);min-width:56px;white-space:nowrap;">' + s + '</th>';
+                    html += '<th style="padding:6px 4px;font-size:10px;font-weight:600;color:var(--text-secondary);text-align:center;border-bottom:2px solid var(--border);min-width:56px;white-space:nowrap;">' + s + '</th>';
                 });
-                html += '<th style="padding:6px 8px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-secondary);text-align:center;border-bottom:2px solid var(--border);min-width:44px;">Avg</th>';
+                html += '<th style="padding:6px 8px;font-size:10px;font-weight:600;color:var(--text-secondary);text-align:center;border-bottom:2px solid var(--border);min-width:44px;">Avg</th>';
                 html += '<th style="padding:6px 12px;font-size:11px;font-weight:600;color:var(--accent-text);text-align:right;border-bottom:2px solid var(--border);min-width:60px;font-family:\'Source Serif 4\',Georgia,serif;"></th></tr></thead><tbody>';
 
                 p.families.forEach(function(fam, fi) {
@@ -1295,19 +575,11 @@
                 tab.addEventListener('click', function() {
                     document.querySelectorAll('.hm-tab').forEach(function(t) {
                         t.classList.remove('active');
-                        t.style.background = '';
-                        t.style.color = '';
-                        t.style.borderColor = '';
                     });
                     tab.classList.add('active');
-                    tab.style.background = 'var(--text)';
-                    tab.style.color = '#fff';
-                    tab.style.borderColor = 'var(--text)';
                     if (hmData) render(tab.dataset.pipeline);
                 });
             });
-            var firstTab = document.querySelector('.hm-tab.active');
-            if (firstTab) { firstTab.style.background = 'var(--text)'; firstTab.style.color = '#fff'; firstTab.style.borderColor = 'var(--text)'; }
 
             fetch('./llm-eval/results/heatmap_data.json')
                 .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
@@ -1318,7 +590,7 @@
                 })
                 .catch(function() {
                     var t = document.getElementById('hm-table');
-                    if (t) t.innerHTML = '<tbody><tr><td style="padding:24px 12px;font-size:14px;color:var(--text-secondary);line-height:1.6;">Heatmap data could not be loaded. <a href="https://github.com/ttmgr/Tim_Reska/blob/main/llm-eval/evaluations/summary.md" target="_blank" rel="noopener">View the full scoring results on GitHub &rarr;</a></td></tr></tbody>';
+                    if (t) t.innerHTML = '<tbody><tr><td style="padding:24px 12px;font-size:14px;color:var(--text-secondary);line-height:1.6;">The scores could not be loaded here. <a href="https://github.com/ttmgr/Tim_Reska/blob/main/llm-eval/evaluations/summary.md" target="_blank" rel="noopener">Read the full results on GitHub</a>.</td></tr></tbody>';
                 });
         })();
     </script>

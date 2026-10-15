@@ -1,20 +1,21 @@
 /* Shared brand tokens for every page in the portfolio.
-   Single source of truth for the warm-terracotta palette. The outbreak
+   Single source of truth for the "chromatogram" palette: cool lab-paper
+   white, blue-black ink, chromatogram green accent. The outbreak
    dashboards (ebola/hanta) extend these by @importing this file from
    assets/css/outbreak.css and adding chart/data-viz tokens on top. */
 :root {
-  --bg: #FAF9F7;
+  --bg: #F6F7F4;
   --surface: #FFFFFF;
-  --surface-muted: #F0EDEA;
-  --text: #1A1A2E;
-  --text-secondary: #6B6A73;
-  --text-muted: #9B9A94;
-  --accent: #C4794A;
-  --accent-hover: #A8603A;
-  --accent-text: #9A5A2E;
-  --border: #E8E6E1;
-  --border-strong: #D0CEC8;
-  --tag-bg: #F0EDEA;
-  --tag-text: #5A584F;
-  --radius: 12px;
+  --surface-muted: #ECEFEA;
+  --text: #16233B;
+  --text-secondary: #4B5567;
+  --text-muted: #6F7889;
+  --accent: #0E7A68;
+  --accent-hover: #0A5E50;
+  --accent-text: #0B6455;
+  --border: #D8DDD6;
+  --border-strong: #BCC4BA;
+  --tag-bg: #ECEFEA;
+  --tag-text: #3F4A5A;
+  --radius: 8px;
 }
