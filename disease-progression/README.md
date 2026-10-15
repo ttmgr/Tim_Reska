@@ -10,7 +10,7 @@
 
 ## About
 
-This project brings together **clinical disease progression modeling** and **patient-level risk quantification** into a single, reproducible framework. It was built by a researcher with a PhD in AI and metagenomics who is now applying deep sequence modeling, survival analysis, and probabilistic state machines to healthcare.
+This project brings together **clinical disease progression modeling** and **patient-level risk quantification** into a single, reproducible framework. It was built by a researcher with a PhD in Genomics and AI who is now applying deep sequence modeling, survival analysis, and probabilistic state machines to healthcare.
 
 The core question it answers: *Given a patient's longitudinal health record, how do we predict their trajectory through discrete disease states, estimate time to critical events, and translate those predictions into actionable risk scores for clinical follow-up and care management?*
 
