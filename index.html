@@ -171,6 +171,10 @@
         footer ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px 24px; }
         footer small { display: block; color: var(--text-secondary); margin-top: 32px; font-size: 13px; }
 
+        /* Running text: justified, with hyphenation to avoid wide gaps */
+        .lede p, .intro p, .signal figcaption, .findings li span, .items .desc, .tl p { text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+        @media (max-width: 600px) { .lede p { text-align: left; } }
+
         @media (max-width: 860px) {
             body { font-size: 18px; }
             :root { --gutter: 16px; }
