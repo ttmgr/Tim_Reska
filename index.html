@@ -90,8 +90,7 @@
 
         /* Title page */
         .titlepage { padding-top: 72px; }
-        .honorific { font-family: var(--sans); font-size: clamp(24px, 3.4vw, 38px); font-weight: 400; letter-spacing: -0.01em; margin: 0; color: var(--text); }
-        .name { font-family: var(--sans); font-size: clamp(58px, 11vw, 128px); font-weight: 600; line-height: 0.95; letter-spacing: -0.045em; margin: 4px 0 0; }
+        .name { font-family: var(--sans); font-size: min(108px, calc((100vw - 2 * var(--gutter)) / 10)); font-weight: 600; line-height: 1; letter-spacing: -0.045em; white-space: nowrap; margin: 0; }
         .position { font-family: var(--sans); font-size: clamp(18px, 1.9vw, 22px); color: var(--text-secondary); letter-spacing: -0.01em; margin: 20px 0 0; }
         .degree { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; margin-top: 48px; padding-top: 28px; border-top: 3px solid var(--text); }
         .degree dl { margin: 0; font-family: var(--sans); font-size: 15px; line-height: 1.5; display: grid; grid-template-columns: max-content 1fr; gap: 10px 20px; }
@@ -226,8 +225,7 @@
 
     <main>
     <div class="wrap titlepage">
-        <p class="honorific">Dr. rer. nat.</p>
-        <h1 class="name">Tim Reska</h1>
+        <h1 class="name">Dr. rer. nat. Tim Reska</h1>
         <p class="position">Medical Underwriting Expert at Allianz Digital Health GmbH since 1 July 2026</p>
 
         <div class="degree">
