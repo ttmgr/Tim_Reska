@@ -51,7 +51,7 @@ flowchart TB
 
 ### [`aerobiome/`](aerobiome/) — Air Monitoring by Nanopore Sequencing
 
-**Publication:** Reska T, Pozdniakova S, Urban L — *ISME Communications* (2024) · [DOI](https://doi.org/10.1093/ismeco/ycae058)
+**Publication:** Reska T, Pozdniakova S, Urban L — *ISME Communications* (2024) · [DOI](https://doi.org/10.1093/ismeco/ycae099)
 
 Shotgun metagenomic analysis of ultra-low biomass air samples collected by liquid impingement. This is the validated ground-truth workflow used in [`Against Plausibility: LLM Evaluation`](../llm-eval/).
 
@@ -65,7 +65,7 @@ Shotgun metagenomic analysis of ultra-low biomass air samples collected by liqui
 | Binning | metaWRAP v1.3 + CheckM v1.2.2 | >= 30% completeness, <= 10% contamination |
 | AMR / virulence | AMRFinderPlus v3.12.8 + ABRicate v1.0.1 (VFDB) | Reads, contigs, and bins |
 
-Links: [Pipeline overview](./aerobiome/) | [Study repository and metadata](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics) | [Publication](https://doi.org/10.1093/ismeco/ycae058)
+Links: [Pipeline overview](./aerobiome/) | [Study repository and metadata](https://github.com/ttmgr/GenomicsForOneHealth/tree/main/Environmental_Metagenomics/Air_Metagenomics) | [Publication](https://doi.org/10.1093/ismeco/ycae099)
 
 ---
 
@@ -114,6 +114,6 @@ Use the personal repository for concise, study-linked pipeline overviews. Use [G
 
 If you use or adapt these workflows, cite the corresponding study or project status:
 
-- Reska T, Pozdniakova S, Urban L. *Air monitoring by nanopore sequencing*. *ISME Communications* (2024). DOI: [10.1093/ismeco/ycae058](https://doi.org/10.1093/ismeco/ycae058)
+- Reska T, Pozdniakova S, Urban L. *Air monitoring by nanopore sequencing*. *ISME Communications* (2024). DOI: [10.1093/ismeco/ycae099](https://doi.org/10.1093/ismeco/ycae099)
 - Perlas A\*, Reska T\*, Sanchez-Cano A, et al. *Real-time genomic pathogen, resistance, and host range characterization from passive water sampling of wetland ecosystems*. *Applied and Environmental Microbiology* (2025). bioRxiv DOI: [10.1101/2025.09.05.674394](https://doi.org/10.1101/2025.09.05.674394)
 - Listeria adaptive sampling project: manuscript in preparation

@@ -20,7 +20,7 @@ The public prompt files in this repository are reconstructed documentation artif
 - Evaluated entries: 28
 - Total scored step-results: 476 (196 aerobiome + 280 wetland)
 - Pipeline steps: 17 total (7 aerobiome + 10 wetland)
-- Ground truth 1 (aerobiome): [Reska T, Pozdniakova S, Urban L. *Air monitoring by nanopore sequencing*. ISME Communications (2024)](https://doi.org/10.1093/ismeco/ycae058)
+- Ground truth 1 (aerobiome): [Reska T, Pozdniakova S, Urban L. *Air monitoring by nanopore sequencing*. ISME Communications (2024)](https://doi.org/10.1093/ismeco/ycae099)
 - Ground truth 2 (wetland): Perlas A\*, Reska T\*, et al. *Real-time genomic pathogen, resistance, and host range characterization from passive water sampling of wetland ecosystems*. Applied and Environmental Microbiology (2025/2026)
 
 ### Evaluation groups

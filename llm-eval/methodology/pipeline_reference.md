@@ -1,6 +1,6 @@
 # Reference Pipeline
 
-Ground truth pipeline for nanopore shotgun metagenomics of low-biomass environmental samples. All tools, versions, and parameters are from the validated workflow published in Reska et al. (2024), *ISME Communications*. DOI: [10.1093/ismeco/ycae058](https://doi.org/10.1093/ismeco/ycae058)
+Ground truth pipeline for nanopore shotgun metagenomics of low-biomass environmental samples. All tools, versions, and parameters are from the validated workflow published in Reska et al. (2024), *ISME Communications*. DOI: [10.1093/ismeco/ycae099](https://doi.org/10.1093/ismeco/ycae099)
 
 The command blocks below use schematic filenames such as `filtered.fastq` and `assembly/assembly.fasta`, but database paths are grounded to the concrete defaults used in the local aerobiome workflow (`../pipelines/aerobiome/config.yaml` and `../pipelines/aerobiome/Snakefile`).
 

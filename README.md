@@ -82,7 +82,7 @@ My scientific work develops nanopore sequencing workflows for pathogen surveilla
 
 ### Publications (first, second, or third author)
 
-1. **Reska T**, Pozdniakova S, Urban L. [Air monitoring by nanopore sequencing](https://doi.org/10.1093/ismeco/ycae058). *ISME Communications* (2024).
+1. **Reska T**, Pozdniakova S, Urban L. [Air monitoring by nanopore sequencing](https://doi.org/10.1093/ismeco/ycae099). *ISME Communications* (2024).
 2. Perlas A\*, **Reska T**\*, Sanchez-Cano A, et al. [Real-time genomic pathogen, resistance, and host range characterization from passive water sampling of wetland ecosystems](https://doi.org/10.1101/2025.09.05.674394). *Applied and Environmental Microbiology* (2025). Shared first authorship.
 3. Sauerborn E, Corredor NC, **Reska T**, et al. [Detection of hidden antibiotic resistance through real-time genomics](https://www.nature.com/articles/s41467-024-49851-4). *Nature Communications* (2024).
 4. Muchaamba F, **Reska T**, Biggel M, Locken KM, Weilguny L, Corti S, Kelbert L, Stephan R, Urban L. [A metagenomic framework for rapid *Listeria monocytogenes* surveillance in food production environments](https://www.biorxiv.org/content/10.64898/2026.04.23.720354v1). *bioRxiv* preprint (2026).
@@ -200,7 +200,7 @@ Tim_Reska/
 
 ## Selected publications
 
-- **Reska T**, Pozdniakova S, Urban L. [Air monitoring by nanopore sequencing](https://doi.org/10.1093/ismeco/ycae058). *ISME Communications* (2024).
+- **Reska T**, Pozdniakova S, Urban L. [Air monitoring by nanopore sequencing](https://doi.org/10.1093/ismeco/ycae099). *ISME Communications* (2024).
 - Perlas A\*, **Reska T**\*, Sanchez-Cano A, et al. [Real-time genomic pathogen, resistance, and host range characterization from passive water sampling of wetland ecosystems](https://doi.org/10.1101/2025.09.05.674394). *Applied and Environmental Microbiology* (2025). Shared first authorship.
 - Sauerborn E, Corredor NC, **Reska T**, et al. [Detection of hidden antibiotic resistance through real-time genomics](https://www.nature.com/articles/s41467-024-49851-4). *Nature Communications* (2024).
 - Muchaamba F, **Reska T**, Biggel M, et al. [A metagenomic framework for rapid *Listeria monocytogenes* surveillance in food production environments](https://www.biorxiv.org/content/10.64898/2026.04.23.720354v1). *bioRxiv* preprint (2026).

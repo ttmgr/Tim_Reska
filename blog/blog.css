@@ -43,7 +43,7 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
 .posts { list-style: none; margin: 8px 0 0; padding: 0; }
 .posts li { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 4px 28px; padding: 24px 0; border-bottom: 1px solid var(--border); }
 .posts .date { font-family: var(--sans); font-size: 15px; color: var(--text-secondary); padding-top: 4px; }
-.posts .title { font-size: 23px; font-weight: 600; line-height: 1.3; margin: 0; }
+.posts .title { font-family: var(--sans); letter-spacing: -0.01em; font-size: 23px; font-weight: 600; line-height: 1.3; margin: 0; }
 .posts .title a { color: var(--text); text-decoration: none; }
 .posts .title a:hover { color: var(--accent-text); text-decoration: underline; }
 .posts .series { font-family: var(--sans); font-size: 13.5px; font-weight: 500; color: var(--accent-text); margin: 6px 0 8px; }
@@ -52,8 +52,8 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
 
 /* Post body */
 .post { max-width: 42em; padding-top: 12px; }
-.post h2 { font-family: var(--serif); font-size: clamp(26px, 2.6vw, 32px); font-weight: 600; line-height: 1.2; letter-spacing: -0.01em; margin: 56px 0 14px; }
-.post h3 { font-family: var(--serif); font-size: 22px; font-weight: 600; line-height: 1.3; margin: 36px 0 10px; }
+.post h2 { font-family: var(--sans); font-size: clamp(26px, 2.6vw, 32px); font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; margin: 56px 0 14px; }
+.post h3 { font-family: var(--sans); font-size: 22px; font-weight: 600; line-height: 1.3; margin: 36px 0 10px; }
 .post p, .post li { text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
 .post p { margin: 0 0 1em; }
 .post ul, .post ol { margin: 0 0 1.2em; padding-left: 1.2em; }
@@ -76,7 +76,9 @@ footer small { display: block; color: var(--text-secondary); margin-top: 24px; f
     .posts li { grid-template-columns: 1fr; }
     .posts .date { padding: 0; }
 }
+@media (max-width: 600px) {
+    .post p, .post li { text-align: left; hyphens: manual; -webkit-hyphens: manual; }
+}
 @media (max-width: 420px) {
     .topbar ul { gap: 16px; }
-    .post p, .post li { text-align: left; }
 }

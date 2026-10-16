@@ -1,0 +1,25 @@
+/* Dark navy theme for the homepage and the blog. Load after tokens.css;
+   it overrides the same token names, so page CSS needs no changes.
+   Subpages keep the light tokens until each one is checked in dark. */
+:root {
+  color-scheme: dark;
+  --bg: #14223A;
+  --surface: #1B2C48;
+  --surface-muted: #213452;
+  --text: #E8EDF3;
+  --text-secondary: #A9B5C5;
+  --text-muted: #8A96A8;
+  --accent: #3DBB9B;
+  --accent-hover: #62CFB3;
+  --accent-text: #5AC9AC;
+  --border: #2A3D5C;
+  --border-strong: #3D5376;
+  --tag-bg: #213452;
+  --tag-text: #C9D3DF;
+  --signal: #E58A72;
+  /* Figure colours (thesis evidence-tier figure) */
+  --fig-taxon: #5AB4E5;
+  --fig-amr: #E5604D;
+  --fig-replicon: #F2A285;
+  --fig-line: #7F8CA0;
+}

@@ -25,7 +25,7 @@ The benchmark is anchored to two validated workflows:
 
 **Pipeline 1 — Aerobiome (7 steps, linear):**
 
-> Reska T, Pozdniakova S, Urban L. *Air monitoring by nanopore sequencing*. ISME Communications (2024). DOI: [10.1093/ismeco/ycae058](https://doi.org/10.1093/ismeco/ycae058)
+> Reska T, Pozdniakova S, Urban L. *Air monitoring by nanopore sequencing*. ISME Communications (2024). DOI: [10.1093/ismeco/ycae099](https://doi.org/10.1093/ismeco/ycae099)
 
 Reference: [`pipeline_reference.md`](pipeline_reference.md) | Pipeline: [`../pipelines/aerobiome/`](../pipelines/aerobiome/)
 
