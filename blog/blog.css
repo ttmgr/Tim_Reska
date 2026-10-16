@@ -63,6 +63,25 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
 .post blockquote { margin: 0 0 1.2em; padding: 2px 0 2px 22px; border-left: 3px solid var(--accent); color: var(--text-secondary); }
 .post .source { font-family: var(--sans); font-size: 14px; }
 
+/* Figures: inline SVG drawn from numbers in the post; colours from the theme */
+.fig { margin: 36px 0 40px; }
+.fig .chart { display: block; width: 100%; max-width: 640px; height: auto; font-family: var(--sans); }
+.fig .ttl { font-size: 14px; font-weight: 600; fill: var(--text); }
+.fig .lab { font-size: 13px; fill: var(--text); }
+.fig .val { font-size: 12.5px; font-weight: 600; fill: var(--text); font-variant-numeric: tabular-nums; }
+.fig .ax, .fig .note { font-size: 11px; fill: var(--text-secondary); }
+.fig .grid { stroke: var(--border); stroke-width: 1; }
+.fig .bar { fill: var(--accent); }
+.fig .conn { stroke: var(--border-strong); stroke-width: 3; }
+.fig .dot-a { fill: var(--fig-line); }
+.fig .dot-b { fill: var(--accent); }
+.fig figcaption { font-family: var(--sans); font-size: 14.5px; line-height: 1.5; color: var(--text-secondary); margin-top: 14px; }
+.fig figcaption strong { color: var(--text); }
+
+/* Reference list: hanging indent, no bullets */
+.post .refs { list-style: none; padding-left: 0; font-size: 16px; line-height: 1.5; }
+.post .refs li { padding-left: 1.6em; text-indent: -1.6em; text-align: left; hyphens: manual; -webkit-hyphens: manual; overflow-wrap: anywhere; }
+
 .back { font-family: var(--sans); font-size: 15px; margin: 56px 0 0; }
 
 footer { margin-top: 120px; padding: 40px 0 56px; border-top: 3px solid var(--text); font-family: var(--sans); font-size: 15px; }
@@ -78,6 +97,11 @@ footer small { display: block; color: var(--text-secondary); margin-top: 24px; f
 }
 @media (max-width: 600px) {
     .post p, .post li { text-align: left; hyphens: manual; -webkit-hyphens: manual; }
+    /* SVG text scales down with the chart, so set it larger on phones */
+    .fig .ttl { font-size: 17px; }
+    .fig .lab { font-size: 16px; }
+    .fig .val { font-size: 15px; }
+    .fig .ax, .fig .note { font-size: 14px; }
 }
 @media (max-width: 420px) {
     .topbar ul { gap: 16px; }

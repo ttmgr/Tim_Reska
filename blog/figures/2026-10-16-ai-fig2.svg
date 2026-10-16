@@ -1,0 +1,30 @@
+<svg class="chart" viewBox="0 0 480 224" role="img" aria-label="Dot plot: solve rate fell from 50.6% to 33.2% with added tests; attack success rose from 29.2% to 95.6% with auto-approve on; readers recovered 52.0% of task state from reports only versus 92.7% with full context.">
+<line class="grid" x1="2.0" y1="4" x2="2.0" y2="202"/>
+<text class="ax" x="2.0" y="218" text-anchor="start">0%</text>
+<line class="grid" x1="107.0" y1="4" x2="107.0" y2="202"/>
+<text class="ax" x="107.0" y="218" text-anchor="middle">25%</text>
+<line class="grid" x1="212.0" y1="4" x2="212.0" y2="202"/>
+<text class="ax" x="212.0" y="218" text-anchor="middle">50%</text>
+<line class="grid" x1="317.0" y1="4" x2="317.0" y2="202"/>
+<text class="ax" x="317.0" y="218" text-anchor="middle">75%</text>
+<line class="grid" x1="422.0" y1="4" x2="422.0" y2="202"/>
+<text class="ax" x="422.0" y="218" text-anchor="end">100%</text>
+<text class="lab" x="2" y="20">Solve rate: original grading vs. with added tests</text>
+<line class="conn" x1="141.4" y1="42" x2="214.5" y2="42"/>
+<circle class="dot-b" cx="141.4" cy="42" r="6.5"/>
+<circle class="dot-a" cx="214.5" cy="42" r="6.5"/>
+<text class="val" x="130.4" y="47" text-anchor="end">33.2%</text>
+<text class="val" x="225.5" y="47">50.6%</text>
+<text class="lab" x="2" y="86">Attack success: auto-approve off vs. on</text>
+<line class="conn" x1="124.6" y1="108" x2="403.5" y2="108"/>
+<circle class="dot-a" cx="124.6" cy="108" r="6.5"/>
+<circle class="dot-b" cx="403.5" cy="108" r="6.5"/>
+<text class="val" x="113.6" y="113" text-anchor="end">29.2%</text>
+<text class="val" x="414.5" y="113">95.6%</text>
+<text class="lab" x="2" y="152">Task state recovered: reports only vs. full context</text>
+<line class="conn" x1="220.4" y1="174" x2="391.3" y2="174"/>
+<circle class="dot-a" cx="220.4" cy="174" r="6.5"/>
+<circle class="dot-b" cx="391.3" cy="174" r="6.5"/>
+<text class="val" x="209.4" y="179" text-anchor="end">52.0%</text>
+<text class="val" x="402.3" y="179">92.7%</text>
+</svg>

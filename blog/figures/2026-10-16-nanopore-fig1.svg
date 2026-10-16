@@ -1,0 +1,42 @@
+<svg class="chart" viewBox="0 0 480 430" role="img" aria-label="Bar charts: sensitivity 89% for bacteria, 100% for fungi, 87% for viruses; clinical management changed for 29% of samples, antimicrobial treatment for 26%, organisms missed by routine tests found in 24%.">
+<text class="ttl" x="0" y="16">A  Sensitivity after 16 hours of sequencing</text>
+<line class="grid" x1="2.0" y1="30" x2="2.0" y2="180"/>
+<text class="ax" x="2.0" y="196" text-anchor="start">0%</text>
+<line class="grid" x1="107.0" y1="30" x2="107.0" y2="180"/>
+<text class="ax" x="107.0" y="196" text-anchor="middle">25%</text>
+<line class="grid" x1="212.0" y1="30" x2="212.0" y2="180"/>
+<text class="ax" x="212.0" y="196" text-anchor="middle">50%</text>
+<line class="grid" x1="317.0" y1="30" x2="317.0" y2="180"/>
+<text class="ax" x="317.0" y="196" text-anchor="middle">75%</text>
+<line class="grid" x1="422.0" y1="30" x2="422.0" y2="180"/>
+<text class="ax" x="422.0" y="196" text-anchor="end">100%</text>
+<text class="lab" x="2" y="46">Bacteria</text>
+<rect class="bar" x="2" y="53" width="373.8" height="18" rx="2"/>
+<text class="val" x="381.8" y="67">89%</text>
+<text class="lab" x="2" y="96">Fungi</text>
+<rect class="bar" x="2" y="103" width="420.0" height="18" rx="2"/>
+<text class="val" x="428.0" y="117">100%</text>
+<text class="lab" x="2" y="146">Viruses</text>
+<rect class="bar" x="2" y="153" width="365.4" height="18" rx="2"/>
+<text class="val" x="373.4" y="167">87%</text>
+<text class="ttl" x="0" y="244">B  Share of samples</text>
+<line class="grid" x1="2.0" y1="258" x2="2.0" y2="408"/>
+<text class="ax" x="2.0" y="424" text-anchor="start">0%</text>
+<line class="grid" x1="107.0" y1="258" x2="107.0" y2="408"/>
+<text class="ax" x="107.0" y="424" text-anchor="middle">25%</text>
+<line class="grid" x1="212.0" y1="258" x2="212.0" y2="408"/>
+<text class="ax" x="212.0" y="424" text-anchor="middle">50%</text>
+<line class="grid" x1="317.0" y1="258" x2="317.0" y2="408"/>
+<text class="ax" x="317.0" y="424" text-anchor="middle">75%</text>
+<line class="grid" x1="422.0" y1="258" x2="422.0" y2="408"/>
+<text class="ax" x="422.0" y="424" text-anchor="end">100%</text>
+<text class="lab" x="2" y="274">Clinical management changed</text>
+<rect class="bar" x="2" y="281" width="121.8" height="18" rx="2"/>
+<text class="val" x="129.8" y="295">29%</text>
+<text class="lab" x="2" y="324">Antimicrobial treatment changed</text>
+<rect class="bar" x="2" y="331" width="109.2" height="18" rx="2"/>
+<text class="val" x="117.2" y="345">26%</text>
+<text class="lab" x="2" y="374">Organisms missed by routine tests</text>
+<rect class="bar" x="2" y="381" width="100.8" height="18" rx="2"/>
+<text class="val" x="108.8" y="395">24%</text>
+</svg>

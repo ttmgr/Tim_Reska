@@ -104,7 +104,10 @@ def markdown_to_html(md: str) -> str:
     """Convert the supported Markdown subset to HTML.
 
     Supports ``##``/``###`` headings, paragraphs, ``-`` lists (one level,
-    with indented continuation lines) and ``>`` quotes.
+    with indented continuation lines), ``>`` quotes and figures. A line
+    ``![caption](figures/name.svg)`` places that SVG from ``blog/figures/``
+    in the page, so it uses the page fonts and theme colours. The list
+    under a ``## References`` heading gets the ``refs`` class.
 
     Args:
         md: The Markdown body of a post.
@@ -116,13 +119,15 @@ def markdown_to_html(md: str) -> str:
     para: list[str] = []
     items: list[str] = []
     quote: list[str] = []
+    in_refs = False
 
     def flush() -> None:
         if para:
             out.append(f"<p>{_inline(' '.join(para))}</p>")
             para.clear()
         if items:
-            out.append("<ul>" + "".join(f"<li>{_inline(i)}</li>" for i in items) + "</ul>")
+            cls = ' class="refs"' if in_refs else ""
+            out.append(f"<ul{cls}>" + "".join(f"<li>{_inline(i)}</li>" for i in items) + "</ul>")
             items.clear()
         if quote:
             out.append(f"<blockquote><p>{_inline(' '.join(quote))}</p></blockquote>")
@@ -138,7 +143,12 @@ def markdown_to_html(md: str) -> str:
             out.append(f"<h3>{_inline(stripped[4:])}</h3>")
         elif stripped.startswith("## "):
             flush()
+            in_refs = stripped[3:].strip().lower() == "references"
             out.append(f"<h2>{_inline(stripped[3:])}</h2>")
+        elif fig := re.fullmatch(r"!\[(.+)\]\((figures/[\w.-]+\.svg)\)", stripped):
+            flush()
+            svg = (BLOG / fig.group(2)).read_text(encoding="utf-8").strip()
+            out.append(f'<figure class="fig">{svg}<figcaption>{_inline(fig.group(1))}</figcaption></figure>')
         elif line.startswith("- "):
             if para or quote:
                 flush()

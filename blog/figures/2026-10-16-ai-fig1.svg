@@ -1,0 +1,25 @@
+<svg class="chart" viewBox="0 0 480 252" role="img" aria-label="Bar chart of Terminal-Bench 4.0 scores: Claude Sonnet 5.5 70.6%, Claude Opus 5.5 66.4%, Claude Haiku 5.5 39.2%, Claude Haiku 4.5 0.0%.">
+<text class="ttl" x="0" y="16">Terminal-Bench 4.0 score</text>
+<line class="grid" x1="2.0" y1="30" x2="2.0" y2="230"/>
+<text class="ax" x="2.0" y="246" text-anchor="start">0%</text>
+<line class="grid" x1="107.0" y1="30" x2="107.0" y2="230"/>
+<text class="ax" x="107.0" y="246" text-anchor="middle">25%</text>
+<line class="grid" x1="212.0" y1="30" x2="212.0" y2="230"/>
+<text class="ax" x="212.0" y="246" text-anchor="middle">50%</text>
+<line class="grid" x1="317.0" y1="30" x2="317.0" y2="230"/>
+<text class="ax" x="317.0" y="246" text-anchor="middle">75%</text>
+<line class="grid" x1="422.0" y1="30" x2="422.0" y2="230"/>
+<text class="ax" x="422.0" y="246" text-anchor="end">100%</text>
+<text class="lab" x="2" y="46">Claude Sonnet 5.5</text>
+<rect class="bar" x="2" y="53" width="296.5" height="18" rx="2"/>
+<text class="val" x="304.5" y="67">70.6%</text>
+<text class="lab" x="2" y="96">Claude Opus 5.5</text>
+<rect class="bar" x="2" y="103" width="278.9" height="18" rx="2"/>
+<text class="val" x="286.9" y="117">66.4%</text>
+<text class="lab" x="2" y="146">Claude Haiku 5.5</text>
+<rect class="bar" x="2" y="153" width="164.6" height="18" rx="2"/>
+<text class="val" x="172.6" y="167">39.2%</text>
+<text class="lab" x="2" y="196">Claude Haiku 4.5</text>
+<rect class="bar" x="2" y="203" width="0.0" height="18" rx="2"/>
+<text class="val" x="8.0" y="217">0.0%</text>
+</svg>
