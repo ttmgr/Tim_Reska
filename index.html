@@ -25,7 +25,11 @@
       "@type": "Person",
       "name": "Tim Reska",
       "honorificPrefix": "Dr. rer. nat.",
-      "jobTitle": "Scientist, Genomics and AI",
+      "jobTitle": "Medical Underwriting Expert",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Allianz Digital Health GmbH"
+      },
       "affiliation": [
         {
           "@type": "CollegeOrUniversity",
@@ -88,6 +92,7 @@
         .titlepage { padding-top: 72px; }
         .honorific { font-family: var(--sans); font-size: clamp(24px, 3.4vw, 38px); font-weight: 400; letter-spacing: -0.01em; margin: 0; color: var(--text); }
         .name { font-family: var(--sans); font-size: clamp(58px, 11vw, 128px); font-weight: 600; line-height: 0.95; letter-spacing: -0.045em; margin: 4px 0 0; }
+        .position { font-family: var(--sans); font-size: clamp(18px, 1.9vw, 22px); color: var(--text-secondary); letter-spacing: -0.01em; margin: 20px 0 0; }
         .degree { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; margin-top: 48px; padding-top: 28px; border-top: 3px solid var(--text); }
         .degree dl { margin: 0; font-family: var(--sans); font-size: 15px; line-height: 1.5; display: grid; grid-template-columns: max-content 1fr; gap: 10px 20px; }
         .degree dt { color: var(--text-secondary); }
@@ -147,15 +152,22 @@
         .legend i { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: -2px; margin-left: 8px; }
 
         /* Projects index */
-        .group { margin: 0 0 36px; }
-        .group h3 { font-family: var(--sans); font-size: 15px; font-weight: 600; margin: 0 0 4px; color: var(--text); }
-        .group p.note { font-family: var(--sans); font-size: 14px; color: var(--text-secondary); margin: 0 0 8px; }
-        .items { list-style: none; margin: 0; padding: 0; }
-        .items li { display: grid; grid-template-columns: minmax(180px, 260px) minmax(0, 1fr); gap: 4px 28px; padding: 14px 0; border-top: 1px solid var(--border); }
-        .items .what { font-size: 19px; font-weight: 600; line-height: 1.35; }
-        .items .what a { color: var(--text); text-decoration-color: var(--border-strong); }
-        .items .what a:hover { color: var(--accent-text); text-decoration-color: currentColor; }
+        .group { margin: 0 0 64px; }
+        .group:last-child { margin-bottom: 0; }
+        .group-head { border-top: 3px solid var(--text); padding-top: 18px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 24px; align-items: baseline; }
+        .group-head h3 { font-size: clamp(24px, 2.4vw, 28px); letter-spacing: -0.01em; }
+        .group-head .count { font-family: var(--sans); font-size: 14px; color: var(--text-secondary); }
+        .group-head p { grid-column: 1 / -1; font-family: var(--sans); font-size: 15.5px; color: var(--text-secondary); margin: 6px 0 0; max-width: var(--measure); }
+        .items { list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 44px; }
+        .items li { padding: 22px 0 24px; border-bottom: 1px solid var(--border); }
+        .items .what { font-size: 21px; font-weight: 600; line-height: 1.3; margin: 0; }
+        .items .what a { color: var(--text); text-decoration: none; background-image: linear-gradient(var(--accent), var(--accent)); background-size: 0 2px; background-position: 0 100%; background-repeat: no-repeat; transition: background-size 0.2s ease; }
+        .items .what a:hover, .items .what a:focus-visible { background-size: 100% 2px; color: var(--accent-text); }
+        .items .kind { font-family: var(--sans); font-size: 13.5px; font-weight: 500; color: var(--accent-text); margin: 6px 0 10px; }
         .items .desc { font-family: var(--sans); font-size: 15px; line-height: 1.55; color: var(--text-secondary); margin: 0; }
+        .items.private .what { color: var(--text-secondary); }
+        .items.private .kind { color: var(--text-muted); }
+        @media (prefers-reduced-motion: reduce) { .items .what a { transition: none; } }
 
         /* Timeline */
         .tl { list-style: none; margin: 0; padding: 0; }
@@ -183,7 +195,7 @@
             .row { grid-template-columns: 1fr; }
             .row > .side { padding: 0 0 8px; }
             section { padding-top: 72px; }
-            .items li { grid-template-columns: 1fr; }
+            .items { grid-template-columns: 1fr; }
             .tl li { grid-template-columns: 1fr; }
             .pubs li { grid-template-columns: 1fr; }
             .pubs .year { padding: 0 0 2px; }
@@ -216,6 +228,7 @@
     <div class="wrap titlepage">
         <p class="honorific">Dr. rer. nat.</p>
         <h1 class="name">Tim Reska</h1>
+        <p class="position">Medical Underwriting Expert at Allianz Digital Health GmbH since 1 July 2026</p>
 
         <div class="degree">
             <dl>
@@ -368,46 +381,51 @@
                 <div class="intro"><p>Most of these run in the browser. Open one and try it.</p></div>
 
                 <div class="group">
-                    <h3>Genomics</h3>
+                    <div class="group-head">
+                        <h3>Genomics and outbreaks</h3><span class="count">4 projects</span>
+                        <p>Tools that grew out of the doctoral work: choosing a sequencing setup, running the pipelines, and following outbreaks as they happen.</p>
+                    </div>
                     <ul class="items">
-                        <li><div class="what"><a href="./nanopore-advisor/">Nanopore Pipeline Advisor</a></div><p class="desc">Answer a few questions and get an Oxford Nanopore kit, basecalling model and analysis pipeline, with reasons, alternatives and commands ready to run.</p></li>
-                        <li><div class="what"><a href="./agent-skill-pack/">Agent Skill Pack</a></div><p class="desc">13 skills that let a coding agent run the GenomicsForOneHealth pipelines. Commands come only from declared templates, so the agent cannot invent tools or parameters. Runs offline.</p></li>
+                        <li><p class="what"><a href="./nanopore-advisor/">Nanopore Pipeline Advisor</a></p><p class="kind">Web tool</p><p class="desc">Answer a few questions and get an Oxford Nanopore kit, basecalling model and analysis pipeline, with reasons, alternatives and commands ready to run.</p></li>
+                        <li><p class="what"><a href="./agent-skill-pack/">Agent Skill Pack</a></p><p class="kind">Code, runs offline</p><p class="desc">13 skills that let a coding agent run the Genomics&shy;For&shy;One&shy;Health pipelines. Commands come only from declared templates, so the agent cannot invent tools or parameters.</p></li>
+                        <li><p class="what"><a href="./hanta/">Hantavirus 2026</a></p><p class="kind">Dashboard, English and German</p><p class="desc">Map, epidemic curve and case timeline for the Andes virus cluster linked to the MV Hondius cruise ship, with 130+ news items from WHO, CDC and ECDC.</p></li>
+                        <li><p class="what"><a href="./ebola/">Ebola 2026</a></p><p class="kind">Dashboard</p><p class="desc">Case tracking for the Bundibugyo ebolavirus epidemic in Ituri Province, DRC and Uganda, from WHO, Africa CDC and ECDC sources.</p></li>
                     </ul>
                 </div>
 
                 <div class="group">
-                    <h3>Outbreak dashboards</h3>
+                    <div class="group-head">
+                        <h3>Clinical models</h3><span class="count">2 projects</span>
+                        <p>How chronic diseases develop and feed into each other over time, built on synthetic patient data.</p>
+                    </div>
                     <ul class="items">
-                        <li><div class="what"><a href="./hanta/">Hantavirus 2026</a></div><p class="desc">Map, epidemic curve and case timeline for the Andes virus cluster linked to the MV Hondius cruise ship, with 130+ news items from WHO, CDC and ECDC. English and German.</p></li>
-                        <li><div class="what"><a href="./ebola/">Ebola 2026</a></div><p class="desc">Case tracking for the Bundibugyo ebolavirus epidemic in Ituri Province, DRC and Uganda, from WHO, Africa CDC and ECDC sources.</p></li>
+                        <li><p class="what"><a href="./disease-network/">Clinical Atlas</a></p><p class="kind">Web tool, German</p><p class="desc">How eight connected chronic diseases feed into each other over a patient's life, with evidence-linked uncertainty and patient profiles you can change.</p></li>
+                        <li><p class="what"><a href="./disease-progression/">Disease Progression</a></p><p class="kind">Models and walkthrough</p><p class="desc">Survival and multistate models (Cox PH, DeepSurv, DeepHit, SurvTRACE) on synthetic patient records, for cardiovascular disease and type 2 diabetes.</p></li>
                     </ul>
                 </div>
 
                 <div class="group">
-                    <h3>Clinical models</h3>
+                    <div class="group-head">
+                        <h3>AI in practice</h3><span class="count">5 projects</span>
+                        <p>Tools for working out where AI fits in an organisation, what it costs, and how people learn to use it.</p>
+                    </div>
                     <ul class="items">
-                        <li><div class="what"><a href="./disease-network/">Clinical Atlas</a></div><p class="desc">How eight connected chronic diseases feed into each other over a patient's life, with evidence-linked uncertainty and patient profiles you can change. German interface.</p></li>
-                        <li><div class="what"><a href="./disease-progression/">Disease Progression</a></div><p class="desc">Survival and multistate models (Cox PH, DeepSurv, DeepHit, SurvTRACE) on synthetic patient records, for cardiovascular disease and type 2 diabetes.</p></li>
+                        <li><p class="what"><a href="./ai-deployment-readiness/">AI Deployment Readiness</a></p><p class="kind">Web tool</p><p class="desc">25 questions across five areas. Gives a maturity level, a comparison with your sector and what to fix first.</p></li>
+                        <li><p class="what"><a href="./llm-cost-calculator/">LLM Cost Calculator</a></p><p class="kind">Web tool</p><p class="desc">Prices for 13 models from 5 providers, and what a workflow costs done by hand versus with an LLM.</p></li>
+                        <li><p class="what"><a href="./multi-agent-dd/">Multi-Agent Due Diligence</a></p><p class="kind">Overview</p><p class="desc">A 6-phase review of where a company can use AI. Three agents work in separate contexts, and a blind validator checks their conclusions before the final report.</p></li>
+                        <li><p class="what"><a href="./academy/">AI Academy</a></p><p class="kind">Course overview</p><p class="desc">A four-level AI training programme, from a 4-week basics course to a 12-month company rollout. Aligned with Article 4 of the EU AI Act.</p></li>
+                        <li><p class="what"><a href="./ai-news-radar/">AI News Radar</a></p><p class="kind">Weekly digest</p><p class="desc">What changed this week in AI coding tools: Claude Code, Codex, Gemini CLI, open-source agents and new research.</p></li>
                     </ul>
                 </div>
 
                 <div class="group">
-                    <h3>Putting AI to work</h3>
-                    <ul class="items">
-                        <li><div class="what"><a href="./ai-deployment-readiness/">AI Deployment Readiness</a></div><p class="desc">25 questions across five areas. Gives a maturity level, a comparison with your sector and what to fix first.</p></li>
-                        <li><div class="what"><a href="./llm-cost-calculator/">LLM Cost Calculator</a></div><p class="desc">Prices for 13 models from 5 providers, and what a workflow costs done by hand versus with an LLM.</p></li>
-                        <li><div class="what"><a href="./multi-agent-dd/">Multi-Agent Due Diligence</a></div><p class="desc">A 6-phase review of where a company can use AI. Three agents work in separate contexts, and a blind validator checks their conclusions before the final report.</p></li>
-                        <li><div class="what"><a href="./academy/">AI Academy</a></div><p class="desc">A four-level AI training programme, from a 4-week basics course to a 12-month company rollout. Aligned with Article 4 of the EU AI Act.</p></li>
-                        <li><div class="what"><a href="./ai-news-radar/">AI News Radar</a></div><p class="desc">A weekly digest of AI coding tools: Claude Code, Codex, Gemini CLI, open-source agents and new research. Only what changed since last week.</p></li>
-                    </ul>
-                </div>
-
-                <div class="group">
-                    <h3>Not public</h3>
-                    <p class="note">Self-built, not published.</p>
-                    <ul class="items">
-                        <li><div class="what">Competitor mapping pipeline</div><p class="desc">8 web scrapers and pattern matching with confidence scores. Found 96 verified product installations in 9 countries and turns them into a PDF report.</p></li>
-                        <li><div class="what">PE outreach research tool</div><p class="desc">Research on 100 private equity firms, 300 portfolio companies and 900 possible AI uses, with a browser tool that writes tailored outreach. No server.</p></li>
+                    <div class="group-head">
+                        <h3>Private work</h3><span class="count">2 projects</span>
+                        <p>Self-built, not published.</p>
+                    </div>
+                    <ul class="items private">
+                        <li><p class="what">Competitor mapping pipeline</p><p class="kind">Data pipeline</p><p class="desc">8 web scrapers and pattern matching with confidence scores. Found 96 verified product installations in 9 countries and turns them into a PDF report.</p></li>
+                        <li><p class="what">PE outreach research tool</p><p class="kind">Research data and browser tool</p><p class="desc">Research on 100 private equity firms, 300 portfolio companies and 900 possible AI uses, with a browser tool that writes tailored outreach. No server.</p></li>
                     </ul>
                 </div>
             </div>
@@ -420,6 +438,10 @@
             <div>
                 <h2>Timeline</h2>
                 <ul class="tl">
+                    <li class="milestone">
+                        <div class="when">Since Jul 2026</div>
+                        <div><h3>Medical Underwriting Expert, Allianz Digital Health GmbH</h3><p>Started 1 July 2026.</p></div>
+                    </li>
                     <li class="milestone">
                         <div class="when">Jul 2026</div>
                         <div><h3>Dr. rer. nat., magna cum laude</h3><p>Defended 15 July 2026 at the Technical University of Munich and Helmholtz AI.</p></div>
