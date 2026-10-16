@@ -61,7 +61,6 @@
             --signal: #B8432F;
             --measure: 66ch;
             --gutter: 24px;
-            --label-col: 200px;
         }
         *, *::before, *::after { box-sizing: border-box; }
         html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
@@ -90,8 +89,8 @@
 
         /* Title page */
         .titlepage { padding-top: 72px; }
-        .name { font-family: var(--sans); font-size: min(108px, calc((100vw - 2 * var(--gutter)) / 10)); font-weight: 600; line-height: 1; letter-spacing: -0.045em; white-space: nowrap; margin: 0; }
-        .position { font-family: var(--sans); font-size: clamp(18px, 1.9vw, 22px); color: var(--text-secondary); letter-spacing: -0.01em; margin: 20px 0 0; }
+        .name { font-family: var(--sans); font-size: min(64px, calc((100vw - 2 * var(--gutter)) / 10.8)); font-weight: 500; line-height: 1.05; letter-spacing: -0.025em; white-space: nowrap; margin: 0; }
+        .position { font-family: var(--sans); font-size: clamp(17px, 1.7vw, 21px); color: var(--text-secondary); letter-spacing: -0.005em; margin: 16px 0 0; }
         .degree { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; margin-top: 48px; padding-top: 28px; border-top: 3px solid var(--text); }
         .degree dl { margin: 0; font-family: var(--sans); font-size: 15px; line-height: 1.5; display: grid; grid-template-columns: max-content 1fr; gap: 10px 20px; }
         .degree dt { color: var(--text-secondary); }
@@ -117,8 +116,6 @@
 
         /* Sections: label column + content column */
         section { padding: 96px 0 0; }
-        .row { display: grid; grid-template-columns: var(--label-col) minmax(0, 1fr); gap: 0 48px; }
-        .row > .side { font-family: var(--sans); font-size: 14px; color: var(--text-secondary); padding-top: 10px; }
         h2 { font-family: var(--serif); font-size: clamp(30px, 3.4vw, 42px); font-weight: 600; line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 20px; max-width: 24em; }
         h3 { font-family: var(--serif); font-size: 21px; font-weight: 600; line-height: 1.3; margin: 0; }
         .intro { max-width: var(--measure); margin: 0 0 40px; }
@@ -191,8 +188,6 @@
             :root { --gutter: 16px; }
             .titlepage { padding-top: 44px; }
             .degree { grid-template-columns: 1fr; gap: 28px; }
-            .row { grid-template-columns: 1fr; }
-            .row > .side { padding: 0 0 8px; }
             section { padding-top: 72px; }
             .items { grid-template-columns: 1fr; }
             .tl li { grid-template-columns: 1fr; }
@@ -261,7 +256,6 @@
 
     <section id="research">
         <div class="wrap row">
-            <div class="side">Doctoral research, 2022 to 2026</div>
             <div>
                 <h2>Genomic surveillance for One Health</h2>
                 <div class="intro">
@@ -333,7 +327,6 @@
 
     <section id="benchmark">
         <div class="wrap row">
-            <div class="side">Independent study, 2024 to 2026</div>
             <div>
                 <h2>Against Plausibility: can AI build a real genomics pipeline?</h2>
                 <div class="intro">
@@ -373,7 +366,6 @@
 
     <section id="projects">
         <div class="wrap row">
-            <div class="side">Built alongside the doctorate</div>
             <div>
                 <h2>Tools and projects</h2>
                 <div class="intro"><p>Most of these run in the browser. Open one and try it.</p></div>
@@ -432,7 +424,6 @@
 
     <section id="timeline">
         <div class="wrap row">
-            <div class="side"></div>
             <div>
                 <h2>Timeline</h2>
                 <ul class="tl">
@@ -472,7 +463,6 @@
 
     <footer id="contact">
         <div class="wrap row">
-            <div class="side"></div>
             <div>
                 <p class="big">Write to <a href="mailto:timreska@gmail.com">timreska@gmail.com</a></p>
                 <ul>
