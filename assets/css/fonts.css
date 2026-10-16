@@ -61,23 +61,3 @@
   font-display: swap;
   src: url('../fonts/SourceSerif4-400-italic.woff') format('woff');
 }
-
-/* Archivo (SIL Open Font License), variable: weight 100-900, width 62-125.
-   Used for headings and interface text on the homepage and blog. */
-@font-face {
-  font-family: 'Archivo';
-  font-style: normal;
-  font-weight: 100 900;
-  font-stretch: 62% 125%;
-  font-display: swap;
-  src: url('../fonts/Archivo-var-normal.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Archivo';
-  font-style: italic;
-  font-weight: 100 900;
-  font-stretch: 62% 125%;
-  font-display: swap;
-  src: url('../fonts/Archivo-var-italic.woff2') format('woff2');
-}
