@@ -172,6 +172,9 @@
         .tl p { font-family: var(--sans); font-size: 15px; color: var(--text-secondary); margin: 4px 0 0; max-width: var(--measure); }
         .tl li.milestone h3 { font-size: 24px; }
         .tl li.milestone .when { color: var(--text); font-weight: 600; }
+        .posts-home li { grid-template-columns: 150px minmax(0, 1fr); }
+        .posts-home h3 a { color: var(--text); text-decoration: none; }
+        .posts-home h3 a:hover { color: var(--accent-text); text-decoration: underline; }
 
         footer { margin-top: 120px; padding: 48px 0 64px; border-top: 3px solid var(--text); }
         footer .row > div { font-family: var(--sans); font-size: 15px; }
@@ -210,7 +213,9 @@
                 <ul>
                     <li><a href="#research">Research</a></li>
                     <li><a href="#benchmark">AI benchmark</a></li>
-                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#projects">Projects</a></li><!-- BLOG-NAV:BEGIN -->
+                    <li><a href="./blog/">Blog</a></li>
+<!-- BLOG-NAV:END -->
                     <li><a href="#timeline">Timeline</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
@@ -404,7 +409,7 @@
                         <li><p class="what"><a href="./llm-cost-calculator/">LLM Cost Calculator</a></p><p class="kind">Web tool</p><p class="desc">Prices for 13 models from 5 providers, and what a workflow costs done by hand versus with an LLM.</p></li>
                         <li><p class="what"><a href="./multi-agent-dd/">Multi-Agent Due Diligence</a></p><p class="kind">Overview</p><p class="desc">A 6-phase review of where a company can use AI. Three agents work in separate contexts, and a blind validator checks their conclusions before the final report.</p></li>
                         <li><p class="what"><a href="./academy/">AI Academy</a></p><p class="kind">Course overview</p><p class="desc">A four-level AI training programme, from a 4-week basics course to a 12-month company rollout. Aligned with Article 4 of the EU AI Act.</p></li>
-                        <li><p class="what"><a href="./ai-news-radar/">AI News Radar</a></p><p class="kind">Weekly digest</p><p class="desc">What changed this week in AI coding tools: Claude Code, Codex, Gemini CLI, open-source agents and new research.</p></li>
+                        <li><p class="what"><a href="./blog/">AI News Radar</a></p><p class="kind">Weekly digest, on the blog</p><p class="desc">What changed each week in AI coding tools: Claude Code, Codex, Gemini CLI, open-source agents and new research. Published on the blog next to a weekly nanopore and metagenomics radar.</p></li>
                     </ul>
                 </div>
 
@@ -422,6 +427,20 @@
         </div>
     </section>
 
+<!-- BLOG:BEGIN -->
+    <section id="blog">
+        <div class="wrap row">
+            <div>
+                <h2>Blog</h2>
+                <ul class="tl posts-home">
+                        <li><div class="when">16 October 2026</div><div><h3><a href="./blog/2026-10-16-nanopore-metagenomics-radar/">Nanopore and Metagenomics Radar, 16 October 2026</a></h3><p>Rapid metagenomics changed treatment for 26% of samples in a paediatric intensive care unit, wastewater resistance signals turn out to depend on the host species, and a quiet three weeks for nanopore software. Covers 25 September to 16 October 2026.</p></div></li>
+                        <li><div class="when">16 October 2026</div><div><h3><a href="./blog/2026-10-16-ai-news-radar/">AI News Radar, 16 October 2026</a></h3><p>Four new models in three weeks, a round of model retirements that will break pinned configs, and research showing coding-agent benchmark scores are inflated by about a third. Covers 25 September to 16 October 2026.</p></div></li>
+                </ul>
+                <p class="links"><a href="./blog/">All posts</a> <a href="./blog/feed.xml">RSS feed</a></p>
+            </div>
+        </div>
+    </section>
+<!-- BLOG:END -->
     <section id="timeline">
         <div class="wrap row">
             <div>

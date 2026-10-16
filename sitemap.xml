@@ -52,4 +52,18 @@
     <loc>https://ttmgr.github.io/Tim_Reska/nanopore-advisor/</loc>
     <lastmod>2026-05-23</lastmod>
   </url>
+  <!-- BLOG:BEGIN -->
+  <url>
+    <loc>https://ttmgr.github.io/Tim_Reska/blog/</loc>
+    <lastmod>2026-10-16</lastmod>
+  </url>
+  <url>
+    <loc>https://ttmgr.github.io/Tim_Reska/blog/2026-10-16-nanopore-metagenomics-radar/</loc>
+    <lastmod>2026-10-16</lastmod>
+  </url>
+  <url>
+    <loc>https://ttmgr.github.io/Tim_Reska/blog/2026-10-16-ai-news-radar/</loc>
+    <lastmod>2026-10-16</lastmod>
+  </url>
+  <!-- BLOG:END -->
 </urlset>
