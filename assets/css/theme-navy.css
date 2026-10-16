@@ -9,9 +9,11 @@
   --text: #E8EDF3;
   --text-secondary: #A9B5C5;
   --text-muted: #8A96A8;
+  /* Mint marks data (figures, scores). Sand marks links. Coral (--signal)
+     is the one highlight. Keep each colour to its one job. */
   --accent: #3DBB9B;
-  --accent-hover: #62CFB3;
-  --accent-text: #5AC9AC;
+  --accent-hover: #F2DDB0;
+  --accent-text: #E2C48A;
   --border: #2A3D5C;
   --border-strong: #3D5376;
   --tag-bg: #213452;
