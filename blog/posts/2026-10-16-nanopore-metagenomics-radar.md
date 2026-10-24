@@ -1,5 +1,5 @@
 ---
-title: Nanopore and Metagenomics Radar, 16 October 2026
+title: Rapid metagenomics changed antimicrobial treatment for 26% of pediatric intensive care samples
 date: 2026-10-16
 series: Nanopore and Metagenomics Radar
 summary: Rapid clinical metagenomics altered antimicrobial treatment for 26% of samples in a pediatric intensive care unit, wastewater resistance signals were shown to depend on the bacterial host, and no new nanopore software was released. Covers 25 September to 16 October 2026.

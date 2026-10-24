@@ -6,21 +6,21 @@
     <description>Two news radars, one on AI coding tools and one on nanopore sequencing and metagenomics, plus occasional longer posts.</description>
     <language>en</language>
     <item>
-      <title>PHP2Shell, the October 2026 PHP flaws and their fix</title>
+      <title>How an out-of-memory abort let a single request run code on PHP servers</title>
       <link>https://ttmgr.github.io/Tim_Reska/blog/2026-10-24-php2shell/</link>
       <guid isPermaLink="true">https://ttmgr.github.io/Tim_Reska/blog/2026-10-24-php2shell/</guid>
       <pubDate>Sat, 24 Oct 2026 08:00:00 +0000</pubDate>
       <description>Two critical flaws in the PHP interpreter allow unauthenticated remote code execution on web servers. PHP fixed them on 21 October 2026 by removing the jump-based out-of-memory abort and resetting request-owned state; a third, unpatched flaw followed on 23 October.</description>
     </item>
     <item>
-      <title>Nanopore and Metagenomics Radar, 16 October 2026</title>
+      <title>Rapid metagenomics changed antimicrobial treatment for 26% of pediatric intensive care samples</title>
       <link>https://ttmgr.github.io/Tim_Reska/blog/2026-10-16-nanopore-metagenomics-radar/</link>
       <guid isPermaLink="true">https://ttmgr.github.io/Tim_Reska/blog/2026-10-16-nanopore-metagenomics-radar/</guid>
       <pubDate>Fri, 16 Oct 2026 08:00:00 +0000</pubDate>
       <description>Rapid clinical metagenomics altered antimicrobial treatment for 26% of samples in a pediatric intensive care unit, wastewater resistance signals were shown to depend on the bacterial host, and no new nanopore software was released. Covers 25 September to 16 October 2026.</description>
     </item>
     <item>
-      <title>AI News Radar, 16 October 2026</title>
+      <title>A third of coding-agent runs graded as correct violate the task, an audit finds</title>
       <link>https://ttmgr.github.io/Tim_Reska/blog/2026-10-16-ai-news-radar/</link>
       <guid isPermaLink="true">https://ttmgr.github.io/Tim_Reska/blog/2026-10-16-ai-news-radar/</guid>
       <pubDate>Fri, 16 Oct 2026 08:00:00 +0000</pubDate>

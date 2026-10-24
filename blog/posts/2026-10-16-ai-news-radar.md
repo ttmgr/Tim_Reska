@@ -1,5 +1,5 @@
 ---
-title: AI News Radar, 16 October 2026
+title: A third of coding-agent runs graded as correct violate the task, an audit finds
 date: 2026-10-16
 series: AI News Radar
 summary: Four models were released within three weeks, several model retirements affect configurations that pin a model name, and an audit indicates that coding-agent benchmark scores are inflated by about a third. Covers 25 September to 16 October 2026.
