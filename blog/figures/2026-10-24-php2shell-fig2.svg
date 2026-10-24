@@ -1,0 +1,24 @@
+<svg class="chart" viewBox="0 0 480 230" role="img" aria-label="Bar chart: PHP 8 65.4%, PHP 7 26.8%, PHP 5 7.7%, PHP 4 0.1% of websites using PHP.">
+<line class="grid" x1="2.0" y1="4" x2="2.0" y2="206"/>
+<text class="ax" x="2.0" y="222" text-anchor="start">0%</text>
+<line class="grid" x1="107.0" y1="4" x2="107.0" y2="206"/>
+<text class="ax" x="107.0" y="222" text-anchor="middle">25%</text>
+<line class="grid" x1="212.0" y1="4" x2="212.0" y2="206"/>
+<text class="ax" x="212.0" y="222" text-anchor="middle">50%</text>
+<line class="grid" x1="317.0" y1="4" x2="317.0" y2="206"/>
+<text class="ax" x="317.0" y="222" text-anchor="middle">75%</text>
+<line class="grid" x1="422.0" y1="4" x2="422.0" y2="206"/>
+<text class="ax" x="422.0" y="222" text-anchor="end">100%</text>
+<text class="lab" x="2" y="18">PHP 8: fixed releases for 8.2 to 8.5</text>
+<rect class="bar" x="2" y="25" width="274.7" height="18" rx="2"/>
+<text class="val" x="282.7" y="39">65.4%</text>
+<text class="lab" x="2" y="68">PHP 7: source backport for 7.4 only</text>
+<rect class="bar" x="2" y="75" width="112.6" height="18" rx="2"/>
+<text class="val" x="120.6" y="89">26.8%</text>
+<text class="lab" x="2" y="118">PHP 5: no fix</text>
+<rect class="bar" x="2" y="125" width="32.3" height="18" rx="2"/>
+<text class="val" x="40.3" y="139">7.7%</text>
+<text class="lab" x="2" y="168">PHP 4: no fix</text>
+<rect class="bar" x="2" y="175" width="1.5" height="18" rx="2"/>
+<text class="val" x="9.5" y="189">0.1%</text>
+</svg>

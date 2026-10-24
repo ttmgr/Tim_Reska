@@ -55,7 +55,11 @@
   <!-- BLOG:BEGIN -->
   <url>
     <loc>https://ttmgr.github.io/Tim_Reska/blog/</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-10-24</lastmod>
+  </url>
+  <url>
+    <loc>https://ttmgr.github.io/Tim_Reska/blog/2026-10-24-php2shell/</loc>
+    <lastmod>2026-10-24</lastmod>
   </url>
   <url>
     <loc>https://ttmgr.github.io/Tim_Reska/blog/2026-10-16-nanopore-metagenomics-radar/</loc>

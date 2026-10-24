@@ -1,0 +1,33 @@
+<svg class="chart" viewBox="0 0 480 352" role="img" aria-label="Timeline from 19 August to 23 October 2026: flaw found 19 Aug, reported 24 Aug, acknowledged 21 Sep, first exploit attempt 17 Oct, leak and release announcement 20 Oct, fixed releases 21 Oct, third flaw disclosed 23 Oct.">
+<line class="grid" x1="9.0" y1="4" x2="9.0" y2="328"/>
+<text class="ax" x="9.0" y="344" text-anchor="start">19 Aug</text>
+<line class="grid" x1="101.2" y1="4" x2="101.2" y2="328"/>
+<text class="ax" x="101.2" y="344" text-anchor="middle">1 Sep</text>
+<line class="grid" x1="200.5" y1="4" x2="200.5" y2="328"/>
+<text class="ax" x="200.5" y="344" text-anchor="middle">15 Sep</text>
+<line class="grid" x1="314.0" y1="4" x2="314.0" y2="328"/>
+<text class="ax" x="314.0" y="344" text-anchor="middle">1 Oct</text>
+<line class="grid" x1="470.0" y1="4" x2="470.0" y2="328"/>
+<text class="ax" x="470.0" y="344" text-anchor="end">23 Oct</text>
+<text class="lab" x="2" y="18">19 Aug  First flaw found (Wiz Research)</text>
+<line class="conn" x1="9.0" y1="34" x2="9.0" y2="34"/>
+<circle class="dot-a" cx="9.0" cy="34" r="6.5"/>
+<text class="lab" x="2" y="64">24 Aug  Reported to the PHP security team</text>
+<line class="conn" x1="9.0" y1="80" x2="44.5" y2="80"/>
+<circle class="dot-a" cx="44.5" cy="80" r="6.5"/>
+<text class="lab" x="2" y="110">21 Sep  PHP acknowledges, coordinated fix begins</text>
+<line class="conn" x1="9.0" y1="126" x2="243.0" y2="126"/>
+<circle class="dot-a" cx="243.0" cy="126" r="6.5"/>
+<text class="lab" x="2" y="156">17 Oct  First exploit attempt in Amazon honeypots</text>
+<line class="conn" x1="9.0" y1="172" x2="427.4" y2="172"/>
+<circle class="dot-a" cx="427.4" cy="172" r="6.5"/>
+<text class="lab" x="2" y="202">20 Oct  Details leak; PHP announces release</text>
+<line class="conn" x1="9.0" y1="218" x2="448.7" y2="218"/>
+<circle class="dot-b" cx="448.7" cy="218" r="6.5"/>
+<text class="lab" x="2" y="248">21 Oct  Fixed releases 8.2.35 to 8.5.12</text>
+<line class="conn" x1="9.0" y1="264" x2="455.8" y2="264"/>
+<circle class="dot-b" cx="455.8" cy="264" r="6.5"/>
+<text class="lab" x="2" y="294">23 Oct  Third flaw CVE-2026-115560 disclosed</text>
+<line class="conn" x1="9.0" y1="310" x2="470.0" y2="310"/>
+<circle class="dot-b" cx="470.0" cy="310" r="6.5"/>
+</svg>
