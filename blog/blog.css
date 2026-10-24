@@ -36,7 +36,7 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
 .head { padding-top: 72px; }
 .head h1 { font-family: var(--serif); font-size: clamp(32px, 4.4vw, 52px); font-weight: 600; line-height: 1.12; letter-spacing: -0.01em; margin: 0; max-width: 22em; text-wrap: balance; }
 .head .meta { font-family: var(--sans); font-size: 15px; color: var(--text-secondary); margin: 14px 0 0; }
-.head .summary { font-family: var(--sans); font-size: clamp(18px, 1.8vw, 21px); line-height: 1.5; color: var(--text-secondary); margin: 18px 0 0; max-width: 40em; }
+.head .summary { font-family: var(--sans); font-size: clamp(18px, 1.8vw, 21px); line-height: 1.5; color: var(--text-secondary); margin: 18px 0 0; max-width: 40em; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
 .head .rule { border: 0; border-top: 3px solid var(--text); margin: 36px 0 0; }
 
 /* Post list */
@@ -75,7 +75,7 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
 .fig .conn { stroke: var(--border-strong); stroke-width: 3; }
 .fig .dot-a { fill: var(--fig-line); }
 .fig .dot-b { fill: var(--accent); }
-.fig figcaption { font-family: var(--sans); font-size: 14.5px; line-height: 1.5; color: var(--text-secondary); margin-top: 14px; }
+.fig figcaption { font-family: var(--sans); font-size: 14.5px; line-height: 1.5; color: var(--text-secondary); margin-top: 14px; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
 .fig figcaption strong { color: var(--text); }
 
 /* Reference list: hanging indent, no bullets */
@@ -96,7 +96,6 @@ footer small { display: block; color: var(--text-secondary); margin-top: 24px; f
     .posts .date { padding: 0; }
 }
 @media (max-width: 600px) {
-    .post p, .post li { text-align: left; hyphens: manual; -webkit-hyphens: manual; }
     /* SVG text scales down with the chart, so set it larger on phones */
     .fig .ttl { font-size: 17px; }
     .fig .lab { font-size: 16px; }
